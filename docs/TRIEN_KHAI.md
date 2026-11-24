@@ -1,6 +1,6 @@
 # TU02 – Triển khai Ubuntu Server 24.04 LTS
 
-Đích: máy 2 vCPU/2 GB RAM, Docker Engine 27 trở lên, Compose v2,
+Đích: máy 2 vCPU/2 GB RAM, Docker Engine 27 trở lên, Compose v2.17 trở lên,
 Python 3.12, Gunicorn 3 worker, PostgreSQL 16. Các lệnh dưới đây chạy bằng Bash
 trên Ubuntu. Windows hiện chưa chạy container vì không có Docker Desktop;
 CI Ubuntu 24.04 đã kiểm chứng build, health, login và giữ DB/MEDIA sau down/up.
@@ -68,7 +68,9 @@ sudo docker compose exec web python manage.py createsuperuser
 sudo docker compose logs --tail=100 web
 ```
 
-`db` và `web` phải healthy; login trả 200. Entrypoint đợi DB healthy thông qua
+`db`, `web` và `nginx` phải healthy; login qua nginx trả 200. Cổng public 8000
+(WEB_PORT) được publish bởi nginx:80; web chỉ expose 8000 trong mạng Compose.
+Entrypoint đợi DB healthy thông qua
 Compose, kiểm tra dữ liệu Profile cũ bằng lệnh chỉ đọc `check_profile_data`, migrate
 rồi exec Gunicorn dưới user `app` UID 10001. DB trống được bỏ qua bước kiểm tra bảng
 chưa tồn tại. Nếu có email trùng/tên quá dài, dừng và xử lý theo [TU01.md](TU01.md),
@@ -77,9 +79,41 @@ không tự sửa dữ liệu.
 Static được thu thập đúng một lần **lúc build image** với key sinh tạm chỉ cho
 lệnh đó; khi khởi động không chạy collectstatic. WhiteNoise phục vụ static đã build.
 `pgdata` chứa DB; `media` mount `/app/media`, độc lập với image. Tệp tải lên được
-giữ qua down/up. Với DEBUG=false, WhiteNoise không phục vụ MEDIA: triển khai công
-khai cần reverse proxy phục vụ `/images/` từ volume media ở chế độ chỉ đọc hoặc
-dịch vụ lưu trữ phù hợp. Chưa có Nginx/TLS tích hợp trong Compose này.
+giữ qua down/up. Service `nginx:1.27-alpine` đọc volume media tại `/srv/media:ro`,
+phục vụ `/images/` bằng alias; phần còn lại (kể cả `/static/`) proxy tới web:8000.
+Nginx truyền Host, X-Forwarded-For và X-Forwarded-Proto. Cấu hình ở
+`nginx/default.conf`; kiểm tra bằng `sudo docker compose exec nginx nginx -t`.
+Nginx hiện nghe HTTP, TLS vẫn kết thúc tại proxy tin cậy bên ngoài.
+
+Entrypoint copy `static/images/profile_pics/default.jpg` vào volume nếu chưa có;
+không ghi đè file đã tồn tại. Kiểm tra ảnh mặc định:
+
+```bash
+curl -I http://127.0.0.1:8000/images/profile_pics/default.jpg
+```
+
+Mong đợi 200, Content-Type image/jpeg. Việc chỉ đọc MEDIA của nginx không thay đổi
+quyền ghi MEDIA của web. Nginx không liệt kê thư mục.
+
+### Chuyển ảnh upload cũ
+
+Sao lưu trước và xác định đúng thư mục upload, giữ nguyên tên tương đối trong DB.
+Ảnh Profile cũ dưới `static/images/profile_pics/` cần chuyển sang
+`media/profile_pics/`. Không chuyển cả logo/static trang trí vào MEDIA.
+Ví dụ copy ảnh Profile từ image hiện tại vào volume, giữ file đích có sẵn:
+
+```bash
+sudo docker compose run --rm --no-deps --entrypoint sh web -c 'mkdir -p /app/media/profile_pics; cp -an /app/static/images/profile_pics/. /app/media/profile_pics/'
+```
+
+Nếu ảnh cũ nằm ngoài image, đưa bản sao lưu đã kiểm tra vào đúng volume tương ứng;
+không xóa nguồn cho đến khi kiểm tra URL `/images/<đường-dẫn-trong-DB>` trả 200.
+Thư mục upload khác phải được xác định rồi copy riêng theo cùng nguyên tắc.
+Không tự cập nhật đường dẫn DB hoặc ghi đè file trùng tên.
+
+Chạy local không Docker vẫn giữ `static()` trong store/urls.py khi DEBUG=True.
+Tạo MEDIA_ROOT/profile_pics rồi copy ảnh cũ sang đó; với MEDIA_ROOT mặc định,
+chạy `python scripts/seed_default_media.py` để tạo ảnh mặc định còn thiếu.
 
 Chứng minh persistence trên dữ liệu thử: tạo sản phẩm và upload tệp, chạy các lệnh
 dưới đây rồi kiểm tra lại sản phẩm/tệp:
@@ -112,8 +146,11 @@ và mọi subdomain. Bằng chứng 0 issues sử dụng hai cờ này; để fa
 W005/W021. Tăng HSTS lên `31536000` khi đã chắc chắn HTTPS hoạt động ổn định;
 preload thực sự còn cần đáp ứng chính sách/trình đăng ký preload bên ngoài.
 
-Reverse proxy TLS tin cậy phải xóa header do client gửi và tự đặt
+Reverse proxy TLS tin cậy phía trước nginx phải xóa header do client gửi và tự đặt
 `X-Forwarded-Proto: https`, giữ Host đúng domain, chặn truy cập trực tiếp tới Gunicorn.
+Nginx giữ scheme http/https từ header này, nếu thiếu thì dùng scheme kết nối.
+Không mở cổng nginx cho client không tin cậy khi dùng header từ proxy bên ngoài;
+giữ bind loopback hoặc giới hạn mạng/firewall chỉ cho proxy TLS.
 Khi SSL=true, settings bật redirect HTTPS, cookie session/CSRF secure, HSTS và
 `SECURE_PROXY_SSL_HEADER`. Không dùng cờ này với proxy không kiểm soát header.
 Xem [Django proxy SSL header](https://docs.djangoproject.com/en/5.2/ref/settings/#secure-proxy-ssl-header).
@@ -174,10 +211,10 @@ DB và MEDIA thuộc cùng thời điểm; DB vẫn chạy. Thư mục backups c
 ```bash
 umask 077
 mkdir -p backups
-sudo docker compose stop web
+sudo docker compose stop nginx web
 sudo docker compose exec -T db sh -c 'pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB" --no-owner --no-acl' > backups/database.sql
 sudo docker compose run --rm --no-deps --entrypoint tar web -C /app/media -czf - . > backups/media.tar.gz
-sudo docker compose start web
+sudo docker compose start web nginx
 ```
 
 Kiểm tra file khác rỗng và thử restore trên môi trường tách biệt trước khi tin cậy
@@ -185,7 +222,7 @@ backup. Ví dụ khôi phục vào **DB trống mới** trên cùng service; cá
 tồn tại. Không chạy trên DB thật nếu chưa có bản sao lưu và kế hoạch chuyển đổi:
 
 ```bash
-sudo docker compose stop web
+sudo docker compose stop nginx web
 sudo docker compose exec -T db sh -c 'createdb -U "$POSTGRES_USER" inventory_restore'
 sudo docker compose exec -T db sh -c 'psql -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" -d inventory_restore' < backups/database.sql
 sudo docker compose run --rm --no-deps --entrypoint tar web -C /app/media -xzf - < backups/media.tar.gz
