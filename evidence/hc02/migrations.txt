@@ -1,0 +1,5 @@
+Migrations for 'accounts':
+  accounts\migrations\0002_alter_profile_email_alter_profile_first_name_and_more.py
+    ~ Alter field email on profile
+    ~ Alter field first_name on profile
+    ~ Alter field last_name on profile

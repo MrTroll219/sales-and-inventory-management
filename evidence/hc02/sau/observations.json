@@ -1,0 +1,114 @@
+{
+  "commit": "4ec1d81670a212fd7a6a482561c262c593a8ef54",
+  "records": [
+    {
+      "image": "01_xuat_excel_thanh_cong.png",
+      "scenario": "Excel có phiếu thiếu ngày, HTTP 200",
+      "http": 200,
+      "url": "http://127.0.0.1:8003/transactions/purchases/",
+      "timestamp": "2026-11-24T15:38:48+07:00",
+      "database": [
+        {
+          "id": 1,
+          "description": "HC02 có ngày",
+          "delivery_date": "2026-11-24 09:00:00+00:00",
+          "quantity": 10
+        },
+        {
+          "id": 2,
+          "description": "HC02 thiếu ngày",
+          "delivery_date": null,
+          "quantity": 10
+        }
+      ]
+    },
+    {
+      "image": "02_form_hien_dung_ngay_giao.png",
+      "scenario": "Form giữ ngày 2026-11-24T09:00",
+      "http": 200,
+      "url": "http://127.0.0.1:8003/transactions/purchase/1/update/",
+      "timestamp": "2026-11-24T15:38:49+07:00",
+      "database": [
+        {
+          "id": 1,
+          "description": "HC02 có ngày",
+          "delivery_date": "2026-11-24 09:00:00+00:00",
+          "quantity": 10
+        },
+        {
+          "id": 2,
+          "description": "HC02 thiếu ngày",
+          "delivery_date": null,
+          "quantity": 10
+        }
+      ]
+    },
+    {
+      "image": "03_sau_luu_ngay_giao_van_con.png",
+      "scenario": "Chỉ sửa mô tả: ngày giao vẫn còn",
+      "http": 200,
+      "url": "http://127.0.0.1:8003/transactions/purchases/",
+      "timestamp": "2026-11-24T15:38:51+07:00",
+      "database": [
+        {
+          "id": 1,
+          "description": "HC02 chỉ sửa mô tả",
+          "delivery_date": "2026-11-24 09:00:00+00:00",
+          "quantity": 10
+        },
+        {
+          "id": 2,
+          "description": "HC02 thiếu ngày",
+          "delivery_date": null,
+          "quantity": 10
+        }
+      ]
+    }
+  ],
+  "excel_cells": [
+    [
+      "ID",
+      "Item",
+      "Description",
+      "Vendor",
+      "Order Date",
+      "Delivery Date",
+      "Quantity",
+      "Delivery Status",
+      "Price per item (Ksh)",
+      "Total Value"
+    ],
+    [
+      1,
+      "Nước suối",
+      "HC02 có ngày",
+      "NCC A",
+      "2026-11-24 08:38:47.837000",
+      "2026-11-24 09:00:00",
+      10,
+      "Pending",
+      5,
+      50
+    ],
+    [
+      2,
+      "Nước suối",
+      "HC02 thiếu ngày",
+      "NCC A",
+      "2026-11-24 08:38:47.988000",
+      null,
+      10,
+      "Pending",
+      5,
+      50
+    ]
+  ],
+  "excel_formats": {
+    "E2": "DD/MM/YYYY HH:MM",
+    "E3": "DD/MM/YYYY HH:MM",
+    "F2": "DD/MM/YYYY HH:MM",
+    "F3": "DD/MM/YYYY HH:MM"
+  },
+  "date_before": "2026-11-24 09:00:00+00:00",
+  "date_after": "2026-11-24 09:00:00+00:00"
+}

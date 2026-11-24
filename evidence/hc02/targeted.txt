@@ -1,0 +1,72 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+
+Found 15 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: crispy_bootstrap5, crispy_forms, django_extensions, django_filters, django_tables2, imagekit, messages, phonenumber_field, staticfiles
+  Apply all migrations: accounts, admin, auth, bills, contenttypes, invoice, sessions, store, transactions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying accounts.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying bills.0001_initial... OK
+  Applying store.0001_initial... OK
+  Applying invoice.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying transactions.0001_initial... OK
+  Applying transactions.0002_rename_discount_amount_sale_tax_amount_and_more... OK
+  Applying transactions.0003_alter_purchase_quantity... OK
+System check identified no issues (0 silenced).
+test_blank_delivery_date_remains_optional (transactions.tests.test_hc02_dates.ExportAndFormTests.test_blank_delivery_date_remains_optional) ... D:\CT244H BTPM\tmp\p0-venv\Lib\site-packages\django\core\handlers\base.py:61: UserWarning: No directory at: D:\CT244H BTPM\BTPM\sales-and-inventory-management\staticfiles\
+  mw_instance = middleware(adapted_handler)
+ok
+test_description_only_edit_preserves_existing_seconds (transactions.tests.test_hc02_dates.ExportAndFormTests.test_description_only_edit_preserves_existing_seconds) ... ok
+test_edit_form_round_trip_preserves_delivery_date (transactions.tests.test_hc02_dates.ExportAndFormTests.test_edit_form_round_trip_preserves_delivery_date) ... ok
+test_empty_purchase_export_has_headers_only (transactions.tests.test_hc02_dates.ExportAndFormTests.test_empty_purchase_export_has_headers_only) ... ok
+test_empty_sales_export_has_headers_only (transactions.tests.test_hc02_dates.ExportAndFormTests.test_empty_sales_export_has_headers_only) ... ok
+test_explicit_date_change_and_clear_are_still_saved (transactions.tests.test_hc02_dates.ExportAndFormTests.test_explicit_date_change_and_clear_are_still_saved) ... ok
+test_exports_still_require_login (transactions.tests.test_hc02_dates.ExportAndFormTests.test_exports_still_require_login) ... ok
+test_previous_datetime_input_format_remains_accepted (transactions.tests.test_hc02_dates.ExportAndFormTests.test_previous_datetime_input_format_remains_accepted) ... ok
+test_purchase_export_mixed_dates_and_cell_formats (transactions.tests.test_hc02_dates.ExportAndFormTests.test_purchase_export_mixed_dates_and_cell_formats) ... ok
+test_sales_export_uses_local_time_and_date_format (transactions.tests.test_hc02_dates.ExportAndFormTests.test_sales_export_uses_local_time_and_date_format) ... ok
+test_widget_renders_datetime_local_value (transactions.tests.test_hc02_dates.ExportAndFormTests.test_widget_renders_datetime_local_value) ... ok
+test_aware_utc_in_utc (transactions.tests.test_hc02_dates.ExcelDateTests.test_aware_utc_in_utc) ... ok
+test_local_timezone_conversion_crosses_midnight (transactions.tests.test_hc02_dates.ExcelDateTests.test_local_timezone_conversion_crosses_midnight) ... ok
+test_naive_datetime_is_unchanged (transactions.tests.test_hc02_dates.ExcelDateTests.test_naive_datetime_is_unchanged) ... ok
+test_none_stays_empty (transactions.tests.test_hc02_dates.ExcelDateTests.test_none_stays_empty) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.188s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!

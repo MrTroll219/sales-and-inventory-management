@@ -1,0 +1,39 @@
+Performing system checks...
+
+System check identified no issues (0 silenced).
+November 24, 2026 - 15:38:46
+Django version 5.1, using settings 'InventoryMS.settings'
+Starting development server at http://127.0.0.1:8003/
+Quit the server with CTRL-BREAK.
+
+[24/Nov/2026 15:38:46] "GET /accounts/login/ HTTP/1.1" 200 3476
+[24/Nov/2026 15:38:46] "GET /accounts/login/ HTTP/1.1" 200 3476
+Profile updated!
+[24/Nov/2026 15:38:47] "POST /accounts/login/ HTTP/1.1" 302 0
+[24/Nov/2026 15:38:47] "GET / HTTP/1.1" 200 18685
+[24/Nov/2026 15:38:47] "GET /static/css/style.css HTTP/1.1" 200 4254
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:38:47] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:38:47] "GET /transactions/new-purchase/ HTTP/1.1" 200 10934
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:38:47] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:38:47] "POST /transactions/new-purchase/ HTTP/1.1" 302 0
+[24/Nov/2026 15:38:47] "GET /transactions/purchases/ HTTP/1.1" 200 10982
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:38:47] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:38:47] "GET /transactions/new-purchase/ HTTP/1.1" 200 10935
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:38:47] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:38:47] "POST /transactions/new-purchase/ HTTP/1.1" 302 0
+[24/Nov/2026 15:38:48] "GET /transactions/purchases/ HTTP/1.1" 200 11853
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:38:48] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:38:48] "GET /transactions/purchases/export/ HTTP/1.1" 200 5349
+[24/Nov/2026 15:38:49] "GET /transactions/purchase/1/update/ HTTP/1.1" 200 10976
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:38:49] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:38:50] "POST /transactions/purchase/1/update/ HTTP/1.1" 302 0
+[24/Nov/2026 15:38:50] "GET /transactions/purchases/ HTTP/1.1" 200 11853
+[24/Nov/2026 15:38:50] "GET /static/css/style.css HTTP/1.1" 304 0
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:38:50] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
