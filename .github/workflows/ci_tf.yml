@@ -1,10 +1,8 @@
 name: DevSecOps CI
 
-#on:
-#  push:
-#    branches: ["release", "main"]
-#  pull_request:
-#    branches: ["release", "main"]
+# TU02: retain the original Terraform workflow for manual use only.
+on:
+  workflow_dispatch:
 
 permissions:
   contents: read

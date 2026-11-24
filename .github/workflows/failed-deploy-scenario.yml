@@ -1,12 +1,8 @@
 name: DevSecOps CI/CD Pipeline (Live Demo)
 
+# TU02: manual only; original Azure deployment/monitoring is not this fork's CI.
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-# Zmienne globalne do konfiguracji raportowania
+  workflow_dispatch:
 
 env:
   ADO_ORG: "ZBI-projekt"       # np. uniwersytet-projekt

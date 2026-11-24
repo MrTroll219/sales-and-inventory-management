@@ -1,0 +1,97 @@
+name: TU02 tests
+
+on:
+  push:
+    branches: [bao-tri, tu02-trien-khai-docker]
+    paths-ignore: ['docs/**', 'evidence/**']
+  pull_request:
+    branches: [bao-tri]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  postgres-tests:
+    name: PostgreSQL16 / Python${{ matrix.python }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.10', '3.12']
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ci-test-only-password
+          POSTGRES_DB: inventory_ci
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      # Public fixture values, not production credentials.
+      SECRET_KEY: TU02-ci-only-0123456789-ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijk
+      DEBUG: 'false'
+      DJANGO_SECURE_SSL: 'false'
+      DJANGO_ENV_FILE: /dev/null
+      DB_ENGINE: postgresql
+      DB_NAME: inventory_ci
+      DB_USER: postgres
+      DB_PASSWORD: ci-test-only-password
+      DB_HOST: 127.0.0.1
+      DB_PORT: '5432'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Verify PostgreSQL16 and runtime
+        run: |
+          mkdir -p reports
+          python -c "import os,sys,django,psycopg2; c=psycopg2.connect(dbname=os.environ['DB_NAME'],user=os.environ['DB_USER'],password=os.environ['DB_PASSWORD'],host=os.environ['DB_HOST']); print(sys.version); print('Django',django.get_version()); print('PostgreSQL server_version',c.server_version); assert 160000 <= c.server_version < 170000; c.close()" | tee reports/runtime.txt
+      - name: Test without collected static files
+        shell: bash
+        run: |
+          set -o pipefail
+          test ! -d staticfiles
+          python manage.py check | tee reports/check.txt
+          python manage.py makemigrations --check --dry-run | tee reports/migrations.txt
+          python -W error::DeprecationWarning -W error::PendingDeprecationWarning manage.py test . -v 2 2>&1 | tee reports/suite.txt
+          test ! -d staticfiles
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: postgres16-python${{ matrix.python }}
+          path: reports/
+          retention-days: 7
+
+  compose-smoke:
+    name: Docker Compose health and persistence
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Build, check health/login and preserve DB plus MEDIA
+        run: python scripts/ci_compose_smoke.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compose-health-persistence
+          path: reports/compose/
+          retention-days: 7
+      - name: Cleanup disposable CI containers and volumes
+        if: always()
+        run: docker compose down -v --remove-orphans

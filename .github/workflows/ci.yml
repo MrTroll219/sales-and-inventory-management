@@ -1,10 +1,8 @@
 name: DevSecOps CI/CD Pipeline
 
+# TU02: manual only; original Azure deployment/monitoring is not this fork's CI.
 on:
-  push:
-    branches: [ "main" ]
-#  pull_request:
- #   branches: [ "main" ]
+  workflow_dispatch:
 
 permissions:
   contents: read

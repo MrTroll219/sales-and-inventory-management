@@ -20,9 +20,14 @@ class StorageUpgradeTests(SimpleTestCase):
             (source / "img").mkdir()
             (source / "img/dot.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg"/>', encoding="utf-8")
             (source / "css/site.css").write_text('body {background:url("../img/dot.svg")}', encoding="utf-8")
+            # TU02 ordinary tests use plain storage; this test explicitly checks
+            # production manifest behavior, with all existing assertions intact.
+            production_storages = {name: dict(config) for name, config in settings.STORAGES.items()}
+            production_storages["staticfiles"] = {
+                "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"}
             with override_settings(STATICFILES_DIRS=[source], STATIC_ROOT=target,
                                    STATICFILES_FINDERS=["django.contrib.staticfiles.finders.FileSystemFinder"],
-                                   STORAGES=settings.STORAGES):
+                                   STORAGES=production_storages):
                 call_command("collectstatic", interactive=False, verbosity=0, stdout=StringIO())
                 manifest = json.loads((target / "staticfiles.json").read_text(encoding="utf-8"))
                 hashed_css = manifest["paths"]["css/site.css"]

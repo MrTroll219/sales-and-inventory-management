@@ -64,6 +64,11 @@ coverage.xml
 local_settings.py
 db.sqlite3
 staticfiles/
+.env
+.env.*
+!.env.example
+media/
+reports/
 
 # Flask stuff:
 instance/

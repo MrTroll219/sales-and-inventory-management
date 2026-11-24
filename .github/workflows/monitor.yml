@@ -1,14 +1,8 @@
 name: Continuous Monitoring
 
+# TU02: manual only; original Azure deployment/monitoring is not this fork's CI.
 on:
-  # schedule:
-  #   - cron: '*/60 * * * *'
   workflow_dispatch:
-  workflow_run:
-    workflows: ["DevSecOps CI/CD Pipeline"]
-    branches: [main]
-    types:
-      - completed
 
 env:
   TARGET_URL: "http://zbi-inventory-app-axfcfebbawe7abet.italynorth-01.azurewebsites.net/accounts/login/"
@@ -34,7 +28,7 @@ jobs:
           
           # Zapisz kod do zmiennych środowiskowych, aby był dostępny w następnym kroku (nawet przy błędzie)
           echo "detected_code=$HTTP_CODE" >> $GITHUB_OUTPUT 
-        #  echo "DETECTED_CODE=$HTTP_CODE" >> $GITHUB_ENV
+          #  echo "DETECTED_CODE=$HTTP_CODE" >> $GITHUB_ENV
 
           if [ "$HTTP_CODE" -eq 200 ]; then
             echo "App is working normally (HTTP 200)"
