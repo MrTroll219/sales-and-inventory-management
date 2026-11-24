@@ -1,4 +1,5 @@
 """TU01: migrate legacy Profile data and verify the read-only preflight."""
+from contextlib import contextmanager
 from io import StringIO
 import json
 
@@ -61,26 +62,53 @@ class ProfileUpgradeTests(TransactionTestCase):
         self.assertEqual(list(self.Profile.objects.order_by("pk").values("id", "email", "first_name", "last_name")), before)
         self.assert_email_unique()
 
+    @contextmanager
+    def wide_legacy_columns(self):
+        """TU02 fixture: emulate dirty legacy data even on enforcing backends.
+
+        SQLite accepts overlong VARCHAR data; PostgreSQL does not. Widen only
+        this test table temporarily, retaining every audit expectation.
+        """
+        fields = []
+        for name in ('email', 'first_name', 'last_name'):
+            original = self.Profile._meta.get_field(name)
+            expanded = original.clone()
+            expanded.set_attributes_from_name(name)
+            expanded.model = self.Profile
+            expanded.max_length = 256
+            fields.append((original, expanded))
+        with connection.schema_editor() as editor:
+            for original, expanded in fields:
+                editor.alter_field(self.Profile, original, expanded)
+        try:
+            yield
+        finally:
+            self.Profile.objects.all().delete()  # Isolated test fixtures only.
+            with connection.schema_editor() as editor:
+                for original, expanded in fields:
+                    editor.alter_field(self.Profile, expanded, original)
+
     def test_preflight_detects_duplicates_including_empty_and_overlong_data(self):
         self.profile("dup-one", "same@example.invalid")
         self.profile("dup-two", "same@example.invalid")
         self.profile("blank-one", "")
         self.profile("blank-two", "")
-        self.profile("long", "x" * 151, "A" * 31, "B" * 31)
-        before = list(self.Profile.objects.order_by("pk").values())
-        out = StringIO()
-        with CaptureQueriesContext(connection) as queries:
-            with self.assertRaises(CommandError):
-                call_command("check_profile_data", stdout=out)
-        result = json.loads(out.getvalue())
-        self.assertFalse(result["safe_to_migrate"])
-        self.assertEqual({row["email"] for row in result["duplicate_emails"]}, {"", "same@example.invalid"})
-        self.assertEqual(result["overlong_names"][0]["first_length"], 31)
-        self.assertEqual(result["overlong_names"][0]["last_length"], 31)
-        self.assertEqual(result["overlong_emails"][0]["email_length"], 151)
-        self.assertTrue(queries.captured_queries)
-        self.assertTrue(all(q["sql"].lstrip().upper().startswith("SELECT") for q in queries.captured_queries))
-        self.assertEqual(list(self.Profile.objects.order_by("pk").values()), before)
+        with self.wide_legacy_columns():
+            self.profile("long", "x" * 151, "A" * 31, "B" * 31)
+            before = list(self.Profile.objects.order_by("pk").values())
+            out = StringIO()
+            with CaptureQueriesContext(connection) as queries:
+                with self.assertRaises(CommandError):
+                    call_command("check_profile_data", stdout=out)
+            result = json.loads(out.getvalue())
+            self.assertFalse(result["safe_to_migrate"])
+            self.assertEqual({row["email"] for row in result["duplicate_emails"]}, {"", "same@example.invalid"})
+            self.assertEqual(result["overlong_names"][0]["first_length"], 31)
+            self.assertEqual(result["overlong_names"][0]["last_length"], 31)
+            self.assertEqual(result["overlong_emails"][0]["email_length"], 151)
+            self.assertTrue(queries.captured_queries)
+            self.assertTrue(all(q["sql"].lstrip().upper().startswith("SELECT") for q in queries.captured_queries))
+            self.assertEqual(list(self.Profile.objects.order_by("pk").values()), before)
 
     def test_preflight_allows_multiple_null_emails_and_boundary_lengths(self):
         self.profile("null1", None, "A" * 30, "B" * 30)

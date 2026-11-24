@@ -46,8 +46,8 @@ jobs:
       DB_HOST: 127.0.0.1
       DB_PORT: '5432'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python }}
           cache: pip
@@ -65,7 +65,7 @@ jobs:
           python manage.py makemigrations --check --dry-run | tee reports/migrations.txt
           python -W error::DeprecationWarning -W error::PendingDeprecationWarning manage.py test . -v 2 2>&1 | tee reports/suite.txt
           test ! -d staticfiles
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: postgres16-python${{ matrix.python }}
@@ -77,8 +77,8 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - run: |
@@ -86,7 +86,7 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Build, check health/login and preserve DB plus MEDIA
         run: python scripts/ci_compose_smoke.py
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: compose-health-persistence
