@@ -16,6 +16,12 @@ class PurchaseForm(BootstrapMixin, forms.ModelForm):
     """
     A form for creating and updating Purchase instances.
     """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Keep existing accepted formats and explicitly support datetime-local.
+        field = self.fields['delivery_date']
+        field.input_formats = [*field.input_formats, '%Y-%m-%dT%H:%M']
+
     class Meta:
         model = Purchase
         fields = [
@@ -23,7 +29,8 @@ class PurchaseForm(BootstrapMixin, forms.ModelForm):
             'quantity', 'delivery_date', 'delivery_status'
         ]
         widgets = {
-            'delivery_date': forms.DateInput(
+            'delivery_date': forms.DateTimeInput(
+                format='%Y-%m-%dT%H:%M',
                 attrs={
                     'class': 'form-control',
                     'type': 'datetime-local'

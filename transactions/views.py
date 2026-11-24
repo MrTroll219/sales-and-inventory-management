@@ -26,6 +26,7 @@ from store.models import Item
 from accounts.models import Customer
 from .models import Sale, Purchase, SaleDetail
 from .forms import PurchaseForm
+from .utils import to_excel_datetime
 
 
 logger = logging.getLogger(__name__)
@@ -54,15 +55,9 @@ def export_sales_to_excel(request):
     sales = Sale.objects.all()
 
     for sale in sales:
-        # Convert timezone-aware datetime to naive datetime
-        if sale.date_added.tzinfo is not None:
-            date_added = sale.date_added.replace(tzinfo=None)
-        else:
-            date_added = sale.date_added
-
         worksheet.append([
             sale.id,
-            date_added,
+            to_excel_datetime(sale.date_added),
             sale.customer.phone,
             sale.sub_total,
             sale.grand_total,
@@ -71,6 +66,7 @@ def export_sales_to_excel(request):
             sale.amount_paid,
             sale.amount_change
         ])
+        worksheet.cell(row=worksheet.max_row, column=2).number_format = 'DD/MM/YYYY HH:MM'
 
     # Set up the response to send the file
     response = HttpResponse(
@@ -103,28 +99,20 @@ def export_purchases_to_excel(request):
     purchases = Purchase.objects.all()
 
     for purchase in purchases:
-        # Convert timezone-aware datetime to naive datetime
-        delivery_tzinfo = purchase.delivery_date.tzinfo
-        order_tzinfo = purchase.order_date.tzinfo
-
-        if delivery_tzinfo or order_tzinfo is not None:
-            delivery_date = purchase.delivery_date.replace(tzinfo=None)
-            order_date = purchase.order_date.replace(tzinfo=None)
-        else:
-            delivery_date = purchase.delivery_date
-            order_date = purchase.order_date
         worksheet.append([
             purchase.id,
             purchase.item.name,
             purchase.description,
             purchase.vendor.name,
-            order_date,
-            delivery_date,
+            to_excel_datetime(purchase.order_date),
+            to_excel_datetime(purchase.delivery_date),
             purchase.quantity,
             purchase.get_delivery_status_display(),
             purchase.price,
             purchase.total_value
         ])
+        for column in (5, 6):
+            worksheet.cell(row=worksheet.max_row, column=column).number_format = 'DD/MM/YYYY HH:MM'
 
     # Set up the response to send the file
     response = HttpResponse(
