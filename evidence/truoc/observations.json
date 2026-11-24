@@ -1,0 +1,380 @@
+[
+  {
+    "image": "01_hc01_ton_ban_dau.png",
+    "hc": "HC01",
+    "scenario": "Tồn ban đầu",
+    "expected": "0",
+    "actual": "0",
+    "http": 200,
+    "timestamp": "2026-11-24T15:05:42+07:00",
+    "url": "http://127.0.0.1:8001/products/",
+    "database": {
+      "items": [
+        {
+          "id": 1,
+          "quantity": 0,
+          "price": 100.0
+        }
+      ],
+      "purchases": [],
+      "sales": [],
+      "details": [],
+      "customer_id": 1,
+      "vendor_id": 1
+    }
+  },
+  {
+    "image": "02_hc01_tao_phieu_nhap.png",
+    "hc": "HC01",
+    "scenario": "Điền phiếu nhập",
+    "expected": "10 sản phẩm, giá nhập 5",
+    "actual": "Form đã điền, chưa lưu",
+    "http": 200,
+    "timestamp": "2026-11-24T15:05:43+07:00",
+    "url": "http://127.0.0.1:8001/transactions/new-purchase/",
+    "database": {
+      "items": [
+        {
+          "id": 1,
+          "quantity": 0,
+          "price": 100.0
+        }
+      ],
+      "purchases": [],
+      "sales": [],
+      "details": [],
+      "customer_id": 1,
+      "vendor_id": 1
+    }
+  },
+  {
+    "image": "03_hc01_ton_sau_tao.png",
+    "hc": "HC01",
+    "scenario": "Tạo phiếu nhập 10",
+    "expected": "Kho 10",
+    "actual": "Kho 20",
+    "http": 200,
+    "timestamp": "2026-11-24T15:05:45+07:00",
+    "url": "http://127.0.0.1:8001/products/",
+    "database": {
+      "items": [
+        {
+          "id": 1,
+          "quantity": 20,
+          "price": 100.0
+        }
+      ],
+      "purchases": [
+        {
+          "id": 1,
+          "quantity": 10,
+          "description": "P0b có ngày giao",
+          "delivery_date": "2026-11-24 09:00:00+00:00"
+        }
+      ],
+      "sales": [],
+      "details": [],
+      "customer_id": 1,
+      "vendor_id": 1
+    }
+  },
+  {
+    "image": "04_hc01_ton_sau_sua_mo_ta.png",
+    "hc": "HC01",
+    "scenario": "Chỉ sửa mô tả",
+    "expected": "Kho vẫn 10",
+    "actual": "Kho 30",
+    "http": 200,
+    "timestamp": "2026-11-24T15:05:46+07:00",
+    "url": "http://127.0.0.1:8001/products/",
+    "database": {
+      "items": [
+        {
+          "id": 1,
+          "quantity": 30,
+          "price": 100.0
+        }
+      ],
+      "purchases": [
+        {
+          "id": 1,
+          "quantity": 10,
+          "description": "P0b chỉ sửa mô tả",
+          "delivery_date": null
+        }
+      ],
+      "sales": [],
+      "details": [],
+      "customer_id": 1,
+      "vendor_id": 1
+    }
+  },
+  {
+    "image": "05_hc02_phieu_khong_ngay_giao.png",
+    "hc": "HC02",
+    "scenario": "Phiếu thứ hai để trống ngày giao",
+    "expected": "Ngày giao rỗng",
+    "actual": "Ngày giao None",
+    "http": 200,
+    "timestamp": "2026-11-24T15:05:47+07:00",
+    "url": "http://127.0.0.1:8001/transactions/purchases/",
+    "database": {
+      "items": [
+        {
+          "id": 1,
+          "quantity": 50,
+          "price": 100.0
+        }
+      ],
+      "purchases": [
+        {
+          "id": 1,
+          "quantity": 10,
+          "description": "P0b chỉ sửa mô tả",
+          "delivery_date": null
+        },
+        {
+          "id": 2,
+          "quantity": 10,
+          "description": "P0b không ngày giao",
+          "delivery_date": null
+        }
+      ],
+      "sales": [],
+      "details": [],
+      "customer_id": 1,
+      "vendor_id": 1
+    }
+  },
+  {
+    "image": "06_hc02_loi_500_xuat_excel.png",
+    "hc": "HC02",
+    "scenario": "Xuất Excel thiếu ngày giao",
+    "expected": "HTTP 200, ô ngày rỗng",
+    "actual": "AttributeError: NoneType has no attribute tzinfo",
+    "http": 500,
+    "timestamp": "2026-11-24T15:05:48+07:00",
+    "url": "http://127.0.0.1:8001/transactions/purchases/export/",
+    "database": {
+      "items": [
+        {
+          "id": 1,
+          "quantity": 50,
+          "price": 100.0
+        }
+      ],
+      "purchases": [
+        {
+          "id": 1,
+          "quantity": 10,
+          "description": "P0b chỉ sửa mô tả",
+          "delivery_date": null
+        },
+        {
+          "id": 2,
+          "quantity": 10,
+          "description": "P0b không ngày giao",
+          "delivery_date": null
+        }
+      ],
+      "sales": [],
+      "details": [],
+      "customer_id": 1,
+      "vendor_id": 1
+    }
+  },
+  {
+    "image": "07_hc03_trang_tao_don.png",
+    "hc": "HC03",
+    "scenario": "Mở trang tạo đơn",
+    "expected": "Form tạo đơn",
+    "actual": "Form tạo đơn",
+    "http": 200,
+    "timestamp": "2026-11-24T15:05:50+07:00",
+    "url": "http://127.0.0.1:8001/transactions/new-sale/",
+    "database": {
+      "items": [
+        {
+          "id": 1,
+          "quantity": 50,
+          "price": 100.0
+        }
+      ],
+      "purchases": [
+        {
+          "id": 1,
+          "quantity": 10,
+          "description": "P0b chỉ sửa mô tả",
+          "delivery_date": null
+        },
+        {
+          "id": 2,
+          "quantity": 10,
+          "description": "P0b không ngày giao",
+          "delivery_date": null
+        }
+      ],
+      "sales": [],
+      "details": [],
+      "customer_id": 1,
+      "vendor_id": 1
+    }
+  },
+  {
+    "image": "08_hc03_phan_hoi_success.png",
+    "hc": "HC03",
+    "scenario": "Gửi giá 0.01, tổng 1 cho 2 sản phẩm giá 100",
+    "expected": "HTTP 400, không tạo đơn",
+    "actual": "HTTP 200, success",
+    "http": 200,
+    "timestamp": "2026-11-24T15:05:51+07:00",
+    "url": "http://127.0.0.1:8001/transactions/new-sale/",
+    "database": {
+      "items": [
+        {
+          "id": 1,
+          "quantity": 48,
+          "price": 100.0
+        }
+      ],
+      "purchases": [
+        {
+          "id": 1,
+          "quantity": 10,
+          "description": "P0b chỉ sửa mô tả",
+          "delivery_date": null
+        },
+        {
+          "id": 2,
+          "quantity": 10,
+          "description": "P0b không ngày giao",
+          "delivery_date": null
+        }
+      ],
+      "sales": [
+        {
+          "id": 1,
+          "grand_total": "1.00",
+          "sub_total": "1.00"
+        }
+      ],
+      "details": [
+        {
+          "sale_id": 1,
+          "quantity": 2,
+          "price": "0.01"
+        }
+      ],
+      "customer_id": 1,
+      "vendor_id": 1
+    }
+  },
+  {
+    "image": "09_hc03_chi_tiet_don_sai.png",
+    "hc": "HC03",
+    "scenario": "Chi tiết đơn giả tiền",
+    "expected": "Tổng đúng 200.00",
+    "actual": "Grand Total Ksh 1.00",
+    "http": 200,
+    "timestamp": "2026-11-24T15:05:53+07:00",
+    "url": "http://127.0.0.1:8001/transactions/sale/1/",
+    "database": {
+      "items": [
+        {
+          "id": 1,
+          "quantity": 48,
+          "price": 100.0
+        }
+      ],
+      "purchases": [
+        {
+          "id": 1,
+          "quantity": 10,
+          "description": "P0b chỉ sửa mô tả",
+          "delivery_date": null
+        },
+        {
+          "id": 2,
+          "quantity": 10,
+          "description": "P0b không ngày giao",
+          "delivery_date": null
+        }
+      ],
+      "sales": [
+        {
+          "id": 1,
+          "grand_total": "1.00",
+          "sub_total": "1.00"
+        }
+      ],
+      "details": [
+        {
+          "sale_id": 1,
+          "quantity": 2,
+          "price": "0.01"
+        }
+      ],
+      "customer_id": 1,
+      "vendor_id": 1
+    }
+  },
+  {
+    "image": "10_hc03_chua_dang_nhap.png",
+    "hc": "HC03",
+    "scenario": "Tạo đơn không đăng nhập (có CSRF)",
+    "expected": "Redirect/401/403, không tạo đơn",
+    "actual": "HTTP 200, success",
+    "http": 200,
+    "timestamp": "2026-11-24T15:05:55+07:00",
+    "url": "http://127.0.0.1:8001/transactions/new-sale/",
+    "database": {
+      "items": [
+        {
+          "id": 1,
+          "quantity": 46,
+          "price": 100.0
+        }
+      ],
+      "purchases": [
+        {
+          "id": 1,
+          "quantity": 10,
+          "description": "P0b chỉ sửa mô tả",
+          "delivery_date": null
+        },
+        {
+          "id": 2,
+          "quantity": 10,
+          "description": "P0b không ngày giao",
+          "delivery_date": null
+        }
+      ],
+      "sales": [
+        {
+          "id": 1,
+          "grand_total": "1.00",
+          "sub_total": "1.00"
+        },
+        {
+          "id": 2,
+          "grand_total": "200.00",
+          "sub_total": "200.00"
+        }
+      ],
+      "details": [
+        {
+          "sale_id": 1,
+          "quantity": 2,
+          "price": "0.01"
+        },
+        {
+          "sale_id": 2,
+          "quantity": 2,
+          "price": "100.00"
+        }
+      ],
+      "customer_id": 1,
+      "vendor_id": 1
+    }
+  }
+]

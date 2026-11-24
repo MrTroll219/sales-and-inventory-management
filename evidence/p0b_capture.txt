@@ -1,0 +1,12 @@
+LOGIN_HTTP=200
+01_hc01_ton_ban_dau.png: HTTP 200; 0
+02_hc01_tao_phieu_nhap.png: HTTP 200; Form đã điền, chưa lưu
+03_hc01_ton_sau_tao.png: HTTP 200; Kho 20
+04_hc01_ton_sau_sua_mo_ta.png: HTTP 200; Kho 30
+05_hc02_phieu_khong_ngay_giao.png: HTTP 200; Ngày giao None
+06_hc02_loi_500_xuat_excel.png: HTTP 500; AttributeError: NoneType has no attribute tzinfo
+07_hc03_trang_tao_don.png: HTTP 200; Form tạo đơn
+08_hc03_phan_hoi_success.png: HTTP 200; HTTP 200, success
+09_hc03_chi_tiet_don_sai.png: HTTP 200; Grand Total Ksh 1.00
+10_hc03_chua_dang_nhap.png: HTTP 200; HTTP 200, success
+Chromium 159.0.8154.6; captured 10 screenshots
