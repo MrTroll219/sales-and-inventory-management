@@ -1,0 +1,72 @@
+Performing system checks...
+
+System check identified no issues (0 silenced).
+November 24, 2026 - 15:25:33
+Django version 5.1, using settings 'InventoryMS.settings'
+Starting development server at http://127.0.0.1:8002/
+Quit the server with CTRL-BREAK.
+
+[24/Nov/2026 15:25:33] "GET /accounts/login/ HTTP/1.1" 200 3476
+[24/Nov/2026 15:25:35] "GET /accounts/login/ HTTP/1.1" 200 3476
+Profile updated!
+[24/Nov/2026 15:25:38] "POST /accounts/login/ HTTP/1.1" 302 0
+[24/Nov/2026 15:25:38] "GET / HTTP/1.1" 200 18685
+[24/Nov/2026 15:25:39] "GET /static/css/style.css HTTP/1.1" 200 4254
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:39] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:39] "GET /products/ HTTP/1.1" 200 11376
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:39] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:40] "GET /transactions/new-purchase/ HTTP/1.1" 200 10934
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:40] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:40] "POST /transactions/new-purchase/ HTTP/1.1" 302 0
+[24/Nov/2026 15:25:40] "GET /transactions/purchases/ HTTP/1.1" 200 10982
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:40] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:40] "GET /products/ HTTP/1.1" 200 11377
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:40] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:41] "GET /transactions/purchase/1/update/ HTTP/1.1" 200 10965
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:41] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:41] "POST /transactions/purchase/1/update/ HTTP/1.1" 302 0
+[24/Nov/2026 15:25:41] "GET /transactions/purchases/ HTTP/1.1" 200 10965
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:41] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:41] "GET /products/ HTTP/1.1" 200 11377
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:41] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:42] "GET /transactions/purchase/1/update/ HTTP/1.1" 200 10962
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:42] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:42] "POST /transactions/purchase/1/update/ HTTP/1.1" 302 0
+[24/Nov/2026 15:25:42] "GET /transactions/purchases/ HTTP/1.1" 200 10965
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:42] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:42] "GET /products/ HTTP/1.1" 200 11377
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:42] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:43] "GET /transactions/purchase/1/update/ HTTP/1.1" 200 10962
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:43] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:43] "POST /transactions/purchase/1/update/ HTTP/1.1" 302 0
+[24/Nov/2026 15:25:43] "GET /transactions/purchases/ HTTP/1.1" 200 10964
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:43] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:43] "GET /products/ HTTP/1.1" 200 11376
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:43] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:44] "GET /transactions/new-sale/ HTTP/1.1" 200 27699
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:44] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:44] "POST /transactions/new-sale/ HTTP/1.1" 200 98
+[24/Nov/2026 15:25:44] "GET /transactions/purchase/1/update/ HTTP/1.1" 200 10960
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:44] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:44] "POST /transactions/purchase/1/update/ HTTP/1.1" 200 11151
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:44] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:25:46] "GET /products/ HTTP/1.1" 200 11376
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:25:46] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732

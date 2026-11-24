@@ -1,0 +1,118 @@
+{
+  "commit": "76dba11475d7b42a196ecf3461004a1b7aec73d7",
+  "records": [
+    {
+      "image": "01_ton_ban_dau.png",
+      "scenario": "Tồn ban đầu 0",
+      "http": 200,
+      "url": "http://127.0.0.1:8002/products/",
+      "database": {
+        "stock": 0,
+        "purchases": []
+      },
+      "timestamp": "2026-11-24T15:25:40+07:00"
+    },
+    {
+      "image": "02_ton_sau_tao.png",
+      "scenario": "Nhập 10, tồn đúng 10",
+      "http": 200,
+      "url": "http://127.0.0.1:8002/products/",
+      "database": {
+        "stock": 10,
+        "purchases": [
+          {
+            "id": 1,
+            "quantity": 10,
+            "total_value": "50.00"
+          }
+        ]
+      },
+      "timestamp": "2026-11-24T15:25:41+07:00"
+    },
+    {
+      "image": "03_ton_sau_sua_mo_ta.png",
+      "scenario": "Chỉ sửa mô tả, tồn vẫn 10",
+      "http": 200,
+      "url": "http://127.0.0.1:8002/products/",
+      "database": {
+        "stock": 10,
+        "purchases": [
+          {
+            "id": 1,
+            "quantity": 10,
+            "total_value": "50.00"
+          }
+        ]
+      },
+      "timestamp": "2026-11-24T15:25:42+07:00"
+    },
+    {
+      "image": "04_ton_sau_tang.png",
+      "scenario": "Đổi 10→15, tồn đúng 15",
+      "http": 200,
+      "url": "http://127.0.0.1:8002/products/",
+      "database": {
+        "stock": 15,
+        "purchases": [
+          {
+            "id": 1,
+            "quantity": 15,
+            "total_value": "75.00"
+          }
+        ]
+      },
+      "timestamp": "2026-11-24T15:25:43+07:00"
+    },
+    {
+      "image": "05_ton_sau_giam.png",
+      "scenario": "Đổi 15→4, tồn đúng 4",
+      "http": 200,
+      "url": "http://127.0.0.1:8002/products/",
+      "database": {
+        "stock": 4,
+        "purchases": [
+          {
+            "id": 1,
+            "quantity": 4,
+            "total_value": "20.00"
+          }
+        ]
+      },
+      "timestamp": "2026-11-24T15:25:44+07:00"
+    },
+    {
+      "image": "06_tu_choi_am_kho.png",
+      "scenario": "Đã bán 3; giảm phiếu 4→1 bị từ chối",
+      "http": 200,
+      "url": "http://127.0.0.1:8002/transactions/purchase/1/update/",
+      "database": {
+        "stock": 1,
+        "purchases": [
+          {
+            "id": 1,
+            "quantity": 4,
+            "total_value": "20.00"
+          }
+        ]
+      },
+      "timestamp": "2026-11-24T15:25:45+07:00"
+    },
+    {
+      "image": "07_kho_khong_doi_sau_tu_choi.png",
+      "scenario": "Sau từ chối, tồn vẫn 1",
+      "http": 200,
+      "url": "http://127.0.0.1:8002/products/",
+      "database": {
+        "stock": 1,
+        "purchases": [
+          {
+            "id": 1,
+            "quantity": 4,
+            "total_value": "20.00"
+          }
+        ]
+      },
+      "timestamp": "2026-11-24T15:25:47+07:00"
+    }
+  ]
+}
