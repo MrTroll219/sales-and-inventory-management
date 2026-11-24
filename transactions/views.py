@@ -1,14 +1,17 @@
 # Standard library imports
 import json
 import logging
+from decimal import Decimal, DecimalException
+from functools import wraps
 
 from django.core.exceptions import ValidationError
 
 # Django core imports
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseNotAllowed
 from django.urls import reverse
 from django.shortcuts import render
 from django.db import transaction
+from django.db.models import F
 
 # Class-based views
 from django.views.generic import DetailView, ListView
@@ -27,6 +30,8 @@ from accounts.models import Customer
 from .models import Sale, Purchase, SaleDetail
 from .forms import PurchaseForm
 from .utils import to_excel_datetime
+from .pricing import (SaleInputError, positive_integer, compute_sale_totals,
+                      check_client_total)
 
 
 logger = logging.getLogger(__name__)
@@ -147,121 +152,81 @@ class SaleDetailView(LoginRequiredMixin, DetailView):
     template_name = "transactions/saledetail.html"
 
 
+def sale_login_required(view):
+    """Use Django login redirects, with an explicit JSON 401 for AJAX callers."""
+    protected = login_required(view)
+
+    @wraps(view)
+    def check(request, *args, **kwargs):
+        if is_ajax(request) and not request.user.is_authenticated:
+            return JsonResponse({"status": "error", "message": "Vui lòng đăng nhập."}, status=401)
+        return protected(request, *args, **kwargs)
+    return check
+
+
+@sale_login_required
 def SaleCreateView(request):
-    context = {
-        "active_icon": "sales",
-        "customers": [c.to_select2() for c in Customer.objects.all()]
-    }
+    if request.method == 'GET':
+        return render(request, "transactions/sale_create.html", {
+            "active_icon": "sales",
+            "customers": [c.to_select2() for c in Customer.objects.all()],
+        })
+    if request.method != 'POST':
+        return HttpResponseNotAllowed(['GET', 'POST'])
+    try:
+        data = json.loads(request.body, parse_float=Decimal)
+        if not isinstance(data, dict):
+            raise SaleInputError("Dữ liệu đơn hàng phải là JSON object.")
+        customer_id = positive_integer(data.get('customer'), 'customer', maximum=9223372036854775807)
+        raw_lines = data.get('items')
+        if not isinstance(raw_lines, list) or not raw_lines:
+            raise SaleInputError("Đơn hàng phải có ít nhất một mặt hàng.")
+        quantities, client_lines = {}, []
+        for line in raw_lines:
+            if not isinstance(line, dict):
+                raise SaleInputError("Mỗi dòng hàng phải là JSON object.")
+            item_id = positive_integer(line.get('id'), 'id', maximum=9223372036854775807)
+            quantity = positive_integer(line.get('quantity'), 'quantity')
+            quantities[item_id] = positive_integer(quantities.get(item_id, 0) + quantity, 'quantity')
+            client_lines.append((line, item_id, quantity))
 
-    if request.method == 'POST':
-        if is_ajax(request=request):
-            try:
-                # Load the JSON data from the request body
-                data = json.loads(request.body)
-                logger.info(f"Received data: {data}")
-
-                # Validate required fields
-                required_fields = [
-                    'customer', 'sub_total', 'grand_total',
-                    'amount_paid', 'amount_change', 'items'
-                ]
-                for field in required_fields:
-                    if field not in data:
-                        raise ValueError(f"Missing required field: {field}")
-
-                # Create sale attributes
-                sale_attributes = {
-                    "customer": Customer.objects.get(id=int(data['customer'])),
-                    "sub_total": float(data["sub_total"]),
-                    "grand_total": float(data["grand_total"]),
-                    "tax_amount": float(data.get("tax_amount", 0.0)),
-                    "tax_percentage": float(data.get("tax_percentage", 0.0)),
-                    "amount_paid": float(data["amount_paid"]),
-                    "amount_change": float(data["amount_change"]),
-                }
-
-                # Use a transaction to ensure atomicity
-                with transaction.atomic():
-                    # Create the sale
-                    new_sale = Sale.objects.create(**sale_attributes)
-                    logger.info(f"Sale created: {new_sale}")
-
-                    # Create sale details and update item quantities
-                    items = data["items"]
-                    if not isinstance(items, list):
-                        raise ValueError("Items should be a list")
-
-                    for item in items:
-                        if not all(
-                            k in item for k in [
-                                "id", "price", "quantity", "total_item"
-                            ]
-                        ):
-                            raise ValueError("Item is missing required fields")
-
-                        item_instance = Item.objects.get(id=int(item["id"]))
-                        if item_instance.quantity < int(item["quantity"]):
-                            raise ValueError(f"Not enough stock for item: {item_instance.name}")
-
-                        detail_attributes = {
-                            "sale": new_sale,
-                            "item": item_instance,
-                            "price": float(item["price"]),
-                            "quantity": int(item["quantity"]),
-                            "total_detail": float(item["total_item"])
-                        }
-                        SaleDetail.objects.create(**detail_attributes)
-                        logger.info(f"Sale detail created: {detail_attributes}")
-
-                        # Reduce item quantity
-                        item_instance.quantity -= int(item["quantity"])
-                        item_instance.save()
-
-                return JsonResponse(
-                    {
-                        'status': 'success',
-                        'message': 'Sale created successfully!',
-                        'redirect': '/transactions/sales/'
-                    }
-                )
-
-            except json.JSONDecodeError:
-                return JsonResponse(
-                    {
-                        'status': 'error',
-                        'message': 'Invalid JSON format in request body!'
-                    }, status=400)
-            except Customer.DoesNotExist:
-                return JsonResponse({
-                    'status': 'error',
-                    'message': 'Customer does not exist!'
-                    }, status=400)
-            except Item.DoesNotExist:
-                return JsonResponse({
-                    'status': 'error',
-                    'message': 'Item does not exist!'
-                    }, status=400)
-            except ValueError as ve:
-                return JsonResponse({
-                    'status': 'error',
-                    'message': f'Value error: {str(ve)}'
-                    }, status=400)
-            except TypeError as te:
-                return JsonResponse({
-                    'status': 'error',
-                    'message': f'Type error: {str(te)}'
-                    }, status=400)
-            except Exception as e:
-                logger.error(f"Exception during sale creation: {e}")
-                return JsonResponse(
-                    {
-                        'status': 'error',
-                        'message': (
-                            f'There was an error during the creation: {str(e)}'
-                        )
-                    }, status=500)
-
-    return render(request, "transactions/sale_create.html", context=context)
+        with transaction.atomic():
+            customer = Customer.objects.get(pk=customer_id)
+            items = {item.pk: item for item in Item.objects.select_for_update()
+                     .filter(pk__in=sorted(quantities)).order_by('pk')}
+            if set(items) != set(quantities):
+                raise SaleInputError("Có mặt hàng không tồn tại.")
+            totals = compute_sale_totals([
+                {'id': item_id, 'price': items[item_id].price, 'quantity': quantity}
+                for item_id, quantity in quantities.items()
+            ], data.get('tax_percentage', 0), data.get('amount_paid'))
+            prices = {line['id']: line['price'] for line in totals['lines']}
+            for line, item_id, quantity in client_lines:
+                check_client_total(line, 'total_item', prices[item_id] * quantity)
+            for field in ('sub_total', 'grand_total'):
+                check_client_total(data, field, totals[field])
+            for item_id, quantity in quantities.items():
+                if items[item_id].quantity < quantity:
+                    raise SaleInputError(f"Không đủ tồn kho: {items[item_id].name}.")
+            # All input checks finish before the first Sale/SaleDetail/stock write.
+            new_sale = Sale.objects.create(customer=customer, **{
+                key: value for key, value in totals.items() if key != 'lines'
+            })
+            for line in totals['lines']:
+                changed = Item.objects.filter(pk=line['id'], quantity__gte=line['quantity']).update(
+                    quantity=F('quantity') - line['quantity'])
+                if not changed:
+                    raise SaleInputError(f"Không đủ tồn kho: {items[line['id']].name}.")
+                SaleDetail.objects.create(sale=new_sale, item=items[line['id']],
+                                          price=line['price'], quantity=line['quantity'],
+                                          total_detail=line['total_detail'])
+        return JsonResponse({'status': 'success', 'message': 'Sale created successfully!',
+                             'redirect': '/transactions/sales/', 'sale_id': new_sale.pk,
+                             'grand_total': totals['grand_total']})
+    except Customer.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Khách hàng không tồn tại.'}, status=400)
+    except (ValueError, TypeError, UnicodeDecodeError, DecimalException, OverflowError) as error:
+        return JsonResponse({'status': 'error', 'message': str(error)}, status=400)
 
 
 class SaleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

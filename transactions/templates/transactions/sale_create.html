@@ -86,23 +86,23 @@
                         </div>
                         <div class="mb-3">
                             <label for="sub_total" class="form-label">Subtotal</label>
-                            <input name="sub_total" type="number" class="form-control" id="sub_total" aria-label="Subtotal" required>
+                            <input name="sub_total" type="number" step="0.01" min="0" readonly class="form-control" id="sub_total" aria-label="Subtotal" required>
                         </div>
                         <div class="mb-3">
-                            <label for="tax_percentage" class="form-label">Tax Inclusive (%)</label>
-                            <input name="tax_percentage" type="number" class="form-control" id="tax_percentage" aria-label="Tax Inclusive" value="0" required>
+                            <label for="tax_percentage" class="form-label">Tax (%)</label>
+                            <input name="tax_percentage" type="number" class="form-control" id="tax_percentage" aria-label="Tax" value="0" required>
                         </div>
                         <div class="mb-3">
                             <label for="tax_amount" class="form-label">Tax Amount</label>
-                            <input name="tax_amount" type="number" class="form-control" id="tax_amount" aria-label="Tax Amount" required>
+                            <input name="tax_amount" type="number" step="0.01" min="0" readonly class="form-control" id="tax_amount" aria-label="Tax Amount" required>
                         </div>
                         <div class="mb-3">
                             <label for="grand_total" class="form-label">Grand Total</label>
-                            <input name="grand_total" type="number" class="form-control" id="grand_total" aria-label="Grand Total" required>
+                            <input name="grand_total" type="number" step="0.01" min="0" readonly class="form-control" id="grand_total" aria-label="Grand Total" required>
                         </div>
                         <div class="mb-3">
                             <label for="amount_paid" class="form-label">Amount Payed</label>
-                            <input name="amount_paid" type="number" class="form-control" id="amount_paid" aria-label="Amount Paid" required>
+                            <input name="amount_paid" type="number" step="0.01" min="0" class="form-control" id="amount_paid" aria-label="Amount Paid" required>
                         </div>
                         <button type="submit" class="btn btn-success w-100">Create Sale</button>
                     </div>
@@ -172,8 +172,9 @@
 
             // Update the sale subtotal, grand total, and tax amount
             this.products.sub_total = roundTo(sub_total, 2);
-            this.products.grand_total = roundTo(this.products.sub_total, 2);
-            this.products.tax_amount = roundTo(this.products.sub_total * (tax_percentage / 100), 2);
+            this.products.tax_percentage = Number(tax_percentage) || 0;
+            this.products.tax_amount = roundTo(this.products.sub_total * (this.products.tax_percentage / 100), 2);
+            this.products.grand_total = roundTo(this.products.sub_total + this.products.tax_amount, 2);
 
             $('input[name="sub_total"]').val(this.products.sub_total);
             $('input[name="tax_amount"]').val(this.products.tax_amount);
@@ -439,6 +440,8 @@
                 customer: $('select[name="customer"]').val(),
                 sub_total: $('input[name="sub_total"]').val(),
                 grand_total: grandTotal,
+                tax_percentage: $('input[name="tax_percentage"]').val(),
+                tax_amount: $('input[name="tax_amount"]').val(),
                 amount_paid: amountPaid,
                 amount_change: amountChange,
                 items: sale.products.items
@@ -481,7 +484,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: xhr.responseJSON.message || 'An error occurred while processing the sale!'
+                        text: xhr.responseJSON?.message || 'An error occurred while processing the sale!'
                     });
                 }
             });
