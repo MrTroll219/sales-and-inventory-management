@@ -2,6 +2,8 @@
 import json
 import logging
 
+from django.core.exceptions import ValidationError
+
 # Django core imports
 from django.http import JsonResponse, HttpResponse
 from django.urls import reverse
@@ -339,6 +341,14 @@ class PurchaseUpdateView(LoginRequiredMixin, UpdateView):
     model = Purchase
     form_class = PurchaseForm
     template_name = "transactions/purchases_form.html"
+
+    def form_valid(self, form):
+        try:
+            return super().form_valid(form)
+        except ValidationError as error:
+            # Purchase.save has already rolled back the purchase and stock rows.
+            form.add_error(None, error)
+            return self.form_invalid(form)
 
     def get_success_url(self):
         """

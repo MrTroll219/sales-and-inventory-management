@@ -1,4 +1,6 @@
-from django.db import models
+from django.core.exceptions import ValidationError
+from django.db import models, router, transaction
+from django.db.models import F
 from django_extensions.db.fields import AutoSlugField
 
 from store.models import Item
@@ -140,15 +142,57 @@ class Purchase(models.Model):
     )
     total_value = models.DecimalField(max_digits=10, decimal_places=2)
 
-    def save(self, *args, **kwargs):
-        """
-        Calculates the total value before saving the Purchase instance.
-        """
-        self.total_value = self.price * self.quantity
-        super().save(*args, **kwargs)
-        # Update the item quantity
-        self.item.quantity += self.quantity
-        self.item.save()
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        """HC01: persist the purchase and its stock delta in one transaction."""
+        using = using or router.db_for_write(type(self), instance=self)
+        kwargs = {"force_insert": force_insert, "force_update": force_update, "using": using}
+        if update_fields is not None:
+            update_fields = set(update_fields)
+            if not update_fields:
+                return
+
+        with transaction.atomic(using=using):
+            previous = (
+                type(self).objects.using(using).select_for_update()
+                .filter(pk=self.pk).values("item_id", "quantity", "price").first()
+                if self.pk is not None else None
+            )
+            item_id, quantity, price = self.item_id, self.quantity, self.price
+            if previous is not None and update_fields is not None:
+                # save(update_fields=...) must not apply changes excluded from SQL.
+                if not {"item", "item_id"} & update_fields:
+                    item_id = previous["item_id"]
+                if "quantity" not in update_fields:
+                    quantity = previous["quantity"]
+                if "price" not in update_fields:
+                    price = previous["price"]
+            self.total_value = price * quantity
+            if update_fields is not None:
+                if {"price", "quantity"} & update_fields:
+                    update_fields.add("total_value")
+                kwargs["update_fields"] = update_fields
+
+            deltas = {item_id: quantity}
+            if previous is not None:
+                old_id = previous["item_id"]
+                deltas[old_id] = deltas.get(old_id, 0) - previous["quantity"]
+            # Serialize changes to each stock row in deterministic order.
+            for stock_id in sorted(deltas):
+                delta = deltas[stock_id]
+                if not delta:
+                    continue
+                stock = Item.objects.using(using).select_for_update().get(pk=stock_id)
+                changed = Item.objects.using(using).filter(
+                    pk=stock_id, quantity__gte=-delta,
+                ).update(quantity=F("quantity") + delta)
+                if not changed:
+                    raise ValidationError(
+                        f"Không thể cập nhật phiếu nhập: tồn kho của {stock.name} "
+                        "sẽ âm. Hàng của phiếu này có thể đã được bán."
+                    )
+            super().save(**kwargs)
+        # A caller may have supplied a stale cached Item; do not expose its old stock.
+        self._state.fields_cache.pop("item", None)
 
     def __str__(self):
         """
