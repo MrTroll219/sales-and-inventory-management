@@ -152,6 +152,33 @@ class ExportAndFormTests(TestCase):
         purchase.refresh_from_db()
         self.assertIsNone(purchase.delivery_date)
 
+    def test_description_only_edit_preserves_existing_seconds(self):
+        original = self.date.replace(second=42, microsecond=123456)
+        purchase = self.purchase(original)
+        url = reverse("purchase-update", kwargs={"pk": purchase.pk})
+        with timezone.override("Asia/Ho_Chi_Minh"):
+            parser = DeliveryInputParser()
+            parser.feed(self.client.get(url).content.decode())
+            self.assertEqual(parser.value, "2026-01-02T00:30")
+            response = self.client.post(url, self.data(parser.value))
+        self.assertEqual(response.status_code, 302)
+        purchase.refresh_from_db()
+        self.assertEqual(purchase.delivery_date, original)
+
+    def test_explicit_date_change_and_clear_are_still_saved(self):
+        purchase = self.purchase(self.date.replace(second=42))
+        url = reverse("purchase-update", kwargs={"pk": purchase.pk})
+        with timezone.override("UTC"):
+            response = self.client.post(url, self.data("2026-01-01T18:00"))
+        self.assertEqual(response.status_code, 302)
+        purchase.refresh_from_db()
+        self.assertEqual(purchase.delivery_date,
+                         datetime(2026, 1, 1, 18, 0, tzinfo=dt_timezone.utc))
+        response = self.client.post(url, self.data(""))
+        self.assertEqual(response.status_code, 302)
+        purchase.refresh_from_db()
+        self.assertIsNone(purchase.delivery_date)
+
     def test_previous_datetime_input_format_remains_accepted(self):
         form = PurchaseForm(data=self.data("2026-01-01 17:30:00"))
         with timezone.override("UTC"):

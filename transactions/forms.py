@@ -22,6 +22,16 @@ class PurchaseForm(BootstrapMixin, forms.ModelForm):
         field = self.fields['delivery_date']
         field.input_formats = [*field.input_formats, '%Y-%m-%dT%H:%M']
 
+    def clean_delivery_date(self):
+        value = self.cleaned_data['delivery_date']
+        original = self.instance.delivery_date
+        # The requested widget displays minutes. A description-only edit must
+        # also preserve seconds/microseconds already stored in older records.
+        if value is not None and original is not None:
+            if value.replace(second=0, microsecond=0) == original.replace(second=0, microsecond=0):
+                return original
+        return value
+
     class Meta:
         model = Purchase
         fields = [
