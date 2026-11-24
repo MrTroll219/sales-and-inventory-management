@@ -20,3 +20,5 @@
 Log kiểm thử và collectstatic nằm cùng thư mục này; migration_summary.json đối chiếu
 DB demo. Các lệnh preflight chỉ đọc và cách xử lý dữ liệu có vấn đề nằm ở docs/TU01.md.
 Không commit thư mục staticfiles, không áp dụng migration trên DB chính/dữ liệu thật.
+Trên checkout mới cần collectstatic trước test render HTML. Lần thử đầu thiếu
+manifest có5 ERROR, được giữ trong sau_strict_initial.txt; sau build static66 test PASS.
