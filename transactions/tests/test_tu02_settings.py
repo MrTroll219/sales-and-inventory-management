@@ -12,6 +12,7 @@ from unittest.mock import MagicMock, patch
 from django.test import SimpleTestCase
 
 from scripts.container_healthcheck import main as probe_health
+from scripts.seed_default_media import seed_default_media
 
 ROOT = Path(__file__).resolve().parents[2]
 TEST_KEY = "TU02-test-only-0123456789-ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijk"
@@ -153,3 +154,44 @@ class ContainerHealthTests(SimpleTestCase):
     def test_health_probe_supplies_https_proxy_header_when_configured(self):
         request = self.probe('true')
         self.assertEqual(request.get_header('X-forwarded-proto'), 'https')
+
+
+class DefaultMediaTests(SimpleTestCase):
+    def test_missing_default_is_seeded_as_valid_jpeg(self):
+        from PIL import Image
+        with TemporaryDirectory() as folder:
+            seed_default_media(folder)
+            target = Path(folder, 'profile_pics/default.jpg')
+            self.assertEqual(target.read_bytes(), (ROOT / 'static/images/profile_pics/default.jpg').read_bytes())
+            with Image.open(target) as image:
+                self.assertEqual(image.format, 'JPEG')
+                image.verify()
+
+    def test_existing_default_is_never_overwritten(self):
+        with TemporaryDirectory() as folder:
+            target = Path(folder, 'profile_pics/default.jpg')
+            target.parent.mkdir()
+            target.write_bytes(b'existing-user-file')
+            seed_default_media(folder)
+            self.assertEqual(target.read_bytes(), b'existing-user-file')
+
+    def test_local_django_media_is_served_only_when_debug_true(self):
+        code = """
+import django
+django.setup()
+from django.test import Client
+response=Client().get('/images/profile_pics/default.jpg', HTTP_HOST='localhost')
+assert response.status_code == EXPECTED, response.status_code
+if EXPECTED == 200:
+    from pathlib import Path
+    assert b''.join(response.streaming_content) == Path('static/images/profile_pics/default.jpg').read_bytes()
+"""
+        with TemporaryDirectory() as folder:
+            seed_default_media(folder)
+            for debug, expected in [('true', 200), ('false', 404)]:
+                with self.subTest(debug=debug):
+                    env = DeploymentSettingsTests().environment({'DEBUG': debug, 'MEDIA_ROOT': folder,
+                        'DJANGO_SETTINGS_MODULE': 'InventoryMS.settings'})
+                    result = subprocess.run([sys.executable, '-c', code.replace('EXPECTED', str(expected))],
+                        cwd=ROOT, env=env, capture_output=True, text=True, encoding='utf-8')
+                    self.assertEqual(result.returncode, 0, result.stderr)
