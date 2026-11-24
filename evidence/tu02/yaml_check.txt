@@ -1,0 +1,6 @@
+YAML_OK docker-compose.yml
+YAML_OK ci.yml
+YAML_OK ci_tf.yml
+YAML_OK failed-deploy-scenario.yml
+YAML_OK monitor.yml
+YAML_OK tests.yml

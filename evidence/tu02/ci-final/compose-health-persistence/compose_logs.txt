@@ -1,0 +1,28 @@
+db-1  |
+db-1  | PostgreSQL Database directory appears to contain a database; Skipping initialization
+db-1  |
+db-1  | 2026-11-24 09:43:35.469 UTC [1] LOG:  starting PostgreSQL 16.16 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+db-1  | 2026-11-24 09:43:35.469 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db-1  | 2026-11-24 09:43:35.469 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+db-1  | 2026-11-24 09:43:35.470 UTC [1] LOG:  listening on Unix socket "/run/postgresql/.s.PGSQL.5432"
+db-1  | 2026-11-24 09:43:35.472 UTC [29] LOG:  database system was shut down at 2026-11-24 09:43:35 UTC
+db-1  | 2026-11-24 09:43:35.474 UTC [1] LOG:  database system is ready to accept connections
+web-1  | 17 objects imported automatically (use -v 2 for details).
+web-1  |
+web-1  | {
+web-1  |   "duplicate_emails": [],
+web-1  |   "overlong_names": [],
+web-1  |   "overlong_emails": [],
+web-1  |   "safe_to_migrate": true
+web-1  | }
+web-1  | Operations to perform:
+web-1  |   Apply all migrations: accounts, admin, auth, bills, contenttypes, invoice, sessions, store, transactions
+web-1  | Running migrations:
+web-1  |   No migrations to apply.
+web-1  | [2026-11-24 09:43:42 +0000] [1] [INFO] Starting gunicorn 23.0.0
+web-1  | [2026-11-24 09:43:42 +0000] [1] [INFO] Listening at: http://0.0.0.0:8000 (1)
+web-1  | [2026-11-24 09:43:42 +0000] [1] [INFO] Using worker: sync
+web-1  | [2026-11-24 09:43:42 +0000] [9] [INFO] Booting worker with pid: 9
+web-1  | [2026-11-24 09:43:42 +0000] [10] [INFO] Booting worker with pid: 10
+web-1  | [2026-11-24 09:43:42 +0000] [11] [INFO] Booting worker with pid: 11
+web-1  | 127.0.0.1 - - [24/Nov/2026:09:43:46 +0000] "GET /accounts/login/ HTTP/1.1" 200 3476 "-" "Python-urllib/3.12"

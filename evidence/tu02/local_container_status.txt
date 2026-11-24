@@ -1,0 +1,1 @@
+Docker CLI: not found in PATH or standard Docker Desktop location. Local PostgreSQL: 18.4 (not target16). Chua chay container tren Windows; use CI/Ubuntu24.04.

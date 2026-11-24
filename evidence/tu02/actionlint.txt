@@ -1,0 +1,1 @@
+actionlint 1.7.12: 5 workflows PASS (shellcheck/pyflakes unavailable on Windows).

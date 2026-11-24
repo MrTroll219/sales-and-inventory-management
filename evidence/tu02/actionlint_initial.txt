@@ -1,0 +1,4 @@
+.github/workflows/monitor.yml:55:26: property "http_code" is not defined in object type {} [expression]
+   |
+55 |           FAIL_CODE: ${{ needs.check-uptime.outputs.http_code }}
+   |                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

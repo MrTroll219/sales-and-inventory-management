@@ -1,0 +1,3 @@
+NAME                                   IMAGE                                COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+sales-and-inventory-management-db-1    postgres:16-alpine                   "docker-entrypoint.s…"   db        11 seconds ago   Up 11 seconds (healthy)   5432/tcp
+sales-and-inventory-management-web-1   sales-and-inventory-management-web   "/app/entrypoint.sh …"   web       11 seconds ago   Up 5 seconds (healthy)    127.0.0.1:8000->8000/tcp
