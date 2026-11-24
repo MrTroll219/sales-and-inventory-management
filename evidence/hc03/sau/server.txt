@@ -1,0 +1,39 @@
+Performing system checks...
+
+System check identified no issues (0 silenced).
+November 24, 2026 - 15:53:34
+Django version 5.1, using settings 'InventoryMS.settings'
+Starting development server at http://127.0.0.1:8004/
+Quit the server with CTRL-BREAK.
+
+[24/Nov/2026 15:53:34] "GET /accounts/login/ HTTP/1.1" 200 3476
+[24/Nov/2026 15:53:35] "GET /accounts/login/ HTTP/1.1" 200 3476
+Profile updated!
+[24/Nov/2026 15:53:38] "POST /accounts/login/ HTTP/1.1" 302 0
+[24/Nov/2026 15:53:38] "GET / HTTP/1.1" 200 18685
+[24/Nov/2026 15:53:38] "GET /static/css/style.css HTTP/1.1" 200 4254
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:53:38] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:53:39] "GET /transactions/new-sale/ HTTP/1.1" 200 28145
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:53:39] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+Bad Request: /transactions/new-sale/
+[24/Nov/2026 15:53:40] "POST /transactions/new-sale/ HTTP/1.1" 400 115
+[24/Nov/2026 15:53:42] "GET /transactions/new-sale/ HTTP/1.1" 200 28145
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:53:42] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:53:42] "POST /get-items/ HTTP/1.1" 200 253
+[24/Nov/2026 15:53:42] "POST /transactions/new-sale/ HTTP/1.1" 200 137
+[24/Nov/2026 15:53:43] "GET /transactions/sale/1/ HTTP/1.1" 200 19120
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:53:43] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+[24/Nov/2026 15:53:44] "GET /transactions/new-sale/ HTTP/1.1" 302 0
+[24/Nov/2026 15:53:44] "GET /transactions/new-sale/ HTTP/1.1" 302 0
+[24/Nov/2026 15:53:44] "GET /accounts/login/?next=/transactions/new-sale/ HTTP/1.1" 200 3476
+Unauthorized: /transactions/new-sale/
+[24/Nov/2026 15:53:45] "POST /transactions/new-sale/ HTTP/1.1" 401 73
+[24/Nov/2026 15:53:46] "GET /transactions/new-sale/ HTTP/1.1" 200 28145
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 15:53:46] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7732
+Bad Request: /transactions/new-sale/
+[24/Nov/2026 15:53:47] "POST /transactions/new-sale/ HTTP/1.1" 400 128

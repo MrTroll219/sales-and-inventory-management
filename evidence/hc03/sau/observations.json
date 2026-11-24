@@ -1,0 +1,137 @@
+{
+  "commit": "8a9aecf5b16726c8a2fe88b20e0206306783da54",
+  "records": [
+    {
+      "image": "07_hc03_trang_tao_don.png",
+      "scenario": "Trang tạo đơn, thuế cộng thêm",
+      "http": 200,
+      "response": null,
+      "database": {
+        "stock": 5,
+        "sales": [],
+        "details": []
+      },
+      "url": "http://127.0.0.1:8004/transactions/new-sale/",
+      "timestamp": "2026-11-24T15:53:39+07:00"
+    },
+    {
+      "image": "08_hc03_tong_tien_gia_400.png",
+      "scenario": "Giá 0.01 / tổng 1 bị từ chối",
+      "http": 400,
+      "response": {
+        "status": "error",
+        "message": "total_item không khớp; giá trị đúng là 200.00."
+      },
+      "database": {
+        "stock": 5,
+        "sales": [],
+        "details": []
+      },
+      "url": "http://127.0.0.1:8004/transactions/new-sale/",
+      "timestamp": "2026-11-24T15:53:41+07:00"
+    },
+    {
+      "image": "09_hc03_chi_tiet_don_dung.png",
+      "scenario": "2×100=200; thuế10%=20; tổng220",
+      "http": 200,
+      "response": {
+        "status": "success",
+        "message": "Sale created successfully!",
+        "redirect": "/transactions/sales/",
+        "sale_id": 1,
+        "grand_total": "220.00"
+      },
+      "database": {
+        "stock": 3,
+        "sales": [
+          {
+            "id": 1,
+            "sub_total": "200.00",
+            "tax_amount": "20.00",
+            "grand_total": "220.00",
+            "amount_change": "30.00"
+          }
+        ],
+        "details": [
+          {
+            "sale_id": 1,
+            "price": "100.00",
+            "quantity": 2,
+            "total_detail": "200.00"
+          }
+        ]
+      },
+      "url": "http://127.0.0.1:8004/transactions/sale/1/",
+      "timestamp": "2026-11-24T15:53:43+07:00"
+    },
+    {
+      "image": "10_hc03_chua_dang_nhap_401.png",
+      "scenario": "Anonymous bị chặn, có CSRF hợp lệ",
+      "http": 401,
+      "response": {
+        "http": 401,
+        "body": {
+          "status": "error",
+          "message": "Vui lòng đăng nhập."
+        }
+      },
+      "database": {
+        "stock": 3,
+        "sales": [
+          {
+            "id": 1,
+            "sub_total": "200.00",
+            "tax_amount": "20.00",
+            "grand_total": "220.00",
+            "amount_change": "30.00"
+          }
+        ],
+        "details": [
+          {
+            "sale_id": 1,
+            "price": "100.00",
+            "quantity": 2,
+            "total_detail": "200.00"
+          }
+        ]
+      },
+      "url": "http://127.0.0.1:8004/accounts/login/?next=/transactions/new-sale/",
+      "timestamp": "2026-11-24T15:53:46+07:00"
+    },
+    {
+      "image": "11_hc03_so_luong_am_400.png",
+      "scenario": "Số lượng âm bị từ chối",
+      "http": 400,
+      "response": {
+        "http": 400,
+        "body": {
+          "status": "error",
+          "message": "quantity phải là số nguyên dương không quá 2147483647."
+        }
+      },
+      "database": {
+        "stock": 3,
+        "sales": [
+          {
+            "id": 1,
+            "sub_total": "200.00",
+            "tax_amount": "20.00",
+            "grand_total": "220.00",
+            "amount_change": "30.00"
+          }
+        ],
+        "details": [
+          {
+            "sale_id": 1,
+            "price": "100.00",
+            "quantity": 2,
+            "total_detail": "200.00"
+          }
+        ]
+      },
+      "url": "http://127.0.0.1:8004/transactions/new-sale/",
+      "timestamp": "2026-11-24T15:53:48+07:00"
+    }
+  ],
+  "page_errors": []
+}
