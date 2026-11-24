@@ -1,0 +1,27 @@
+Performing system checks...
+
+System check identified no issues (0 silenced).
+November 24, 2026 - 16:12:47
+Django version 5.2.19, using settings 'InventoryMS.settings'
+Starting development server at http://127.0.0.1:8005/
+Quit the server with CTRL-BREAK.
+
+WARNING: This is a development server. Do not use it in a production setting. Use a production WSGI or ASGI server instead.
+For more information on production servers see: https://docs.djangoproject.com/en/5.2/howto/deployment/
+[24/Nov/2026 16:12:48] "GET /accounts/login/ HTTP/1.1" 200 3476
+[24/Nov/2026 16:12:48] "GET /accounts/login/ HTTP/1.1" 200 3476
+Profile updated!
+[24/Nov/2026 16:12:49] "POST /accounts/login/ HTTP/1.1" 302 0
+[24/Nov/2026 16:12:49] "GET / HTTP/1.1" 200 18702
+[24/Nov/2026 16:12:49] "GET /static/css/style.css HTTP/1.1" 200 4254
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 16:12:49] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7736
+[24/Nov/2026 16:12:49] "GET / HTTP/1.1" 200 18702
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 16:12:49] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7736
+[24/Nov/2026 16:12:51] "GET /transactions/new-sale/ HTTP/1.1" 200 28038
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 16:12:51] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7736
+[24/Nov/2026 16:12:53] "GET /transactions/purchases/ HTTP/1.1" 200 10965
+Not Found: /images/profile_pics/default.jpg
+[24/Nov/2026 16:12:53] "GET /images/profile_pics/default.jpg HTTP/1.1" 404 7736

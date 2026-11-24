@@ -1,0 +1,12 @@
+{
+  "django": "5.2.19",
+  "manifest_count": 1,
+  "manifest": "D:\\CT244H BTPM\\BTPM\\sales-and-inventory-management\\staticfiles\\staticfiles.json",
+  "entries": 150,
+  "sample": {
+    "admin/js/vendor/select2/i18n/af.js": "admin/js/vendor/select2/i18n/af.4f6fcd73488c.js",
+    "admin/js/vendor/select2/i18n/ar.js": "admin/js/vendor/select2/i18n/ar.65aa8e36bf5d.js",
+    "admin/js/vendor/select2/i18n/az.js": "admin/js/vendor/select2/i18n/az.270c257daf81.js",
+    "admin/js/vendor/select2/i18n/bg.js": "admin/js/vendor/select2/i18n/bg.39b8be30d4f0.js"
+  }
+}

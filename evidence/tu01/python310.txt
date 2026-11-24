@@ -1,0 +1,5 @@
+COMMAND: py -3.10 --version
+EXIT: 2684354566
+[ERROR] No runtime installed that matches 3.10. Try running "py install 3.10".
+
+Chua kiem Python 3.10.

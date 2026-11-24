@@ -1,0 +1,558 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+
+Found 60 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: crispy_bootstrap5, crispy_forms, django_extensions, django_filters, django_tables2, imagekit, messages, phonenumber_field, staticfiles
+  Apply all migrations: accounts, admin, auth, bills, contenttypes, invoice, sessions, store, transactions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying accounts.0001_initial... OK
+  Applying accounts.0002_alter_profile_email_alter_profile_first_name_and_more... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying bills.0001_initial... OK
+  Applying store.0001_initial... OK
+  Applying invoice.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying transactions.0001_initial... OK
+  Applying transactions.0002_rename_discount_amount_sale_tax_amount_and_more... OK
+test_change_item_moves_old_and_new_quantities (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_change_item_moves_old_and_new_quantities) ... ok
+test_change_item_with_consumed_stock_rolls_back_both_items (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_change_item_with_consumed_stock_rolls_back_both_items) ... ok
+test_delivery_status_does_not_change_stock_policy (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_delivery_status_does_not_change_stock_policy) ... ok
+test_empty_update_fields_does_not_save_or_change_stock (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_empty_update_fields_does_not_save_or_change_stock) ... ok
+test_form_shows_validation_error_without_database_writes (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_form_shows_validation_error_without_database_writes) ... D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\core\handlers\base.py:61: UserWarning: No directory at: D:\CT244H BTPM\BTPM\sales-and-inventory-management\staticfiles\
+  mw_instance = middleware(adapted_handler)
+ERROR
+test_partial_description_save_ignores_unsaved_stock_fields (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_partial_description_save_ignores_unsaved_stock_fields) ... ok
+test_partial_quantity_save_updates_total_value (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_partial_quantity_save_updates_total_value) ... ok
+test_price_only_change_does_not_change_stock (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_price_only_change_does_not_change_stock) ... ok
+test_purchase_insert_failure_rolls_back_stock (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_purchase_insert_failure_rolls_back_stock) ... ok
+test_reduce_below_sold_stock_rolls_back_purchase (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_reduce_below_sold_stock_rolls_back_purchase) ... ok
+test_reduce_quantity_changes_stock_by_difference (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_reduce_quantity_changes_stock_by_difference) ... ok
+test_repeated_unchanged_save_does_not_add_stock (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_repeated_unchanged_save_does_not_add_stock) ... ok
+test_stale_item_cache_does_not_overwrite_other_purchases (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_stale_item_cache_does_not_overwrite_other_purchases) ... ok
+test_stale_purchase_uses_current_database_quantity (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_stale_purchase_uses_current_database_quantity) ... ok
+test_blank_delivery_date_remains_optional (transactions.tests.test_hc02_dates.ExportAndFormTests.test_blank_delivery_date_remains_optional) ... ok
+test_description_only_edit_preserves_existing_seconds (transactions.tests.test_hc02_dates.ExportAndFormTests.test_description_only_edit_preserves_existing_seconds) ... ERROR
+test_edit_form_round_trip_preserves_delivery_date (transactions.tests.test_hc02_dates.ExportAndFormTests.test_edit_form_round_trip_preserves_delivery_date) ... ERROR
+test_empty_purchase_export_has_headers_only (transactions.tests.test_hc02_dates.ExportAndFormTests.test_empty_purchase_export_has_headers_only) ... ok
+test_empty_sales_export_has_headers_only (transactions.tests.test_hc02_dates.ExportAndFormTests.test_empty_sales_export_has_headers_only) ... ok
+test_explicit_date_change_and_clear_are_still_saved (transactions.tests.test_hc02_dates.ExportAndFormTests.test_explicit_date_change_and_clear_are_still_saved) ... ok
+test_exports_still_require_login (transactions.tests.test_hc02_dates.ExportAndFormTests.test_exports_still_require_login) ... ok
+test_previous_datetime_input_format_remains_accepted (transactions.tests.test_hc02_dates.ExportAndFormTests.test_previous_datetime_input_format_remains_accepted) ... ok
+test_purchase_export_mixed_dates_and_cell_formats (transactions.tests.test_hc02_dates.ExportAndFormTests.test_purchase_export_mixed_dates_and_cell_formats) ... ok
+test_sales_export_uses_local_time_and_date_format (transactions.tests.test_hc02_dates.ExportAndFormTests.test_sales_export_uses_local_time_and_date_format) ... ok
+test_widget_renders_datetime_local_value (transactions.tests.test_hc02_dates.ExportAndFormTests.test_widget_renders_datetime_local_value) ... ok
+test_additive_tax_and_change_are_calculated_by_server (transactions.tests.test_hc03_sales.SaleCreationTests.test_additive_tax_and_change_are_calculated_by_server) ... ok
+test_ajax_anonymous_is_json_401_with_no_writes (transactions.tests.test_hc03_sales.SaleCreationTests.test_ajax_anonymous_is_json_401_with_no_writes) ... ok
+test_anonymous_ajax_with_real_csrf_token_is_401 (transactions.tests.test_hc03_sales.SaleCreationTests.test_anonymous_ajax_with_real_csrf_token_is_401) ... ok
+test_client_total_mismatches_report_expected_value (transactions.tests.test_hc03_sales.SaleCreationTests.test_client_total_mismatches_report_expected_value) ... ok
+test_database_failure_after_stock_write_rolls_back_all (transactions.tests.test_hc03_sales.SaleCreationTests.test_database_failure_after_stock_write_rolls_back_all) ... ok
+test_duplicate_lines_over_stock_are_rejected_as_a_group (transactions.tests.test_hc03_sales.SaleCreationTests.test_duplicate_lines_over_stock_are_rejected_as_a_group) ... ok
+test_duplicate_valid_lines_create_one_detail (transactions.tests.test_hc03_sales.SaleCreationTests.test_duplicate_valid_lines_create_one_detail) ... ok
+test_invalid_customer_or_item_ids_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests.test_invalid_customer_or_item_ids_are_rejected) ... ok
+test_invalid_paid_values_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests.test_invalid_paid_values_are_rejected) ... ok
+test_invalid_quantity_values_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests.test_invalid_quantity_values_are_rejected) ... ok
+test_invalid_tax_values_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests.test_invalid_tax_values_are_rejected) ... ok
+test_missing_or_invalid_json_shapes_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests.test_missing_or_invalid_json_shapes_are_rejected) ... ok
+test_multiple_items_decrement_correct_stock (transactions.tests.test_hc03_sales.SaleCreationTests.test_multiple_items_decrement_correct_stock) ... ok
+test_one_cent_tolerance_still_stores_server_totals (transactions.tests.test_hc03_sales.SaleCreationTests.test_one_cent_tolerance_still_stores_server_totals) ... ok
+test_page_renders_customer_without_last_name_and_tax_label (transactions.tests.test_hc03_sales.SaleCreationTests.test_page_renders_customer_without_last_name_and_tax_label) ... 
+  test_page_renders_customer_without_last_name_and_tax_label (transactions.tests.test_hc03_sales.SaleCreationTests.test_page_renders_customer_without_last_name_and_tax_label) (last_name=None) ... ERROR
+  test_page_renders_customer_without_last_name_and_tax_label (transactions.tests.test_hc03_sales.SaleCreationTests.test_page_renders_customer_without_last_name_and_tax_label) (last_name='') ... ERROR
+test_regular_anonymous_requests_redirect_to_login (transactions.tests.test_hc03_sales.SaleCreationTests.test_regular_anonymous_requests_redirect_to_login) ... ok
+test_underpayment_is_rejected (transactions.tests.test_hc03_sales.SaleCreationTests.test_underpayment_is_rejected) ... ok
+test_unsupported_method_is_405 (transactions.tests.test_hc03_sales.SaleCreationTests.test_unsupported_method_is_405) ... ok
+test_valid_sale_uses_database_price_ignoring_client_price (transactions.tests.test_hc03_sales.SaleCreationTests.test_valid_sale_uses_database_price_ignoring_client_price) ... ok
+test_hc01_sua_mo_ta_khong_doi_ton (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc01_sua_mo_ta_khong_doi_ton) ... ok
+test_hc01_sua_qua_form_tang_so_luong (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc01_sua_qua_form_tang_so_luong) ... ok
+test_hc01_tao_phieu_nhap_chi_cong_mot_lan (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc01_tao_phieu_nhap_chi_cong_mot_lan) ... ok
+test_hc02_xuat_excel_khi_khong_co_ngay_giao (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc02_xuat_excel_khi_khong_co_ngay_giao) ... ok
+test_hc03_so_luong_am (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc03_so_luong_am) ... ok
+test_hc03_tu_choi_tong_tien_gia (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc03_tu_choi_tong_tien_gia) ... ok
+test_hc03_yeu_cau_dang_nhap (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc03_yeu_cau_dang_nhap) ... ok
+test_aware_utc_in_utc (transactions.tests.test_hc02_dates.ExcelDateTests.test_aware_utc_in_utc) ... ok
+test_local_timezone_conversion_crosses_midnight (transactions.tests.test_hc02_dates.ExcelDateTests.test_local_timezone_conversion_crosses_midnight) ... ok
+test_naive_datetime_is_unchanged (transactions.tests.test_hc02_dates.ExcelDateTests.test_naive_datetime_is_unchanged) ... ok
+test_none_stays_empty (transactions.tests.test_hc02_dates.ExcelDateTests.test_none_stays_empty) ... ok
+test_duplicate_lines_are_grouped (transactions.tests.test_hc03_sales.PricingTests.test_duplicate_lines_are_grouped) ... ok
+test_empty_and_malformed_lines_are_rejected (transactions.tests.test_hc03_sales.PricingTests.test_empty_and_malformed_lines_are_rejected) ... ok
+test_invalid_pricing_values_are_rejected (transactions.tests.test_hc03_sales.PricingTests.test_invalid_pricing_values_are_rejected) ... ok
+test_pricing_examples (transactions.tests.test_hc03_sales.PricingTests.test_pricing_examples) ... ok
+test_unit_price_rounds_half_up_to_existing_cent_precision (transactions.tests.test_hc03_sales.PricingTests.test_unit_price_rounds_half_up_to_existing_cent_precision) ... ok
+
+======================================================================
+ERROR: test_form_shows_validation_error_without_database_writes (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_form_shows_validation_error_without_database_writes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\CT244H BTPM\BTPM\sales-and-inventory-management\transactions\tests\test_hc01_purchase_stock.py", line 89, in test_form_shows_validation_error_without_database_writes
+    response = self.client.post(reverse("purchase-update", kwargs={"pk": purchase.pk}),
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 1156, in post
+    response = super().post(
+               ^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 499, in post
+    return self.generic(
+           ^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 671, in generic
+    return self.request(**r)
+           ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 1090, in request
+    self.check_exception(response)
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 805, in check_exception
+    raise exc_value
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+          ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 204, in url
+    return self._url(self.stored_name, name, force)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 183, in _url
+    hashed_name = hashed_name_func(*args)
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 518, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'css/style.css'
+
+======================================================================
+ERROR: test_description_only_edit_preserves_existing_seconds (transactions.tests.test_hc02_dates.ExportAndFormTests.test_description_only_edit_preserves_existing_seconds)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\CT244H BTPM\BTPM\sales-and-inventory-management\transactions\tests\test_hc02_dates.py", line 161, in test_description_only_edit_preserves_existing_seconds
+    parser.feed(self.client.get(url).content.decode())
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 1127, in get
+    response = super().get(
+               ^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 475, in get
+    return self.generic(
+           ^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 671, in generic
+    return self.request(**r)
+           ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 1090, in request
+    self.check_exception(response)
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 805, in check_exception
+    raise exc_value
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+          ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 204, in url
+    return self._url(self.stored_name, name, force)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 183, in _url
+    hashed_name = hashed_name_func(*args)
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 518, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'css/style.css'
+
+======================================================================
+ERROR: test_edit_form_round_trip_preserves_delivery_date (transactions.tests.test_hc02_dates.ExportAndFormTests.test_edit_form_round_trip_preserves_delivery_date)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\CT244H BTPM\BTPM\sales-and-inventory-management\transactions\tests\test_hc02_dates.py", line 134, in test_edit_form_round_trip_preserves_delivery_date
+    response = self.client.get(url)
+               ^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 1127, in get
+    response = super().get(
+               ^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 475, in get
+    return self.generic(
+           ^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 671, in generic
+    return self.request(**r)
+           ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 1090, in request
+    self.check_exception(response)
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 805, in check_exception
+    raise exc_value
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+          ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 204, in url
+    return self._url(self.stored_name, name, force)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 183, in _url
+    hashed_name = hashed_name_func(*args)
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 518, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'css/style.css'
+
+======================================================================
+ERROR: test_page_renders_customer_without_last_name_and_tax_label (transactions.tests.test_hc03_sales.SaleCreationTests.test_page_renders_customer_without_last_name_and_tax_label) (last_name=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\CT244H BTPM\BTPM\sales-and-inventory-management\transactions\tests\test_hc03_sales.py", line 242, in test_page_renders_customer_without_last_name_and_tax_label
+    response = self.client.get(reverse("sale-create"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 1127, in get
+    response = super().get(
+               ^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 475, in get
+    return self.generic(
+           ^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 671, in generic
+    return self.request(**r)
+           ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 1090, in request
+    self.check_exception(response)
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 805, in check_exception
+    raise exc_value
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\BTPM\sales-and-inventory-management\transactions\views.py", line 163, in check
+    return protected(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\BTPM\sales-and-inventory-management\transactions\views.py", line 170, in SaleCreateView
+    return render(request, "transactions/sale_create.html", {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+          ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 204, in url
+    return self._url(self.stored_name, name, force)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 183, in _url
+    hashed_name = hashed_name_func(*args)
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 518, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'css/style.css'
+
+======================================================================
+ERROR: test_page_renders_customer_without_last_name_and_tax_label (transactions.tests.test_hc03_sales.SaleCreationTests.test_page_renders_customer_without_last_name_and_tax_label) (last_name='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\CT244H BTPM\BTPM\sales-and-inventory-management\transactions\tests\test_hc03_sales.py", line 242, in test_page_renders_customer_without_last_name_and_tax_label
+    response = self.client.get(reverse("sale-create"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 1127, in get
+    response = super().get(
+               ^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 475, in get
+    return self.generic(
+           ^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 671, in generic
+    return self.request(**r)
+           ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 1090, in request
+    self.check_exception(response)
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\client.py", line 805, in check_exception
+    raise exc_value
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\BTPM\sales-and-inventory-management\transactions\views.py", line 163, in check
+    return protected(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\BTPM\sales-and-inventory-management\transactions\views.py", line 170, in SaleCreateView
+    return render(request, "transactions/sale_create.html", {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 172, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 1018, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\template\base.py", line 979, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 116, in render
+    url = self.url(context)
+          ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 113, in url
+    return self.handle_simple(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\templatetags\static.py", line 129, in handle_simple
+    return staticfiles_storage.url(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 204, in url
+    return self._url(self.stored_name, name, force)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 183, in _url
+    hashed_name = hashed_name_func(*args)
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\contrib\staticfiles\storage.py", line 518, in stored_name
+    raise ValueError(
+ValueError: Missing staticfiles manifest entry for 'css/style.css'
+
+----------------------------------------------------------------------
+Ran 60 tests in 0.914s
+
+FAILED (errors=5)
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+
+  Applying transactions.0003_alter_purchase_quantity... OK
+System check identified no issues (0 silenced).
+Profile created!
+Profile updated!
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!

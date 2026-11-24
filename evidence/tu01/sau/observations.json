@@ -1,0 +1,25 @@
+{
+  "commit": "0b1593065ecbdfdfa70e25b0f64df1f670855fb4",
+  "django": "5.2.19",
+  "pages": [
+    {
+      "image": "01_dashboard.png",
+      "url": "http://127.0.0.1:8005/",
+      "http": 200,
+      "timestamp": "2026-11-24T16:12:51+07:00"
+    },
+    {
+      "image": "02_tao_don_ban.png",
+      "url": "http://127.0.0.1:8005/transactions/new-sale/",
+      "http": 200,
+      "timestamp": "2026-11-24T16:12:53+07:00"
+    },
+    {
+      "image": "03_danh_sach_phieu_nhap.png",
+      "url": "http://127.0.0.1:8005/transactions/purchases/",
+      "http": 200,
+      "timestamp": "2026-11-24T16:12:54+07:00"
+    }
+  ],
+  "page_errors": []
+}

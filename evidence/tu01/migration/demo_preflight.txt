@@ -1,0 +1,6 @@
+{
+  "duplicate_emails": [],
+  "overlong_names": [],
+  "overlong_emails": [],
+  "safe_to_migrate": true
+}

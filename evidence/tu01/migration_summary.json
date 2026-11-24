@@ -1,0 +1,29 @@
+{
+  "demo_migrate": "PASS",
+  "demo_data_unchanged": true,
+  "empty_migrate": "PASS",
+  "empty_tables": true,
+  "counts": {
+    "Profile": 1,
+    "Item": 1,
+    "Purchase": 1,
+    "Sale": 1,
+    "SaleDetail": 1,
+    "Customer": 1,
+    "Vendor": 1,
+    "Category": 1
+  },
+  "sample_item": {
+    "id": 1,
+    "name": "Nước suối",
+    "quantity": 8,
+    "price": 100.0
+  },
+  "sample_sale": {
+    "id": 1,
+    "sub_total": "200.00",
+    "tax_amount": "20.00",
+    "grand_total": "220.00",
+    "amount_change": "30.00"
+  }
+}

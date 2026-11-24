@@ -1,0 +1,4 @@
+17 objects imported automatically (use -v 2 for details).
+
+Profile created!
+{"item_id": 1, "vendor_id": 1, "customer_id": 1}

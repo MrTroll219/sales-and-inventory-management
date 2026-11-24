@@ -1,0 +1,2 @@
+
+150 static files copied to 'D:\CT244H BTPM\BTPM\sales-and-inventory-management\staticfiles', 422 post-processed.

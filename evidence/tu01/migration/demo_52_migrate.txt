@@ -1,0 +1,4 @@
+Operations to perform:
+  Apply all migrations: accounts, admin, auth, bills, contenttypes, invoice, sessions, store, transactions
+Running migrations:
+  Applying accounts.0002_alter_profile_email_alter_profile_first_name_and_more... OK
