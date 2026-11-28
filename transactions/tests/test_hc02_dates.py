@@ -94,7 +94,7 @@ class ExportAndFormTests(TestCase):
         self.assertEqual(sheet.cell(rows[empty.pk], 6).number_format, "DD/MM/YYYY HH:MM")
 
     def test_sales_export_uses_local_time_and_date_format(self):
-        sale = Sale.objects.create(customer=self.customer, sub_total=100, grand_total=100)
+        sale = Sale.objects.create(customer=self.customer, sub_total=100, grand_total=100, amount_paid=100)
         Sale.objects.filter(pk=sale.pk).update(date_added=self.date)
         with timezone.override("Asia/Ho_Chi_Minh"):
             sheet = self.workbook("sales-export")
