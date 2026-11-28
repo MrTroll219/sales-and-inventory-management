@@ -1,0 +1,199 @@
+{
+  "commit": "abcfe86209c4f2db7d6997b1b0bc74614e42b5bd",
+  "files": {
+    "sales": [
+      {
+        "cell": "A1",
+        "value": "ID",
+        "number_format": "General"
+      },
+      {
+        "cell": "B1",
+        "value": "Date",
+        "number_format": "General"
+      },
+      {
+        "cell": "C1",
+        "value": "Customer",
+        "number_format": "General"
+      },
+      {
+        "cell": "D1",
+        "value": "Sub Total",
+        "number_format": "General"
+      },
+      {
+        "cell": "E1",
+        "value": "Grand Total",
+        "number_format": "General"
+      },
+      {
+        "cell": "F1",
+        "value": "Tax Amount",
+        "number_format": "General"
+      },
+      {
+        "cell": "G1",
+        "value": "Tax Percentage",
+        "number_format": "General"
+      },
+      {
+        "cell": "H1",
+        "value": "Amount Paid",
+        "number_format": "General"
+      },
+      {
+        "cell": "I1",
+        "value": "Amount Change",
+        "number_format": "General"
+      },
+      {
+        "cell": "A2",
+        "value": 1,
+        "number_format": "General"
+      },
+      {
+        "cell": "B2",
+        "value": "2026-01-01T17:30:00",
+        "number_format": "DD/MM/YYYY HH:MM"
+      },
+      {
+        "cell": "C2",
+        "value": null,
+        "number_format": "General"
+      },
+      {
+        "cell": "D2",
+        "value": 99999,
+        "number_format": "General"
+      },
+      {
+        "cell": "E2",
+        "value": 109998.9,
+        "number_format": "General"
+      },
+      {
+        "cell": "F2",
+        "value": 9999.9,
+        "number_format": "General"
+      },
+      {
+        "cell": "G2",
+        "value": 10,
+        "number_format": "General"
+      },
+      {
+        "cell": "H2",
+        "value": 110000,
+        "number_format": "General"
+      },
+      {
+        "cell": "I2",
+        "value": 1.1,
+        "number_format": "General"
+      }
+    ],
+    "purchases": [
+      {
+        "cell": "A1",
+        "value": "ID",
+        "number_format": "General"
+      },
+      {
+        "cell": "B1",
+        "value": "Item",
+        "number_format": "General"
+      },
+      {
+        "cell": "C1",
+        "value": "Description",
+        "number_format": "General"
+      },
+      {
+        "cell": "D1",
+        "value": "Vendor",
+        "number_format": "General"
+      },
+      {
+        "cell": "E1",
+        "value": "Order Date",
+        "number_format": "General"
+      },
+      {
+        "cell": "F1",
+        "value": "Delivery Date",
+        "number_format": "General"
+      },
+      {
+        "cell": "G1",
+        "value": "Quantity",
+        "number_format": "General"
+      },
+      {
+        "cell": "H1",
+        "value": "Delivery Status",
+        "number_format": "General"
+      },
+      {
+        "cell": "I1",
+        "value": "Price per item (Ksh)",
+        "number_format": "General"
+      },
+      {
+        "cell": "J1",
+        "value": "Total Value",
+        "number_format": "General"
+      },
+      {
+        "cell": "A2",
+        "value": 1,
+        "number_format": "General"
+      },
+      {
+        "cell": "B2",
+        "value": "Sản phẩm thử",
+        "number_format": "General"
+      },
+      {
+        "cell": "C2",
+        "value": null,
+        "number_format": "General"
+      },
+      {
+        "cell": "D2",
+        "value": "Nhà cung cấp thử",
+        "number_format": "General"
+      },
+      {
+        "cell": "E2",
+        "value": "2026-01-01T17:30:00",
+        "number_format": "DD/MM/YYYY HH:MM"
+      },
+      {
+        "cell": "F2",
+        "value": null,
+        "number_format": "DD/MM/YYYY HH:MM"
+      },
+      {
+        "cell": "G2",
+        "value": 2,
+        "number_format": "General"
+      },
+      {
+        "cell": "H2",
+        "value": "Pending",
+        "number_format": "General"
+      },
+      {
+        "cell": "I2",
+        "value": 1000,
+        "number_format": "General"
+      },
+      {
+        "cell": "J2",
+        "value": 2000,
+        "number_format": "General"
+      }
+    ]
+  }
+}

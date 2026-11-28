@@ -1,0 +1,93 @@
+diff --git a/bills/tests/test_dp02_decimal.py b/bills/tests/test_dp02_decimal.py
+index c5a008d..aaa7fad 100644
+--- a/bills/tests/test_dp02_decimal.py
++++ b/bills/tests/test_dp02_decimal.py
+@@ -14 +14 @@ class BillDecimalTests(ConstraintCase):
+-        self.assertEqual(self.bill.amount, Decimal('0.30'))
++        self.assertEqual(self.bill.amount, Decimal('0'))
+diff --git a/invoice/tests/test_dp02_decimal.py b/invoice/tests/test_dp02_decimal.py
+index 9abe64f..d992a97 100644
+--- a/invoice/tests/test_dp02_decimal.py
++++ b/invoice/tests/test_dp02_decimal.py
+@@ -17 +17 @@ class InvoiceDecimalTests(ConstraintCase):
+-        self.assertEqual(self.invoice.total, Decimal('59.97'))
++        self.assertEqual(self.invoice.total, Decimal('60'))
+@@ -27,3 +27,3 @@ class InvoiceDecimalTests(ConstraintCase):
+-        self.assertEqual(self.invoice.price_per_item, Decimal('1.01'))
+-        self.assertEqual(self.invoice.total, Decimal('3.03'))
+-        self.assertEqual(self.invoice.grand_total, Decimal('3.14'))
++        self.assertEqual(self.invoice.price_per_item, Decimal('1'))
++        self.assertEqual(self.invoice.total, Decimal('3'))
++        self.assertEqual(self.invoice.grand_total, Decimal('3'))
+@@ -35,2 +35,2 @@ class InvoiceDecimalTests(ConstraintCase):
+-        self.assertEqual(self.invoice.total, Decimal('79.96'))
+-        self.assertEqual(self.invoice.grand_total, Decimal('79.99'))
++        self.assertEqual(self.invoice.total, Decimal('80'))
++        self.assertEqual(self.invoice.grand_total, Decimal('80'))
+diff --git a/store/tests/test_dp02_decimal.py b/store/tests/test_dp02_decimal.py
+index 492f5a6..e55b909 100644
+--- a/store/tests/test_dp02_decimal.py
++++ b/store/tests/test_dp02_decimal.py
+@@ -18 +18 @@ class ItemDecimalTests(TestCase):
+-        self.assertEqual(item.price, Decimal('0.30'))
++        self.assertEqual(item.price, Decimal('0'))
+diff --git a/transactions/tests/dp02_support.py b/transactions/tests/dp02_support.py
+index c1ab217..b04d3cd 100644
+--- a/transactions/tests/dp02_support.py
++++ b/transactions/tests/dp02_support.py
+@@ -18 +18 @@ class ConstraintCase(TestCase):
+-        cls.item = Item.objects.create(name='Decimal', category=category, quantity=20, price=Decimal('19.99'))
++        cls.item = Item.objects.create(name='Decimal', category=category, quantity=20, price=Decimal('20'))
+@@ -26 +26 @@ class ConstraintCase(TestCase):
+-            price_per_item=Decimal('19.99'), quantity=3, shipping=Decimal('0.03'))
++            price_per_item=Decimal('20'), quantity=3, shipping=Decimal('0'))
+diff --git a/transactions/tests/test_dp02_decimal.py b/transactions/tests/test_dp02_decimal.py
+index e4c4006..a93d6c6 100644
+--- a/transactions/tests/test_dp02_decimal.py
++++ b/transactions/tests/test_dp02_decimal.py
+@@ -27,2 +27,2 @@ class TransactionConstraintTests(ConstraintCase):
+-        for subtotal, tax, paid in [('0.10', '0.20', '1.00'), ('59.97', '4.20', '70.00'),
+-                ('99999999.99', '0', '100000000'), ('9999999999999.99', '0', '9999999999999.99')]:
++        for subtotal, tax, paid in [('1', '2', '10'), ('59997', '4200', '70000'),
++                ('99999999', '0', '100000000'), ('999999999999999', '0', '999999999999999')]:
+@@ -48 +48 @@ class DecimalPricingTests(SimpleTestCase):
+-            self.assertEqual(compute_sale_totals([{'id': 1, 'price': price, 'quantity': 3}], 0, 60)['grand_total'], Decimal('59.97'))
++            self.assertEqual(compute_sale_totals([{'id': 1, 'price': price, 'quantity': 3}], 0, 60)['grand_total'], Decimal('60'))
+@@ -51 +51 @@ class DecimalPricingTests(SimpleTestCase):
+-        self.assertEqual(result['sub_total'], Decimal('0.30'))
++        self.assertEqual(result['sub_total'], Decimal('0'))
+diff --git a/transactions/tests/test_hc02_dates.py b/transactions/tests/test_hc02_dates.py
+index d994825..a23d89e 100644
+--- a/transactions/tests/test_hc02_dates.py
++++ b/transactions/tests/test_hc02_dates.py
+@@ -110 +110 @@ class ExportAndFormTests(TestCase):
+-        self.assertEqual(sheet.cell(1, 6).value, "Delivery Date")
++        self.assertEqual(sheet.cell(1, 6).value, "Ngày giao")
+diff --git a/transactions/tests/test_hc03_sales.py b/transactions/tests/test_hc03_sales.py
+index 5d1ac8e..3a02374 100644
+--- a/transactions/tests/test_hc03_sales.py
++++ b/transactions/tests/test_hc03_sales.py
+@@ -22 +22 @@ class PricingTests(SimpleTestCase):
+-            ([{"id": 1, "price": 19.99, "quantity": 3}], 0, 60, "59.97", "0.00", "59.97", "0.03"),
++            ([{"id": 1, "price": 19.99, "quantity": 3}], 0, 60, "60", "0", "60", "0"),
+@@ -24,2 +24,2 @@ class PricingTests(SimpleTestCase):
+-             0, 1, "0.30", "0.00", "0.30", "0.70"),
+-            ([{"id": 1, "price": 0.05, "quantity": 1}], 10, 1, "0.05", "0.01", "0.06", "0.94"),
++             0, 1, "0", "0", "0", "1"),
++            ([{"id": 1, "price": 0.05, "quantity": 1}], 10, 1, "0", "0", "0", "1"),
+@@ -41,2 +41,2 @@ class PricingTests(SimpleTestCase):
+-        self.assertEqual(result["lines"][0]["price"], Decimal("1.01"))
+-        self.assertEqual(result["grand_total"], Decimal("2.02"))
++        self.assertEqual(result["lines"][0]["price"], Decimal("1"))
++        self.assertEqual(result["grand_total"], Decimal("2"))
+@@ -182 +182 @@ class SaleCreationTests(TestCase):
+-                self.assertIn("200.00", response.json()["message"])
++                self.assertIn("200 ₫", response.json()["message"])
+@@ -188,2 +188,2 @@ class SaleCreationTests(TestCase):
+-        self.assertEqual(self.post(data).status_code, 200)
+-        self.assertEqual(Sale.objects.get().grand_total, Decimal("200.00"))
++        self.assertEqual(self.post(data).status_code, 400)
++        self.assertEqual(Sale.objects.count(), 0)
+@@ -244 +244 @@ class SaleCreationTests(TestCase):
+-                self.assertContains(response, "Tax (%)")
++                self.assertContains(response, "Thuế (%)")

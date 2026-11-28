@@ -1,0 +1,61 @@
+tu03-evidence
+Operative
+Dashboard
+Products
+All Products
+Categories
+Sales Orders
+Purchase Orders
+Package
+Invoices
+Bills
+Accounts
+All Staff
+Customers
+Vendors
+Logout
+TU03 | truoc | abcfe86209c4f2db7d6997b1b0bc74614e42b5bd
+ Inventoryms
+Print
+
+InventoryMS
+
+Tom Mboya Street, Tudor
+
+Tel: +2547 00 000000
+
+
+
+
+P.O BOX. 90420-80100 MSA
+
+Date: 2026/01/01 17:30:00
+
+Receipt code: IMS1
+
+Sub Total
+
+Ksh 99999.00
+
+
+
+
+Tax Amount
+
+Ksh 9999.90
+
+Grand Total
+
+Ksh 109998.90
+
+Amount Paid
+
+Ksh 110000.00
+
+Balance
+
+Ksh 1.10
+
+Customer: Khách
+
+THANK YOU

@@ -1,0 +1,6 @@
+13 approved old tests + shared monetary fixture only
+Other old test methods unchanged
+Historical DP02 migration tests and helper unchanged
+DP01 stock.py unchanged
+22 original CHECKs retained; only 2 identity Round precisions changed 2 -> 0
+15 whole/range money checks added

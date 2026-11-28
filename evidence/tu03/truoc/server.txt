@@ -1,0 +1,6 @@
+[28/Nov/2026 15:49:19] "GET /accounts/login/ HTTP/1.1" 200 3476
+[28/Nov/2026 15:49:22] "GET /transactions/sale/1/ HTTP/1.1" 200 19130
+[28/Nov/2026 15:49:22] "GET /static/css/style.css HTTP/1.1" 200 4254
+[28/Nov/2026 15:49:22] "GET /images/profile_pics/default.jpg HTTP/1.1" 200 2902
+[28/Nov/2026 15:49:22] "GET /transactions/sales/export/ HTTP/1.1" 200 5202
+[28/Nov/2026 15:49:22] "GET /transactions/purchases/export/ HTTP/1.1" 200 5274

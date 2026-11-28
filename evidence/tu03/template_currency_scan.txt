@@ -1,0 +1,1 @@
+0 legacy currency-unit matches (Ksh or monetary $); JavaScript $ selectors retained
