@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <!-- Search item -->
                         <div class="mb-4">
-                            <label for="searchbox_items" class="form-label">Search Item:</label>
+                            <label for="searchbox_items" class="form-label">Tìm kiếm Item:</label>
                             <select class="form-select select2" name="searchbox_items" id="searchbox_items" aria-label="Search items"></select>
                         </div>
 
@@ -51,11 +51,11 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Name</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th class="text-center">Actions</th>
+                                        <th>Tên</th>
+                                        <th>Đơn giá (VND)</th>
+                                        <th>Số lượng</th>
+                                        <th>Thành tiền</th>
+                                        <th class="text-center">Thao tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -71,13 +71,13 @@
             <div class="col-lg-4 mb-4">
                 <div class="card border-light shadow-sm">
                     <div class="card-header bg-success text-white">
-                        <h5 class="mb-0">Sale Details</h5>
+                        <h5 class="mb-0">Chi tiết đơn bán</h5>
                     </div>
                     <div class="card-body">
                         {% csrf_token %}
                         <div class="mb-3">
-                            <label for="customer" class="form-label">Customer</label>
-                            <select name="customer" class="form-select" id="customer" aria-label="Customer" required>
+                            <label for="customer" class="form-label">Khách hàng</label>
+                            <select name="customer" class="form-select" id="customer" aria-label="Khách hàng" required>
                                 <option value="" selected disabled hidden>Select the customer</option>
                                 {% for customer in customers %}
                                 <option value="{{ customer.value }}">{{ customer.label }}</option>
@@ -85,26 +85,26 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="sub_total" class="form-label">Subtotal</label>
-                            <input name="sub_total" type="number" step="0.01" min="0" readonly class="form-control" id="sub_total" aria-label="Subtotal" required>
+                            <label for="sub_total" class="form-label">Tạm tính</label>
+                            <input name="sub_total" type="number" step="1" min="0" readonly class="form-control" id="sub_total" aria-label="Tạm tính" required>
                         </div>
                         <div class="mb-3">
-                            <label for="tax_percentage" class="form-label">Tax (%)</label>
+                            <label for="tax_percentage" class="form-label">Thuế (%)</label>
                             <input name="tax_percentage" type="number" class="form-control" id="tax_percentage" aria-label="Tax" value="0" required>
                         </div>
                         <div class="mb-3">
-                            <label for="tax_amount" class="form-label">Tax Amount</label>
-                            <input name="tax_amount" type="number" step="0.01" min="0" readonly class="form-control" id="tax_amount" aria-label="Tax Amount" required>
+                            <label for="tax_amount" class="form-label">Tiền thuế</label>
+                            <input name="tax_amount" type="number" step="1" min="0" readonly class="form-control" id="tax_amount" aria-label="Tiền thuế" required>
                         </div>
                         <div class="mb-3">
-                            <label for="grand_total" class="form-label">Grand Total</label>
-                            <input name="grand_total" type="number" step="0.01" min="0" readonly class="form-control" id="grand_total" aria-label="Grand Total" required>
+                            <label for="grand_total" class="form-label">Tổng cộng</label>
+                            <input name="grand_total" type="number" step="1" min="0" readonly class="form-control" id="grand_total" aria-label="Tổng cộng" required>
                         </div>
                         <div class="mb-3">
-                            <label for="amount_paid" class="form-label">Amount Payed</label>
-                            <input name="amount_paid" type="number" step="0.01" min="0" class="form-control" id="amount_paid" aria-label="Amount Paid" required>
+                            <label for="amount_paid" class="form-label">Đã trả</label>
+                            <input name="amount_paid" type="number" step="1" min="0" class="form-control" id="amount_paid" aria-label="Đã trả" required>
                         </div>
-                        <button type="submit" class="btn btn-success w-100">Create Sale</button>
+                        <button type="submit" class="btn btn-success w-100">Tạo đơn bán</button>
                     </div>
                 </div>
             </div>
@@ -144,6 +144,10 @@
     // Variable for item number in table
     var number = 1;
 
+    function formatVnd(value) {
+        return new Intl.NumberFormat('vi-VN', {maximumFractionDigits: 0}).format(Number(value)) + ' ₫';
+    }
+
     // Variable to store sale details and products
     var sale = {
         products: {
@@ -165,16 +169,16 @@
             // Calculates the total for each item
             $.each(this.products.items, function (pos, dict) {
                 dict.pos = pos;
-                dict.total_item = roundTo(dict.quantity * dict.price, 2);
+                dict.total_item = roundTo(dict.quantity * dict.price, 0);
                 // Add the item total to the sale subtotal
-                sub_total += roundTo(dict.total_item, 2);
+                sub_total += roundTo(dict.total_item, 0);
             });
 
             // Update the sale subtotal, grand total, and tax amount
-            this.products.sub_total = roundTo(sub_total, 2);
+            this.products.sub_total = roundTo(sub_total, 0);
             this.products.tax_percentage = Number(tax_percentage) || 0;
-            this.products.tax_amount = roundTo(this.products.sub_total * (this.products.tax_percentage / 100), 2);
-            this.products.grand_total = roundTo(this.products.sub_total + this.products.tax_amount, 2);
+            this.products.tax_amount = roundTo(this.products.sub_total * (this.products.tax_percentage / 100), 0);
+            this.products.grand_total = roundTo(this.products.sub_total + this.products.tax_amount, 0);
 
             $('input[name="sub_total"]').val(this.products.sub_total);
             $('input[name="tax_amount"]').val(this.products.tax_amount);
@@ -215,7 +219,7 @@
                         class: 'text-right',
                         targets: [2, 4],
                         render: function (data, type, row) {
-                            return parseFloat(data).toFixed(2) + ' $';
+                            return formatVnd(data);
                         },
                     },
                     {
@@ -356,7 +360,7 @@
             // Calculate the sale with the new quantity
             sale.calculate_sale();
             // Find the row to update the item total
-            $('td:eq(4)', tblItems.row(tr.row).node()).html(sale.products.items[tr.row].total_item + ' $');
+            $('td:eq(4)', tblItems.row(tr.row).node()).html(formatVnd(sale.products.items[tr.row].total_item));
         });
 
         // Delete all items
@@ -433,7 +437,7 @@
             // Gather sale details
             var amountPaid = parseFloat($('input[name="amount_paid"]').val());
             var grandTotal = parseFloat($('input[name="grand_total"]').val());
-            var amountChange = roundTo(amountPaid - grandTotal, 2);
+            var amountChange = roundTo(amountPaid - grandTotal, 0);
 
             // Gather sale details
             var formData = {

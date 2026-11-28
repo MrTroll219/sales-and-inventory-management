@@ -1,8 +1,9 @@
+from store.form_labels import VietnameseFormMixin
 from django import forms
 from .models import Purchase
 
 
-class BootstrapMixin(forms.ModelForm):
+class BootstrapMixin(VietnameseFormMixin, forms.ModelForm):
     """
     A mixin to add Bootstrap classes to form fields.
     """

@@ -1,3 +1,4 @@
+from store.form_labels import VietnameseFormViewMixin
 # Django core imports
 from django.urls import reverse
 
@@ -44,7 +45,7 @@ class InvoiceDetailView(DetailView):
         return reverse('invoice-detail', kwargs={'slug': self.object.pk})
 
 
-class InvoiceCreateView(LoginRequiredMixin, CreateView):
+class InvoiceCreateView(VietnameseFormViewMixin, LoginRequiredMixin, CreateView):
     """
     View for creating a new invoice.
     """
@@ -62,7 +63,7 @@ class InvoiceCreateView(LoginRequiredMixin, CreateView):
         return reverse('invoicelist')
 
 
-class InvoiceUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class InvoiceUpdateView(VietnameseFormViewMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """
     View for updating an existing invoice.
     """

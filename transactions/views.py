@@ -1,3 +1,4 @@
+from zoneinfo import ZoneInfo
 # Standard library imports
 import json
 import logging
@@ -47,14 +48,11 @@ def export_sales_to_excel(request):
     # Create a workbook and select the active worksheet.
     workbook = Workbook()
     worksheet = workbook.active
-    worksheet.title = 'Sales'
+    worksheet.title = 'Đơn bán'
 
     # Define the column headers
-    columns = [
-        'ID', 'Date', 'Customer', 'Sub Total',
-        'Grand Total', 'Tax Amount', 'Tax Percentage',
-        'Amount Paid', 'Amount Change'
-    ]
+    columns = ['Mã', 'Ngày bán', 'Khách hàng', 'Tạm tính (VND)', 'Tổng (VND)',
+               'Thuế (VND)', 'Thuế (%)', 'Đã trả (VND)', 'Tiền thừa (VND)']
     worksheet.append(columns)
 
     # Fetch sales data
@@ -63,7 +61,7 @@ def export_sales_to_excel(request):
     for sale in sales:
         worksheet.append([
             sale.id,
-            to_excel_datetime(sale.date_added),
+            to_excel_datetime(sale.date_added, ZoneInfo('Asia/Ho_Chi_Minh')),
             sale.customer.phone,
             sale.sub_total,
             sale.grand_total,
@@ -73,6 +71,8 @@ def export_sales_to_excel(request):
             sale.amount_change
         ])
         worksheet.cell(row=worksheet.max_row, column=2).number_format = 'DD/MM/YYYY HH:MM'
+        for column in (4, 5, 6, 8, 9):
+            worksheet.cell(row=worksheet.max_row, column=column).number_format = '#,##0 "₫"'
 
     # Set up the response to send the file
     response = HttpResponse(
@@ -91,14 +91,11 @@ def export_purchases_to_excel(request):
     # Create a workbook and select the active worksheet.
     workbook = Workbook()
     worksheet = workbook.active
-    worksheet.title = 'Purchases'
+    worksheet.title = 'Phiếu nhập'
 
     # Define the column headers
-    columns = [
-        'ID', 'Item', 'Description', 'Vendor', 'Order Date',
-        'Delivery Date', 'Quantity', 'Delivery Status',
-        'Price per item (Ksh)', 'Total Value'
-    ]
+    columns = ['Mã', 'Mặt hàng', 'Mô tả', 'Nhà cung cấp', 'Ngày nhập', 'Ngày giao',
+               'Số lượng', 'Trạng thái giao', 'Đơn giá (VND)', 'Thành tiền (VND)']
     worksheet.append(columns)
 
     # Fetch purchases data
@@ -110,13 +107,15 @@ def export_purchases_to_excel(request):
             purchase.item.name,
             purchase.description,
             purchase.vendor.name,
-            to_excel_datetime(purchase.order_date),
-            to_excel_datetime(purchase.delivery_date),
+            to_excel_datetime(purchase.order_date, ZoneInfo('Asia/Ho_Chi_Minh')),
+            to_excel_datetime(purchase.delivery_date, ZoneInfo('Asia/Ho_Chi_Minh')),
             purchase.quantity,
             purchase.get_delivery_status_display(),
             purchase.price,
             purchase.total_value
         ])
+        for money_column in (9, 10):
+            worksheet.cell(row=worksheet.max_row, column=money_column).number_format = '#,##0 "₫"'
         for column in (5, 6):
             worksheet.cell(row=worksheet.max_row, column=column).number_format = 'DD/MM/YYYY HH:MM'
 

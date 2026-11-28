@@ -1,4 +1,5 @@
-{% extends "store/base.html" %} {% load static %}{% block title %}Transaction detail{% endblock %}
+{% extends "store/base.html" %}
+{% load vietnam %} {% load static %}{% block title %}Transaction detail{% endblock %}
 {% block content %}
 <style>
 	section .receipt {
@@ -321,8 +322,8 @@
             <p class="bold">Tel: +2547 00 000000</p>
             <br>
             <p class="bold">P.O BOX. 90420-80100 MSA</p>
-            <p>Date: {{ sale.date_added|date:"Y/m/d H:i:s" }}</p>
-            <p>Receipt code: IMS{{ sale.id }}</p>
+            <p>Ngày: {{ sale.date_added|vn_datetime }}</p>
+            <p>Mã đơn: IMS{{ sale.id }}</p>
             <div class="code-barre">
 				<span></span>
 				<span></span>
@@ -380,35 +381,35 @@
             <div class="produits">
                 <div class="hr-sm"></div>
                 <div class="col2">
-                    <p>Sub Total</p>
-                    <p class="prix"><b>Ksh {{ sale.sub_total }}</b></p>
+                    <p>Tạm tính</p>
+                    <p class="prix"><b>{{ sale.sub_total|vnd }}</b></p>
                 </div>
                 <br>
                 <div class="col2">
-                    <p>Tax Amount</p>
-                    <p class="prix"><b>Ksh {{ sale.tax_amount }}</b></p>
+                    <p>Tiền thuế</p>
+                    <p class="prix"><b>{{ sale.tax_amount|vnd }}</b></p>
                 </div>
                 <div class="col2">
-                    <p>Grand Total</p>
-                    <p class="prix"><b>Ksh {{ sale.grand_total }}</b></p>
+                    <p>Tổng cộng</p>
+                    <p class="prix"><b>{{ sale.grand_total|vnd }}</b></p>
                 </div>
                 <div class="col2">
-                    <p>Amount Paid</p>
-                    <p class="prix"><b>Ksh {{ sale.amount_paid }}</b></p>
+                    <p>Đã trả</p>
+                    <p class="prix"><b>{{ sale.amount_paid|vnd }}</b></p>
                 </div>
                 <div class="col2">
-                    <p>Balance</p>
-                    <p class="prix"><b>Ksh {{ sale.amount_change }}</b></p>
+                    <p>Tiền thừa</p>
+                    <p class="prix"><b>{{ sale.amount_change|vnd }}</b></p>
                 </div>
             </div>
             <div class="hr-lg"></div>
             <div class="carte">
-                <p class="title-carte">Customer: {{ sale.customer.first_name }}</p>
+                <p class="title-carte">Khách hàng: {{ sale.customer.first_name }}</p>
             </div>
             <div class="hr-lg"></div>
         </div>
         <div class="footer-ticket">
-            <p class="title-footer">THANK YOU</p>
+            <p class="title-footer">CẢM ƠN QUÝ KHÁCH</p>
         </div>
     </div>
 </section>

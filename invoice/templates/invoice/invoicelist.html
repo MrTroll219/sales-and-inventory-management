@@ -1,9 +1,10 @@
 {% extends "store/base.html" %}
+{% load vietnam %}
 {% load render_table from django_tables2 %}
 {% load querystring from django_tables2 %}
 {% load static %}
 
-{% block title %}Invoices{% endblock title %}
+{% block title %}Hóa đơn{% endblock title %}
 
 {% block content %}
 <div class="container p-5">
@@ -17,7 +18,7 @@
             <i class="fa-solid fa-plus me-2"></i> Create Invoice
         </a>
         <a class="float-end btn btn-success btn-sm" href="{% querystring '_export'='xlsx' %}">
-            <i class="fa-solid fa-download me-2"></i> Export to Excel
+            <i class="fa-solid fa-download me-2"></i> Xuất Excel
         </a>
     </div>
 
@@ -26,15 +27,15 @@
             <thead class="thead-light">
                 <tr>
                     <th scope="col"><a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}">ID <i class="fa-solid fa-sort"></i></a></th>
-                    <th scope="col">Customer Name <i class="fa-solid fa-sort"></i></th>
+                    <th scope="col">Tên khách hàng <i class="fa-solid fa-sort"></i></th>
                     <th scope="col">Phone Number <i class="fa-solid fa-sort"></i></th>
-                    <th scope="col">Item <i class="fa-solid fa-sort"></i></th>
+                    <th scope="col">Mặt hàng <i class="fa-solid fa-sort"></i></th>
                     <th scope="col">Price per Item <i class="fa-solid fa-sort"></i></th>
-                    <th scope="col">Quantity <i class="fa-solid fa-sort"></i></th>
-                    <th scope="col">Total <i class="fa-solid fa-sort"></i></th>
-                    <th scope="col">Shipping <i class="fa-solid fa-sort"></i></th>
-                    <th scope="col">Grand Total <i class="fa-solid fa-sort"></i></th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Số lượng <i class="fa-solid fa-sort"></i></th>
+                    <th scope="col">Thành tiền <i class="fa-solid fa-sort"></i></th>
+                    <th scope="col">Phí vận chuyển <i class="fa-solid fa-sort"></i></th>
+                    <th scope="col">Tổng cộng <i class="fa-solid fa-sort"></i></th>
+                    <th scope="col">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,11 +45,11 @@
                     <td><a href="{% url 'invoice-detail' invoice.slug %}">{{ invoice.customer_name }}</a></td>
                     <td>{{ invoice.contact_number }}</td>
                     <td>{{ invoice.item.name }}</td>
-                    <td>{{ invoice.price_per_item }}</td>
+                    <td>{{ invoice.price_per_item|vnd }}</td>
                     <td>{{ invoice.quantity }}</td>
-                    <td>{{ invoice.total }}</td>
-                    <td>{{ invoice.shipping }}</td>
-                    <td>{{ invoice.grand_total }}</td>
+                    <td>{{ invoice.total|vnd }}</td>
+                    <td>{{ invoice.shipping|vnd }}</td>
+                    <td>{{ invoice.grand_total|vnd }}</td>
                     <td>
                         <a class="text-info" href="{% url 'invoice-update' invoice.slug %}">
                             <i class="fa-solid fa-pen"></i>

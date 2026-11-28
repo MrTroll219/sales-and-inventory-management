@@ -2,7 +2,7 @@ name: TU02 tests
 
 on:
   push:
-    branches: [bao-tri, tu02-trien-khai-docker, dp02-decimal-rang-buoc, dp01-tach-nghiep-vu-kho]
+    branches: [bao-tri, tu02-trien-khai-docker, dp02-decimal-rang-buoc, dp01-tach-nghiep-vu-kho, tu03-viet-nam-vnd]
     paths-ignore: ['docs/**', 'evidence/**']
   pull_request:
     branches: [bao-tri]
@@ -69,6 +69,53 @@ jobs:
         if: always()
         with:
           name: postgres16-python${{ matrix.python }}
+          path: reports/
+          retention-days: 7
+
+  sqlite-tests:
+    name: SQLite / Python${{ matrix.python }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.10', '3.12']
+    env:
+      # Public fixture values, not production credentials.
+      SECRET_KEY: TU02-ci-only-0123456789-ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijk
+      DEBUG: 'false'
+      DJANGO_SECURE_SSL: 'false'
+      DJANGO_ENV_FILE: /dev/null
+      DB_ENGINE: sqlite
+      DB_NAME: ci.sqlite3
+      DB_USER: postgres
+      DB_PASSWORD: ci-test-only-password
+      DB_HOST: 127.0.0.1
+      DB_PORT: '5432'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Record SQLite runtime
+        run: |
+          mkdir -p reports
+          python -c "import sys,django,sqlite3; print(sys.version); print('Django',django.get_version()); print('SQLite',sqlite3.sqlite_version)" | tee reports/runtime.txt
+      - name: Test without collected static files
+        shell: bash
+        run: |
+          set -o pipefail
+          test ! -d staticfiles
+          python manage.py check | tee reports/check.txt
+          python manage.py makemigrations --check --dry-run | tee reports/migrations.txt
+          python -W error::DeprecationWarning -W error::PendingDeprecationWarning manage.py test . -v 2 2>&1 | tee reports/suite.txt
+          test ! -d staticfiles
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: sqlite-python${{ matrix.python }}
           path: reports/
           retention-days: 7
 

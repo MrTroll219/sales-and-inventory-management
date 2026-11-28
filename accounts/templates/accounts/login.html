@@ -104,7 +104,7 @@
     </style>
     <div class="form">
       <div>
-        <strong class="navbar-brand" style="font-size: 26px;">Inventory<span class="text-warning">ms</span></strong>
+        <strong class="navbar-brand" style="font-size: 26px;">Kho hàng<span class="text-warning">ms</span></strong>
       </div>
       <div class="text-danger">
         {% if messages %} {% for message in messages %}
@@ -124,10 +124,10 @@
       <form class="login-form" method="POST">
         {% csrf_token %}
         <p>{{ message }}</p>
-        <label>Username</label>
+        <label>Tên đăng nhập</label>
         <span class="text-danger">{{ form.username.errors }}</span>
         {{form.username}}
-        <label>Password</label>
+        <label>Mật khẩu</label>
         <span class="text-danger">{{ form.password.errors }}</span>
         {{form.password}}
         <button  type="submit" name="button">login</button>

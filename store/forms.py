@@ -1,8 +1,9 @@
+from .form_labels import VietnameseFormMixin
 from django import forms
 from .models import Item, Category, Delivery
 
 
-class ItemForm(forms.ModelForm):
+class ItemForm(VietnameseFormMixin, forms.ModelForm):
     """
     A form for creating or updating an Item in the inventory.
     """
@@ -39,7 +40,7 @@ class ItemForm(forms.ModelForm):
             'price': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'step': '0.01'
+                    'step': '1'
                 }
             ),
             'expiring_date': forms.DateTimeInput(
@@ -52,7 +53,7 @@ class ItemForm(forms.ModelForm):
         }
 
 
-class CategoryForm(forms.ModelForm):
+class CategoryForm(VietnameseFormMixin, forms.ModelForm):
     """
     A form for creating or updating category.
     """
@@ -71,7 +72,7 @@ class CategoryForm(forms.ModelForm):
         }
 
 
-class DeliveryForm(forms.ModelForm):
+class DeliveryForm(VietnameseFormMixin, forms.ModelForm):
     class Meta:
         model = Delivery
         fields = [

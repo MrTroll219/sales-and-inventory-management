@@ -1,3 +1,4 @@
+from store.form_labels import VietnameseFormViewMixin
 # Django core imports
 from django.urls import reverse
 
@@ -31,7 +32,7 @@ class BillListView(LoginRequiredMixin, ExportMixin, SingleTableView):
     SingleTableView.table_pagination = False
 
 
-class BillCreateView(LoginRequiredMixin, CreateView):
+class BillCreateView(VietnameseFormViewMixin, LoginRequiredMixin, CreateView):
     """View for creating a new bill."""
     model = Bill
     template_name = 'bills/billcreate.html'
@@ -51,7 +52,7 @@ class BillCreateView(LoginRequiredMixin, CreateView):
         return reverse('bill_list')
 
 
-class BillUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class BillUpdateView(VietnameseFormViewMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """View for updating an existing bill."""
     model = Bill
     template_name = 'bills/billupdate.html'

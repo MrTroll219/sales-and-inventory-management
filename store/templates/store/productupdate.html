@@ -12,7 +12,7 @@
             <div class="card shadow-sm border-light">
                 <div class="card-body">
                     <h1 class="text-center mb-4">
-                        Update Product
+                        Sửa hàng hóa
                     </h1>
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
@@ -26,7 +26,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="{{ form.category.id_for_label }}" class="form-label">
-                                    Category
+                                    Danh mục
                                 </label>
                                 {{ form.category }}
                                 <div class="text-danger">{{ form.category.errors }}</div>
@@ -35,7 +35,7 @@
                         <div class="row">
                             <div class="col mb-3">
                                 <label for="{{ form.description.id_for_label }}" class="form-label">
-                                    Description
+                                    Mô tả
                                 </label>
                                 {{ form.description }}
                                 <div class="text-danger">{{ form.description.errors }}</div>
@@ -44,7 +44,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="{{ form.quantity.id_for_label }}" class="form-label">
-                                    Quantity
+                                    Số lượng
                                 </label>
                                 {{ form.quantity }}
                                 <div class="text-danger">{{ form.quantity.errors }}</div>
@@ -67,7 +67,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="{{ form.vendor.id_for_label }}" class="form-label">
-                                    Vendor
+                                    Nhà cung cấp
                                 </label>
                                 {{ form.vendor }}
                                 <div class="text-danger">{{ form.vendor.errors }}</div>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="form-group text-center">
                             <button class="btn btn-success btn-lg" type="submit">
-                                <i class="fas fa-check"></i> Submit
+                                <i class="fas fa-check"></i> Lưu
                             </button>
                         </div>
                     </form>

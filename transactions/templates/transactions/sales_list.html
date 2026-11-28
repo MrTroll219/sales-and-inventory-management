@@ -1,22 +1,23 @@
 {% extends "store/base.html" %}
+{% load vietnam %}
 {% load static %}
 {% load render_table from django_tables2 %}
 {% load querystring from django_tables2 %}
-{% block title %}Sales{% endblock title %}
+{% block title %}Đơn bán{% endblock title %}
 {% block content %}
 <!-- Header Section -->
 <div class="container my-4">
     <div class="card shadow-sm rounded p-3">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <h4 class="display-6 mb-0 text-success">Sales</h4>
+                <h4 class="display-6 mb-0 text-success">Đơn bán</h4>
             </div>
             <div class="col-md-6 d-flex justify-content-end gap-2">
                 <a class="btn btn-success btn-sm rounded-pill shadow-sm" href="{% url 'sale-create' %}">
                     <i class="fa-solid fa-plus"></i> Add Sale Order
                 </a>
                 <a class="btn btn-primary btn-sm rounded-pill shadow-sm" href="{% url 'sales-export' %}">
-                    <i class="fa-solid fa-download"></i> Export to Excel
+                    <i class="fa-solid fa-download"></i> Xuất Excel
                 </a>
             </div>
         </div>
@@ -36,29 +37,29 @@
         <thead class="thead-light">
             <tr>
                 <th>ID</th>
-                <th>Date</th>
-                <th>Customer</th>
-                <th>Sub Total</th>
-                <th>Grand Total</th>
-                <th>Tax Amount</th>
+                <th>Ngày</th>
+                <th>Khách hàng</th>
+                <th>Tạm tính</th>
+                <th>Tổng cộng</th>
+                <th>Tiền thuế</th>
                 <th>Tax Percentage</th>
-                <th>Amount Paid</th>
-                <th>Amount Change</th>
-                <th>Actions</th>
+                <th>Đã trả</th>
+                <th>Tiền thừa</th>
+                <th>Thao tác</th>
             </tr>
         </thead>
         <tbody>
             {% for sale in sales %}
             <tr>
                 <td>{{ sale.id }}</td>
-                <td>{{ sale.date_added|date:"Y-m-d H:i:s" }}</td>
+                <td>{{ sale.date_added|vn_datetime }}</td>
                 <td>{{ sale.customer }}</td>
-                <td>{{ sale.sub_total }}</td>
-                <td>{{ sale.grand_total }}</td>
-                <td>{{ sale.tax_amount }}</td>
+                <td>{{ sale.sub_total|vnd }}</td>
+                <td>{{ sale.grand_total|vnd }}</td>
+                <td>{{ sale.tax_amount|vnd }}</td>
                 <td>{{ sale.tax_percentage }}</td>
-                <td>{{ sale.amount_paid }}</td>
-                <td>{{ sale.amount_change }}</td>
+                <td>{{ sale.amount_paid|vnd }}</td>
+                <td>{{ sale.amount_change|vnd }}</td>
                 <td>
                     <a class="btn btn-outline-info btn-sm" href="{% url 'sale-detail' sale.id %}">
                         <i class="fa-solid fa-eye"></i> View Details
