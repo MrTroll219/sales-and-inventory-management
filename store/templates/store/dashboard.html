@@ -3,6 +3,7 @@
 {% block title %}Tổng quan{% endblock title %}
 
 {% block content %}
+<a id="low-stock-card" class="restock-card" href="{% url 'low-stock' %}">Cần nhập hàng: <strong>{{ low_stock_count }}</strong></a>
 <!-- Dashboard -->
 <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
     {% load static %}

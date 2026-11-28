@@ -94,6 +94,7 @@
                 </a>
                 <ul class="dropdown-menu bg-dark border-0" aria-labelledby="productsDropdown">
                     <li><a class="dropdown-item text-light {% if request.resolver_match.url_name == 'productslist' %}active{% endif %}" href="{% url 'productslist' %}">Danh sách hàng hóa</a></li>
+                    <li><a class="dropdown-item text-light {% if request.resolver_match.url_name == 'low-stock' %}active{% endif %}" href="{% url 'low-stock' %}">Cần nhập hàng</a></li>
                     <li><a class="dropdown-item text-light" href="{% url 'category-list' %}">Danh mục</a></li>
                 </ul>
             </li>

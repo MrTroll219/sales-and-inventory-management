@@ -251,6 +251,16 @@ class PurchaseCreateView(PurchaseServiceMixin, LoginRequiredMixin, CreateView):
     form_class = PurchaseForm
     template_name = "transactions/purchases_form.html"
 
+    def get_initial(self):
+        initial = super().get_initial()
+        try:
+            item_id = int(self.request.GET.get('item', ''))
+        except (ValueError, TypeError):
+            return initial
+        if 0 < item_id <= 9223372036854775807 and Item.objects.filter(pk=item_id).exists():
+            initial['item'] = item_id
+        return initial
+
     def get_success_url(self):
         """
         Redirect to the purchases list after successful form submission.

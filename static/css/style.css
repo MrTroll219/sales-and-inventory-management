@@ -223,3 +223,15 @@ a {
 .navbar .navbar-nav > li > a > i {
   font-size: 18px;
 }
+
+/* HT01: local styling keeps the replenishment warning visible without CDN CSS. */
+.restock-card {
+  display: block; margin: 1rem; padding: 1rem; border-radius: 8px;
+  background: #fff3cd; border: 1px solid #e4b95b; color: #624800;
+  font: 600 1.1rem Arial, sans-serif; text-decoration: none;
+}
+.restock-panel { margin: 1rem; padding: 1rem; font-family: Arial, sans-serif; }
+.restock-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+.restock-table th, .restock-table td { border: 1px solid #ddd; padding: .65rem; text-align: left; }
+.restock-table th { background: #e8f3eb; }
+.low-stock-row > td, .low-stock-row > th { background-color: #fff3cd !important; }

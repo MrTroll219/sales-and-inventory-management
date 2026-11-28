@@ -13,14 +13,16 @@ and querying functionalities.
 # Standard library imports
 import operator
 from functools import reduce
+from zoneinfo import ZoneInfo
 
 # Django core imports
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q, Count, Sum
+from django.utils import timezone
 
 # Authentication and permissions
 from django.contrib.auth.decorators import login_required
@@ -33,6 +35,7 @@ from django.views.generic import (
 from django.views.generic.edit import FormMixin
 
 # Third-party packages
+from openpyxl import Workbook
 from django_tables2 import SingleTableView
 import django_tables2 as tables
 from django_tables2.export.views import ExportMixin
@@ -43,6 +46,7 @@ from transactions.models import Sale
 from .models import Category, Item, Delivery
 from .forms import ItemForm, CategoryForm, DeliveryForm
 from .tables import ItemTable
+from transactions.utils import to_excel_datetime
 
 
 @login_required
@@ -88,8 +92,40 @@ def dashboard(request):
         "category_counts": category_counts,
         "sale_dates_labels": sale_dates_labels,
         "sale_dates_values": sale_dates_values,
+        "low_stock_count": Item.objects.needs_restock().count(),
     }
     return render(request, "store/dashboard.html", context)
+
+
+class LowStockListView(LoginRequiredMixin, ListView):
+    model = Item
+    template_name = 'store/low_stock_list.html'
+    context_object_name = 'items'
+    paginate_by = 25
+
+    def get_queryset(self):
+        return Item.objects.restock_list()
+
+
+@login_required
+def export_low_stock_to_excel(request):
+    workbook = Workbook()
+    sheet = workbook.active
+    sheet.title = 'Cần nhập hàng'
+    sheet.append(['Tên', 'Danh mục', 'Tồn', 'Ngưỡng tối thiểu', 'Thiếu', 'Đề xuất nhập', 'Nhà cung cấp'])
+    for item in Item.objects.restock_list():
+        sheet.append([item.name, item.category.name, item.quantity, item.min_stock_level,
+                      item.stock_shortage, item.suggested_order_qty, item.vendor.name if item.vendor else ''])
+        for column in (3, 4, 5, 6):
+            sheet.cell(sheet.max_row, column).number_format = '0'
+    info = workbook.create_sheet('Thông tin')
+    info.append(['Thời điểm xuất (giờ Việt Nam)',
+                 to_excel_datetime(timezone.now(), ZoneInfo('Asia/Ho_Chi_Minh'))])
+    info['B1'].number_format = 'DD/MM/YYYY HH:MM'
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=can-nhap-hang.xlsx'
+    workbook.save(response)
+    return response
 
 
 class ProductListView(LoginRequiredMixin, ExportMixin, tables.SingleTableView):

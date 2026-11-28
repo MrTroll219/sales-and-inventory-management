@@ -14,7 +14,7 @@ Each class provides specific fields and methods for handling related data.
 """
 
 from django.db import models
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
 from django.forms import model_to_dict
 from django_extensions.db.fields import AutoSlugField
@@ -39,6 +39,16 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
 
+class ItemQuerySet(models.QuerySet):
+    def needs_restock(self):
+        return self.filter(min_stock_level__gt=0, quantity__lte=models.F('min_stock_level'))
+
+    def restock_list(self):
+        return self.needs_restock().select_related('category', 'vendor').annotate(
+            shortage=models.F('min_stock_level') - models.F('quantity')
+        ).order_by('-shortage', 'name', 'pk')
+
+
 class Item(models.Model):
     """
     Represents an item in the inventory.
@@ -48,9 +58,24 @@ class Item(models.Model):
     description = models.TextField(max_length=256)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    min_stock_level = models.PositiveIntegerField(default=0, verbose_name='Tồn tối thiểu',
+        validators=[MinValueValidator(0), MaxValueValidator(2147483647)])
     price = VNDField(max_digits=15, decimal_places=0, default=0, validators=[MinValueValidator(0)])
     expiring_date = models.DateTimeField(null=True, blank=True)
     vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
+    objects = ItemQuerySet.as_manager()
+
+    @property
+    def needs_restock(self):
+        return self.min_stock_level > 0 and self.quantity <= self.min_stock_level
+
+    @property
+    def stock_shortage(self):
+        return max(self.min_stock_level - self.quantity, 0)
+
+    @property
+    def suggested_order_qty(self):
+        return max(self.min_stock_level * 2 - self.quantity, 0)
 
     def __str__(self):
         """

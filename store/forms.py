@@ -7,13 +7,27 @@ class ItemForm(VietnameseFormMixin, forms.ModelForm):
     """
     A form for creating or updating an Item in the inventory.
     """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Old clients omit the new field; preserve existing thresholds on edit.
+        self.fields['min_stock_level'].required = False
+
+    def clean_min_stock_level(self):
+        value = self.cleaned_data['min_stock_level']
+        if value is None:
+            return self.instance.min_stock_level if self.add_prefix('min_stock_level') not in self.data else 0
+        return value
+
     def save(self, commit=True):
         if not commit:
             return super().save(commit=False)
         if not self.is_valid():
             raise ValueError('Cannot save an invalid Item form.')
         from transactions.services.stock import save_item
-        self.instance = save_item(self.cleaned_data, self.instance.pk)
+        values = dict(self.cleaned_data)
+        if self.instance.pk and self.add_prefix('min_stock_level') in self.data and 'quantity' not in self.changed_data:
+            values.pop('quantity', None)  # A threshold-only edit is metadata, not a stock adjustment.
+        self.instance = save_item(values, self.instance.pk)
         return self.instance
 
     class Meta:
@@ -23,6 +37,7 @@ class ItemForm(VietnameseFormMixin, forms.ModelForm):
             'description',
             'category',
             'quantity',
+            'min_stock_level',
             'price',
             'expiring_date',
             'vendor'
@@ -37,6 +52,7 @@ class ItemForm(VietnameseFormMixin, forms.ModelForm):
             ),
             'category': forms.Select(attrs={'class': 'form-control'}),
             'quantity': forms.NumberInput(attrs={'class': 'form-control'}),
+            'min_stock_level': forms.NumberInput(attrs={'class': 'form-control', 'min': '0', 'step': '1'}),
             'price': forms.NumberInput(
                 attrs={
                     'class': 'form-control',

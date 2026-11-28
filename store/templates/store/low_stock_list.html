@@ -1,0 +1,32 @@
+{% extends "store/base.html" %}
+{% block title %}Cần nhập hàng{% endblock title %}
+{% block content %}
+<section class="restock-panel">
+    <h1>Cần nhập hàng</h1>
+    <p>Mặt hàng có tồn bằng hoặc thấp hơn ngưỡng tối thiểu đã bật, sắp theo mức thiếu giảm dần.</p>
+    <a class="btn btn-success" href="{% url 'low-stock-export' %}">Xuất Excel</a>
+    <table class="restock-table">
+        <thead><tr><th>Tên</th><th>Danh mục</th><th>Tồn</th><th>Ngưỡng</th><th>Thiếu</th>
+            <th>Đề xuất nhập</th><th>Nhà cung cấp</th><th>Thao tác</th></tr></thead>
+        <tbody>
+        {% for item in items %}
+        <tr data-item-id="{{ item.pk }}">
+            <td>{{ item.name }}</td><td>{{ item.category.name }}</td><td>{{ item.quantity }}</td>
+            <td>{{ item.min_stock_level }}</td><td>{{ item.stock_shortage }}</td>
+            <td>{{ item.suggested_order_qty }}</td><td>{{ item.vendor.name|default:"—" }}</td>
+            <td><a href="{% url 'purchase-create' %}?item={{ item.pk }}">Tạo phiếu nhập</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8">Không có mặt hàng nào cần nhập.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_paginated %}
+    <nav aria-label="Phân trang">
+        {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">Trang trước</a>{% endif %}
+        <span>Trang {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">Trang sau</a>{% endif %}
+    </nav>
+    {% endif %}
+</section>
+{% endblock content %}

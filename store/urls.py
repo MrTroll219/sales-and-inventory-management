@@ -29,6 +29,8 @@ from .views import (
 urlpatterns = [
     # Dashboard
     path('', views.dashboard, name='dashboard'),
+    path('products/low-stock/', views.LowStockListView.as_view(), name='low-stock'),
+    path('products/low-stock/export/', views.export_low_stock_to_excel, name='low-stock-export'),
 
     # Product URLs
     path(
