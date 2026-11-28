@@ -317,7 +317,7 @@ Backup/restore, cửa sổ dừng ghi, lượng tử hóa tiền không đảo n
 
 ## 8. Tình trạng biên soạn và xuất tài liệu
 
-Bốn tệp Markdown được kiểm tra liên kết nguồn/ảnh, tên test và log tương ứng; Mermaid được parse/render để kiểm cú pháp, gồm classDef màu. Kết quả kỹ thuật và số mục/TC ghi trong KIEM_TRA_TAI_LIEU.json. Không có Pandoc trong môi trường đã kiểm tra, vì vậy không xuất DOCX; không đổi phần mở rộng để giả lập tệp Word. Markdown không có số trang cố định; bàn giao số mục và số từ đếm được thay cho số trang chưa render.
+Bốn tệp Markdown được kiểm tra liên kết nguồn/ảnh, tên test và log tương ứng; Mermaid được parse/render để kiểm cú pháp, gồm classDef màu. Kết quả kỹ thuật và số mục/TC ghi trong KIEM_TRA_TAI_LIEU.json. Bản cập nhật đã cài Pandoc qua winget và xuất bốn tệp DOCX có mục lục, font Times New Roman và ảnh nhúng. Sơ đồ được render bằng Mermaid CLI thành PNG nền trắng trong img/; các khối Mermaid của Markdown vẫn được giữ nguyên. Số ảnh, bảng, heading và kết quả kiểm tra DOCX được ghi trong KIEM_TRA_TAI_LIEU.json. Bản Markdown trung gian và reference.docx dùng để xuất chỉ lưu trong thư mục build tạm, không commit.
 
 ## Nguồn tham chiếu
 

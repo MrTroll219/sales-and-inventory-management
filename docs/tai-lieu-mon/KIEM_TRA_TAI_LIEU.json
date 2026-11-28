@@ -7,10 +7,10 @@
       "file": "01_PHAN_TICH_TAC_DONG.md",
       "h2_sections": 16,
       "h3_sections": 33,
-      "whitespace_words": 5376,
-      "bytes": 35766,
-      "page_count": null,
-      "page_note": "Markdown không có phân trang cố định; không xuất DOCX vì không có Pandoc."
+      "whitespace_words": 5522,
+      "bytes": 36525,
+      "page_count": 18,
+      "page_note": "Số trang DOCX sau khi cập nhật mục lục và render bằng LibreOffice 26.8.3.1; Microsoft Word có thể phân trang khác."
     },
     {
       "file": "02_DAC_TA.md",
@@ -18,8 +18,8 @@
       "h3_sections": 3,
       "whitespace_words": 4347,
       "bytes": 28792,
-      "page_count": null,
-      "page_note": "Markdown không có phân trang cố định; không xuất DOCX vì không có Pandoc."
+      "page_count": 13,
+      "page_note": "Số trang DOCX sau khi cập nhật mục lục và render bằng LibreOffice 26.8.3.1; Microsoft Word có thể phân trang khác."
     },
     {
       "file": "03_THIET_KE.md",
@@ -27,17 +27,17 @@
       "h3_sections": 20,
       "whitespace_words": 4429,
       "bytes": 36772,
-      "page_count": null,
-      "page_note": "Markdown không có phân trang cố định; không xuất DOCX vì không có Pandoc."
+      "page_count": 23,
+      "page_note": "Số trang DOCX sau khi cập nhật mục lục và render bằng LibreOffice 26.8.3.1; Microsoft Word có thể phân trang khác."
     },
     {
       "file": "04_KIEM_THU.md",
       "h2_sections": 9,
       "h3_sections": 19,
-      "whitespace_words": 5429,
-      "bytes": 47246,
-      "page_count": null,
-      "page_note": "Markdown không có phân trang cố định; không xuất DOCX vì không có Pandoc."
+      "whitespace_words": 5460,
+      "bytes": 47468,
+      "page_count": 36,
+      "page_note": "Số trang DOCX sau khi cập nhật mục lục và render bằng LibreOffice 26.8.3.1; Microsoft Word có thể phân trang khác."
     }
   ],
   "test_case_counts": {
@@ -884,15 +884,15 @@
     }
   ],
   "test_evidence": "evidence/final/ci/postgres16-python3.12/suite.txt",
-  "mermaid_version": "11.12.0",
   "mermaid_diagrams": [
     {
       "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 339,
+      "line": 341,
       "status": "parse_and_render_ok",
       "type": "flowchart-v2",
       "width": 1283.140625,
-      "height": 465
+      "height": 465,
+      "png": "img/01_so_do_phu_thuoc.png"
     },
     {
       "file": "03_THIET_KE.md",
@@ -900,7 +900,8 @@
       "status": "parse_and_render_ok",
       "type": "flowchart-v2",
       "width": 1118.578125,
-      "height": 526
+      "height": 526,
+      "png": "img/03_kien_truc_truoc.png"
     },
     {
       "file": "03_THIET_KE.md",
@@ -908,7 +909,8 @@
       "status": "parse_and_render_ok",
       "type": "flowchart-v2",
       "width": 1407.453125,
-      "height": 450
+      "height": 450,
+      "png": "img/03_kien_truc_sau.png"
     },
     {
       "file": "03_THIET_KE.md",
@@ -916,7 +918,8 @@
       "status": "parse_and_render_ok",
       "type": "flowchart-v2",
       "width": 1568,
-      "height": 475.828125
+      "height": 475.828125,
+      "png": "img/03_trien_khai_docker.png"
     },
     {
       "file": "03_THIET_KE.md",
@@ -924,7 +927,8 @@
       "status": "parse_and_render_ok",
       "type": "class",
       "width": 998.078125,
-      "height": 994
+      "height": 994,
+      "png": "img/03_so_do_lop_DP01.png"
     },
     {
       "file": "03_THIET_KE.md",
@@ -932,7 +936,8 @@
       "status": "parse_and_render_ok",
       "type": "class",
       "width": 967.03125,
-      "height": 545.984375
+      "height": 545.984375,
+      "png": "img/03_so_do_lop_DP02.png"
     },
     {
       "file": "03_THIET_KE.md",
@@ -940,7 +945,8 @@
       "status": "parse_and_render_ok",
       "type": "class",
       "width": 750.953125,
-      "height": 656
+      "height": 656,
+      "png": "img/03_so_do_lop_HT01.png"
     },
     {
       "file": "03_THIET_KE.md",
@@ -948,7 +954,8 @@
       "status": "parse_and_render_ok",
       "type": "class",
       "width": 1014.375,
-      "height": 898
+      "height": 898,
+      "png": "img/03_so_do_lop_HT03.png"
     },
     {
       "file": "03_THIET_KE.md",
@@ -956,7 +963,8 @@
       "status": "parse_and_render_ok",
       "type": "sequence",
       "width": 1568,
-      "height": 949.734375
+      "height": 949.734375,
+      "png": "img/03_tuan_tu_tao_don_ban.png"
     },
     {
       "file": "03_THIET_KE.md",
@@ -964,7 +972,8 @@
       "status": "parse_and_render_ok",
       "type": "sequence",
       "width": 1568,
-      "height": 1080.484375
+      "height": 1080.484375,
+      "png": "img/03_tuan_tu_huy_don.png"
     },
     {
       "file": "03_THIET_KE.md",
@@ -972,7 +981,8 @@
       "status": "parse_and_render_ok",
       "type": "sequence",
       "width": 1568,
-      "height": 895.0625
+      "height": 895.0625,
+      "png": "img/03_tuan_tu_xuat_excel_loc.png"
     }
   ],
   "local_links_checked": 260,
@@ -2018,126 +2028,326 @@
       "target": "../../../huong-dan-va-prompt-codex.md"
     }
   ],
-  "missing_information": [
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 29,
-      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 30,
-      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 55,
-      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 56,
-      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 81,
-      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 82,
-      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 107,
-      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 108,
-      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 133,
-      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 134,
-      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 159,
-      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 160,
-      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 185,
-      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 186,
-      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 212,
-      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 213,
-      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 239,
-      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 240,
-      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 265,
-      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 266,
-      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 291,
-      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
-    },
-    {
-      "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 292,
-      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
-    }
-  ],
+  "missing_information": [],
   "pandoc": {
-    "available_on_PATH": false,
-    "common_paths_checked": [
-      "C:/Program Files/Pandoc/pandoc.exe",
-      "C:/Users/ADMIN/AppData/Local/Pandoc/pandoc.exe"
-    ],
-    "docx_exported": false,
-    "reason": "Không tìm thấy Pandoc; không cài thêm hoặc giả lập DOCX."
+    "installed": true,
+    "version": "3.14",
+    "installation_method": "winget install --id JohnMacFarlane.Pandoc --exact",
+    "executable": "C:\\Users\\ADMIN\\AppData\\Local\\Pandoc\\pandoc.exe",
+    "docx_exported": true,
+    "toc": true,
+    "font": "Times New Roman",
+    "intermediate_files_committed": false
   },
-  "scope": "New course documents only; existing application code, tests and prior evidence unchanged."
+  "scope": "Chỉ cập nhật tài liệu môn học, ảnh sơ đồ và bản DOCX; không sửa mã nguồn, test hoặc bằng chứng nghiệp vụ trước đó.",
+  "resolved_information": {
+    "filled_fields": 22,
+    "remaining_fields": 0,
+    "source": "Vai trò và mức ưu tiên do người dùng xác nhận trong yêu cầu cập nhật tài liệu.",
+    "requirements": [
+      {
+        "requirement": "HC01",
+        "proposer_role": "Chủ cửa hàng",
+        "priority": "Cao",
+        "reason": "Sai cơ chế cộng kho làm lệch tồn ngay khi tạo hoặc sửa phiếu, ảnh hưởng trực tiếp đến kiểm soát hàng hóa."
+      },
+      {
+        "requirement": "HC02",
+        "proposer_role": "Nhân viên kho / kế toán",
+        "priority": "Trung bình",
+        "reason": "Ngày giao để trống gây lỗi xuất Excel và form có thể làm mất ngày, cản trở công việc báo cáo nhưng không trực tiếp sửa tổng tiền."
+      },
+      {
+        "requirement": "HC03",
+        "proposer_role": "Chủ cửa hàng",
+        "priority": "Cao",
+        "reason": "Máy chủ tin giá và tổng tiền từ trình duyệt, có thể lưu sai tiền và tạo đơn khi chưa đăng nhập."
+      },
+      {
+        "requirement": "TU01",
+        "proposer_role": "Quản trị hệ thống",
+        "priority": "Trung bình",
+        "reason": "Nâng framework, thay API storage và hoàn thiện migration là cần thiết để duy trì tương thích và khả năng bảo trì."
+      },
+      {
+        "requirement": "TU02",
+        "proposer_role": "Quản trị hệ thống",
+        "priority": "Trung bình",
+        "reason": "Cấu hình cứng và dữ liệu nằm trong container chưa đáp ứng môi trường vận hành mới, cần chuẩn hóa triển khai và lưu trữ."
+      },
+      {
+        "requirement": "DP02",
+        "proposer_role": "Nhóm bảo trì (đề xuất nội bộ)",
+        "priority": "Cao",
+        "reason": "Kiểu Float và thiếu ràng buộc làm tăng nguy cơ sai tiền hoặc lưu dữ liệu không hợp lệ ở nhiều bảng."
+      },
+      {
+        "requirement": "DP01",
+        "proposer_role": "Nhóm bảo trì (đề xuất nội bộ)",
+        "priority": "Trung bình",
+        "reason": "Logic tồn kho phân tán khiến việc kiểm thử và thay đổi dễ tái phát lỗi, cần tập trung hóa để giảm rủi ro về sau."
+      },
+      {
+        "requirement": "TU03",
+        "proposer_role": "Quản trị hệ thống",
+        "priority": "Trung bình",
+        "reason": "Múi giờ, định dạng ngày và tiền chưa phù hợp bối cảnh Việt Nam, cần đồng bộ để tránh hiểu sai khi vận hành."
+      },
+      {
+        "requirement": "HT01",
+        "proposer_role": "Nhân viên kho / kế toán",
+        "priority": "Thấp",
+        "reason": "Cảnh báo ngưỡng và đề xuất nhập là tiện ích hỗ trợ quyết định, không phải lỗi ngăn giao dịch hiện hữu."
+      },
+      {
+        "requirement": "HT02",
+        "proposer_role": "Nhân viên kho / kế toán",
+        "priority": "Thấp",
+        "reason": "Bộ lọc và xuất đúng tập giúp thao tác báo cáo thuận tiện hơn, thuộc hoàn thiện tiện ích vận hành."
+      },
+      {
+        "requirement": "HT03",
+        "proposer_role": "Chủ cửa hàng",
+        "priority": "Cao",
+        "reason": "Xóa đơn không hoàn kho và mất dấu vết, trong khi hủy lặp có thể làm sai tồn nếu không được kiểm soát."
+      }
+    ]
+  },
+  "documentation_base_commit": "7a880e67be932be5f475c2111ab688093ff151ec",
+  "mermaid_previous_parser_version": "11.12.0",
+  "mermaid_render": {
+    "tool": "npx -y @mermaid-js/mermaid-cli",
+    "version": "12.2.0",
+    "background": "white",
+    "size": 2400,
+    "scale": 2,
+    "count": 11,
+    "markdown_blocks_unchanged": true,
+    "files": [
+      {
+        "file": "img/01_so_do_phu_thuoc.png",
+        "source": "01_PHAN_TICH_TAC_DONG.md",
+        "width": 4800,
+        "height": 794,
+        "sha256": "7c2284e8f937995519baf0d82993e15e3859d24e2364071d624b120e2642293f"
+      },
+      {
+        "file": "img/03_kien_truc_truoc.png",
+        "source": "03_THIET_KE.md",
+        "width": 4800,
+        "height": 2630,
+        "sha256": "c19c339152f8027cd819c6ee7f4a2b44c26ecadfa94f6d9d0261d921e87bd76d"
+      },
+      {
+        "file": "img/03_kien_truc_sau.png",
+        "source": "03_THIET_KE.md",
+        "width": 4800,
+        "height": 1654,
+        "sha256": "5d1d02d58d81119f3a8883bd40406e0d06343324232abdc2b8508787d6e020d5"
+      },
+      {
+        "file": "img/03_trien_khai_docker.png",
+        "source": "03_THIET_KE.md",
+        "width": 4800,
+        "height": 1502,
+        "sha256": "926fc739cd631382df588e48d11b994a71ed4fc3222f52369f9303f549c3e84c"
+      },
+      {
+        "file": "img/03_so_do_lop_DP01.png",
+        "source": "03_THIET_KE.md",
+        "width": 3928,
+        "height": 4800,
+        "sha256": "404f67eeac4ada6bf80db6a77635b10929484d4290ea5708427959393f5e05cd"
+      },
+      {
+        "file": "img/03_so_do_lop_DP02.png",
+        "source": "03_THIET_KE.md",
+        "width": 4800,
+        "height": 2444,
+        "sha256": "82414e3d64e368b8e4ae8d2f4ee99b933bc339f98a2e7552b6f58ba50e476cb5"
+      },
+      {
+        "file": "img/03_so_do_lop_HT01.png",
+        "source": "03_THIET_KE.md",
+        "width": 4766,
+        "height": 4800,
+        "sha256": "f7982f17a11b56002029a707e3f0c046926405983c225566141749073b04b99c"
+      },
+      {
+        "file": "img/03_so_do_lop_HT03.png",
+        "source": "03_THIET_KE.md",
+        "width": 4224,
+        "height": 4800,
+        "sha256": "dfed42cba508553317f2c389e71cab9a302dcae021c2d415a15c2e492621a383"
+      },
+      {
+        "file": "img/03_tuan_tu_tao_don_ban.png",
+        "source": "03_THIET_KE.md",
+        "width": 3928,
+        "height": 4800,
+        "sha256": "5691e27f6b48f3bc5c06a9eee57dba3650ef5c70d9b05123d1cd6c55785e481a"
+      },
+      {
+        "file": "img/03_tuan_tu_huy_don.png",
+        "source": "03_THIET_KE.md",
+        "width": 3110,
+        "height": 4800,
+        "sha256": "9d8f79a53753423357977ef2eee844fb761bf86690f6116f65269c0498f80af2"
+      },
+      {
+        "file": "img/03_tuan_tu_xuat_excel_loc.png",
+        "source": "03_THIET_KE.md",
+        "width": 4134,
+        "height": 4800,
+        "sha256": "bbd582ac86530ab845827f94adf8a448b67b727af2158b49ff7df836e629c816"
+      }
+    ]
+  },
+  "docx_validation": {
+    "tool": "python-docx 1.2.0",
+    "renderer": "LibreOffice 26.8.3.1 + render_docx.py",
+    "render_dpi": 110,
+    "files": [
+      {
+        "file": "docx/01_PHAN_TICH_TAC_DONG.docx",
+        "images": 1,
+        "tables": 13,
+        "headings": 49,
+        "pages": 18,
+        "image_pages": [
+          17
+        ],
+        "repeated_table_headers": 13,
+        "toc_field": true,
+        "toc_cached_entries": true,
+        "missing_marker": false,
+        "mermaid_fence": false,
+        "fonts": [
+          "BAAAAA+TimesNewRomanPSMT",
+          "CAAAAA+TimesNewRomanPS-BoldMT",
+          "DAAAAA+TimesNewRomanPS-BoldMT",
+          "EAAAAA+TimesNewRomanPS-BoldMT",
+          "FAAAAA+TimesNewRomanPS-BoldMT",
+          "GAAAAA+TimesNewRomanPSMT",
+          "HAAAAA+SymbolMT",
+          "IAAAAA+TimesNewRomanPS-BoldMT",
+          "JAAAAA+TimesNewRomanPS-BoldMT",
+          "KAAAAA+TimesNewRomanPSMT",
+          "LAAAAA+TimesNewRomanPS-ItalicMT"
+        ],
+        "visual_review_all_pages": true,
+        "no_page_margin_overflow": true,
+        "sha256": "8564173429b0d3a9be2c32681ba3e2bf0d2dd62429cf7303bcb5b078495aa82e"
+      },
+      {
+        "file": "docx/02_DAC_TA.docx",
+        "images": 0,
+        "tables": 22,
+        "headings": 21,
+        "pages": 13,
+        "image_pages": [],
+        "repeated_table_headers": 22,
+        "toc_field": true,
+        "toc_cached_entries": true,
+        "missing_marker": false,
+        "mermaid_fence": false,
+        "fonts": [
+          "BAAAAA+TimesNewRomanPSMT",
+          "CAAAAA+TimesNewRomanPS-BoldMT",
+          "DAAAAA+TimesNewRomanPS-BoldMT",
+          "EAAAAA+TimesNewRomanPS-BoldMT",
+          "FAAAAA+TimesNewRomanPS-BoldMT",
+          "GAAAAA+TimesNewRomanPSMT",
+          "HAAAAA+TimesNewRomanPS-BoldMT",
+          "IAAAAA+SymbolMT"
+        ],
+        "visual_review_all_pages": true,
+        "no_page_margin_overflow": true,
+        "sha256": "1106adde94b019c98c22fc2ced1a2d6a92ec514be5c41bf9d35e99923b077146"
+      },
+      {
+        "file": "docx/03_THIET_KE.docx",
+        "images": 10,
+        "tables": 2,
+        "headings": 29,
+        "pages": 23,
+        "image_pages": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          12,
+          14
+        ],
+        "repeated_table_headers": 2,
+        "toc_field": true,
+        "toc_cached_entries": true,
+        "missing_marker": false,
+        "mermaid_fence": false,
+        "fonts": [
+          "BAAAAA+TimesNewRomanPSMT",
+          "CAAAAA+TimesNewRomanPS-BoldMT",
+          "DAAAAA+TimesNewRomanPS-BoldMT",
+          "EAAAAA+TimesNewRomanPS-BoldMT",
+          "FAAAAA+TimesNewRomanPS-ItalicMT",
+          "GAAAAA+TimesNewRomanPS-BoldMT",
+          "HAAAAA+TimesNewRomanPS-BoldMT",
+          "IAAAAA+TimesNewRomanPSMT",
+          "JAAAAA+SymbolMT"
+        ],
+        "visual_review_all_pages": true,
+        "no_page_margin_overflow": true,
+        "sha256": "e97a452fdc7403737585c4fe6aee80e03984713b54c3e6b087bbb5ead26052b8"
+      },
+      {
+        "file": "docx/04_KIEM_THU.docx",
+        "images": 17,
+        "tables": 15,
+        "headings": 28,
+        "pages": 36,
+        "image_pages": [
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33
+        ],
+        "repeated_table_headers": 15,
+        "toc_field": true,
+        "toc_cached_entries": true,
+        "missing_marker": false,
+        "mermaid_fence": false,
+        "fonts": [
+          "BAAAAA+TimesNewRomanPSMT",
+          "CAAAAA+TimesNewRomanPS-BoldMT",
+          "DAAAAA+TimesNewRomanPS-BoldMT",
+          "EAAAAA+TimesNewRomanPS-BoldMT",
+          "FAAAAA+TimesNewRomanPS-BoldMT",
+          "GAAAAA+TimesNewRomanPSMT",
+          "HAAAAA+TimesNewRomanPS-BoldMT",
+          "IAAAAA+TimesNewRomanPS-BoldMT",
+          "JAAAAA+TimesNewRomanPSMT",
+          "KAAAAA+TimesNewRomanPS-ItalicMT",
+          "LAAAAA+SymbolMT"
+        ],
+        "visual_review_all_pages": true,
+        "no_page_margin_overflow": true,
+        "sha256": "2447b2abd45ccebd623c8d67c0f8851f8fd38a78a0b78948c2ba3380202f8fbb"
+      }
+    ]
+  }
 }

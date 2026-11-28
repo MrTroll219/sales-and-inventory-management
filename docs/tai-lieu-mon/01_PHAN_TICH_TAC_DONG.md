@@ -5,6 +5,8 @@ Bộ tài liệu môn Bảo trì phần mềm – Project 2. Đề tài: **Bảo
 Phạm vi khảo sát là bản ứng dụng `123101a`, được đóng gói trong tag `v1-bao-tri` ở commit `1b06b13`; nhánh tài liệu kế thừa tag này. Các số liệu lấy từ `docs/BAO_CAO_TONG_HOP.md` và hồ sơ `evidence/final/`, không phải một lần chạy test mới của nhánh tài liệu. Mã FR/NFR/TC trong bộ tài liệu là định danh truy vết do tài liệu này quy định, không phải tên yêu cầu có sẵn trong code.
 
 
+Trong tình huống môn học này, người đề xuất được mô hình hóa bằng vai trò giả lập phía khách hàng; riêng DP01 và DP02 là đề xuất nội bộ của nhóm bảo trì. Nhóm thực hiện đóng vai đơn vị cung cấp dịch vụ bảo trì, không dùng tên thành viên nhóm để thay cho người đề xuất. Các mức ưu tiên và lý do dưới đây được xác lập theo danh sách người dùng đã xác nhận.
+
 ## 1. Hệ thống gốc và phương pháp phân tích
 
 Hệ thống là ứng dụng web Django tổ chức theo mô hình Model–View–Template: URL định tuyến đến view, model/ORM thao tác dữ liệu, template và JavaScript phục vụ giao diện. Bản gốc là `v0-goc`, commit `038cbd5a7e3f4bdfab96f7f9d61016d1d2ea2dc4`, Django 5.1; Dockerfile/CI gốc hướng Python 3.10, SQLite dùng mặc định khi không có cấu hình Azure PostgreSQL. Excel được tạo bằng openpyxl, biểu mẫu dựa trên Django forms; django-filter và django-tables2 hiện diện nhưng một số khai báo giao dịch là mã chết. Các thông tin này được đối chiếu từ hướng dẫn, source tại tag, git log v0-goc..bao-tri và báo cáo tổng hợp, không suy ra rằng PostgreSQL bản gốc đã được nghiệm thu.
@@ -19,15 +21,15 @@ Hệ thống là ứng dụng web Django tổ chức theo mô hình Model–View
 
 Ở bản gốc, quyền ghi tồn bị phân tán giữa Purchase.save, signal và view bán hàng; do đó tác động của một lỗi nhập không chỉ nằm ở phiếu mà lan tới số dư, thống kê và dữ liệu giao dịch tiếp theo. P0 cung cấp bảy test chứng minh lỗi, là đường cơ sở cho phân tích hồi quy, không phải yêu cầu thứ mười hai.
 
-Thang **tác động** dưới đây là nhận định kỹ thuật của tài liệu: Cao khi thay số dư, tính tiền, transaction, schema hoặc audit; Trung bình khi đổi hợp đồng đầu vào, truy vấn hoặc trình bày; Thấp khi loại mã chết không được gọi. Đây không phải mức ưu tiên được người đề xuất phê duyệt. Nguồn không định danh người đề xuất và ưu tiên chính thức, nên hai trường đó được đánh dấu là thông tin cần bổ sung trong từng phiếu.
+Thang **tác động** dưới đây là nhận định kỹ thuật của tài liệu: Cao khi thay số dư, tính tiền, transaction, schema hoặc audit; Trung bình khi đổi hợp đồng đầu vào, truy vấn hoặc trình bày; Thấp khi loại mã chết không được gọi. Đây không phải mức ưu tiên được người đề xuất phê duyệt. Vai trò đề xuất và mức ưu tiên trong các phiếu dưới đây được điền theo xác nhận của người dùng cho tình huống môn học; mức tác động kỹ thuật và mức ưu tiên xử lý là hai khái niệm khác nhau.
 
 Thứ tự phiếu là thứ tự thực hiện đã được Git/báo cáo chứng minh: HC01, HC02, HC03, TU01, TU02, DP02, DP01, TU03, HT01, HT02, HT03. Không thay thứ tự này bằng thứ tự chữ số DP01–DP02 hoặc danh sách prompt ban đầu.
 
 ## 2. Phiếu yêu cầu HC01 – Tồn kho phiếu nhập
 
 - **Mã:** HC01. **Loại:** bảo trì hiệu chỉnh. Khôi phục tính đúng đắn của chức năng nhập hàng đã có, thay vì bổ sung một chức năng mới.
-- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu.
-- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn.
+- **Người đề xuất:** Chủ cửa hàng.
+- **Mức ưu tiên chính thức:** Cao. **Lý do:** Sai cơ chế cộng kho làm lệch tồn ngay khi tạo hoặc sửa phiếu, ảnh hưởng trực tiếp đến kiểm soát hàng hóa.
 - **Đường cơ sở truy vết:** nhánh `hc01-ton-kho-phieu-nhap`, commit cuối `31654e6`; nguồn: [docs/HC01.md](../HC01.md), [metadata](../../evidence/final/requirements.json).
 
 ### Hiện trạng và yêu cầu
@@ -52,8 +54,8 @@ DP01 phải bảo toàn các hành vi đã sửa khi chuyển khỏi save(); HT0
 ## 3. Phiếu yêu cầu HC02 – Excel và ngày giao
 
 - **Mã:** HC02. **Loại:** bảo trì hiệu chỉnh. Sửa lỗi xuất dữ liệu và lỗi giữ ngày giao của chức năng hiện hữu.
-- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu.
-- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn.
+- **Người đề xuất:** Nhân viên kho / kế toán.
+- **Mức ưu tiên chính thức:** Trung bình. **Lý do:** Ngày giao để trống gây lỗi xuất Excel và form có thể làm mất ngày, cản trở công việc báo cáo nhưng không trực tiếp sửa tổng tiền.
 - **Đường cơ sở truy vết:** nhánh `hc02-xuat-excel-ngay-giao`, commit cuối `0b62b64`; nguồn: [docs/HC02.md](../HC02.md), [metadata](../../evidence/final/requirements.json).
 
 ### Hiện trạng và yêu cầu
@@ -78,8 +80,8 @@ TU03 dùng lại tiện ích với giờ Việt Nam; HT01 và HT02 kế thừa q
 ## 4. Phiếu yêu cầu HC03 – Tính tiền máy chủ
 
 - **Mã:** HC03. **Loại:** bảo trì hiệu chỉnh. Khắc phục lỗi toàn vẹn tiền, kiểm tra đầu vào và kiểm soát đăng nhập trên chức năng tạo đơn có sẵn.
-- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu.
-- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn.
+- **Người đề xuất:** Chủ cửa hàng.
+- **Mức ưu tiên chính thức:** Cao. **Lý do:** Máy chủ tin giá và tổng tiền từ trình duyệt, có thể lưu sai tiền và tạo đơn khi chưa đăng nhập.
 - **Đường cơ sở truy vết:** nhánh `hc03-tinh-tien-may-chu`, commit cuối `fbac946`; nguồn: [docs/HC03.md](../HC03.md), [metadata](../../evidence/final/requirements.json).
 
 ### Hiện trạng và yêu cầu
@@ -104,8 +106,8 @@ DP02 thay kiểu lưu tiền; DP01 di chuyển transaction bán sang service; TU
 ## 5. Phiếu yêu cầu TU01 – Nâng Django 5.2
 
 - **Mã:** TU01. **Loại:** bảo trì thích ứng. Điều chỉnh hệ thống theo môi trường framework Django 5.2 thay cho nền 5.1.
-- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu.
-- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn.
+- **Người đề xuất:** Quản trị hệ thống.
+- **Mức ưu tiên chính thức:** Trung bình. **Lý do:** Nâng framework, thay API storage và hoàn thiện migration là cần thiết để duy trì tương thích và khả năng bảo trì.
 - **Đường cơ sở truy vết:** nhánh `tu01-nang-django-52`, commit cuối `86e8d04`; nguồn: [docs/TU01.md](../TU01.md), [metadata](../../evidence/final/requirements.json).
 
 ### Hiện trạng và yêu cầu
@@ -130,8 +132,8 @@ TU02 sử dụng settings/storage mới; DP02 phụ thuộc accounts/0002; toàn
 ## 6. Phiếu yêu cầu TU02 – Docker, PostgreSQL16, nginx/MEDIA
 
 - **Mã:** TU02. **Loại:** bảo trì thích ứng. Thích ứng với Linux, container, PostgreSQL và cơ chế phục vụ static/media của môi trường vận hành đích.
-- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu.
-- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn.
+- **Người đề xuất:** Quản trị hệ thống.
+- **Mức ưu tiên chính thức:** Trung bình. **Lý do:** Cấu hình cứng và dữ liệu nằm trong container chưa đáp ứng môi trường vận hành mới, cần chuẩn hóa triển khai và lưu trữ.
 - **Đường cơ sở truy vết:** nhánh `tu02-trien-khai-docker`, commit cuối `723a835`; nguồn: [docs/TU02.md](../TU02.md), [metadata](../../evidence/final/requirements.json).
 
 ### Hiện trạng và yêu cầu
@@ -156,8 +158,8 @@ DP02/TU03 cần kiểm migration trên PostgreSQL16; HT03 dùng môi trường n
 ## 7. Phiếu yêu cầu DP02 – Decimal và ràng buộc
 
 - **Mã:** DP02. **Loại:** bảo trì dự phòng. Phòng ngừa sai số và dữ liệu bất hợp lệ bằng kiểu Decimal, ràng buộc DB và hồi quy dữ liệu trước khi mở rộng nghiệp vụ.
-- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu.
-- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn.
+- **Người đề xuất:** Nhóm bảo trì (đề xuất nội bộ).
+- **Mức ưu tiên chính thức:** Cao. **Lý do:** Kiểu Float và thiếu ràng buộc làm tăng nguy cơ sai tiền hoặc lưu dữ liệu không hợp lệ ở nhiều bảng.
 - **Đường cơ sở truy vết:** nhánh `dp02-decimal-rang-buoc`, commit cuối `b72bf15`; nguồn: [docs/DP02.md](../DP02.md), [metadata](../../evidence/final/requirements.json).
 
 ### Hiện trạng và yêu cầu
@@ -182,8 +184,8 @@ DP01 cần kiểu tiền và constraints ổn định trước refactor; TU03 k�
 ## 8. Phiếu yêu cầu DP01 – Tách dịch vụ kho, sổ kho
 
 - **Mã:** DP01. **Loại:** bảo trì dự phòng. Giảm nguy cơ tái phát lỗi tồn kho do logic rải rác bằng một đầu mối ghi và sổ biến động.
-- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu.
-- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn.
+- **Người đề xuất:** Nhóm bảo trì (đề xuất nội bộ).
+- **Mức ưu tiên chính thức:** Trung bình. **Lý do:** Logic tồn kho phân tán khiến việc kiểm thử và thay đổi dễ tái phát lỗi, cần tập trung hóa để giảm rủi ro về sau.
 - **Đường cơ sở truy vết:** nhánh `dp01-tach-nghiep-vu-kho`, commit cuối `abcfe86`; nguồn: [docs/DP01.md](../DP01.md), [metadata](../../evidence/final/requirements.json).
 
 ### Hiện trạng và yêu cầu
@@ -209,8 +211,8 @@ TU03 phải đổi cách round trong pricing/service mà không phân tán ghi k
 ## 9. Phiếu yêu cầu TU03 – Giờ Việt Nam, tiếng Việt, VND
 
 - **Mã:** TU03. **Loại:** bảo trì thích ứng. Điều chỉnh hệ thống cho ngôn ngữ, múi giờ, ngày tháng và đồng tiền của bối cảnh cửa hàng tại Việt Nam.
-- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu.
-- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn.
+- **Người đề xuất:** Quản trị hệ thống.
+- **Mức ưu tiên chính thức:** Trung bình. **Lý do:** Múi giờ, định dạng ngày và tiền chưa phù hợp bối cảnh Việt Nam, cần đồng bộ để tránh hiểu sai khi vận hành.
 - **Đường cơ sở truy vết:** nhánh `tu03-viet-nam-vnd`, commit cuối `607c952`; nguồn: [docs/TU03.md](../TU03.md), [metadata](../../evidence/final/requirements.json).
 
 ### Hiện trạng và yêu cầu
@@ -236,8 +238,8 @@ HT01/HT02/HT03 phải dùng nhãn, tiền và giờ theo TU03; DP01 tiếp tục
 ## 10. Phiếu yêu cầu HT01 – Ngưỡng tồn tối thiểu
 
 - **Mã:** HT01. **Loại:** bảo trì hoàn thiện. Bổ sung khả năng cảnh báo và hỗ trợ quyết định nhập hàng, hoàn thiện chức năng quản lý kho hiện có.
-- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu.
-- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn.
+- **Người đề xuất:** Nhân viên kho / kế toán.
+- **Mức ưu tiên chính thức:** Thấp. **Lý do:** Cảnh báo ngưỡng và đề xuất nhập là tiện ích hỗ trợ quyết định, không phải lỗi ngăn giao dịch hiện hữu.
 - **Đường cơ sở truy vết:** nhánh `ht01-ton-toi-thieu`, commit cuối `35176c4`; nguồn: [docs/HT01.md](../HT01.md), [metadata](../../evidence/final/requirements.json).
 
 ### Hiện trạng và yêu cầu
@@ -262,8 +264,8 @@ HT03 hoàn kho có thể làm item rời danh sách; các đường ghi DP01 ph�
 ## 11. Phiếu yêu cầu HT02 – Lọc và xuất giao dịch
 
 - **Mã:** HT02. **Loại:** bảo trì hoàn thiện. Mở rộng khả năng tìm giao dịch, tổng hợp và xuất đúng phạm vi người dùng quan tâm.
-- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu.
-- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn.
+- **Người đề xuất:** Nhân viên kho / kế toán.
+- **Mức ưu tiên chính thức:** Thấp. **Lý do:** Bộ lọc và xuất đúng tập giúp thao tác báo cáo thuận tiện hơn, thuộc hoàn thiện tiện ích vận hành.
 - **Đường cơ sở truy vết:** nhánh `ht02-loc-giao-dich`, commit cuối `b806fd4`; nguồn: [docs/HT02.md](../HT02.md), [metadata](../../evidence/final/requirements.json).
 
 ### Hiện trạng và yêu cầu
@@ -288,8 +290,8 @@ HT03 thêm status vào SaleFilter và loại CANCELLED khỏi tổng doanh thu; 
 ## 12. Phiếu yêu cầu HT03 – Hủy đơn, lịch sử, hoàn kho
 
 - **Mã:** HT03. **Loại:** bảo trì hoàn thiện. Bổ sung nghiệp vụ hủy có kiểm soát, lịch sử và hoàn kho thay cho chức năng xóa đơn không đáp ứng quản trị giao dịch.
-- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu.
-- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn.
+- **Người đề xuất:** Chủ cửa hàng.
+- **Mức ưu tiên chính thức:** Cao. **Lý do:** Xóa đơn không hoàn kho và mất dấu vết, trong khi hủy lặp có thể làm sai tồn nếu không được kiểm soát.
 - **Đường cơ sở truy vết:** nhánh `ht03-huy-don`, commit cuối `123101a`; nguồn: [docs/HT03.md](../HT03.md), [metadata](../../evidence/final/requirements.json).
 
 ### Hiện trạng và yêu cầu
