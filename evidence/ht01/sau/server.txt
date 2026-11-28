@@ -1,0 +1,8 @@
+[28/Nov/2026 16:16:10] "GET /accounts/login/ HTTP/1.1" 200 3490
+[28/Nov/2026 16:16:11] "GET /products/low-stock/ HTTP/1.1" 200 9980
+[28/Nov/2026 16:16:11] "GET /static/css/style.css HTTP/1.1" 200 4943
+[28/Nov/2026 16:16:11] "GET /images/profile_pics/default.jpg HTTP/1.1" 200 2902
+[28/Nov/2026 16:16:11] "GET / HTTP/1.1" 200 19000
+[28/Nov/2026 16:16:11] "GET /static/css/style.css HTTP/1.1" 200 4943
+[28/Nov/2026 16:16:11] "GET /images/profile_pics/default.jpg HTTP/1.1" 200 2902
+[28/Nov/2026 16:16:11] "GET /products/low-stock/export/ HTTP/1.1" 200 5923

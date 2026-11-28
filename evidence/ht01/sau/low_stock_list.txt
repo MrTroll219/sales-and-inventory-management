@@ -1,0 +1,27 @@
+ht01-evidence
+Operative
+Tổng quan
+Hàng hóa
+Danh sách hàng hóa
+Cần nhập hàng
+Danh mục
+Đơn bán
+Phiếu nhập
+Giao hàng
+Hóa đơn
+Chi phí
+Tài khoản
+Danh sách nhân viên
+Khách hàng
+Nhà cung cấp
+Đăng xuất
+ Inventoryms
+Cần nhập hàng
+
+Mặt hàng có tồn bằng hoặc thấp hơn ngưỡng tối thiểu đã bật, sắp theo mức thiếu giảm dần.
+
+Xuất Excel
+Tên	Danh mục	Tồn	Ngưỡng	Thiếu	Đề xuất nhập	Nhà cung cấp	Thao tác
+Mực máy in	Vật tư văn phòng	1	10	9	19	NCC Bình Minh	Tạo phiếu nhập
+Giấy A4	Vật tư văn phòng	3	5	2	7	NCC Bình Minh	Tạo phiếu nhập
+Bút bi	Vật tư văn phòng	5	5	0	5	NCC Bình Minh	Tạo phiếu nhập

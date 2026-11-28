@@ -1,0 +1,17 @@
+ .github/workflows/tests.yml                   |   2 +-
+ static/css/style.css                          |  12 ++
+ store/forms.py                                |  18 ++-
+ store/migrations/0004_ht01_min_stock_level.py |  19 +++
+ store/models.py                               |  27 +++-
+ store/templates/store/dashboard.html          |   1 +
+ store/templates/store/low_stock_list.html     |  32 ++++
+ store/templates/store/productcreate.html      |   8 +
+ store/templates/store/productslist.html       |   2 +-
+ store/templates/store/productupdate.html      |   8 +
+ store/templates/store/sidebar.html            |   1 +
+ store/tests/test_ht01_migration.py            |  24 +++
+ store/tests/test_ht01_restock.py              | 208 ++++++++++++++++++++++++++
+ store/urls.py                                 |   2 +
+ store/views.py                                |  38 ++++-
+ transactions/views.py                         |  10 ++
+ 16 files changed, 407 insertions(+), 5 deletions(-)

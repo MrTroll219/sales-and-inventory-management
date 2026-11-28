@@ -1,0 +1,11 @@
+{
+  "commit": "17d44ddce450adb7786c37c38b1495d892f57f9c",
+  "urls": [
+    "http://127.0.0.1:8015/products/low-stock/",
+    "http://127.0.0.1:8015/"
+  ],
+  "http_status": 200,
+  "count": 3,
+  "external_requests": "blocked",
+  "database": "isolated temporary SQLite"
+}

@@ -1,0 +1,159 @@
+{
+  "commit": "17d44ddce450adb7786c37c38b1495d892f57f9c",
+  "files": {
+    "Cần nhập hàng": [
+      {
+        "cell": "A1",
+        "value": "Tên",
+        "number_format": "General"
+      },
+      {
+        "cell": "B1",
+        "value": "Danh mục",
+        "number_format": "General"
+      },
+      {
+        "cell": "C1",
+        "value": "Tồn",
+        "number_format": "General"
+      },
+      {
+        "cell": "D1",
+        "value": "Ngưỡng tối thiểu",
+        "number_format": "General"
+      },
+      {
+        "cell": "E1",
+        "value": "Thiếu",
+        "number_format": "General"
+      },
+      {
+        "cell": "F1",
+        "value": "Đề xuất nhập",
+        "number_format": "General"
+      },
+      {
+        "cell": "G1",
+        "value": "Nhà cung cấp",
+        "number_format": "General"
+      },
+      {
+        "cell": "A2",
+        "value": "Mực máy in",
+        "number_format": "General"
+      },
+      {
+        "cell": "B2",
+        "value": "Vật tư văn phòng",
+        "number_format": "General"
+      },
+      {
+        "cell": "C2",
+        "value": 1,
+        "number_format": "0"
+      },
+      {
+        "cell": "D2",
+        "value": 10,
+        "number_format": "0"
+      },
+      {
+        "cell": "E2",
+        "value": 9,
+        "number_format": "0"
+      },
+      {
+        "cell": "F2",
+        "value": 19,
+        "number_format": "0"
+      },
+      {
+        "cell": "G2",
+        "value": "NCC Bình Minh",
+        "number_format": "General"
+      },
+      {
+        "cell": "A3",
+        "value": "Giấy A4",
+        "number_format": "General"
+      },
+      {
+        "cell": "B3",
+        "value": "Vật tư văn phòng",
+        "number_format": "General"
+      },
+      {
+        "cell": "C3",
+        "value": 3,
+        "number_format": "0"
+      },
+      {
+        "cell": "D3",
+        "value": 5,
+        "number_format": "0"
+      },
+      {
+        "cell": "E3",
+        "value": 2,
+        "number_format": "0"
+      },
+      {
+        "cell": "F3",
+        "value": 7,
+        "number_format": "0"
+      },
+      {
+        "cell": "G3",
+        "value": "NCC Bình Minh",
+        "number_format": "General"
+      },
+      {
+        "cell": "A4",
+        "value": "Bút bi",
+        "number_format": "General"
+      },
+      {
+        "cell": "B4",
+        "value": "Vật tư văn phòng",
+        "number_format": "General"
+      },
+      {
+        "cell": "C4",
+        "value": 5,
+        "number_format": "0"
+      },
+      {
+        "cell": "D4",
+        "value": 5,
+        "number_format": "0"
+      },
+      {
+        "cell": "E4",
+        "value": 0,
+        "number_format": "0"
+      },
+      {
+        "cell": "F4",
+        "value": 5,
+        "number_format": "0"
+      },
+      {
+        "cell": "G4",
+        "value": "NCC Bình Minh",
+        "number_format": "General"
+      }
+    ],
+    "Thông tin": [
+      {
+        "cell": "A1",
+        "value": "Thời điểm xuất (giờ Việt Nam)",
+        "number_format": "General"
+      },
+      {
+        "cell": "B1",
+        "value": "2026-11-28T16:16:11.558000",
+        "number_format": "DD/MM/YYYY HH:MM"
+      }
+    ]
+  }
+}
