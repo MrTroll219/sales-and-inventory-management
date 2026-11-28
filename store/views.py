@@ -73,7 +73,7 @@ def dashboard(request):
     sale_dates_labels = [
         date["date_added__date"].strftime("%Y-%m-%d") for date in sale_dates
     ]
-    sale_dates_values = [float(date["total_sales"]) for date in sale_dates]
+    sale_dates_values = [str(date["total_sales"]) for date in sale_dates]
 
     context = {
         "items": items,

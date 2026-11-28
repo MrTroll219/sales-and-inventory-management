@@ -2,7 +2,7 @@
 from decimal import Decimal, DecimalException, ROUND_HALF_UP
 
 CENT = Decimal("0.01")
-MAX_MONEY = Decimal("99999999.99")  # Existing DecimalField(10, 2); DP02 changes schema.
+MAX_MONEY = Decimal("9999999999999.99")  # DecimalField(15, 2).
 
 
 class SaleInputError(ValueError):
@@ -57,13 +57,15 @@ def compute_sale_totals(lines, tax_percentage, amount_paid):
     tax_percentage = decimal_value(tax_percentage, "tax_percentage")
     if not 0 <= tax_percentage <= 100:
         raise SaleInputError("tax_percentage phải từ 0 đến 100.")
+    if tax_percentage != tax_percentage.quantize(CENT, rounding=ROUND_HALF_UP):
+        raise SaleInputError("tax_percentage chỉ được có tối đa 2 chữ số thập phân.")
     grouped = {}
     for line in lines:
         if not isinstance(line, dict) or not {"id", "price", "quantity"} <= line.keys():
             raise SaleInputError("Dòng hàng thiếu id, price hoặc quantity.")
         item_id = positive_integer(line["id"], "id", maximum=9223372036854775807)
         quantity = positive_integer(line["quantity"], "quantity")
-        # Item.price is FloatField until DP02: never use Decimal(float).
+        # Decimal from Item.price; legacy float callers remain supported via str.
         try:
             price = money(Decimal(str(line["price"])), "price")
         except DecimalException as error:

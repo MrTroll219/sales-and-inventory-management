@@ -12,6 +12,7 @@ Each class provides specific fields and methods for handling related data.
 """
 
 from django.db import models
+from django.core.validators import MinValueValidator
 from django.urls import reverse
 from django.forms import model_to_dict
 from django_extensions.db.fields import AutoSlugField
@@ -44,8 +45,8 @@ class Item(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=256)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=0)
-    price = models.FloatField(default=0)
+    quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    price = models.DecimalField(max_digits=15, decimal_places=2, default=0, validators=[MinValueValidator(0)])
     expiring_date = models.DateTimeField(null=True, blank=True)
     vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
 
@@ -76,6 +77,10 @@ class Item(models.Model):
     class Meta:
         ordering = ['name']
         verbose_name_plural = 'Items'
+        constraints = [
+            models.CheckConstraint(condition=models.Q(price__gte=0), name='item_price_nonnegative'),
+            models.CheckConstraint(condition=models.Q(quantity__gte=0), name='item_quantity_nonnegative'),
+        ]
 
 
 class Delivery(models.Model):

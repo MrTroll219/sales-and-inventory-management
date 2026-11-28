@@ -1,6 +1,8 @@
 from django.core.exceptions import ValidationError
 from django.db import models, router, transaction
 from django.db.models import F
+from django.db.models.functions import Round
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django_extensions.db.fields import AutoSlugField
 
 from store.models import Item
@@ -24,36 +26,48 @@ class Sale(models.Model):
         db_column="customer"
     )
     sub_total = models.DecimalField(
-        max_digits=10,
+        max_digits=15, validators=[MinValueValidator(0)],
         decimal_places=2,
-        default=0.0
+        default=0
     )
     grand_total = models.DecimalField(
-        max_digits=10,
+        max_digits=15, validators=[MinValueValidator(0)],
         decimal_places=2,
-        default=0.0
+        default=0
     )
     tax_amount = models.DecimalField(
-        max_digits=10,
+        max_digits=15, validators=[MinValueValidator(0)],
         decimal_places=2,
-        default=0.0
+        default=0
     )
-    tax_percentage = models.FloatField(default=0.0)
+    tax_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0,
+        validators=[MinValueValidator(0), MaxValueValidator(100)])
     amount_paid = models.DecimalField(
-        max_digits=10,
+        max_digits=15, validators=[MinValueValidator(0)],
         decimal_places=2,
-        default=0.0
+        default=0
     )
     amount_change = models.DecimalField(
-        max_digits=10,
+        max_digits=15, validators=[MinValueValidator(0)],
         decimal_places=2,
-        default=0.0
+        default=0
     )
 
     class Meta:
         db_table = "sales"
         verbose_name = "Sale"
         verbose_name_plural = "Sales"
+        constraints = [
+            models.CheckConstraint(condition=models.Q(sub_total__gte=0), name='sale_subtotal_nonnegative'),
+            models.CheckConstraint(condition=models.Q(grand_total__gte=0), name='sale_grand_nonnegative'),
+            models.CheckConstraint(condition=models.Q(tax_amount__gte=0), name='sale_tax_nonnegative'),
+            models.CheckConstraint(condition=models.Q(amount_paid__gte=0), name='sale_paid_nonnegative'),
+            models.CheckConstraint(condition=models.Q(amount_change__gte=0), name='sale_change_nonnegative'),
+            models.CheckConstraint(condition=models.Q(tax_percentage__gte=0, tax_percentage__lte=100), name='sale_tax_percentage_range'),
+            # SQLite NUMERIC uses binary arithmetic; round the F expression to cents.
+            models.CheckConstraint(condition=models.Q(grand_total=Round(F('sub_total') + F('tax_amount'), 2)), name='sale_grand_matches_parts'),
+            models.CheckConstraint(condition=models.Q(amount_change=Round(F('amount_paid') - F('grand_total'), 2)), name='sale_change_matches_payment'),
+        ]
 
     def __str__(self):
         """
@@ -89,16 +103,21 @@ class SaleDetail(models.Model):
         db_column="item"
     )
     price = models.DecimalField(
-        max_digits=10,
+        max_digits=15, validators=[MinValueValidator(0)],
         decimal_places=2
     )
-    quantity = models.PositiveIntegerField()
-    total_detail = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
+    total_detail = models.DecimalField(max_digits=15, validators=[MinValueValidator(0)], decimal_places=2)
 
     class Meta:
         db_table = "sale_details"
         verbose_name = "Sale Detail"
         verbose_name_plural = "Sale Details"
+        constraints = [
+            models.CheckConstraint(condition=models.Q(price__gte=0), name='sale_detail_price_nonnegative'),
+            models.CheckConstraint(condition=models.Q(total_detail__gte=0), name='sale_detail_total_nonnegative'),
+            models.CheckConstraint(condition=models.Q(quantity__gt=0), name='sale_detail_quantity_positive'),
+        ]
 
     def __str__(self):
         """
@@ -127,7 +146,7 @@ class Purchase(models.Model):
     delivery_date = models.DateTimeField(
         blank=True, null=True, verbose_name="Delivery Date"
     )
-    quantity = models.PositiveIntegerField(default=0)
+    quantity = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1)])
     delivery_status = models.CharField(
         choices=DELIVERY_CHOICES,
         max_length=1,
@@ -135,12 +154,12 @@ class Purchase(models.Model):
         verbose_name="Delivery Status",
     )
     price = models.DecimalField(
-        max_digits=10,
+        max_digits=15, validators=[MinValueValidator(0)],
         decimal_places=2,
-        default=0.0,
+        default=0,
         verbose_name="Price per item (Ksh)",
     )
-    total_value = models.DecimalField(max_digits=10, decimal_places=2)
+    total_value = models.DecimalField(max_digits=15, validators=[MinValueValidator(0)], decimal_places=2)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         """HC01: persist the purchase and its stock delta in one transaction."""
@@ -202,3 +221,8 @@ class Purchase(models.Model):
 
     class Meta:
         ordering = ["order_date"]
+        constraints = [
+            models.CheckConstraint(condition=models.Q(price__gte=0), name='purchase_price_nonnegative'),
+            models.CheckConstraint(condition=models.Q(total_value__gte=0), name='purchase_total_nonnegative'),
+            models.CheckConstraint(condition=models.Q(quantity__gt=0), name='purchase_quantity_positive'),
+        ]

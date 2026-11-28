@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 from autoslug import AutoSlugField
 
 
@@ -43,7 +44,8 @@ class Bill(models.Model):
         null=False,
         help_text='Details of the payment'
     )
-    amount = models.FloatField(
+    amount = models.DecimalField(
+        max_digits=15, decimal_places=2, validators=[MinValueValidator(0)],
         verbose_name='Total Amount Owing (Ksh)',
         help_text='Total amount due for payment'
     )
@@ -55,3 +57,6 @@ class Bill(models.Model):
 
     def __str__(self):
         return self.institution_name
+
+    class Meta:
+        constraints = [models.CheckConstraint(condition=models.Q(amount__gte=0), name='bill_amount_nonnegative')]
