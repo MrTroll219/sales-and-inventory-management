@@ -1,0 +1,2 @@
+SaleCreateView before: 62 lines
+SaleCreateView after: 21 lines

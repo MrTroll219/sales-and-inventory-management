@@ -1,0 +1,54 @@
+[
+  {
+    "file": "transactions/tests/test_hc01_purchase_stock.py",
+    "changed_functions": [
+      "PurchaseStockTests.purchase",
+      "PurchaseStockTests.test_reduce_quantity_changes_stock_by_difference",
+      "PurchaseStockTests.test_change_item_moves_old_and_new_quantities",
+      "PurchaseStockTests.test_repeated_unchanged_save_does_not_add_stock",
+      "PurchaseStockTests.test_stale_purchase_uses_current_database_quantity",
+      "PurchaseStockTests.test_reduce_below_sold_stock_rolls_back_purchase",
+      "PurchaseStockTests.test_change_item_with_consumed_stock_rolls_back_both_items",
+      "PurchaseStockTests.test_partial_description_save_ignores_unsaved_stock_fields",
+      "PurchaseStockTests.test_partial_quantity_save_updates_total_value",
+      "PurchaseStockTests.test_price_only_change_does_not_change_stock",
+      "PurchaseStockTests.test_empty_update_fields_does_not_save_or_change_stock",
+      "PurchaseStockTests.test_delivery_status_does_not_change_stock_policy"
+    ],
+    "assertions_before": 33,
+    "assertions_after": 33,
+    "assertion_hash": "9111b41f3f7ea9658f18f899431853bd9ce40d01620079d4949e40a6e81427bf",
+    "all_data_literals_equal": true
+  },
+  {
+    "file": "transactions/tests/test_hc_regression.py",
+    "changed_functions": [
+      "MaintenanceRegressionTests.create_purchase",
+      "MaintenanceRegressionTests.test_hc01_sua_mo_ta_khong_doi_ton"
+    ],
+    "assertions_before": 12,
+    "assertions_after": 12,
+    "assertion_hash": "80aa8c43d058d1501171ed3ff42554faba2be1556e2962da19adab7b22d81be5",
+    "all_data_literals_equal": true
+  },
+  {
+    "file": "transactions/tests/test_hc02_dates.py",
+    "changed_functions": [
+      "ExportAndFormTests.purchase"
+    ],
+    "assertions_before": 40,
+    "assertions_after": 40,
+    "assertion_hash": "b64411eaab1ed8791c4f8a7dc851604680b730c6f452d1a22973485162477208",
+    "all_data_literals_equal": true
+  },
+  {
+    "file": "transactions/tests/dp02_support.py",
+    "changed_functions": [
+      "ConstraintCase.setUpTestData"
+    ],
+    "assertions_before": 3,
+    "assertions_after": 3,
+    "assertion_hash": "0b8eaa6803483b500c182e2a3a29dfb6e38249eb937dbacd3eaf2c9e357da462",
+    "all_data_literals_equal": true
+  }
+]

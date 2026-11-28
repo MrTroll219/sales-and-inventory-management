@@ -1,0 +1,1 @@
+Sale/SaleDetail/Purchase Meta constraints AST unchanged from b72bf15

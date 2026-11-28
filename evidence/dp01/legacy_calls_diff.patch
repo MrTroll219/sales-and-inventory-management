@@ -1,0 +1,93 @@
+diff --git a/transactions/tests/dp02_support.py b/transactions/tests/dp02_support.py
+index 3d5271c..c1ab217 100644
+--- a/transactions/tests/dp02_support.py
++++ b/transactions/tests/dp02_support.py
+@@ -1,0 +2,2 @@
++from transactions.services.purchases import create_purchase, update_purchase
++from transactions.tests.purchase_api import purchase_data
+@@ -22 +24 @@ class ConstraintCase(TestCase):
+-        cls.purchase = Purchase.objects.create(item=cls.item, vendor=vendor, price=Decimal('5'), quantity=2)
++        cls.purchase = create_purchase(dict(item=cls.item, vendor=vendor, price=Decimal('5'), quantity=2))
+diff --git a/transactions/tests/test_hc01_purchase_stock.py b/transactions/tests/test_hc01_purchase_stock.py
+index c0a2873..0f99b26 100644
+--- a/transactions/tests/test_hc01_purchase_stock.py
++++ b/transactions/tests/test_hc01_purchase_stock.py
+@@ -1,0 +2,2 @@
++from transactions.services.purchases import create_purchase, update_purchase
++from transactions.tests.purchase_api import purchase_data
+@@ -26,2 +28,2 @@ class PurchaseStockTests(TestCase):
+-        return Purchase.objects.create(item=self.item, vendor=self.vendor,
+-                                       quantity=10, price=Decimal("5.00"))
++        return create_purchase(dict(item=self.item, vendor=self.vendor,
++                                       quantity=10, price=Decimal("5.00")))
+@@ -40 +42 @@ class PurchaseStockTests(TestCase):
+-        purchase.save()
++        update_purchase(purchase.pk, purchase_data(purchase))
+@@ -49 +51 @@ class PurchaseStockTests(TestCase):
+-        purchase.save()
++        update_purchase(purchase.pk, purchase_data(purchase))
+@@ -56,2 +58,2 @@ class PurchaseStockTests(TestCase):
+-        purchase.save()
+-        purchase.save()
++        update_purchase(purchase.pk, purchase_data(purchase))
++        update_purchase(purchase.pk, purchase_data(purchase))
+@@ -64 +66 @@ class PurchaseStockTests(TestCase):
+-        purchase.save()
++        update_purchase(purchase.pk, purchase_data(purchase))
+@@ -66 +68 @@ class PurchaseStockTests(TestCase):
+-        stale.save()
++        update_purchase(stale.pk, purchase_data(stale))
+@@ -80 +82 @@ class PurchaseStockTests(TestCase):
+-            purchase.save()
++            update_purchase(purchase.pk, purchase_data(purchase))
+@@ -101,2 +103,2 @@ class PurchaseStockTests(TestCase):
+-        purchase = Purchase.objects.create(item=self.other, vendor=self.vendor,
+-                                           quantity=10, price=Decimal("5.00"))
++        purchase = create_purchase(dict(item=self.other, vendor=self.vendor,
++                                           quantity=10, price=Decimal("5.00")))
+@@ -107 +109 @@ class PurchaseStockTests(TestCase):
+-            purchase.save()
++            update_purchase(purchase.pk, purchase_data(purchase))
+@@ -126 +128 @@ class PurchaseStockTests(TestCase):
+-        purchase.save(update_fields=["description"])
++        update_purchase(purchase.pk, purchase_data(purchase, update_fields=["description"]))
+@@ -135 +137 @@ class PurchaseStockTests(TestCase):
+-        purchase.save(update_fields=["quantity"])
++        update_purchase(purchase.pk, purchase_data(purchase, update_fields=["quantity"]))
+@@ -143 +145 @@ class PurchaseStockTests(TestCase):
+-        purchase.save(update_fields=["price"])
++        update_purchase(purchase.pk, purchase_data(purchase, update_fields=["price"]))
+@@ -151 +153 @@ class PurchaseStockTests(TestCase):
+-        purchase.save(update_fields=[])
++        update_purchase(purchase.pk, purchase_data(purchase, update_fields=[]))
+@@ -160 +162 @@ class PurchaseStockTests(TestCase):
+-        purchase.save()
++        update_purchase(purchase.pk, purchase_data(purchase))
+diff --git a/transactions/tests/test_hc02_dates.py b/transactions/tests/test_hc02_dates.py
+index a3bf57e..d994825 100644
+--- a/transactions/tests/test_hc02_dates.py
++++ b/transactions/tests/test_hc02_dates.py
+@@ -1,0 +2,2 @@
++from transactions.services.purchases import create_purchase, update_purchase
++from transactions.tests.purchase_api import purchase_data
+@@ -65,2 +67,2 @@ class ExportAndFormTests(TestCase):
+-        return Purchase.objects.create(item=self.item, vendor=self.vendor, quantity=10,
+-                                       price=Decimal("5.00"), delivery_date=date)
++        return create_purchase(dict(item=self.item, vendor=self.vendor, quantity=10,
++                                       price=Decimal("5.00"), delivery_date=date))
+diff --git a/transactions/tests/test_hc_regression.py b/transactions/tests/test_hc_regression.py
+index 4ca4639..e8d26a0 100644
+--- a/transactions/tests/test_hc_regression.py
++++ b/transactions/tests/test_hc_regression.py
+@@ -4,0 +5,2 @@ Use an isolated test database. Never seed these cases into a real shop database.
++from transactions.services.purchases import create_purchase, update_purchase
++from transactions.tests.purchase_api import purchase_data
+@@ -41 +43 @@ class MaintenanceRegressionTests(TestCase):
+-        return Purchase.objects.create(
++        return create_purchase(dict(
+@@ -45 +47 @@ class MaintenanceRegressionTests(TestCase):
+-        )
++        ))
+@@ -82 +84 @@ class MaintenanceRegressionTests(TestCase):
+-        purchase.save()
++        update_purchase(purchase.pk, purchase_data(purchase))
