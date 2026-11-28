@@ -61,7 +61,7 @@
     <!-- Sidebar Header -->
     <div class="sidebar-header d-flex align-items-center px-3 py-4 border-bottom border-secondary">
         <a href="{% url 'user-profile' %}" class="d-flex align-items-center text-decoration-none text-light">
-            <img class="rounded-circle img-fluid" id="sidebar-img" width="45" src="{{ request.user.profile.profile_picture.url }}" alt="Profile Picture" />
+            <img class="rounded-circle img-fluid" id="sidebar-img" width="45" src="{{ request.user.profile.profile_picture.url }}" alt="Ảnh hồ sơ" />
             <div class="ms-3">
                 <h5 class="fs-6 mb-0">
                     {{ request.user.username }}{% if request.user.profile.role == 'AD' %} <i class="fa-solid fa-circle-check text-success"></i>{% endif %}
@@ -99,17 +99,17 @@
             </li>
             <li class="nav-item mb-2">
                 <a class="nav-link text-light {% if request.resolver_match.url_name == 'saleslist' %}active{% endif %}" href="{% url 'saleslist' %}">
-                    <i class="fa fa-shopping-bag fa-fw me-2"></i> Sales Orders
+                    <i class="fa fa-shopping-bag fa-fw me-2"></i> Đơn bán
                 </a>
             </li>
             <li class="nav-item mb-2">
                 <a class="nav-link text-light {% if request.resolver_match.url_name == 'purchaseslist' %}active{% endif %}" href="{% url 'purchaseslist' %}">
-                    <i class="fa fa-shopping-cart me-2"></i> Purchase Orders
+                    <i class="fa fa-shopping-cart me-2"></i> Phiếu nhập
                 </a>
             </li>
             <li class="nav-item mb-2">
                 <a class="nav-link text-light {% if request.resolver_match.url_name == 'deliveries' %}active{% endif %}" href="{% url 'deliveries' %}">
-                    <i class="fa-solid fa-box me-2"></i> Package
+                    <i class="fa-solid fa-box me-2"></i> Giao hàng
                 </a>
             </li>
             <li class="nav-item mb-2">
@@ -124,10 +124,10 @@
             </li>
             <li class="nav-item mb-2 dropdown">
                 <a class="nav-link text-light {% if request.resolver_match.url_name == 'profile_list' or request.resolver_match.url_name == 'customer_list' or request.resolver_match.url_name == 'vendor-list' %} active{% endif %} dropdown-toggle" href="#" id="accountsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-users me-2"></i> Accounts
+                    <i class="fa fa-users me-2"></i> Tài khoản
                 </a>
                 <ul class="dropdown-menu bg-dark border-0" aria-labelledby="accountsDropdown">
-                    <li><a class="dropdown-item text-light {% if request.resolver_match.url_name == 'profile_list' %}active{% endif %}" href="{% url 'profile_list' %}">All Staff</a></li>
+                    <li><a class="dropdown-item text-light {% if request.resolver_match.url_name == 'profile_list' %}active{% endif %}" href="{% url 'profile_list' %}">Danh sách nhân viên</a></li>
                     <li><a class="dropdown-item text-light {% if request.resolver_match.url_name == 'customer_list' %}active{% endif %}" href="{% url 'customer_list' %}">Khách hàng</a></li>
                     <li><a class="dropdown-item text-light {% if request.resolver_match.url_name == 'customer_list' %}active{% endif %}" href="{% url 'vendor-list' %}">Nhà cung cấp</a></li>
                 </ul>

@@ -135,6 +135,9 @@ class VNDApplicationTests(TestCase):
         self.assertContains(response,'109.999 ₫')
         self.assertContains(response,'02/01/2026 00:30')
         self.assertContains(response,'Tổng cộng')
+        self.assertContains(response,'Đơn bán')
+        self.assertContains(response,'Phiếu nhập')
+        self.assertContains(response,'lang="vi"')
         self.assertNotContains(response,'Ksh')
 
     def test_all_money_fields_have_zero_scale_and_integrality_checks(self):
