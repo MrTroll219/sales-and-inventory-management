@@ -13,7 +13,13 @@ class Command(BaseCommand):
         parser.add_argument('--database', default='default')
 
     def handle(self, *args, **options):
-        report = audit_data(apps, connections[options['database']])
+        connection = connections[options['database']]
+        from django.db.migrations.recorder import MigrationRecorder
+        if ('transactions', '0006_tu03_vnd') in MigrationRecorder(connection).applied_migrations():
+            from transactions.migrations._tu03_data import audit
+            report = audit(apps, connection, project=False)
+        else:
+            report = audit_data(apps, connection)  # Keep the DP02 historical contract intact.
         self.stdout.write(json.dumps(report, ensure_ascii=False, indent=2))
         if not report['safe_to_migrate']:
             raise CommandError('DP02 preflight failed; review listed rows before migrate. No data changed.')

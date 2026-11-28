@@ -20,7 +20,7 @@ def _values(data):
             raise InvalidQuantity('Số lượng nhập phải lớn hơn 0.')
     if 'price' in values:
         try:
-            values['price'] = money(values['price'], 'price')
+            values['price'] = money(values['price'], 'price', strict=True)
         except SaleInputError as error:
             raise InventoryError(str(error))
     return values

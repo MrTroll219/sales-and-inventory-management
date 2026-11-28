@@ -161,10 +161,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'vi'
+TIME_ZONE = 'Asia/Ho_Chi_Minh'
 USE_I18N = True
 USE_TZ = True
+CURRENCY_CODE = 'VND'
+DATE_INPUT_FORMATS = ['%d/%m/%Y', '%Y-%m-%d']
+DATETIME_INPUT_FORMATS = ['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S', '%Y-%m-%dT%H:%M', '%Y-%m-%d %H:%M:%S']
 
 LOGIN_URL = 'user-login'
 LOGIN_REDIRECT_URL = 'dashboard'

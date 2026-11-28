@@ -1,8 +1,10 @@
 """HC03: pure validation and Decimal pricing; callers supply database prices."""
 from decimal import Decimal, DecimalException, ROUND_HALF_UP
 
-CENT = Decimal("0.01")
-MAX_MONEY = Decimal("9999999999999.99")  # DecimalField(15, 2).
+from store.money import to_vnd, format_vnd, MAX_MONEY, INTEGER_MESSAGE
+
+TAX_UNIT = Decimal("0.01")
+
 
 
 class SaleInputError(ValueError):
@@ -28,12 +30,15 @@ def positive_integer(value, name, maximum=2147483647):
     return int(result)
 
 
-def money(value, name):
+def money(value, name, *, strict=False):
     result = decimal_value(value, name)
     if result < 0 or result > MAX_MONEY:
         raise SaleInputError(f"{name} phải từ 0 đến {MAX_MONEY}.")
     try:
-        return result.quantize(CENT, rounding=ROUND_HALF_UP)
+        whole = to_vnd(result)
+        if strict and whole != result:
+            raise SaleInputError(INTEGER_MESSAGE)
+        return whole
     except DecimalException as error:
         raise SaleInputError(f"{name} không hợp lệ.") from error
 
@@ -42,14 +47,14 @@ def check_client_total(data, field, expected):
     """Client totals are optional assertions, never the source of stored values."""
     if field in data:
         actual = decimal_value(data[field], field)
-        if actual < 0 or actual > MAX_MONEY or abs(actual - expected) > CENT:
-            raise SaleInputError(f"{field} không khớp; giá trị đúng là {expected:.2f}.")
+        if actual < 0 or actual > MAX_MONEY or actual != expected:
+            raise SaleInputError(f"{field} không khớp; giá trị đúng là {format_vnd(expected)}.")
 
 
 def compute_sale_totals(lines, tax_percentage, amount_paid):
     """Price canonical lines {id, price FROM DB, quantity}; no ORM/network access.
 
-    Prices and money use cents with ROUND_HALF_UP. Duplicate IDs are aggregated.
+    Prices and money use whole VND with ROUND_HALF_UP. Duplicate IDs are aggregated.
     Client prices must be replaced by locked Item.price before calling this function.
     """
     if not isinstance(lines, list) or not lines:
@@ -57,7 +62,7 @@ def compute_sale_totals(lines, tax_percentage, amount_paid):
     tax_percentage = decimal_value(tax_percentage, "tax_percentage")
     if not 0 <= tax_percentage <= 100:
         raise SaleInputError("tax_percentage phải từ 0 đến 100.")
-    if tax_percentage != tax_percentage.quantize(CENT, rounding=ROUND_HALF_UP):
+    if tax_percentage != tax_percentage.quantize(TAX_UNIT, rounding=ROUND_HALF_UP):
         raise SaleInputError("tax_percentage chỉ được có tối đa 2 chữ số thập phân.")
     grouped = {}
     for line in lines:
@@ -84,7 +89,7 @@ def compute_sale_totals(lines, tax_percentage, amount_paid):
     sub_total = money(sum(line["total_detail"] for line in result_lines), "sub_total")
     tax_amount = money(sub_total * tax_percentage / 100, "tax_amount")
     grand_total = money(sub_total + tax_amount, "grand_total")
-    amount_paid = money(amount_paid, "amount_paid")
+    amount_paid = money(amount_paid, "amount_paid", strict=True)
     if amount_paid < grand_total:
         raise SaleInputError(f"amount_paid không đủ; cần ít nhất {grand_total:.2f}.")
     return {"lines": result_lines, "sub_total": sub_total, "tax_percentage": tax_percentage,

@@ -1,3 +1,4 @@
+from store.money import VNDField, to_vnd
 from django.db import models
 from django.conf import settings
 from django.db.models import F
@@ -25,31 +26,31 @@ class Sale(models.Model):
         on_delete=models.DO_NOTHING,
         db_column="customer"
     )
-    sub_total = models.DecimalField(
+    sub_total = VNDField(
         max_digits=15, validators=[MinValueValidator(0)],
-        decimal_places=2,
+        decimal_places=0,
         default=0
     )
-    grand_total = models.DecimalField(
+    grand_total = VNDField(
         max_digits=15, validators=[MinValueValidator(0)],
-        decimal_places=2,
+        decimal_places=0,
         default=0
     )
-    tax_amount = models.DecimalField(
+    tax_amount = VNDField(
         max_digits=15, validators=[MinValueValidator(0)],
-        decimal_places=2,
+        decimal_places=0,
         default=0
     )
     tax_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0,
         validators=[MinValueValidator(0), MaxValueValidator(100)])
-    amount_paid = models.DecimalField(
+    amount_paid = VNDField(
         max_digits=15, validators=[MinValueValidator(0)],
-        decimal_places=2,
+        decimal_places=0,
         default=0
     )
-    amount_change = models.DecimalField(
+    amount_change = VNDField(
         max_digits=15, validators=[MinValueValidator(0)],
-        decimal_places=2,
+        decimal_places=0,
         default=0
     )
 
@@ -65,8 +66,13 @@ class Sale(models.Model):
             models.CheckConstraint(condition=models.Q(amount_change__gte=0), name='sale_change_nonnegative'),
             models.CheckConstraint(condition=models.Q(tax_percentage__gte=0, tax_percentage__lte=100), name='sale_tax_percentage_range'),
             # SQLite NUMERIC uses binary arithmetic; round the F expression to cents.
-            models.CheckConstraint(condition=models.Q(grand_total=Round(F('sub_total') + F('tax_amount'), 2)), name='sale_grand_matches_parts'),
-            models.CheckConstraint(condition=models.Q(amount_change=Round(F('amount_paid') - F('grand_total'), 2)), name='sale_change_matches_payment'),
+            models.CheckConstraint(condition=models.Q(grand_total=Round(F('sub_total') + F('tax_amount'), 0)), name='sale_grand_matches_parts'),
+            models.CheckConstraint(condition=models.Q(amount_change=Round(F('amount_paid') - F('grand_total'), 0)), name='sale_change_matches_payment'),
+            models.CheckConstraint(condition=models.Q(sub_total=Round(models.F('sub_total'), 0)), name='sale_sub_total_vnd_int'),
+            models.CheckConstraint(condition=models.Q(tax_amount=Round(models.F('tax_amount'), 0)), name='sale_tax_amount_vnd_int'),
+            models.CheckConstraint(condition=models.Q(grand_total=Round(models.F('grand_total'), 0)), name='sale_grand_total_vnd_int'),
+            models.CheckConstraint(condition=models.Q(amount_paid=Round(models.F('amount_paid'), 0)), name='sale_amount_paid_vnd_int'),
+            models.CheckConstraint(condition=models.Q(amount_change=Round(models.F('amount_change'), 0)), name='sale_amount_change_vnd_int'),
         ]
 
     def __str__(self):
@@ -102,12 +108,12 @@ class SaleDetail(models.Model):
         on_delete=models.DO_NOTHING,
         db_column="item"
     )
-    price = models.DecimalField(
+    price = VNDField(
         max_digits=15, validators=[MinValueValidator(0)],
-        decimal_places=2
+        decimal_places=0
     )
     quantity = models.PositiveIntegerField(validators=[MinValueValidator(1)])
-    total_detail = models.DecimalField(max_digits=15, validators=[MinValueValidator(0)], decimal_places=2)
+    total_detail = VNDField(max_digits=15, validators=[MinValueValidator(0)], decimal_places=0)
 
     class Meta:
         db_table = "sale_details"
@@ -117,6 +123,8 @@ class SaleDetail(models.Model):
             models.CheckConstraint(condition=models.Q(price__gte=0), name='sale_detail_price_nonnegative'),
             models.CheckConstraint(condition=models.Q(total_detail__gte=0), name='sale_detail_total_nonnegative'),
             models.CheckConstraint(condition=models.Q(quantity__gt=0), name='sale_detail_quantity_positive'),
+            models.CheckConstraint(condition=models.Q(price=Round(models.F('price'), 0)), name='saledetail_price_vnd_int'),
+            models.CheckConstraint(condition=models.Q(total_detail=Round(models.F('total_detail'), 0)), name='saledetail_total_detail_vnd_int'),
         ]
 
     def __str__(self):
@@ -153,17 +161,18 @@ class Purchase(models.Model):
         default="P",
         verbose_name="Delivery Status",
     )
-    price = models.DecimalField(
+    price = VNDField(
         max_digits=15, validators=[MinValueValidator(0)],
-        decimal_places=2,
+        decimal_places=0,
         default=0,
-        verbose_name="Price per item (Ksh)",
+        verbose_name="Price per item (VND)",
     )
-    total_value = models.DecimalField(max_digits=15, validators=[MinValueValidator(0)], decimal_places=2)
+    total_value = VNDField(max_digits=15, validators=[MinValueValidator(0)], decimal_places=0)
 
     def save(self, *args, **kwargs):
         """DP01: compute value only; inventory is owned by services."""
-        self.total_value = self.price * self.quantity
+        self.price = to_vnd(self.price)
+        self.total_value = to_vnd(self.price * self.quantity)
         if kwargs.get('update_fields') is not None:
             changed = set(kwargs['update_fields'])
             if changed & {'quantity', 'price'}:
@@ -182,6 +191,8 @@ class Purchase(models.Model):
             models.CheckConstraint(condition=models.Q(price__gte=0), name='purchase_price_nonnegative'),
             models.CheckConstraint(condition=models.Q(total_value__gte=0), name='purchase_total_nonnegative'),
             models.CheckConstraint(condition=models.Q(quantity__gt=0), name='purchase_quantity_positive'),
+            models.CheckConstraint(condition=models.Q(price=Round(models.F('price'), 0)), name='purchase_price_vnd_int'),
+            models.CheckConstraint(condition=models.Q(total_value=Round(models.F('total_value'), 0)), name='purchase_total_value_vnd_int'),
         ]
 
 

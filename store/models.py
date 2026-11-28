@@ -1,3 +1,5 @@
+from django.db.models.functions import Round
+from store.money import VNDField, to_vnd
 """
 Module: models.py
 
@@ -46,7 +48,7 @@ class Item(models.Model):
     description = models.TextField(max_length=256)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0, validators=[MinValueValidator(0)])
-    price = models.DecimalField(max_digits=15, decimal_places=2, default=0, validators=[MinValueValidator(0)])
+    price = VNDField(max_digits=15, decimal_places=0, default=0, validators=[MinValueValidator(0)])
     expiring_date = models.DateTimeField(null=True, blank=True)
     vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True)
 
@@ -80,6 +82,7 @@ class Item(models.Model):
         constraints = [
             models.CheckConstraint(condition=models.Q(price__gte=0), name='item_price_nonnegative'),
             models.CheckConstraint(condition=models.Q(quantity__gte=0), name='item_quantity_nonnegative'),
+            models.CheckConstraint(condition=models.Q(price=Round(models.F('price'), 0)), name='item_price_vnd_int'),
         ]
 
 

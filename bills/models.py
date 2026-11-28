@@ -1,3 +1,5 @@
+from django.db.models.functions import Round
+from store.money import VNDField, to_vnd
 from django.db import models
 from django.core.validators import MinValueValidator
 from autoslug import AutoSlugField
@@ -44,9 +46,9 @@ class Bill(models.Model):
         null=False,
         help_text='Details of the payment'
     )
-    amount = models.DecimalField(
-        max_digits=15, decimal_places=2, validators=[MinValueValidator(0)],
-        verbose_name='Total Amount Owing (Ksh)',
+    amount = VNDField(
+        max_digits=15, decimal_places=0, validators=[MinValueValidator(0)],
+        verbose_name='Total Amount Owing (VND)',
         help_text='Total amount due for payment'
     )
     status = models.BooleanField(
@@ -59,4 +61,7 @@ class Bill(models.Model):
         return self.institution_name
 
     class Meta:
-        constraints = [models.CheckConstraint(condition=models.Q(amount__gte=0), name='bill_amount_nonnegative')]
+        constraints = [
+            models.CheckConstraint(condition=models.Q(amount__gte=0), name='bill_amount_nonnegative'),
+            models.CheckConstraint(condition=models.Q(amount=Round(models.F('amount'), 0)), name='bill_amount_vnd_int'),
+        ]
