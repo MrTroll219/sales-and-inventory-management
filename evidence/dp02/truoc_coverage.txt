@@ -1,0 +1,39 @@
+Name                       Stmts   Miss  Cover   Missing
+--------------------------------------------------------
+bills\__init__.py              0      0   100%
+bills\admin.py                 6      0   100%
+bills\apps.py                  4      0   100%
+bills\models.py               15      1    93%   57
+bills\tables.py                8      0   100%
+bills\urls.py                  3      0   100%
+bills\views.py                36      5    86%   51, 71, 75, 85, 89
+invoice\__init__.py            0      0   100%
+invoice\admin.py               6      0   100%
+invoice\apps.py                4      0   100%
+invoice\models.py             20      4    80%   46-48, 54
+invoice\tables.py              8      0   100%
+invoice\urls.py                7      1    86%   47
+invoice\views.py              41      6    85%   44, 62, 80, 86, 101, 107
+store\__init__.py              0      0   100%
+store\admin.py                19      0   100%
+store\apps.py                  4      0   100%
+store\filters.py               6      6     0%   1-11
+store\forms.py                18      0   100%
+store\models.py               46      9    80%   65, 68-74, 100
+store\tables.py               12      0   100%
+store\urls.py                  8      1    88%   131
+store\views.py               166     53    68%   50-92, 126-136, 152, 173-176, 196-199, 217-220, 253-264, 329-332, 357, 367, 379, 386-398
+transactions\__init__.py       0      0   100%
+transactions\admin.py         30      4    87%   28, 52, 80-81
+transactions\apps.py           6      0   100%
+transactions\filters.py       10     10     0%   1-14
+transactions\forms.py         23      0   100%
+transactions\models.py        87      4    95%   62, 72, 107, 201
+transactions\pricing.py       65      3    95%   37-38, 74
+transactions\signals.py        0      0   100%
+transactions\tables.py        14     14     0%   1-38
+transactions\urls.py           6      0   100%
+transactions\utils.py          7      0   100%
+transactions\views.py        159      6    96%   219, 244, 250, 286, 325, 331
+--------------------------------------------------------
+TOTAL                        844    127    85%

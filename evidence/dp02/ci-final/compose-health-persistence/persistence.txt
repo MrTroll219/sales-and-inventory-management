@@ -1,0 +1,3 @@
+17 objects imported automatically (use -v 2 for details).
+
+DATABASE_AND_MEDIA_PERSISTENCE_PASS

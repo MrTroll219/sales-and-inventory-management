@@ -1,0 +1,3 @@
+Purchase.save AST unchanged
+SaleCreateView unchanged
+No FloatField in money models

@@ -1,0 +1,937 @@
+PostgreSQL16 / Python3.12	UNKNOWN STEP	﻿2026-11-28T07:15:13.7164659Z Current runner version: '2.338.2'
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7186434Z ##[group]Runner Image Provisioner
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7187215Z Hosted Compute Agent
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7187702Z Version: 20261111.635
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7188260Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7188973Z Build Date: 2026-11-11T01:49:01Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7189590Z Worker ID: {c10d7df4-cdf6-4d5a-bf9b-f87fbd1c90ee}
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7190208Z Region: centralus
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7190665Z Cloud: Azure
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7191091Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7192482Z ##[group]Operating System
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7193046Z Ubuntu
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7193507Z 24.04.5
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7193947Z LTS
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7194382Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7194910Z ##[group]Runner Image
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7195404Z Image: ubuntu-24.04
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7195873Z Version: 20261122.23.1
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7196932Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261122.23/images/ubuntu/Ubuntu2404-Readme.md
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7198256Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261122.23
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7199066Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7199993Z ##[group]GITHUB_TOKEN Permissions
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7201806Z Contents: read
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7202372Z Metadata: read
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7202864Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7204517Z Secret source: Actions
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7205312Z Cache mode: write
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7205914Z Prepare workflow directory
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7564406Z Prepare all required actions
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:13.7605014Z Getting action download info
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:14.0039447Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:14.1870087Z Download action repository 'actions/setup-python@v7' (SHA:6d4fd22b20465ccc0f7354476588e8df7c9ca0e0)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:14.3227607Z Download action repository 'actions/upload-artifact@v7' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:14.5499070Z Complete job name: PostgreSQL16 / Python3.12
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:14.5977474Z ##[group]Checking docker version
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:14.5988941Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:15.9947468Z '1.48'
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:15.9958540Z Docker daemon API version: '1.48'
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:15.9960052Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.0123471Z '1.48'
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.0133945Z Docker client API version: '1.48'
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.0139526Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.0142105Z ##[group]Clean up resources from previous jobs
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.0146972Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=1a3705"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.0351197Z ##[command]/usr/bin/docker network prune --force --filter "label=1a3705"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.0483176Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.0484352Z ##[group]Create local container network
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.0494035Z ##[command]/usr/bin/docker network create --label 1a3705 github_network_9668651749714d32ba89812b35d1437a
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.0894979Z 71ce451542057a2b2ae6497c314ef6e2a13f11ae68422919f431cd6081466560
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.0909864Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.0935078Z ##[group]Starting postgres service container
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.0955661Z ##[command]/usr/bin/docker pull postgres:16
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.7114748Z 16: Pulling from library/postgres
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8568001Z 40748add9f4f: Pulling fs layer
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8570222Z 1be8baae3c53: Pulling fs layer
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8570976Z e91b6b814ba6: Pulling fs layer
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8572461Z 46e4f78fd254: Pulling fs layer
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8572992Z 111f378001d9: Pulling fs layer
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8573746Z c362828e9ca3: Pulling fs layer
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8574155Z 9be9d0609035: Pulling fs layer
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8574739Z 72bd85048465: Pulling fs layer
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8575204Z 3b9319a24e33: Pulling fs layer
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8575627Z cc2ed79b34db: Pulling fs layer
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8576640Z 34ff39ac908b: Pulling fs layer
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8577135Z 91d82016f303: Pulling fs layer
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8577667Z cfa3776983f1: Pulling fs layer
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8578230Z 3b9319a24e33: Waiting
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8579369Z 46e4f78fd254: Waiting
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8579852Z cc2ed79b34db: Waiting
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8580122Z 111f378001d9: Waiting
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8580366Z 34ff39ac908b: Waiting
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8580688Z c362828e9ca3: Waiting
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8580967Z 91d82016f303: Waiting
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8581225Z 9be9d0609035: Waiting
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8581468Z 72bd85048465: Waiting
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:16.8582018Z cfa3776983f1: Waiting
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.0069851Z 1be8baae3c53: Download complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.1014851Z e91b6b814ba6: Verifying Checksum
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.1018171Z e91b6b814ba6: Download complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.1316449Z 40748add9f4f: Verifying Checksum
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.1317224Z 40748add9f4f: Download complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.2389577Z 46e4f78fd254: Verifying Checksum
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.2390959Z 46e4f78fd254: Download complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.3410800Z c362828e9ca3: Verifying Checksum
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.3411545Z c362828e9ca3: Download complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.3564063Z 111f378001d9: Verifying Checksum
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.3564880Z 111f378001d9: Download complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.3815601Z 9be9d0609035: Verifying Checksum
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.3816288Z 9be9d0609035: Download complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.4985644Z 72bd85048465: Verifying Checksum
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.4986608Z 72bd85048465: Download complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.5222119Z cc2ed79b34db: Verifying Checksum
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.5223463Z cc2ed79b34db: Download complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.6294346Z 34ff39ac908b: Verifying Checksum
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.6295413Z 34ff39ac908b: Download complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.6873635Z 91d82016f303: Download complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.7465633Z cfa3776983f1: Verifying Checksum
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.7466181Z cfa3776983f1: Download complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.8191084Z 3b9319a24e33: Verifying Checksum
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.8192122Z 3b9319a24e33: Download complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:17.9111336Z 40748add9f4f: Pull complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:19.1557488Z 1be8baae3c53: Pull complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:19.3868583Z e91b6b814ba6: Pull complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:19.4361030Z 46e4f78fd254: Pull complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:19.8153262Z 111f378001d9: Pull complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:19.8796943Z c362828e9ca3: Pull complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:19.8874340Z 9be9d0609035: Pull complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:19.8972307Z 72bd85048465: Pull complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:23.6608944Z 3b9319a24e33: Pull complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:23.6723159Z cc2ed79b34db: Pull complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:23.6827039Z 34ff39ac908b: Pull complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:23.6913212Z 91d82016f303: Pull complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:23.6993442Z cfa3776983f1: Pull complete
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:23.7035466Z Digest: sha256:ce81150802644ddfac1db4da9e63be6f2a3818aa6ee98a7a28838aeea65dc37a
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:23.7051246Z Status: Downloaded newer image for postgres:16
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:23.7061140Z docker.io/library/postgres:16
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:23.7110781Z ##[command]/usr/bin/docker create --name 2317668f94a54e21bd5d68dad314a714_postgres16_318751 --label 1a3705 --network github_network_9668651749714d32ba89812b35d1437a --network-alias postgres -p 5432:5432 --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10 -e "POSTGRES_USER=postgres" -e "POSTGRES_PASSWORD=ci-test-only-password" -e "POSTGRES_DB=inventory_ci" -e GITHUB_ACTIONS=true -e CI=true postgres:16
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:23.7353665Z f0f1a21ec83e8429228f52f5efe5fd32b96dbef3b1efb064a539910ab0489626
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:23.7369417Z ##[command]/usr/bin/docker start f0f1a21ec83e8429228f52f5efe5fd32b96dbef3b1efb064a539910ab0489626
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:24.5299874Z f0f1a21ec83e8429228f52f5efe5fd32b96dbef3b1efb064a539910ab0489626
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:24.5324998Z ##[command]/usr/bin/docker ps --all --filter id=f0f1a21ec83e8429228f52f5efe5fd32b96dbef3b1efb064a539910ab0489626 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:24.5509857Z f0f1a21ec83e8429228f52f5efe5fd32b96dbef3b1efb064a539910ab0489626 Up Less than a second (health: starting)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:24.5531923Z ##[command]/usr/bin/docker port f0f1a21ec83e8429228f52f5efe5fd32b96dbef3b1efb064a539910ab0489626
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:24.5664782Z 5432/tcp -> 0.0.0.0:5432
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:24.5665654Z 5432/tcp -> [::]:5432
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:24.5705122Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:24.5714250Z ##[group]Waiting for all services to be ready
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:24.5726670Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" f0f1a21ec83e8429228f52f5efe5fd32b96dbef3b1efb064a539910ab0489626
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:24.5852015Z starting
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:24.5878927Z postgres service is starting, waiting 2 seconds before checking again.
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:26.5884717Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" f0f1a21ec83e8429228f52f5efe5fd32b96dbef3b1efb064a539910ab0489626
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:26.6018359Z starting
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:26.6029223Z postgres service is starting, waiting 4 seconds before checking again.
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.8833487Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" f0f1a21ec83e8429228f52f5efe5fd32b96dbef3b1efb064a539910ab0489626
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.8968177Z healthy
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.8981438Z postgres service is healthy.
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.8982540Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9239014Z ##[group]Run actions/checkout@v7
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9239524Z with:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9239838Z   repository: MrTroll219/sales-and-inventory-management
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9242423Z   token: ***
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9242726Z   ssh-strict: true
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9242992Z   ssh-user: git
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9243276Z   persist-credentials: true
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9243600Z   clean: true
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9243871Z   sparse-checkout-cone-mode: true
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9244211Z   fetch-depth: 1
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9244473Z   fetch-tags: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9244746Z   show-progress: true
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9245001Z   lfs: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9245231Z   submodules: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9245542Z   set-safe-directory: true
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9245830Z   allow-unsafe-pr-checkout: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9246244Z env:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9246644Z   SECRET_KEY: TU02-ci-only-0123456789-ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijk
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9247022Z   DEBUG: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9247414Z   DJANGO_SECURE_SSL: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9247681Z   DJANGO_ENV_FILE: /dev/null
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9247987Z   DB_ENGINE: postgresql
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9248251Z   DB_NAME: inventory_ci
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9248512Z   DB_USER: postgres
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9248823Z   DB_PASSWORD: ci-test-only-password
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9249116Z   DB_HOST: 127.0.0.1
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9249381Z   DB_PORT: 5432
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:30.9249628Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2088909Z Syncing repository: MrTroll219/sales-and-inventory-management
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2090651Z ##[group]Getting Git version info
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2091387Z Working directory is '/home/runner/work/sales-and-inventory-management/sales-and-inventory-management'
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2092449Z [command]/usr/bin/git version
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2197238Z git version 2.56.1
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2213728Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2223432Z Temporarily overriding HOME='/home/runner/work/_temp/7bda2b61-ea51-4177-bc08-73e20151cce1' before making global git config changes
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2224563Z Adding repository directory to the temporary git global config as a safe directory
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2232820Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/sales-and-inventory-management/sales-and-inventory-management
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2272991Z Deleting the contents of '/home/runner/work/sales-and-inventory-management/sales-and-inventory-management'
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2276508Z ##[group]Determining repository object format
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2278148Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2278864Z ##[group]Initializing the repository
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2283788Z [command]/usr/bin/git init /home/runner/work/sales-and-inventory-management/sales-and-inventory-management
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2403509Z hint: Using 'master' as the name for the initial branch. This default branch name
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2420795Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2421788Z hint: to use in all of your new repositories, which will suppress this warning,
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2422387Z hint: call:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2422734Z hint:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2423187Z hint: 	git config --global init.defaultBranch <name>
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2423633Z hint:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2424031Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2424519Z hint: 'development'. The just-created branch can be renamed via this command:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2425271Z hint:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2425539Z hint: 	git branch -m <name>
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2425818Z hint:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2426216Z hint: Disable this message with "git config set advice.defaultBranchName false"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2426911Z Initialized empty Git repository in /home/runner/work/sales-and-inventory-management/sales-and-inventory-management/.git/
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2430986Z [command]/usr/bin/git remote add origin https://github.com/MrTroll219/sales-and-inventory-management
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2491157Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2491951Z ##[group]Disabling automatic garbage collection
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2495130Z [command]/usr/bin/git config --local gc.auto 0
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2527778Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2528482Z ##[group]Setting up auth
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2529037Z Removing SSH command configuration
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2533534Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2562554Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2891700Z Removing HTTP extra header
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2896353Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.2925851Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.3093947Z Removing includeIf entries pointing to credentials config files
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.3098453Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.3126903Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.3291001Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-46182613-e6b9-4a33-b423-fe91542701b0.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.3320964Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/sales-and-inventory-management/sales-and-inventory-management/.git.path /home/runner/work/_temp/git-credentials-46182613-e6b9-4a33-b423-fe91542701b0.config
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.3348043Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/sales-and-inventory-management/sales-and-inventory-management/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-46182613-e6b9-4a33-b423-fe91542701b0.config
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.3377105Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-46182613-e6b9-4a33-b423-fe91542701b0.config
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.3404919Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-46182613-e6b9-4a33-b423-fe91542701b0.config
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.3429791Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.3430287Z ##[group]Fetching the repository
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:31.3435439Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +6c5d399df8c0464c3fbe6cccf82dc87229109133:refs/remotes/origin/dp02-decimal-rang-buoc
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0205522Z From https://github.com/MrTroll219/sales-and-inventory-management
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0206405Z  * [new ref]         6c5d399df8c0464c3fbe6cccf82dc87229109133 -> origin/dp02-decimal-rang-buoc
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0213943Z [command]/usr/bin/git branch --list --remote origin/dp02-decimal-rang-buoc
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0248133Z   origin/dp02-decimal-rang-buoc
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0255329Z [command]/usr/bin/git rev-parse refs/remotes/origin/dp02-decimal-rang-buoc
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0276073Z 6c5d399df8c0464c3fbe6cccf82dc87229109133
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0278612Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0279248Z ##[group]Determining the checkout info
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0279980Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0283876Z [command]/usr/bin/git sparse-checkout disable
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0336171Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0363291Z ##[group]Checking out the ref
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0367606Z [command]/usr/bin/git checkout --progress --force -B dp02-decimal-rang-buoc refs/remotes/origin/dp02-decimal-rang-buoc
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0659450Z Switched to a new branch 'dp02-decimal-rang-buoc'
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0664623Z branch 'dp02-decimal-rang-buoc' set up to track 'origin/dp02-decimal-rang-buoc'.
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0668675Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0703175Z [command]/usr/bin/git log -1 --format=%H
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0726092Z 6c5d399df8c0464c3fbe6cccf82dc87229109133
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0943973Z ##[group]Run actions/setup-python@v7
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0944265Z with:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0944548Z   python-version: 3.12
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0944809Z   cache: pip
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0945092Z   check-latest: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0947255Z   token: ***
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0947584Z   mirror: https://raw.githubusercontent.com/actions/python-versions/main
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0948009Z   update-environment: true
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0948292Z   allow-prereleases: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0948587Z   freethreaded: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0948843Z env:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0949257Z   SECRET_KEY: TU02-ci-only-0123456789-ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijk
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0949656Z   DEBUG: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0949904Z   DJANGO_SECURE_SSL: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0950226Z   DJANGO_ENV_FILE: /dev/null
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0950511Z   DB_ENGINE: postgresql
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0950775Z   DB_NAME: inventory_ci
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0951051Z   DB_USER: postgres
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0951421Z   DB_PASSWORD: ci-test-only-password
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0951925Z   DB_HOST: 127.0.0.1
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0952186Z   DB_PORT: 5432
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.0952420Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.1898279Z ##[group]Installed versions
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.2393341Z Successfully set up CPython (3.12.16)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.2394249Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:32.3417643Z [command]/opt/hostedtoolcache/Python/3.12.16/x64/bin/pip cache dir
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.7900977Z /home/runner/.cache/pip
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9345446Z pip cache is not found
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9458891Z ##[group]Run pip install -r requirements.txt
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9459367Z ^[[36;1mpip install -r requirements.txt^[[0m
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9492043Z shell: /usr/bin/bash -e {0}
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9492433Z env:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9492819Z   SECRET_KEY: TU02-ci-only-0123456789-ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijk
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9493281Z   DEBUG: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9493573Z   DJANGO_SECURE_SSL: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9493853Z   DJANGO_ENV_FILE: /dev/null
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9494132Z   DB_ENGINE: postgresql
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9494413Z   DB_NAME: inventory_ci
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9494693Z   DB_USER: postgres
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9495151Z   DB_PASSWORD: ci-test-only-password
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9495453Z   DB_HOST: 127.0.0.1
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9495982Z   DB_PORT: 5432
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9496377Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9496837Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9497362Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9497756Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9498145Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9498549Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:33.9498873Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.6034430Z Collecting Django==5.2.19 (from -r requirements.txt (line 2))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.6899926Z   Downloading django-5.2.19-py3-none-any.whl.metadata (4.1 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.7129707Z Collecting django-autoslug==1.9.9 (from -r requirements.txt (line 3))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.7274329Z   Downloading django_autoslug-1.9.9-py2.py3-none-any.whl.metadata (5.2 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.7500355Z Collecting django-crispy-forms==2.3 (from -r requirements.txt (line 4))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.7628778Z   Downloading django_crispy_forms-2.3-py3-none-any.whl.metadata (5.1 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.7902780Z Collecting django-extensions==3.2.3 (from -r requirements.txt (line 5))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.8042420Z   Downloading django_extensions-3.2.3-py3-none-any.whl.metadata (6.3 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.8280675Z Collecting django-filter==24.3 (from -r requirements.txt (line 6))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.8409116Z   Downloading django_filter-24.3-py3-none-any.whl.metadata (5.2 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.8629295Z Collecting django-imagekit==5.0.0 (from -r requirements.txt (line 7))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.8765422Z   Downloading django_imagekit-5.0.0-py3-none-any.whl.metadata (18 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.9045541Z Collecting django-phonenumber-field==8.0.0 (from -r requirements.txt (line 8))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.9184688Z   Downloading django_phonenumber_field-8.0.0-py3-none-any.whl.metadata (3.1 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.9551959Z Collecting django-tables2==2.7.0 (from -r requirements.txt (line 9))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.9692184Z   Downloading django_tables2-2.7.0-py2.py3-none-any.whl.metadata (3.9 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:35.9907077Z Collecting crispy-bootstrap5==2024.2 (from -r requirements.txt (line 12))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.0040475Z   Downloading crispy_bootstrap5-2024.2-py3-none-any.whl.metadata (3.9 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.0276875Z Collecting openpyxl==3.1.5 (from -r requirements.txt (line 15))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.0406615Z   Downloading openpyxl-3.1.5-py2.py3-none-any.whl.metadata (2.5 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.0774418Z Collecting phonenumbers==8.13.43 (from -r requirements.txt (line 16))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.0908486Z   Downloading phonenumbers-8.13.43-py2.py3-none-any.whl.metadata (10 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.1198103Z Collecting requests==2.32.3 (from -r requirements.txt (line 17))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.1327192Z   Downloading requests-2.32.3-py3-none-any.whl.metadata (4.6 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.1558202Z Collecting tablib==3.6.1 (from -r requirements.txt (line 18))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.1694452Z   Downloading tablib-3.6.1-py3-none-any.whl.metadata (3.8 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.1943156Z Collecting gunicorn==23.0.0 (from -r requirements.txt (line 20))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.2073327Z   Downloading gunicorn-23.0.0-py3-none-any.whl.metadata (4.4 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.2327329Z Collecting whitenoise==6.11.0 (from -r requirements.txt (line 21))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.2461591Z   Downloading whitenoise-6.11.0-py3-none-any.whl.metadata (3.7 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.3057741Z Collecting psycopg2-binary==2.9.11 (from -r requirements.txt (line 22))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.3186622Z   Downloading psycopg2_binary-2.9.11-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.3416202Z Collecting python-dotenv==1.2.1 (from -r requirements.txt (line 24))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.3544563Z   Downloading python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.3831797Z Collecting asgiref>=3.8.1 (from Django==5.2.19->-r requirements.txt (line 2))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.3959394Z   Downloading asgiref-3.13.0-py3-none-any.whl.metadata (12 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.4189947Z Collecting sqlparse>=0.3.1 (from Django==5.2.19->-r requirements.txt (line 2))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.4320010Z   Downloading sqlparse-0.6.1-py3-none-any.whl.metadata (6.9 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.4594115Z Collecting django-appconf (from django-imagekit==5.0.0->-r requirements.txt (line 7))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.4745577Z   Downloading django_appconf-1.2.0-py3-none-any.whl.metadata (5.5 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.4970684Z Collecting pilkit (from django-imagekit==5.0.0->-r requirements.txt (line 7))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.5098437Z   Downloading pilkit-3.0-py3-none-any.whl.metadata (4.0 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.5313891Z Collecting et-xmlfile (from openpyxl==3.1.5->-r requirements.txt (line 15))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.5443555Z   Downloading et_xmlfile-2.0.0-py3-none-any.whl.metadata (2.7 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.6569086Z Collecting charset-normalizer<4,>=2 (from requests==2.32.3->-r requirements.txt (line 17))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.6698610Z   Downloading charset_normalizer-3.5.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (43 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.6982521Z Collecting idna<4,>=2.5 (from requests==2.32.3->-r requirements.txt (line 17))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.7109074Z   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.7396395Z Collecting urllib3<3,>=1.21.1 (from requests==2.32.3->-r requirements.txt (line 17))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.7524986Z   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.7789053Z Collecting certifi>=2017.4.17 (from requests==2.32.3->-r requirements.txt (line 17))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.7917776Z   Downloading certifi-2026.11.20-py3-none-any.whl.metadata (2.5 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.8169784Z Collecting packaging (from gunicorn==23.0.0->-r requirements.txt (line 20))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.8297536Z   Downloading packaging-26.4-py3-none-any.whl.metadata (3.5 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.9563936Z Collecting Pillow>=7.0 (from pilkit->django-imagekit==5.0.0->-r requirements.txt (line 7))
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.9691058Z   Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:36.9865829Z Downloading django-5.2.19-py3-none-any.whl (8.3 MB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.1120865Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.3/8.3 MB 82.1 MB/s  0:00:00
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.1255433Z Downloading django_autoslug-1.9.9-py2.py3-none-any.whl (14 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.1430018Z Downloading django_crispy_forms-2.3-py3-none-any.whl (31 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.1582363Z Downloading django_extensions-3.2.3-py3-none-any.whl (229 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.1731171Z Downloading django_filter-24.3-py3-none-any.whl (95 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.1882761Z Downloading django_imagekit-5.0.0-py3-none-any.whl (39 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.2030972Z Downloading django_phonenumber_field-8.0.0-py3-none-any.whl (66 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.2188690Z Downloading django_tables2-2.7.0-py2.py3-none-any.whl (95 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.2347557Z Downloading crispy_bootstrap5-2024.2-py3-none-any.whl (24 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.2495341Z Downloading openpyxl-3.1.5-py2.py3-none-any.whl (250 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.2661257Z Downloading phonenumbers-8.13.43-py2.py3-none-any.whl (2.6 MB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.2818303Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.6/2.6 MB 171.2 MB/s  0:00:00
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.2947295Z Downloading requests-2.32.3-py3-none-any.whl (64 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.3106856Z Downloading tablib-3.6.1-py3-none-any.whl (47 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.3256558Z Downloading gunicorn-23.0.0-py3-none-any.whl (85 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.3408567Z Downloading whitenoise-6.11.0-py3-none-any.whl (20 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.3565608Z Downloading psycopg2_binary-2.9.11-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.2 MB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.3822105Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 171.9 MB/s  0:00:00
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.3949172Z Downloading python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.4096642Z Downloading charset_normalizer-3.5.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (257 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.4246392Z Downloading idna-3.20-py3-none-any.whl (69 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.4392857Z Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.4540368Z Downloading asgiref-3.13.0-py3-none-any.whl (27 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.4688974Z Downloading certifi-2026.11.20-py3-none-any.whl (127 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.4837770Z Downloading sqlparse-0.6.1-py3-none-any.whl (51 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.4985419Z Downloading django_appconf-1.2.0-py3-none-any.whl (6.5 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.5127837Z Downloading et_xmlfile-2.0.0-py3-none-any.whl (18 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.5274992Z Downloading packaging-26.4-py3-none-any.whl (140 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.5424652Z Downloading pilkit-3.0-py3-none-any.whl (20 kB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.5573586Z Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.5936953Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.1/7.1 MB 199.4 MB/s  0:00:00
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:37.9130951Z Installing collected packages: phonenumbers, django-autoslug, whitenoise, urllib3, tablib, sqlparse, python-dotenv, psycopg2-binary, Pillow, packaging, idna, et-xmlfile, charset-normalizer, certifi, asgiref, requests, pilkit, openpyxl, gunicorn, Django, django-tables2, django-phonenumber-field, django-filter, django-extensions, django-crispy-forms, django-appconf, django-imagekit, crispy-bootstrap5
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.8427004Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.8449249Z Successfully installed Django-5.2.19 Pillow-13.0.0 asgiref-3.13.0 certifi-2026.11.20 charset-normalizer-3.5.3 crispy-bootstrap5-2024.2 django-appconf-1.2.0 django-autoslug-1.9.9 django-crispy-forms-2.3 django-extensions-3.2.3 django-filter-24.3 django-imagekit-5.0.0 django-phonenumber-field-8.0.0 django-tables2-2.7.0 et-xmlfile-2.0.0 gunicorn-23.0.0 idna-3.20 openpyxl-3.1.5 packaging-26.4 phonenumbers-8.13.43 pilkit-3.0 psycopg2-binary-2.9.11 python-dotenv-1.2.1 requests-2.32.3 sqlparse-0.6.1 tablib-3.6.1 urllib3-2.8.0 whitenoise-6.11.0
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9221248Z ##[group]Run mkdir -p reports
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9221761Z ^[[36;1mmkdir -p reports^[[0m
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9223108Z ^[[36;1mpython -c "import os,sys,django,psycopg2; c=psycopg2.connect(dbname=os.environ['DB_NAME'],user=os.environ['DB_USER'],***'DB_PASSWORD'],host=os.environ['DB_HOST']); print(sys.version); print('Django',django.get_version()); print('PostgreSQL server_version',c.server_version); assert 160000 <= c.server_version < 170000; c.close()" | tee reports/runtime.txt^[[0m
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9249054Z shell: /usr/bin/bash -e {0}
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9249438Z env:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9249818Z   SECRET_KEY: TU02-ci-only-0123456789-ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijk
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9250258Z   DEBUG: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9250529Z   DJANGO_SECURE_SSL: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9250854Z   DJANGO_ENV_FILE: /dev/null
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9251163Z   DB_ENGINE: postgresql
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9251432Z   DB_NAME: inventory_ci
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9251913Z   DB_USER: postgres
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9252422Z   DB_PASSWORD: ci-test-only-password
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9252720Z   DB_HOST: 127.0.0.1
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9252985Z   DB_PORT: 5432
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9253319Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9253763Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9254180Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9254557Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9255002Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9255410Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9255759Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9740118Z 3.12.16 (main, Oct 26 2026, 02:50:49) [GCC 13.3.0]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9740767Z Django 5.2.19
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9741228Z PostgreSQL server_version 160016
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9825177Z ##[group]Run set -o pipefail
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9825508Z ^[[36;1mset -o pipefail^[[0m
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9825794Z ^[[36;1mtest ! -d staticfiles^[[0m
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9826125Z ^[[36;1mpython manage.py check | tee reports/check.txt^[[0m
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9826590Z ^[[36;1mpython manage.py makemigrations --check --dry-run | tee reports/migrations.txt^[[0m
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9827244Z ^[[36;1mpython -W error::DeprecationWarning -W error::PendingDeprecationWarning manage.py test . -v 2 2>&1 | tee reports/suite.txt^[[0m
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9827756Z ^[[36;1mtest ! -d staticfiles^[[0m
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9851860Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9852247Z env:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9852617Z   SECRET_KEY: TU02-ci-only-0123456789-ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijk
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9853060Z   DEBUG: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9853333Z   DJANGO_SECURE_SSL: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9853605Z   DJANGO_ENV_FILE: /dev/null
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9854007Z   DB_ENGINE: postgresql
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9854260Z   DB_NAME: inventory_ci
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9854647Z   DB_USER: postgres
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9854913Z   DB_PASSWORD: ci-test-only-password
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9855213Z   DB_HOST: 127.0.0.1
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9855447Z   DB_PORT: 5432
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9855728Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9856180Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9856578Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9856954Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9857363Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9857740Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:42.9858081Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:43.9054457Z System check identified no issues (0 silenced).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:44.3189066Z No changes detected
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.0502884Z Creating test database for alias 'default' ('test_inventory_ci')...
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1093116Z Found 124 test(s).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1093584Z Operations to perform:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1094498Z   Synchronize unmigrated apps: crispy_bootstrap5, crispy_forms, django_extensions, django_filters, django_tables2, imagekit, messages, phonenumber_field, staticfiles
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1095474Z   Apply all migrations: accounts, admin, auth, bills, contenttypes, invoice, sessions, store, transactions
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1095945Z Synchronizing apps without migrations:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1096251Z   Creating tables...
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1096556Z     Running deferred SQL...
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1096820Z Running migrations:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1147184Z   Applying contenttypes.0001_initial... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1441574Z   Applying auth.0001_initial... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1590908Z   Applying accounts.0001_initial... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1720647Z   Applying accounts.0002_alter_profile_email_alter_profile_first_name_and_more... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1815798Z   Applying admin.0001_initial... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1864057Z   Applying admin.0002_logentry_remove_auto_add... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.1912944Z   Applying admin.0003_logentry_add_action_flag_choices... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2012733Z   Applying contenttypes.0002_remove_content_type_name... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2065986Z   Applying auth.0002_alter_permission_name_max_length... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2127754Z   Applying auth.0003_alter_user_email_max_length... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2174951Z   Applying auth.0004_alter_user_username_opts... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2223665Z   Applying auth.0005_alter_user_last_login_null... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2230906Z   Applying auth.0006_require_contenttypes_0002... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2285006Z   Applying auth.0007_alter_validators_add_error_messages... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2346581Z   Applying auth.0008_alter_user_username_max_length... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2398376Z   Applying auth.0009_alter_user_last_name_max_length... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2454333Z   Applying auth.0010_alter_group_name_max_length... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2506214Z   Applying auth.0011_update_proxy_permissions... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2568306Z   Applying auth.0012_alter_user_first_name_max_length... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2732283Z   Applying store.0001_initial... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.2957745Z   Applying transactions.0001_initial... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.3004799Z   Applying transactions.0002_rename_discount_amount_sale_tax_amount_and_more... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.3100682Z   Applying transactions.0003_alter_purchase_quantity... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.3191251Z   Applying invoice.0001_initial... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.3242268Z   Applying bills.0001_initial... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.3601506Z   Applying bills.0002_dp02_decimal_constraints... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.4697009Z   Applying invoice.0002_dp02_decimal_constraints... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.4749684Z   Applying sessions.0001_initial... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.5511084Z   Applying store.0002_dp02_decimal_constraints... OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.7551178Z   Applying transactions.0004_dp02_decimal_constraints...test_amount_nonnegative (bills.tests.test_dp02_decimal.BillDecimalTests.test_amount_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.7588709Z Database rejects {'amount': -1} with bill_amount_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.7625836Z test_amount_round_trip_and_form_error (bills.tests.test_dp02_decimal.BillDecimalTests.test_amount_round_trip_and_form_error) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.7811413Z test_fractional_or_negative_quantity_is_not_rounded (invoice.tests.test_dp02_decimal.InvoiceDecimalTests.test_fractional_or_negative_quantity_is_not_rounded) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.7823492Z test_grand_nonnegative (invoice.tests.test_dp02_decimal.InvoiceDecimalTests.test_grand_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.7865476Z Database rejects {'grand_total': -1} with invoice_grand_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.7900026Z test_model_form_reports_money_and_integer_errors (invoice.tests.test_dp02_decimal.InvoiceDecimalTests.test_model_form_reports_money_and_integer_errors) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.7922969Z test_partial_save_keeps_computed_totals_consistent (invoice.tests.test_dp02_decimal.InvoiceDecimalTests.test_partial_save_keeps_computed_totals_consistent) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.7931512Z test_price_nonnegative (invoice.tests.test_dp02_decimal.InvoiceDecimalTests.test_price_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.7959294Z Database rejects {'price_per_item': -1} with invoice_price_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.7968396Z test_quantity_nonnegative (invoice.tests.test_dp02_decimal.InvoiceDecimalTests.test_quantity_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.7994752Z Database rejects {'quantity': -1} with invoice_quantity_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8018426Z test_save_rounds_half_up_and_supports_legacy_float_inputs (invoice.tests.test_dp02_decimal.InvoiceDecimalTests.test_save_rounds_half_up_and_supports_legacy_float_inputs) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8034050Z test_save_uses_exact_decimal_totals (invoice.tests.test_dp02_decimal.InvoiceDecimalTests.test_save_uses_exact_decimal_totals) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8042929Z test_shipping_nonnegative (invoice.tests.test_dp02_decimal.InvoiceDecimalTests.test_shipping_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8069585Z Database rejects {'shipping': -1} with invoice_shipping_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8077407Z test_total_nonnegative (invoice.tests.test_dp02_decimal.InvoiceDecimalTests.test_total_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8105418Z Database rejects {'total': -1} with invoice_total_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8279933Z test_price_nonnegative (store.tests.test_dp02_decimal.ItemConstraintTests.test_price_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8322335Z Database rejects {'price': -1} with item_price_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8332836Z test_quantity_nonnegative (store.tests.test_dp02_decimal.ItemConstraintTests.test_quantity_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8360473Z Database rejects {'quantity': -1} with item_quantity_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8476368Z test_decimal_round_trip_and_form_errors (store.tests.test_dp02_decimal.ItemDecimalTests.test_decimal_round_trip_and_form_errors) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8701313Z test_database_accepts_exact_cent_identities (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_database_accepts_exact_cent_identities) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8714031Z test_detail_price_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_detail_price_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8753035Z Database rejects {'price': -1} with sale_detail_price_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8762057Z test_detail_quantity_positive (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_detail_quantity_positive)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8788317Z Database rejects {'quantity': 0} with sale_detail_quantity_positive installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8798558Z test_detail_total_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_detail_total_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8824472Z Database rejects {'total_detail': -1} with sale_detail_total_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8867710Z test_purchase_form_rejects_nonpositive_quantity_and_negative_price (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_purchase_form_rejects_nonpositive_quantity_and_negative_price) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8876544Z test_purchase_price_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_purchase_price_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8902421Z Database rejects {'price': -1} with purchase_price_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8911088Z test_purchase_quantity_positive (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_purchase_quantity_positive)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8938874Z Database rejects {'quantity': 0} with purchase_quantity_positive installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8947399Z test_purchase_total_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_purchase_total_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8973637Z Database rejects {'total_value': -1} with purchase_total_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.8981453Z test_sale_change_matches_payment (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_sale_change_matches_payment)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9007887Z Database rejects {'amount_change': 9} with sale_change_matches_payment installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9015921Z test_sale_change_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_sale_change_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9042325Z Database rejects {'amount_change': -1} with sale_change_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9050510Z test_sale_grand_matches_parts (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_sale_grand_matches_parts)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9077741Z Database rejects {'grand_total': 111, 'amount_change': 9} with sale_grand_matches_parts installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9086042Z test_sale_grand_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_sale_grand_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9113543Z Database rejects {'grand_total': -1} with sale_grand_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9122317Z test_sale_paid_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_sale_paid_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9148629Z Database rejects {'amount_paid': -1} with sale_paid_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9157668Z test_sale_subtotal_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_sale_subtotal_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9184071Z Database rejects {'sub_total': -1} with sale_subtotal_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9191214Z test_sale_tax_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_sale_tax_nonnegative)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9219922Z Database rejects {'tax_amount': -1} with sale_tax_nonnegative installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9228470Z test_sale_tax_percentage_lower (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_sale_tax_percentage_lower)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9255292Z Database rejects {'tax_percentage': -1} with sale_tax_percentage_range installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9262878Z test_sale_tax_percentage_upper (transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_sale_tax_percentage_upper)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9290133Z Database rejects {'tax_percentage': 101} with sale_tax_percentage_range installed. ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9522609Z test_change_item_moves_old_and_new_quantities (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_change_item_moves_old_and_new_quantities) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9609804Z test_change_item_with_consumed_stock_rolls_back_both_items (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_change_item_with_consumed_stock_rolls_back_both_items) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9682296Z test_delivery_status_does_not_change_stock_policy (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_delivery_status_does_not_change_stock_policy) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9735454Z test_empty_update_fields_does_not_save_or_change_stock (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_empty_update_fields_does_not_save_or_change_stock) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9940064Z test_form_shows_validation_error_without_database_writes (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_form_shows_validation_error_without_database_writes) ... /opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/core/handlers/base.py:61: UserWarning: No directory at: /home/runner/work/sales-and-inventory-management/sales-and-inventory-management/staticfiles/
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:45.9941510Z   mw_instance = middleware(adapted_handler)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.0209345Z ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.0275080Z test_partial_description_save_ignores_unsaved_stock_fields (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_partial_description_save_ignores_unsaved_stock_fields) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.0349004Z test_partial_quantity_save_updates_total_value (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_partial_quantity_save_updates_total_value) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.0412359Z test_price_only_change_does_not_change_stock (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_price_only_change_does_not_change_stock) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.0459907Z test_purchase_insert_failure_rolls_back_stock (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_purchase_insert_failure_rolls_back_stock) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.0532509Z test_reduce_below_sold_stock_rolls_back_purchase (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_reduce_below_sold_stock_rolls_back_purchase) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.0607803Z test_reduce_quantity_changes_stock_by_difference (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_reduce_quantity_changes_stock_by_difference) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.0682580Z test_repeated_unchanged_save_does_not_add_stock (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_repeated_unchanged_save_does_not_add_stock) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.0753992Z test_stale_item_cache_does_not_overwrite_other_purchases (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_stale_item_cache_does_not_overwrite_other_purchases) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.0850409Z test_stale_purchase_uses_current_database_quantity (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_stale_purchase_uses_current_database_quantity) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.1184817Z test_blank_delivery_date_remains_optional (transactions.tests.test_hc02_dates.ExportAndFormTests.test_blank_delivery_date_remains_optional) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.1539658Z test_description_only_edit_preserves_existing_seconds (transactions.tests.test_hc02_dates.ExportAndFormTests.test_description_only_edit_preserves_existing_seconds) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.1813362Z test_edit_form_round_trip_preserves_delivery_date (transactions.tests.test_hc02_dates.ExportAndFormTests.test_edit_form_round_trip_preserves_delivery_date) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.1964552Z test_empty_purchase_export_has_headers_only (transactions.tests.test_hc02_dates.ExportAndFormTests.test_empty_purchase_export_has_headers_only) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.2096226Z test_empty_sales_export_has_headers_only (transactions.tests.test_hc02_dates.ExportAndFormTests.test_empty_sales_export_has_headers_only) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.2346125Z test_explicit_date_change_and_clear_are_still_saved (transactions.tests.test_hc02_dates.ExportAndFormTests.test_explicit_date_change_and_clear_are_still_saved) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.2444692Z test_exports_still_require_login (transactions.tests.test_hc02_dates.ExportAndFormTests.test_exports_still_require_login) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.2558409Z test_previous_datetime_input_format_remains_accepted (transactions.tests.test_hc02_dates.ExportAndFormTests.test_previous_datetime_input_format_remains_accepted) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.2799497Z test_purchase_export_mixed_dates_and_cell_formats (transactions.tests.test_hc02_dates.ExportAndFormTests.test_purchase_export_mixed_dates_and_cell_formats) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.2970600Z test_sales_export_uses_local_time_and_date_format (transactions.tests.test_hc02_dates.ExportAndFormTests.test_sales_export_uses_local_time_and_date_format) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.3053857Z test_widget_renders_datetime_local_value (transactions.tests.test_hc02_dates.ExportAndFormTests.test_widget_renders_datetime_local_value) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.3308537Z test_additive_tax_and_change_are_calculated_by_server (transactions.tests.test_hc03_sales.SaleCreationTests.test_additive_tax_and_change_are_calculated_by_server) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.3532872Z test_ajax_anonymous_is_json_401_with_no_writes (transactions.tests.test_hc03_sales.SaleCreationTests.test_ajax_anonymous_is_json_401_with_no_writes) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.3654849Z test_anonymous_ajax_with_real_csrf_token_is_401 (transactions.tests.test_hc03_sales.SaleCreationTests.test_anonymous_ajax_with_real_csrf_token_is_401) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.3906166Z test_client_total_mismatches_report_expected_value (transactions.tests.test_hc03_sales.SaleCreationTests.test_client_total_mismatches_report_expected_value) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.4026018Z test_database_failure_after_stock_write_rolls_back_all (transactions.tests.test_hc03_sales.SaleCreationTests.test_database_failure_after_stock_write_rolls_back_all) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.4144349Z test_duplicate_lines_over_stock_are_rejected_as_a_group (transactions.tests.test_hc03_sales.SaleCreationTests.test_duplicate_lines_over_stock_are_rejected_as_a_group) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.4282918Z test_duplicate_valid_lines_create_one_detail (transactions.tests.test_hc03_sales.SaleCreationTests.test_duplicate_valid_lines_create_one_detail) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.4753299Z test_invalid_customer_or_item_ids_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests.test_invalid_customer_or_item_ids_are_rejected) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.5255129Z test_invalid_paid_values_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests.test_invalid_paid_values_are_rejected) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.5616938Z test_invalid_quantity_values_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests.test_invalid_quantity_values_are_rejected) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.6117720Z test_invalid_tax_values_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests.test_invalid_tax_values_are_rejected) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.6597336Z test_missing_or_invalid_json_shapes_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests.test_missing_or_invalid_json_shapes_are_rejected) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.6736501Z test_multiple_items_decrement_correct_stock (transactions.tests.test_hc03_sales.SaleCreationTests.test_multiple_items_decrement_correct_stock) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.6841190Z test_one_cent_tolerance_still_stores_server_totals (transactions.tests.test_hc03_sales.SaleCreationTests.test_one_cent_tolerance_still_stores_server_totals) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.6995243Z test_page_renders_customer_without_last_name_and_tax_label (transactions.tests.test_hc03_sales.SaleCreationTests.test_page_renders_customer_without_last_name_and_tax_label) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.7107092Z test_regular_anonymous_requests_redirect_to_login (transactions.tests.test_hc03_sales.SaleCreationTests.test_regular_anonymous_requests_redirect_to_login) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.7226839Z test_underpayment_is_rejected (transactions.tests.test_hc03_sales.SaleCreationTests.test_underpayment_is_rejected) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.7344035Z test_unsupported_method_is_405 (transactions.tests.test_hc03_sales.SaleCreationTests.test_unsupported_method_is_405) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.7460412Z test_valid_sale_uses_database_price_ignoring_client_price (transactions.tests.test_hc03_sales.SaleCreationTests.test_valid_sale_uses_database_price_ignoring_client_price) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:46.9918732Z test_hc01_sua_mo_ta_khong_doi_ton (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc01_sua_mo_ta_khong_doi_ton) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:47.0110060Z test_hc01_sua_qua_form_tang_so_luong (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc01_sua_qua_form_tang_so_luong) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:47.0208661Z test_hc01_tao_phieu_nhap_chi_cong_mot_lan (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc01_tao_phieu_nhap_chi_cong_mot_lan) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:47.0386061Z test_hc02_xuat_excel_khi_khong_co_ngay_giao (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc02_xuat_excel_khi_khong_co_ngay_giao) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:47.0487094Z test_hc03_so_luong_am (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc03_so_luong_am) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:47.0591975Z test_hc03_tu_choi_tong_tien_gia (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc03_tu_choi_tong_tien_gia) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:47.0698500Z test_hc03_yeu_cau_dang_nhap (transactions.tests.test_hc_regression.MaintenanceRegressionTests.test_hc03_yeu_cau_dang_nhap) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:47.6285791Z test_demo_data_migrates_without_changing_values (accounts.tests.test_tu01_upgrade.ProfileUpgradeTests.test_demo_data_migrates_without_changing_values) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:47.8327425Z test_empty_accounts_schema_migrates_to_0002 (accounts.tests.test_tu01_upgrade.ProfileUpgradeTests.test_empty_accounts_schema_migrates_to_0002) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:48.0249291Z test_preflight_allows_multiple_null_emails_and_boundary_lengths (accounts.tests.test_tu01_upgrade.ProfileUpgradeTests.test_preflight_allows_multiple_null_emails_and_boundary_lengths) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:48.2234940Z test_preflight_detects_duplicates_including_empty_and_overlong_data (accounts.tests.test_tu01_upgrade.ProfileUpgradeTests.test_preflight_detects_duplicates_including_empty_and_overlong_data) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:48.3124294Z test_decimal_examples_and_legacy_float_compatibility (transactions.tests.test_dp02_decimal.DecimalPricingTests.test_decimal_examples_and_legacy_float_compatibility) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:48.3139750Z test_money_limit_matches_decimal_15_2_and_overflow_is_rejected (transactions.tests.test_dp02_decimal.DecimalPricingTests.test_money_limit_matches_decimal_15_2_and_overflow_is_rejected) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:48.3141375Z test_tax_precision_matches_schema (transactions.tests.test_dp02_decimal.DecimalPricingTests.test_tax_precision_matches_schema) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:48.7998104Z test_clean_preflight_uses_only_read_queries_and_changes_nothing (transactions.tests.test_dp02_migrations.DecimalMigrationTests.test_clean_preflight_uses_only_read_queries_and_changes_nothing) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:50.0702447Z test_fractional_and_negative_invoice_quantities_block_before_conversion (transactions.tests.test_dp02_migrations.DecimalMigrationTests.test_fractional_and_negative_invoice_quantities_block_before_conversion) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:50.7170293Z test_legacy_demo_migrates_with_half_up_decimal_values_preserved (transactions.tests.test_dp02_migrations.DecimalMigrationTests.test_legacy_demo_migrates_with_half_up_decimal_values_preserved) ... ERROR
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.3505101Z test_other_legacy_violations_are_reported_and_migration_does_not_repair_them (transactions.tests.test_dp02_migrations.DecimalMigrationTests.test_other_legacy_violations_are_reported_and_migration_does_not_repair_them) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4420629Z test_aware_utc_in_utc (transactions.tests.test_hc02_dates.ExcelDateTests.test_aware_utc_in_utc) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4442084Z test_local_timezone_conversion_crosses_midnight (transactions.tests.test_hc02_dates.ExcelDateTests.test_local_timezone_conversion_crosses_midnight) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4443030Z test_naive_datetime_is_unchanged (transactions.tests.test_hc02_dates.ExcelDateTests.test_naive_datetime_is_unchanged) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4443894Z test_none_stays_empty (transactions.tests.test_hc02_dates.ExcelDateTests.test_none_stays_empty) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4444608Z test_duplicate_lines_are_grouped (transactions.tests.test_hc03_sales.PricingTests.test_duplicate_lines_are_grouped) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4445448Z test_empty_and_malformed_lines_are_rejected (transactions.tests.test_hc03_sales.PricingTests.test_empty_and_malformed_lines_are_rejected) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4446306Z test_invalid_pricing_values_are_rejected (transactions.tests.test_hc03_sales.PricingTests.test_invalid_pricing_values_are_rejected) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4447511Z test_pricing_examples (transactions.tests.test_hc03_sales.PricingTests.test_pricing_examples) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4448371Z test_unit_price_rounds_half_up_to_existing_cent_precision (transactions.tests.test_hc03_sales.PricingTests.test_unit_price_rounds_half_up_to_existing_cent_precision) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4506785Z test_collectstatic_writes_manifest_and_rewrites_css_asset (transactions.tests.test_tu01_storage.StorageUpgradeTests.test_collectstatic_writes_manifest_and_rewrites_css_asset) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4523238Z test_default_storage_still_saves_and_reads_media (transactions.tests.test_tu01_storage.StorageUpgradeTests.test_default_storage_still_saves_and_reads_media) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4529513Z test_health_probe_supplies_https_proxy_header_when_configured (transactions.tests.test_tu02_settings.ContainerHealthTests.test_health_probe_supplies_https_proxy_header_when_configured) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4541551Z test_health_probe_uses_allowed_host_in_http_lab (transactions.tests.test_tu02_settings.ContainerHealthTests.test_health_probe_uses_allowed_host_in_http_lab) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:52.4546014Z test_existing_default_is_never_overwritten (transactions.tests.test_tu02_settings.DefaultMediaTests.test_existing_default_is_never_overwritten) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:53.2905947Z test_local_django_media_is_served_only_when_debug_true (transactions.tests.test_tu02_settings.DefaultMediaTests.test_local_django_media_is_served_only_when_debug_true) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:53.2917773Z test_missing_default_is_seeded_as_valid_jpeg (transactions.tests.test_tu02_settings.DefaultMediaTests.test_missing_default_is_seeded_as_valid_jpeg) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:53.4171561Z test_azure_only_configuration_and_partial_generic_override_work (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_azure_only_configuration_and_partial_generic_override_work) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:53.4579237Z test_debug_defaults_false_and_local_sqlite_remains_available (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_debug_defaults_false_and_local_sqlite_remains_available) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:53.4992555Z test_debug_true_allows_explicit_development_key (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_debug_true_allows_explicit_development_key) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:53.5815678Z test_dotenv_is_loaded_without_overriding_process_environment (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_dotenv_is_loaded_without_overriding_process_environment) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:53.6235483Z test_generic_database_variables_override_azure_variables (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_generic_database_variables_override_azure_variables) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:53.6651123Z test_hosts_origins_and_media_are_environment_driven (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_hosts_origins_and_media_are_environment_driven) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:53.7061434Z test_http_lab_disables_https_specific_flags (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_http_lab_disables_https_specific_flags) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:53.8284906Z test_invalid_boolean_or_negative_hsts_is_rejected (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_invalid_boolean_or_negative_hsts_is_rejected) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:53.9094243Z test_missing_postgres_fields_and_invalid_engine_are_rejected (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_missing_postgres_fields_and_invalid_engine_are_rejected) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:53.9501797Z test_missing_secret_is_rejected (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_missing_secret_is_rejected) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.3266493Z test_production_deploy_check_has_zero_issues (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_production_deploy_check_has_zero_issues) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.4489578Z test_short_or_weak_production_secret_is_rejected (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_short_or_weak_production_secret_is_rejected) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.5335480Z test_ssl_true_sets_https_cookie_hsts_and_proxy_flags (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_ssl_true_sets_https_cookie_hsts_and_proxy_flags) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6158030Z test_test_storage_is_plain_and_production_storage_is_manifest (transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_test_storage_is_plain_and_production_storage_is_manifest) ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6160147Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6160850Z ======================================================================
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6162226Z ERROR: test_legacy_demo_migrates_with_half_up_decimal_values_preserved (transactions.tests.test_dp02_migrations.DecimalMigrationTests.test_legacy_demo_migrates_with_half_up_decimal_values_preserved)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6163422Z ----------------------------------------------------------------------
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6163965Z Traceback (most recent call last):
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6169904Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/backends/utils.py", line 103, in _execute
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6170730Z     return self.cursor.execute(sql)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6171124Z            ^^^^^^^^^^^^^^^^^^^^^^^^
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6172010Z psycopg2.errors.ObjectInUse: cannot ALTER TABLE "invoice_invoice" because it has pending trigger events
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6172376Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6172380Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6172578Z The above exception was the direct cause of the following exception:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6172805Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6172951Z Traceback (most recent call last):
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6173891Z   File "/home/runner/work/sales-and-inventory-management/sales-and-inventory-management/transactions/tests/test_dp02_migrations.py", line 68, in test_legacy_demo_migrates_with_half_up_decimal_values_preserved
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6174839Z     executor.migrate(NEW)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6175401Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/migrations/executor.py", line 135, in migrate
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6176067Z     state = self._migrate_all_forwards(
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6176354Z             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6177221Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/migrations/executor.py", line 167, in _migrate_all_forwards
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6177754Z     state = self.apply_migration(
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6178054Z             ^^^^^^^^^^^^^^^^^^^^^
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6178582Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/migrations/executor.py", line 255, in apply_migration
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6179105Z     state = migration.apply(state, schema_editor)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6179444Z             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6179941Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/migrations/migration.py", line 132, in apply
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6180679Z     operation.database_forwards(
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6181359Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/migrations/operations/fields.py", line 174, in database_forwards
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6182073Z     schema_editor.remove_field(
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6182696Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/backends/base/schema.py", line 829, in remove_field
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6183188Z     self.execute(sql)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6183708Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/backends/postgresql/schema.py", line 48, in execute
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6184231Z     return super().execute(sql, None)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6184492Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6184993Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/backends/base/schema.py", line 204, in execute
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6185474Z     cursor.execute(sql, params)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6185994Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6186466Z     return self._execute_with_wrappers(
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6186726Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6187252Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6187772Z     return executor(sql, params, many, context)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6188071Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6188600Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6189062Z     with self.db.wrap_database_errors:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6189353Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6189790Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6190307Z     raise dj_exc_value.with_traceback(traceback) from exc_value
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6190893Z   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/site-packages/django/db/backends/utils.py", line 103, in _execute
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6191358Z     return self.cursor.execute(sql)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6191767Z            ^^^^^^^^^^^^^^^^^^^^^^^^
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6192261Z django.db.utils.OperationalError: cannot ALTER TABLE "invoice_invoice" because it has pending trigger events
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6192598Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6192603Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6192789Z ----------------------------------------------------------------------
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6193123Z Ran 124 tests in 8.873s
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6193282Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6193373Z FAILED (errors=1)
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6193711Z Destroying test database for alias 'default' ('test_inventory_ci')...
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6554791Z  OK
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6555370Z System check identified no issues (0 silenced).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6555828Z Failed to populate slug Bill.slug from date
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6556201Z Failed to populate slug Bill.slug from date
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6556814Z Failed to populate slug Bill.slug from date
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6557226Z Failed to populate slug Bill.slug from date
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6557558Z Profile created!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6557832Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6558051Z Profile created!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6558325Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6558555Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6558789Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6559068Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6559309Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6559593Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6559820Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6560053Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6560288Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6560514Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6560778Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6561004Z Profile created!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6561214Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6561719Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6562080Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6562485Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6562790Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6563054Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6563308Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6563540Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6563796Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6564024Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6564248Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6564869Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6565122Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6565374Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6565605Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6565828Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6566063Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6566286Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6566521Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6566770Z Profile created!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6567034Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6567263Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6567519Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6567755Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6568002Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6568225Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.6568462Z Profile updated!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7673124Z ##[error]Process completed with exit code 1.
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7750685Z ##[group]Run actions/upload-artifact@v7
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7751019Z with:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7751306Z   name: postgres16-python3.12
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7751803Z   path: reports/
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7752056Z   retention-days: 7
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7752297Z   if-no-files-found: warn
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7752593Z   compression-level: 6
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7752845Z   overwrite: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7753123Z   include-hidden-files: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7753399Z   archive: true
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7753633Z env:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7753994Z   SECRET_KEY: TU02-ci-only-0123456789-ABCDEFGHIJKLMNOPQRSTUVWXYZ-abcdefghijk
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7754412Z   DEBUG: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7754678Z   DJANGO_SECURE_SSL: false
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7754959Z   DJANGO_ENV_FILE: /dev/null
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7755228Z   DB_ENGINE: postgresql
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7755500Z   DB_NAME: inventory_ci
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7755763Z   DB_USER: postgres
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7756146Z   DB_PASSWORD: ci-test-only-password
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7756434Z   DB_HOST: 127.0.0.1
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7756663Z   DB_PORT: 5432
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7756986Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7757400Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib/pkgconfig
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7757873Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7758253Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7758607Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.16/x64
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7759012Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.16/x64/lib
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.7759337Z ##[endgroup]
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.9129396Z With the provided path, there will be 4 files uploaded
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.9134663Z Artifact name is valid!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:54.9135105Z Root directory input is valid!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:55.2292194Z Uploading artifact: postgres16-python3.12.zip
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:55.2323022Z Beginning upload of artifact content to blob storage
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:55.5099862Z Uploaded bytes 5377
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:55.5523128Z Finished uploading artifact content to blob storage!
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:55.5524141Z SHA256 digest of uploaded artifact is 8b969704597d0f40b88729cc85af6ca1888eac75303b2d62f0f07a9ce701c7e2
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:55.5524849Z Finalizing artifact upload
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:55.9616777Z Artifact postgres16-python3.12 successfully finalized. Artifact ID 15253221696
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:55.9617800Z Artifact postgres16-python3.12 has been successfully uploaded! Final size is 5377 bytes. Artifact ID is 15253221696
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:55.9620407Z Artifact download URL: https://github.com/MrTroll219/sales-and-inventory-management/actions/runs/46120334828/artifacts/15253221696
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:55.9793305Z Post job cleanup.
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.0530779Z [command]/usr/bin/git version
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.0565078Z git version 2.56.1
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.0590968Z Temporarily overriding HOME='/home/runner/work/_temp/1191bd41-68e8-453d-a94f-13f3d2eb65ee' before making global git config changes
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.0592272Z Adding repository directory to the temporary git global config as a safe directory
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.0595047Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/sales-and-inventory-management/sales-and-inventory-management
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.0622714Z Removing SSH command configuration
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.0628442Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.0657305Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.0842430Z Removing HTTP extra header
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.0852776Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.0886208Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1077374Z Removing includeIf entries pointing to credentials config files
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1084972Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1108383Z includeif.gitdir:/home/runner/work/sales-and-inventory-management/sales-and-inventory-management/.git.path
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1109562Z includeif.gitdir:/home/runner/work/sales-and-inventory-management/sales-and-inventory-management/.git/worktrees/*.path
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1110352Z includeif.gitdir:/github/workspace/.git.path
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1110911Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1116051Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/sales-and-inventory-management/sales-and-inventory-management/.git.path
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1135720Z /home/runner/work/_temp/git-credentials-46182613-e6b9-4a33-b423-fe91542701b0.config
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1149688Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/sales-and-inventory-management/sales-and-inventory-management/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-46182613\-e6b9\-4a33\-b423\-fe91542701b0\.config
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1179744Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/sales-and-inventory-management/sales-and-inventory-management/.git/worktrees/*.path
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1214347Z /home/runner/work/_temp/git-credentials-46182613-e6b9-4a33-b423-fe91542701b0.config
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1222945Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/sales-and-inventory-management/sales-and-inventory-management/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-46182613\-e6b9\-4a33\-b423\-fe91542701b0\.config
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1251999Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1273234Z /github/runner_temp/git-credentials-46182613-e6b9-4a33-b423-fe91542701b0.config
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1280043Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-46182613\-e6b9\-4a33\-b423\-fe91542701b0\.config
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1311721Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1333747Z /github/runner_temp/git-credentials-46182613-e6b9-4a33-b423-fe91542701b0.config
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1340742Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-46182613\-e6b9\-4a33\-b423\-fe91542701b0\.config
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1381335Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1548350Z Removing credentials config '/home/runner/work/_temp/git-credentials-46182613-e6b9-4a33-b423-fe91542701b0.config'
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1693854Z Print service container logs: 2317668f94a54e21bd5d68dad314a714_postgres16_318751
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1697843Z ##[command]/usr/bin/docker logs --details f0f1a21ec83e8429228f52f5efe5fd32b96dbef3b1efb064a539910ab0489626
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1818504Z  The files belonging to this database system will be owned by user "postgres".
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1819553Z  This user must also own the server process.
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1820224Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1821532Z  The database cluster will be initialized with locale "en_US.utf8".
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1822352Z  The default database encoding has accordingly been set to "UTF8".
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1824095Z  initdb: warning: enabling "trust" authentication for local connections
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1825239Z  initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1826137Z  The default text search configuration will be set to "english".
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1826787Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1827099Z  Data page checksums are disabled.
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1827546Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1828103Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1828696Z  creating subdirectories ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1829235Z  selecting dynamic shared memory implementation ... posix
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1829779Z  selecting default max_connections ... 100
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1830250Z  selecting default shared_buffers ... 128MB
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1830886Z  selecting default time zone ... Etc/UTC
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1831241Z  creating configuration files ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1831566Z  running bootstrap script ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1832218Z  performing post-bootstrap initialization ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1832572Z  syncing data to disk ... ok
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1832825Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1833075Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1833334Z  Success. You can now start the database server using:
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1833652Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1833938Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1834269Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1834838Z  waiting for server to start....2026-11-28 07:15:25.253 UTC [47] LOG:  starting PostgreSQL 16.16 (Debian 16.16-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1835570Z  2026-11-28 07:15:25.254 UTC [47] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1836128Z  2026-11-28 07:15:25.256 UTC [50] LOG:  database system was shut down at 2026-11-28 07:15:24 UTC
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1836998Z  2026-11-28 07:15:25.260 UTC [47] LOG:  database system is ready to accept connections
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1837548Z   done
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1837772Z  server started
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1838013Z  CREATE DATABASE
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1838436Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1838678Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1839001Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1839375Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1839745Z  waiting for server to shut down...2026-11-28 07:15:25.413 UTC [47] LOG:  received fast shutdown request
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1840216Z  .2026-11-28 07:15:25.414 UTC [47] LOG:  aborting any active transactions
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1840733Z  2026-11-28 07:15:25.415 UTC [47] LOG:  background worker "logical replication launcher" (PID 53) exited with exit code 1
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1841225Z  2026-11-28 07:15:25.416 UTC [48] LOG:  shutting down
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1841729Z  2026-11-28 07:15:25.417 UTC [48] LOG:  checkpoint starting: shutdown immediate
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1842832Z  2026-11-28 07:15:25.503 UTC [48] LOG:  checkpoint complete: wrote 935 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.073 s, sync=0.010 s, total=0.087 s; sync files=301, longest=0.009 s, average=0.001 s; distance=4346 kB, estimate=4346 kB; lsn=0/1943060, redo lsn=0/1943060
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1843813Z  2026-11-28 07:15:25.507 UTC [47] LOG:  database system is shut down
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1844461Z  2026-11-28 07:15:25.528 UTC [1] LOG:  starting PostgreSQL 16.16 (Debian 16.16-1.pgdg13+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1845042Z  2026-11-28 07:15:25.528 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1845487Z  2026-11-28 07:15:25.528 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1845981Z  2026-11-28 07:15:25.530 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1846474Z  2026-11-28 07:15:25.532 UTC [63] LOG:  database system was shut down at 2026-11-28 07:15:25 UTC
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1846932Z  2026-11-28 07:15:25.535 UTC [1] LOG:  database system is ready to accept connections
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1847712Z  2026-11-28 07:15:29.582 UTC [74] FATAL:  role "root" does not exist
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1848152Z  2026-11-28 07:15:34.633 UTC [82] FATAL:  role "root" does not exist
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1848546Z  2026-11-28 07:15:39.689 UTC [91] FATAL:  role "root" does not exist
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1848977Z  2026-11-28 07:15:44.739 UTC [101] FATAL:  role "root" does not exist
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1849500Z  2026-11-28 07:15:45.758 UTC [103] ERROR:  new row for relation "bills_bill" violates check constraint "bill_amount_nonnegative"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1850211Z  2026-11-28 07:15:45.758 UTC [103] DETAIL:  Failing row contains (1, bill, 2026-11-28 07:15:45.754243+00, DP02, null, null, null, null, Cash, -1.00, f).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1850921Z  2026-11-28 07:15:45.758 UTC [103] STATEMENT:  UPDATE "bills_bill" SET "amount" =  -1 WHERE "bills_bill"."id" = 1
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1851533Z  2026-11-28 07:15:45.786 UTC [104] ERROR:  new row for relation "invoice_invoice" violates check constraint "invoice_grand_nonnegative"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1852408Z  2026-11-28 07:15:45.786 UTC [104] DETAIL:  Failing row contains (2, -2, 2026-11-28 07:15:45.779077+00, DP02, 123, 19.99, 3, 0.03, 59.97, -1.00, 2).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1853073Z  2026-11-28 07:15:45.786 UTC [104] STATEMENT:  UPDATE "invoice_invoice" SET "grand_total" =  -1 WHERE "invoice_invoice"."id" = 2
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1853756Z  2026-11-28 07:15:45.795 UTC [104] ERROR:  new row for relation "invoice_invoice" violates check constraint "invoice_price_nonnegative"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1854457Z  2026-11-28 07:15:45.795 UTC [104] DETAIL:  Failing row contains (2, -2, 2026-11-28 07:15:45.779077+00, DP02, 123, -1.00, 3, 0.03, 59.97, 60.00, 2).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1855106Z  2026-11-28 07:15:45.795 UTC [104] STATEMENT:  UPDATE "invoice_invoice" SET "price_per_item" =  -1 WHERE "invoice_invoice"."id" = 2
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1855840Z  2026-11-28 07:15:45.798 UTC [104] ERROR:  new row for relation "invoice_invoice" violates check constraint "invoice_invoice_quantity_ab1f8082_check"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1856524Z  2026-11-28 07:15:45.798 UTC [104] DETAIL:  Failing row contains (2, -2, 2026-11-28 07:15:45.779077+00, DP02, 123, 19.99, -1, 0.03, 59.97, 60.00, 2).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1857317Z  2026-11-28 07:15:45.798 UTC [104] STATEMENT:  UPDATE "invoice_invoice" SET "quantity" =  -1 WHERE "invoice_invoice"."id" = 2
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1858002Z  2026-11-28 07:15:45.806 UTC [104] ERROR:  new row for relation "invoice_invoice" violates check constraint "invoice_shipping_nonnegative"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1858694Z  2026-11-28 07:15:45.806 UTC [104] DETAIL:  Failing row contains (2, -2, 2026-11-28 07:15:45.779077+00, DP02, 123, 19.99, 3, -1.00, 59.97, 60.00, 2).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1859337Z  2026-11-28 07:15:45.806 UTC [104] STATEMENT:  UPDATE "invoice_invoice" SET "shipping" =  -1 WHERE "invoice_invoice"."id" = 2
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1860038Z  2026-11-28 07:15:45.810 UTC [104] ERROR:  new row for relation "invoice_invoice" violates check constraint "invoice_total_nonnegative"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1860714Z  2026-11-28 07:15:45.810 UTC [104] DETAIL:  Failing row contains (2, -2, 2026-11-28 07:15:45.779077+00, DP02, 123, 19.99, 3, 0.03, -1.00, 60.00, 2).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1861441Z  2026-11-28 07:15:45.810 UTC [104] STATEMENT:  UPDATE "invoice_invoice" SET "total" =  -1 WHERE "invoice_invoice"."id" = 2
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1862239Z  2026-11-28 07:15:45.831 UTC [105] ERROR:  new row for relation "store_item" violates check constraint "item_price_nonnegative"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1862875Z  2026-11-28 07:15:45.831 UTC [105] DETAIL:  Failing row contains (3, decimal, Decimal, , 22, -1.00, null, 3, null).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1863535Z  2026-11-28 07:15:45.831 UTC [105] STATEMENT:  UPDATE "store_item" SET "price" =  -1 WHERE "store_item"."id" = 3
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1864136Z  2026-11-28 07:15:45.835 UTC [105] ERROR:  new row for relation "store_item" violates check constraint "item_quantity_nonnegative"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1864776Z  2026-11-28 07:15:45.835 UTC [105] DETAIL:  Failing row contains (3, decimal, Decimal, , -1, 19.99, null, 3, null).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1865357Z  2026-11-28 07:15:45.835 UTC [105] STATEMENT:  UPDATE "store_item" SET "quantity" =  -1 WHERE "store_item"."id" = 3
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1865998Z  2026-11-28 07:15:45.874 UTC [107] ERROR:  new row for relation "sale_details" violates check constraint "sale_detail_price_nonnegative"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1866619Z  2026-11-28 07:15:45.874 UTC [107] DETAIL:  Failing row contains (4, -1.00, 1, 100.00, 5, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1867144Z  2026-11-28 07:15:45.874 UTC [107] STATEMENT:  UPDATE "sale_details" SET "price" =  -1 WHERE "sale_details"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1867766Z  2026-11-28 07:15:45.878 UTC [107] ERROR:  new row for relation "sale_details" violates check constraint "sale_detail_quantity_positive"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1868398Z  2026-11-28 07:15:45.878 UTC [107] DETAIL:  Failing row contains (4, 100.00, 0, 100.00, 5, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1868915Z  2026-11-28 07:15:45.878 UTC [107] STATEMENT:  UPDATE "sale_details" SET "quantity" = 0 WHERE "sale_details"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1869644Z  2026-11-28 07:15:45.881 UTC [107] ERROR:  new row for relation "sale_details" violates check constraint "sale_detail_total_nonnegative"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1870257Z  2026-11-28 07:15:45.881 UTC [107] DETAIL:  Failing row contains (4, 100.00, 1, -1.00, 5, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1870825Z  2026-11-28 07:15:45.881 UTC [107] STATEMENT:  UPDATE "sale_details" SET "total_detail" =  -1 WHERE "sale_details"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1871565Z  2026-11-28 07:15:45.889 UTC [107] ERROR:  new row for relation "transactions_purchase" violates check constraint "purchase_price_nonnegative"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1872581Z  2026-11-28 07:15:45.889 UTC [107] DETAIL:  Failing row contains (4, dp02-vendor, null, 2026-11-28 07:15:45.862821+00, null, 2, P, -1.00, 10.00, 5, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1873323Z  2026-11-28 07:15:45.889 UTC [107] STATEMENT:  UPDATE "transactions_purchase" SET "price" =  -1 WHERE "transactions_purchase"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1874057Z  2026-11-28 07:15:45.893 UTC [107] ERROR:  new row for relation "transactions_purchase" violates check constraint "purchase_quantity_positive"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1874933Z  2026-11-28 07:15:45.893 UTC [107] DETAIL:  Failing row contains (4, dp02-vendor, null, 2026-11-28 07:15:45.862821+00, null, 0, P, 5.00, 10.00, 5, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1875657Z  2026-11-28 07:15:45.893 UTC [107] STATEMENT:  UPDATE "transactions_purchase" SET "quantity" = 0 WHERE "transactions_purchase"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1876353Z  2026-11-28 07:15:45.896 UTC [107] ERROR:  new row for relation "transactions_purchase" violates check constraint "purchase_total_nonnegative"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1877054Z  2026-11-28 07:15:45.896 UTC [107] DETAIL:  Failing row contains (4, dp02-vendor, null, 2026-11-28 07:15:45.862821+00, null, 2, P, 5.00, -1.00, 5, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1877788Z  2026-11-28 07:15:45.896 UTC [107] STATEMENT:  UPDATE "transactions_purchase" SET "total_value" =  -1 WHERE "transactions_purchase"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1878518Z  2026-11-28 07:15:45.900 UTC [107] ERROR:  new row for relation "sales" violates check constraint "sale_change_matches_payment"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1879206Z  2026-11-28 07:15:45.900 UTC [107] DETAIL:  Failing row contains (4, 2026-11-28 07:15:45.859325+00, 100.00, 110.00, 10.00, 10.00, 120.00, 9.00, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1879840Z  2026-11-28 07:15:45.900 UTC [107] STATEMENT:  UPDATE "sales" SET "amount_change" = 9 WHERE "sales"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1880456Z  2026-11-28 07:15:45.903 UTC [107] ERROR:  new row for relation "sales" violates check constraint "sale_change_matches_payment"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1881137Z  2026-11-28 07:15:45.903 UTC [107] DETAIL:  Failing row contains (4, 2026-11-28 07:15:45.859325+00, 100.00, 110.00, 10.00, 10.00, 120.00, -1.00, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1881999Z  2026-11-28 07:15:45.903 UTC [107] STATEMENT:  UPDATE "sales" SET "amount_change" =  -1 WHERE "sales"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1882785Z  2026-11-28 07:15:45.907 UTC [107] ERROR:  new row for relation "sales" violates check constraint "sale_grand_matches_parts"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1883440Z  2026-11-28 07:15:45.907 UTC [107] DETAIL:  Failing row contains (4, 2026-11-28 07:15:45.859325+00, 100.00, 111.00, 10.00, 10.00, 120.00, 9.00, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1884101Z  2026-11-28 07:15:45.907 UTC [107] STATEMENT:  UPDATE "sales" SET "grand_total" = 111, "amount_change" = 9 WHERE "sales"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1884776Z  2026-11-28 07:15:45.910 UTC [107] ERROR:  new row for relation "sales" violates check constraint "sale_change_matches_payment"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1885416Z  2026-11-28 07:15:45.910 UTC [107] DETAIL:  Failing row contains (4, 2026-11-28 07:15:45.859325+00, 100.00, -1.00, 10.00, 10.00, 120.00, 10.00, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1886063Z  2026-11-28 07:15:45.910 UTC [107] STATEMENT:  UPDATE "sales" SET "grand_total" =  -1 WHERE "sales"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1886646Z  2026-11-28 07:15:45.914 UTC [107] ERROR:  new row for relation "sales" violates check constraint "sale_change_matches_payment"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1887335Z  2026-11-28 07:15:45.914 UTC [107] DETAIL:  Failing row contains (4, 2026-11-28 07:15:45.859325+00, 100.00, 110.00, 10.00, 10.00, -1.00, 10.00, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1887953Z  2026-11-28 07:15:45.914 UTC [107] STATEMENT:  UPDATE "sales" SET "amount_paid" =  -1 WHERE "sales"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1888535Z  2026-11-28 07:15:45.917 UTC [107] ERROR:  new row for relation "sales" violates check constraint "sale_grand_matches_parts"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1889220Z  2026-11-28 07:15:45.917 UTC [107] DETAIL:  Failing row contains (4, 2026-11-28 07:15:45.859325+00, -1.00, 110.00, 10.00, 10.00, 120.00, 10.00, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1889825Z  2026-11-28 07:15:45.917 UTC [107] STATEMENT:  UPDATE "sales" SET "sub_total" =  -1 WHERE "sales"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1890418Z  2026-11-28 07:15:45.921 UTC [107] ERROR:  new row for relation "sales" violates check constraint "sale_grand_matches_parts"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1891099Z  2026-11-28 07:15:45.921 UTC [107] DETAIL:  Failing row contains (4, 2026-11-28 07:15:45.859325+00, 100.00, 110.00, -1.00, 10.00, 120.00, 10.00, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1892020Z  2026-11-28 07:15:45.921 UTC [107] STATEMENT:  UPDATE "sales" SET "tax_amount" =  -1 WHERE "sales"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1892666Z  2026-11-28 07:15:45.924 UTC [107] ERROR:  new row for relation "sales" violates check constraint "sale_tax_percentage_range"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1893328Z  2026-11-28 07:15:45.924 UTC [107] DETAIL:  Failing row contains (4, 2026-11-28 07:15:45.859325+00, 100.00, 110.00, 10.00, -1.00, 120.00, 10.00, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1893960Z  2026-11-28 07:15:45.924 UTC [107] STATEMENT:  UPDATE "sales" SET "tax_percentage" =  -1 WHERE "sales"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1894581Z  2026-11-28 07:15:45.928 UTC [107] ERROR:  new row for relation "sales" violates check constraint "sale_tax_percentage_range"
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1895228Z  2026-11-28 07:15:45.928 UTC [107] DETAIL:  Failing row contains (4, 2026-11-28 07:15:45.859325+00, 100.00, 110.00, 10.00, 101.00, 120.00, 10.00, 4).
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1895849Z  2026-11-28 07:15:45.928 UTC [107] STATEMENT:  UPDATE "sales" SET "tax_percentage" = 101 WHERE "sales"."id" = 4
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1896423Z  2026-11-28 07:15:49.791 UTC [125] FATAL:  role "root" does not exist
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1896956Z  2026-11-28 07:15:50.711 UTC [126] ERROR:  cannot ALTER TABLE "invoice_invoice" because it has pending trigger events
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1897586Z  2026-11-28 07:15:50.711 UTC [126] STATEMENT:  ALTER TABLE "invoice_invoice" DROP COLUMN "dp02_price_per_item" CASCADE
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1898126Z  2026-11-28 07:15:54.623 UTC [61] LOG:  checkpoint starting: immediate force wait
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1899011Z  2026-11-28 07:15:54.626 UTC [61] LOG:  checkpoint complete: wrote 7 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=6, longest=0.001 s, average=0.001 s; distance=9212 kB, estimate=9212 kB; lsn=0/2242310, redo lsn=0/22422D8
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1899886Z  2026-11-28 07:15:54.849 UTC [136] FATAL:  role "root" does not exist
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1900240Z   done
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1900483Z  server stopped
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1900779Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1901092Z  PostgreSQL init process complete; ready for start up.
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1901416Z
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1906094Z Stop and remove container: 2317668f94a54e21bd5d68dad314a714_postgres16_318751
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:56.1910158Z ##[command]/usr/bin/docker rm --force f0f1a21ec83e8429228f52f5efe5fd32b96dbef3b1efb064a539910ab0489626
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:57.0566478Z f0f1a21ec83e8429228f52f5efe5fd32b96dbef3b1efb064a539910ab0489626
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:57.0588248Z Remove container network: github_network_9668651749714d32ba89812b35d1437a
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:57.0591915Z ##[command]/usr/bin/docker network rm github_network_9668651749714d32ba89812b35d1437a
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:57.1303632Z github_network_9668651749714d32ba89812b35d1437a
+PostgreSQL16 / Python3.12	UNKNOWN STEP	2026-11-28T07:15:57.1377701Z Cleaning up orphan processes

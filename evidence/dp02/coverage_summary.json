@@ -1,0 +1,59 @@
+{
+  "base": "723a835212325c3875cb10942c4b220380b2444d",
+  "coverage_version": "7.17.5",
+  "omit": [
+    "*/tests/*",
+    "*/tests.py",
+    "*/migrations/*"
+  ],
+  "apps": {
+    "store": {
+      "truoc": {
+        "covered_lines": 210,
+        "statements": 279,
+        "percent": 75.27
+      },
+      "sau": {
+        "covered_lines": 212,
+        "statements": 281,
+        "percent": 75.44
+      }
+    },
+    "transactions": {
+      "truoc": {
+        "covered_lines": 366,
+        "statements": 407,
+        "percent": 89.93
+      },
+      "sau": {
+        "covered_lines": 387,
+        "statements": 428,
+        "percent": 90.42
+      }
+    },
+    "invoice": {
+      "truoc": {
+        "covered_lines": 75,
+        "statements": 86,
+        "percent": 87.21
+      },
+      "sau": {
+        "covered_lines": 93,
+        "statements": 101,
+        "percent": 92.08
+      }
+    },
+    "bills": {
+      "truoc": {
+        "covered_lines": 66,
+        "statements": 72,
+        "percent": 91.67
+      },
+      "sau": {
+        "covered_lines": 69,
+        "statements": 75,
+        "percent": 92.0
+      }
+    }
+  }
+}
