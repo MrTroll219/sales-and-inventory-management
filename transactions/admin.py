@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Sale, SaleDetail, Purchase
+from .models import Sale, SaleDetail, Purchase, StockMovement
 
 
 @admin.register(Sale)
@@ -73,9 +73,25 @@ class PurchaseAdmin(admin.ModelAdmin):
     ordering = ('-order_date',)
     readonly_fields = ('total_value',)
 
-    def save_model(self, request, obj, form, change):
-        """
-        Save the Purchase instance and compute the total value.
-        """
-        obj.total_value = obj.price * obj.quantity
-        super().save_model(request, obj, form, change)
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(StockMovement)
+class StockMovementAdmin(admin.ModelAdmin):
+    list_display = ('item', 'delta', 'quantity_after', 'reason', 'ref_type', 'ref_id', 'created_at', 'created_by')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False

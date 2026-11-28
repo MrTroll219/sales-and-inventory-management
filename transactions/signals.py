@@ -1,1 +1,1 @@
-"""HC01: Purchase.save owns stock changes; no duplicate post_save receiver."""
+"""DP01: no stock signals; all mutations use transactions.services."""

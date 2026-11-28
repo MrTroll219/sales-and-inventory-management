@@ -10,8 +10,6 @@ from django.core.exceptions import ValidationError
 from django.http import JsonResponse, HttpResponse, HttpResponseNotAllowed
 from django.urls import reverse
 from django.shortcuts import render
-from django.db import transaction
-from django.db.models import F
 
 # Class-based views
 from django.views.generic import DetailView, ListView
@@ -30,8 +28,11 @@ from accounts.models import Customer
 from .models import Sale, Purchase, SaleDetail
 from .forms import PurchaseForm
 from .utils import to_excel_datetime
-from .pricing import (SaleInputError, positive_integer, compute_sale_totals,
-                      check_client_total)
+from .pricing import SaleInputError
+from .services.sales import create_sale, SaleLines
+from .services.purchases import create_purchase, update_purchase, delete_purchase
+from .services.exceptions import InventoryError
+from django.http import HttpResponseRedirect
 
 
 logger = logging.getLogger(__name__)
@@ -168,8 +169,7 @@ def sale_login_required(view):
 def SaleCreateView(request):
     if request.method == 'GET':
         return render(request, "transactions/sale_create.html", {
-            "active_icon": "sales",
-            "customers": [c.to_select2() for c in Customer.objects.all()],
+            "active_icon": "sales", "customers": [c.to_select2() for c in Customer.objects.all()],
         })
     if request.method != 'POST':
         return HttpResponseNotAllowed(['GET', 'POST'])
@@ -177,54 +177,14 @@ def SaleCreateView(request):
         data = json.loads(request.body, parse_float=Decimal)
         if not isinstance(data, dict):
             raise SaleInputError("Dữ liệu đơn hàng phải là JSON object.")
-        customer_id = positive_integer(data.get('customer'), 'customer', maximum=9223372036854775807)
-        raw_lines = data.get('items')
-        if not isinstance(raw_lines, list) or not raw_lines:
-            raise SaleInputError("Đơn hàng phải có ít nhất một mặt hàng.")
-        quantities, client_lines = {}, []
-        for line in raw_lines:
-            if not isinstance(line, dict):
-                raise SaleInputError("Mỗi dòng hàng phải là JSON object.")
-            item_id = positive_integer(line.get('id'), 'id', maximum=9223372036854775807)
-            quantity = positive_integer(line.get('quantity'), 'quantity')
-            quantities[item_id] = positive_integer(quantities.get(item_id, 0) + quantity, 'quantity')
-            client_lines.append((line, item_id, quantity))
-
-        with transaction.atomic():
-            customer = Customer.objects.get(pk=customer_id)
-            items = {item.pk: item for item in Item.objects.select_for_update()
-                     .filter(pk__in=sorted(quantities)).order_by('pk')}
-            if set(items) != set(quantities):
-                raise SaleInputError("Có mặt hàng không tồn tại.")
-            totals = compute_sale_totals([
-                {'id': item_id, 'price': items[item_id].price, 'quantity': quantity}
-                for item_id, quantity in quantities.items()
-            ], data.get('tax_percentage', 0), data.get('amount_paid'))
-            prices = {line['id']: line['price'] for line in totals['lines']}
-            for line, item_id, quantity in client_lines:
-                check_client_total(line, 'total_item', prices[item_id] * quantity)
-            for field in ('sub_total', 'grand_total'):
-                check_client_total(data, field, totals[field])
-            for item_id, quantity in quantities.items():
-                if items[item_id].quantity < quantity:
-                    raise SaleInputError(f"Không đủ tồn kho: {items[item_id].name}.")
-            # All input checks finish before the first Sale/SaleDetail/stock write.
-            new_sale = Sale.objects.create(customer=customer, **{
-                key: value for key, value in totals.items() if key != 'lines'
-            })
-            for line in totals['lines']:
-                changed = Item.objects.filter(pk=line['id'], quantity__gte=line['quantity']).update(
-                    quantity=F('quantity') - line['quantity'])
-                if not changed:
-                    raise SaleInputError(f"Không đủ tồn kho: {items[line['id']].name}.")
-                SaleDetail.objects.create(sale=new_sale, item=items[line['id']],
-                                          price=line['price'], quantity=line['quantity'],
-                                          total_detail=line['total_detail'])
+        sale = create_sale(data.get('customer'), SaleLines(data.get('items'), data),
+                           data.get('tax_percentage', 0), data.get('amount_paid'), request.user)
         return JsonResponse({'status': 'success', 'message': 'Sale created successfully!',
-                             'redirect': '/transactions/sales/', 'sale_id': new_sale.pk,
-                             'grand_total': totals['grand_total']})
+            'redirect': '/transactions/sales/', 'sale_id': sale.pk, 'grand_total': sale.grand_total})
     except Customer.DoesNotExist:
         return JsonResponse({'status': 'error', 'message': 'Khách hàng không tồn tại.'}, status=400)
+    except InventoryError as error:
+        return JsonResponse({'status': 'error', 'message': '; '.join(error.messages)}, status=400)
     except (ValueError, TypeError, UnicodeDecodeError, DecimalException, OverflowError) as error:
         return JsonResponse({'status': 'error', 'message': str(error)}, status=400)
 
@@ -270,7 +230,20 @@ class PurchaseDetailView(LoginRequiredMixin, DetailView):
     template_name = "transactions/purchasedetail.html"
 
 
-class PurchaseCreateView(LoginRequiredMixin, CreateView):
+class PurchaseServiceMixin:
+    def form_valid(self, form):
+        try:
+            if self.object is None:
+                self.object = create_purchase(form.cleaned_data)
+            else:
+                self.object = update_purchase(self.object.pk, form.cleaned_data)
+            return HttpResponseRedirect(self.get_success_url())
+        except ValidationError as error:
+            form.add_error(None, error)
+            return self.form_invalid(form)
+
+
+class PurchaseCreateView(PurchaseServiceMixin, LoginRequiredMixin, CreateView):
     """
     View to create a new purchase.
     """
@@ -286,7 +259,7 @@ class PurchaseCreateView(LoginRequiredMixin, CreateView):
         return reverse("purchaseslist")
 
 
-class PurchaseUpdateView(LoginRequiredMixin, UpdateView):
+class PurchaseUpdateView(PurchaseServiceMixin, LoginRequiredMixin, UpdateView):
     """
     View to update an existing purchase.
     """
@@ -295,13 +268,6 @@ class PurchaseUpdateView(LoginRequiredMixin, UpdateView):
     form_class = PurchaseForm
     template_name = "transactions/purchases_form.html"
 
-    def form_valid(self, form):
-        try:
-            return super().form_valid(form)
-        except ValidationError as error:
-            # Purchase.save has already rolled back the purchase and stock rows.
-            form.add_error(None, error)
-            return self.form_invalid(form)
 
     def get_success_url(self):
         """
@@ -311,6 +277,14 @@ class PurchaseUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class PurchaseDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    def form_valid(self, form):
+        try:
+            delete_purchase(self.object.pk)
+            return HttpResponseRedirect(self.get_success_url())
+        except InventoryError as error:
+            form.add_error(None, error)
+            return self.form_invalid(form)
+
     """
     View to delete a purchase.
     """

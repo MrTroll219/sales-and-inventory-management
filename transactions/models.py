@@ -1,5 +1,5 @@
-from django.core.exceptions import ValidationError
-from django.db import models, router, transaction
+from django.db import models
+from django.conf import settings
 from django.db.models import F
 from django.db.models.functions import Round
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -161,57 +161,14 @@ class Purchase(models.Model):
     )
     total_value = models.DecimalField(max_digits=15, validators=[MinValueValidator(0)], decimal_places=2)
 
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        """HC01: persist the purchase and its stock delta in one transaction."""
-        using = using or router.db_for_write(type(self), instance=self)
-        kwargs = {"force_insert": force_insert, "force_update": force_update, "using": using}
-        if update_fields is not None:
-            update_fields = set(update_fields)
-            if not update_fields:
-                return
-
-        with transaction.atomic(using=using):
-            previous = (
-                type(self).objects.using(using).select_for_update()
-                .filter(pk=self.pk).values("item_id", "quantity", "price").first()
-                if self.pk is not None else None
-            )
-            item_id, quantity, price = self.item_id, self.quantity, self.price
-            if previous is not None and update_fields is not None:
-                # save(update_fields=...) must not apply changes excluded from SQL.
-                if not {"item", "item_id"} & update_fields:
-                    item_id = previous["item_id"]
-                if "quantity" not in update_fields:
-                    quantity = previous["quantity"]
-                if "price" not in update_fields:
-                    price = previous["price"]
-            self.total_value = price * quantity
-            if update_fields is not None:
-                if {"price", "quantity"} & update_fields:
-                    update_fields.add("total_value")
-                kwargs["update_fields"] = update_fields
-
-            deltas = {item_id: quantity}
-            if previous is not None:
-                old_id = previous["item_id"]
-                deltas[old_id] = deltas.get(old_id, 0) - previous["quantity"]
-            # Serialize changes to each stock row in deterministic order.
-            for stock_id in sorted(deltas):
-                delta = deltas[stock_id]
-                if not delta:
-                    continue
-                stock = Item.objects.using(using).select_for_update().get(pk=stock_id)
-                changed = Item.objects.using(using).filter(
-                    pk=stock_id, quantity__gte=-delta,
-                ).update(quantity=F("quantity") + delta)
-                if not changed:
-                    raise ValidationError(
-                        f"Không thể cập nhật phiếu nhập: tồn kho của {stock.name} "
-                        "sẽ âm. Hàng của phiếu này có thể đã được bán."
-                    )
-            super().save(**kwargs)
-        # A caller may have supplied a stale cached Item; do not expose its old stock.
-        self._state.fields_cache.pop("item", None)
+    def save(self, *args, **kwargs):
+        """DP01: compute value only; inventory is owned by services."""
+        self.total_value = self.price * self.quantity
+        if kwargs.get('update_fields') is not None:
+            changed = set(kwargs['update_fields'])
+            if changed & {'quantity', 'price'}:
+                kwargs['update_fields'] = changed | {'total_value'}
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         """
@@ -226,3 +183,28 @@ class Purchase(models.Model):
             models.CheckConstraint(condition=models.Q(total_value__gte=0), name='purchase_total_nonnegative'),
             models.CheckConstraint(condition=models.Q(quantity__gt=0), name='purchase_quantity_positive'),
         ]
+
+
+class StockMovement(models.Model):
+    class Reason(models.TextChoices):
+        PURCHASE_IN = 'PURCHASE_IN', 'Purchase in'
+        PURCHASE_EDIT = 'PURCHASE_EDIT', 'Purchase edit'
+        PURCHASE_DELETE = 'PURCHASE_DELETE', 'Purchase delete'
+        SALE_OUT = 'SALE_OUT', 'Sale out'
+        SALE_CANCEL = 'SALE_CANCEL', 'Sale cancel'
+        ADJUST = 'ADJUST', 'Adjustment'
+
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='stock_movements')
+    delta = models.IntegerField()
+    quantity_after = models.PositiveIntegerField()
+    reason = models.CharField(max_length=20, choices=Reason.choices)
+    ref_type = models.CharField(max_length=50, blank=True)
+    ref_id = models.CharField(max_length=64, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+
+    class Meta:
+        ordering = ['pk']
+        constraints = [models.CheckConstraint(condition=models.Q(reason__in=[
+            'PURCHASE_IN', 'PURCHASE_EDIT', 'PURCHASE_DELETE', 'SALE_OUT', 'SALE_CANCEL', 'ADJUST']),
+            name='stock_movement_valid_reason')]

@@ -32,6 +32,13 @@ class ItemAdmin(admin.ModelAdmin):
     search_fields = ('name', 'category__name', 'vendor__name')
     list_filter = ('category', 'vendor')
     ordering = ('name',)
+    readonly_fields = ('quantity',)
+
+    def save_model(self, request, obj, form, change):
+        from transactions.services.stock import save_item
+        saved = save_item(form.cleaned_data, obj.pk if change else None, request.user)
+        obj.pk = saved.pk
+        obj.refresh_from_db()
 
 
 class DeliveryAdmin(admin.ModelAdmin):
