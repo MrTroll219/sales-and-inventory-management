@@ -1,0 +1,9 @@
+ .github/workflows/tests.yml                        |   2 +-
+ transactions/filters.py                            | 101 ++++++++-
+ transactions/tables.py                             |  38 ----
+ .../templates/transactions/filter_panel.html       |  22 ++
+ .../templates/transactions/purchases_list.html     |  11 +-
+ .../templates/transactions/sales_list.html         |  13 +-
+ transactions/tests/test_ht02_filters.py            | 248 +++++++++++++++++++++
+ transactions/views.py                              |  47 +++-
+ 8 files changed, 416 insertions(+), 66 deletions(-)

@@ -1,0 +1,294 @@
+{
+  "commit": "1cee87da3b8988ffe405ca48a0fd0e8717708b29",
+  "files": {
+    "sales": [
+      {
+        "cell": "A1",
+        "value": "Mã",
+        "number_format": "General"
+      },
+      {
+        "cell": "B1",
+        "value": "Ngày bán",
+        "number_format": "General"
+      },
+      {
+        "cell": "C1",
+        "value": "Khách hàng",
+        "number_format": "General"
+      },
+      {
+        "cell": "D1",
+        "value": "Tạm tính (VND)",
+        "number_format": "General"
+      },
+      {
+        "cell": "E1",
+        "value": "Tổng (VND)",
+        "number_format": "General"
+      },
+      {
+        "cell": "F1",
+        "value": "Thuế (VND)",
+        "number_format": "General"
+      },
+      {
+        "cell": "G1",
+        "value": "Thuế (%)",
+        "number_format": "General"
+      },
+      {
+        "cell": "H1",
+        "value": "Đã trả (VND)",
+        "number_format": "General"
+      },
+      {
+        "cell": "I1",
+        "value": "Tiền thừa (VND)",
+        "number_format": "General"
+      },
+      {
+        "cell": "A2",
+        "value": 3,
+        "number_format": "General"
+      },
+      {
+        "cell": "B2",
+        "value": "2026-11-30T23:59:00",
+        "number_format": "DD/MM/YYYY HH:MM"
+      },
+      {
+        "cell": "C2",
+        "value": "0901111111",
+        "number_format": "General"
+      },
+      {
+        "cell": "D2",
+        "value": 3000,
+        "number_format": "#,##0 \"₫\""
+      },
+      {
+        "cell": "E2",
+        "value": 3000,
+        "number_format": "#,##0 \"₫\""
+      },
+      {
+        "cell": "F2",
+        "value": 0,
+        "number_format": "#,##0 \"₫\""
+      },
+      {
+        "cell": "G2",
+        "value": 0,
+        "number_format": "General"
+      },
+      {
+        "cell": "H2",
+        "value": 3000,
+        "number_format": "#,##0 \"₫\""
+      },
+      {
+        "cell": "I2",
+        "value": 0,
+        "number_format": "#,##0 \"₫\""
+      },
+      {
+        "cell": "A3",
+        "value": 2,
+        "number_format": "General"
+      },
+      {
+        "cell": "B3",
+        "value": "2026-11-01T00:00:00",
+        "number_format": "DD/MM/YYYY HH:MM"
+      },
+      {
+        "cell": "C3",
+        "value": "0901111111",
+        "number_format": "General"
+      },
+      {
+        "cell": "D3",
+        "value": 2000,
+        "number_format": "#,##0 \"₫\""
+      },
+      {
+        "cell": "E3",
+        "value": 2000,
+        "number_format": "#,##0 \"₫\""
+      },
+      {
+        "cell": "F3",
+        "value": 0,
+        "number_format": "#,##0 \"₫\""
+      },
+      {
+        "cell": "G3",
+        "value": 0,
+        "number_format": "General"
+      },
+      {
+        "cell": "H3",
+        "value": 2000,
+        "number_format": "#,##0 \"₫\""
+      },
+      {
+        "cell": "I3",
+        "value": 0,
+        "number_format": "#,##0 \"₫\""
+      }
+    ],
+    "purchases": [
+      {
+        "cell": "A1",
+        "value": "Mã",
+        "number_format": "General"
+      },
+      {
+        "cell": "B1",
+        "value": "Mặt hàng",
+        "number_format": "General"
+      },
+      {
+        "cell": "C1",
+        "value": "Mô tả",
+        "number_format": "General"
+      },
+      {
+        "cell": "D1",
+        "value": "Nhà cung cấp",
+        "number_format": "General"
+      },
+      {
+        "cell": "E1",
+        "value": "Ngày nhập",
+        "number_format": "General"
+      },
+      {
+        "cell": "F1",
+        "value": "Ngày giao",
+        "number_format": "General"
+      },
+      {
+        "cell": "G1",
+        "value": "Số lượng",
+        "number_format": "General"
+      },
+      {
+        "cell": "H1",
+        "value": "Trạng thái giao",
+        "number_format": "General"
+      },
+      {
+        "cell": "I1",
+        "value": "Đơn giá (VND)",
+        "number_format": "General"
+      },
+      {
+        "cell": "J1",
+        "value": "Thành tiền (VND)",
+        "number_format": "General"
+      },
+      {
+        "cell": "A2",
+        "value": 3,
+        "number_format": "General"
+      },
+      {
+        "cell": "B2",
+        "value": "Giấy",
+        "number_format": "General"
+      },
+      {
+        "cell": "C2",
+        "value": null,
+        "number_format": "General"
+      },
+      {
+        "cell": "D2",
+        "value": "Nhà cung cấp A",
+        "number_format": "General"
+      },
+      {
+        "cell": "E2",
+        "value": "2026-11-30T23:59:00",
+        "number_format": "DD/MM/YYYY HH:MM"
+      },
+      {
+        "cell": "F2",
+        "value": null,
+        "number_format": "DD/MM/YYYY HH:MM"
+      },
+      {
+        "cell": "G2",
+        "value": 3,
+        "number_format": "General"
+      },
+      {
+        "cell": "H2",
+        "value": "Chờ giao",
+        "number_format": "General"
+      },
+      {
+        "cell": "I2",
+        "value": 1000,
+        "number_format": "#,##0 \"₫\""
+      },
+      {
+        "cell": "J2",
+        "value": 3000,
+        "number_format": "#,##0 \"₫\""
+      },
+      {
+        "cell": "A3",
+        "value": 2,
+        "number_format": "General"
+      },
+      {
+        "cell": "B3",
+        "value": "Giấy",
+        "number_format": "General"
+      },
+      {
+        "cell": "C3",
+        "value": null,
+        "number_format": "General"
+      },
+      {
+        "cell": "D3",
+        "value": "Nhà cung cấp A",
+        "number_format": "General"
+      },
+      {
+        "cell": "E3",
+        "value": "2026-11-01T00:00:00",
+        "number_format": "DD/MM/YYYY HH:MM"
+      },
+      {
+        "cell": "F3",
+        "value": null,
+        "number_format": "DD/MM/YYYY HH:MM"
+      },
+      {
+        "cell": "G3",
+        "value": 2,
+        "number_format": "General"
+      },
+      {
+        "cell": "H3",
+        "value": "Chờ giao",
+        "number_format": "General"
+      },
+      {
+        "cell": "I3",
+        "value": 1000,
+        "number_format": "#,##0 \"₫\""
+      },
+      {
+        "cell": "J3",
+        "value": 2000,
+        "number_format": "#,##0 \"₫\""
+      }
+    ]
+  }
+}

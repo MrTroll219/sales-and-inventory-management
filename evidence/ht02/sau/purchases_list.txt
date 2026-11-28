@@ -1,0 +1,41 @@
+ht02-evidence
+Operative
+Tổng quan
+Hàng hóa
+Danh sách hàng hóa
+Cần nhập hàng
+Danh mục
+Đơn bán
+Phiếu nhập
+Giao hàng
+Hóa đơn
+Chi phí
+Tài khoản
+Danh sách nhân viên
+Khách hàng
+Nhà cung cấp
+Đăng xuất
+ Inventoryms
+Lọc giao dịch
+Từ ngày:
+Đến ngày (bao gồm):
+Nhà cung cấp:
+---------
+Nhà cung cấp A
+Nhà cung cấp B
+Mặt hàng:
+---------
+Giấy - Category: Category: Vật tư thử HT02, Quantity: 100
+Trạng thái giao:
+---------
+Chờ giao
+Đã giao
+Lọc Xóa bộ lọc
+
+Số giao dịch: 2 — Tổng tiền: 5.000 ₫
+
+Phiếu nhập
+Tạo phiếu nhập Xuất Excel
+ID	Tên	Số lượng	Đơn giá (VND)	Trạng thái giao	Ngày giao	Nhà cung cấp	Thao tác
+3	Giấy	3	3.000 ₫	Chờ giao		Nhà cung cấp A
+2	Giấy	2	2.000 ₫	Chờ giao		Nhà cung cấp A

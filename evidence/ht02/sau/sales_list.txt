@@ -1,0 +1,37 @@
+ht02-evidence
+Operative
+Tổng quan
+Hàng hóa
+Danh sách hàng hóa
+Cần nhập hàng
+Danh mục
+Đơn bán
+Phiếu nhập
+Giao hàng
+Hóa đơn
+Chi phí
+Tài khoản
+Danh sách nhân viên
+Khách hàng
+Nhà cung cấp
+Đăng xuất
+ Inventoryms
+Lọc giao dịch
+Từ ngày:
+Đến ngày (bao gồm):
+Khách hàng:
+---------
+An Nguyễn
+Bình
+Tên / số điện thoại khách:
+Tổng tiền từ (VND):
+Tổng tiền đến (VND):
+Lọc Xóa bộ lọc
+
+Số giao dịch: 2 — Tổng tiền: 5.000 ₫
+
+Đơn bán
+Add Sale Order Xuất Excel
+ID	Ngày	Khách hàng	Tạm tính	Tổng cộng	Tiền thuế	Tax Percentage	Đã trả	Tiền thừa	Thao tác
+3	30/11/2026 23:59	An Nguyễn	3.000 ₫	3.000 ₫	0 ₫	0,00	3.000 ₫	0 ₫	View Details
+2	01/11/2026 00:00	An Nguyễn	2.000 ₫	2.000 ₫	0 ₫	0,00	2.000 ₫	0 ₫	View Details

@@ -1,0 +1,107 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+
+Found 25 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: crispy_bootstrap5, crispy_forms, django_extensions, django_filters, django_tables2, imagekit, messages, phonenumber_field, staticfiles
+  Apply all migrations: accounts, admin, auth, bills, contenttypes, invoice, sessions, store, transactions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying accounts.0001_initial... OK
+  Applying accounts.0002_alter_profile_email_alter_profile_first_name_and_more... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying store.0001_initial... OK
+  Applying transactions.0001_initial... OK
+  Applying transactions.0002_rename_discount_amount_sale_tax_amount_and_more... OK
+  Applying transactions.0003_alter_purchase_quantity... OK
+  Applying invoice.0001_initial... OK
+  Applying bills.0001_initial... OK
+  Applying transactions.0004_dp02_decimal_constraints... OK
+  Applying store.0002_dp02_decimal_constraints... OK
+  Applying transactions.0005_dp01_stock_movement... OK
+  Applying invoice.0002_dp02_decimal_constraints... OK
+  Applying bills.0002_dp02_decimal_constraints... OK
+  Applying bills.0003_tu03_vnd... OK
+  Applying invoice.0003_tu03_vnd... OK
+  Applying sessions.0001_initial... OK
+  Applying store.0003_tu03_vnd... OK
+  Applying store.0004_ht01_min_stock_level... OK
+test_anonymous_cannot_list_or_export (transactions.tests.test_ht02_filters.TransactionFilterTests.test_anonymous_cannot_list_or_export) ... D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\core\handlers\base.py:61: UserWarning: No directory at: D:\CT244H BTPM\BTPM\sales-and-inventory-management\staticfiles\
+  mw_instance = middleware(adapted_handler)
+ok
+test_blank_and_unknown_parameters_preserve_unfiltered_results (transactions.tests.test_ht02_filters.TransactionFilterTests.test_blank_and_unknown_parameters_preserve_unfiltered_results) ... ok
+test_count_and_money_are_for_full_filtered_set (transactions.tests.test_ht02_filters.TransactionFilterTests.test_count_and_money_are_for_full_filtered_set) ... ok
+test_customer_and_combined_date_customer (transactions.tests.test_ht02_filters.TransactionFilterTests.test_customer_and_combined_date_customer) ... ok
+test_customer_search_full_name_phone_and_nullable_last_name (transactions.tests.test_ht02_filters.TransactionFilterTests.test_customer_search_full_name_phone_and_nullable_last_name) ... ok
+test_date_from_and_date_to_work_independently (transactions.tests.test_ht02_filters.TransactionFilterTests.test_date_from_and_date_to_work_independently) ... ok
+test_empty_result_has_zero_summary_and_header_only_excel (transactions.tests.test_ht02_filters.TransactionFilterTests.test_empty_result_has_zero_summary_and_header_only_excel) ... ok
+test_equal_timestamps_have_stable_pk_tiebreak (transactions.tests.test_ht02_filters.TransactionFilterTests.test_equal_timestamps_have_stable_pk_tiebreak) ... ok
+test_every_valid_filter_exports_exact_list_queryset (transactions.tests.test_ht02_filters.TransactionFilterTests.test_every_valid_filter_exports_exact_list_queryset) ... ok
+test_excel_keeps_vietnam_time_headers_and_vnd_formats (transactions.tests.test_ht02_filters.TransactionFilterTests.test_excel_keeps_vietnam_time_headers_and_vnd_formats) ... ok
+test_exports_use_one_joined_query_independent_of_row_count (transactions.tests.test_ht02_filters.TransactionFilterTests.test_exports_use_one_joined_query_independent_of_row_count) ... ok
+test_filenames_include_normalized_date_range (transactions.tests.test_ht02_filters.TransactionFilterTests.test_filenames_include_normalized_date_range) ... ok
+test_filtering_and_export_never_write_inventory_or_ledger (transactions.tests.test_ht02_filters.TransactionFilterTests.test_filtering_and_export_never_write_inventory_or_ledger) ... ok
+test_invalid_parameters_are_errors_never_500 (transactions.tests.test_ht02_filters.TransactionFilterTests.test_invalid_parameters_are_errors_never_500) ... ok
+test_iso_dates_equal_vietnamese_dates (transactions.tests.test_ht02_filters.TransactionFilterTests.test_iso_dates_equal_vietnamese_dates) ... ok
+test_list_querysets_join_related_objects_without_n_plus_one (transactions.tests.test_ht02_filters.TransactionFilterTests.test_list_querysets_join_related_objects_without_n_plus_one) ... ok
+test_money_range_is_inclusive_and_combines_with_customer (transactions.tests.test_ht02_filters.TransactionFilterTests.test_money_range_is_inclusive_and_combines_with_customer) ... ok
+test_no_parameters_returns_all_newest_first_in_list_and_excel (transactions.tests.test_ht02_filters.TransactionFilterTests.test_no_parameters_returns_all_newest_first_in_list_and_excel) ... ok
+test_pagination_and_export_links_keep_query_and_totals_include_all_pages (transactions.tests.test_ht02_filters.TransactionFilterTests.test_pagination_and_export_links_keep_query_and_totals_include_all_pages) ... ok
+test_purchase_pagination_keeps_vendor_item_and_status (transactions.tests.test_ht02_filters.TransactionFilterTests.test_purchase_pagination_keeps_vendor_item_and_status) ... ok
+test_purchase_vendor_item_status_and_combination (transactions.tests.test_ht02_filters.TransactionFilterTests.test_purchase_vendor_item_status_and_combination) ... ok
+test_reversed_dates_show_error_and_export_400_not_all_data (transactions.tests.test_ht02_filters.TransactionFilterTests.test_reversed_dates_show_error_and_export_400_not_all_data) ... ok
+test_reversed_money_range_is_validation_error (transactions.tests.test_ht02_filters.TransactionFilterTests.test_reversed_money_range_is_validation_error) ... ok
+test_same_day_range_includes_2359_vietnam (transactions.tests.test_ht02_filters.TransactionFilterTests.test_same_day_range_includes_2359_vietnam) ... ok
+test_vietnam_date_bounds_include_last_microsecond_exclude_next_midnight (transactions.tests.test_ht02_filters.TransactionFilterTests.test_vietnam_date_bounds_include_last_microsecond_exclude_next_midnight) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.855s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+
+  Applying transactions.0006_tu03_vnd... OK
+System check identified no issues (0 silenced).
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!

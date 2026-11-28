@@ -1,0 +1,21 @@
+{
+  "commit": "1cee87da3b8988ffe405ca48a0fd0e8717708b29",
+  "captures": [
+    {
+      "url": "http://127.0.0.1:8017/transactions/sales/?date_from=01%2F11%2F2026&date_to=30%2F11%2F2026&customer=1",
+      "list_rows": 2,
+      "excel_rows": 2,
+      "filename": "attachment; filename=sales_2026-11-01_2026-11-30.xlsx",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8017/transactions/purchases/?date_from=01%2F11%2F2026&date_to=30%2F11%2F2026&vendor=1",
+      "list_rows": 2,
+      "excel_rows": 2,
+      "filename": "attachment; filename=purchases_2026-11-01_2026-11-30.xlsx",
+      "status": 200
+    }
+  ],
+  "external_requests": "blocked",
+  "database": "isolated temporary SQLite"
+}

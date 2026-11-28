@@ -1,0 +1,9 @@
+[28/Nov/2026 16:34:16] "GET /accounts/login/ HTTP/1.1" 200 3490
+[28/Nov/2026 16:34:16] "GET /transactions/sales/?date_from=01%2F11%2F2026&date_to=30%2F11%2F2026&customer=1 HTTP/1.1" 200 13322
+[28/Nov/2026 16:34:16] "GET /static/css/style.css HTTP/1.1" 200 4943
+[28/Nov/2026 16:34:16] "GET /images/profile_pics/default.jpg HTTP/1.1" 200 2902
+[28/Nov/2026 16:34:16] "GET /transactions/sales/export/?date_from=01%2F11%2F2026&date_to=30%2F11%2F2026&customer=1 HTTP/1.1" 200 5338
+[28/Nov/2026 16:34:16] "GET /transactions/purchases/?date_from=01%2F11%2F2026&date_to=30%2F11%2F2026&vendor=1 HTTP/1.1" 200 14145
+[28/Nov/2026 16:34:16] "GET /static/css/style.css HTTP/1.1" 200 4943
+[28/Nov/2026 16:34:16] "GET /images/profile_pics/default.jpg HTTP/1.1" 200 2902
+[28/Nov/2026 16:34:17] "GET /transactions/purchases/export/?date_from=01%2F11%2F2026&date_to=30%2F11%2F2026&vendor=1 HTTP/1.1" 200 5379
