@@ -60,3 +60,10 @@ class PurchaseForm(BootstrapMixin, forms.ModelForm):
                 attrs={'class': 'form-control'}
             ),
         }
+
+
+class SaleCancellationForm(forms.Form):
+    reason = forms.CharField(label='Lý do hủy', min_length=5, strip=True,
+        widget=forms.Textarea(attrs={'rows': 4, 'class': 'form-control'}),
+        error_messages={'required': 'Vui lòng nhập lý do hủy.',
+                        'min_length': 'Lý do hủy phải có ít nhất 5 ký tự.'})

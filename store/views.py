@@ -70,7 +70,7 @@ def dashboard(request):
     category_counts = [cat["item_count"] for cat in category_counts]
 
     sale_dates = (
-        Sale.objects.values("date_added__date")
+        Sale.objects.filter(status=Sale.Status.COMPLETED).values("date_added__date")
         .annotate(total_sales=Sum("grand_total"))
         .order_by("date_added__date")
     )
@@ -87,7 +87,7 @@ def dashboard(request):
         "total_items": total_items,
         "vendors": Vendor.objects.all(),
         "delivery": Delivery.objects.all(),
-        "sales": Sale.objects.all(),
+        "sales": Sale.objects.filter(status=Sale.Status.COMPLETED),
         "categories": categories,
         "category_counts": category_counts,
         "sale_dates_labels": sale_dates_labels,

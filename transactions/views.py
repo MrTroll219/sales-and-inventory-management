@@ -5,17 +5,19 @@ import logging
 from decimal import Decimal, DecimalException
 from functools import wraps
 
-from django.core.exceptions import ValidationError
-from django.db.models import Count, Sum
+from django.core.exceptions import ValidationError, PermissionDenied
+from django.db import transaction
+from django.contrib import messages
+from django.db.models import Count, Sum, Q
 
 # Django core imports
 from django.http import JsonResponse, HttpResponse, HttpResponseNotAllowed
 from django.urls import reverse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Class-based views
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 
 # Authentication and permissions
 from django.contrib.auth.decorators import login_required
@@ -28,11 +30,11 @@ from openpyxl import Workbook
 from store.models import Item
 from accounts.models import Customer
 from .models import Sale, Purchase, SaleDetail
-from .forms import PurchaseForm
+from .forms import PurchaseForm, SaleCancellationForm
 from .filters import filtered_transactions, export_filename
 from .utils import to_excel_datetime
 from .pricing import SaleInputError
-from .services.sales import create_sale, SaleLines
+from .services.sales import create_sale, SaleLines, cancel_sale
 from .services.purchases import create_purchase, update_purchase, delete_purchase
 from .services.exceptions import InventoryError
 from django.http import HttpResponseRedirect
@@ -57,7 +59,7 @@ def export_sales_to_excel(request):
 
     # Define the column headers
     columns = ['Mã', 'Ngày bán', 'Khách hàng', 'Tạm tính (VND)', 'Tổng (VND)',
-               'Thuế (VND)', 'Thuế (%)', 'Đã trả (VND)', 'Tiền thừa (VND)']
+               'Thuế (VND)', 'Thuế (%)', 'Đã trả (VND)', 'Tiền thừa (VND)', 'Trạng thái']
     worksheet.append(columns)
 
     for sale in sales:
@@ -70,7 +72,8 @@ def export_sales_to_excel(request):
             sale.tax_amount,
             sale.tax_percentage,
             sale.amount_paid,
-            sale.amount_change
+            sale.amount_change,
+            sale.get_status_display()
         ])
         worksheet.cell(row=worksheet.max_row, column=2).number_format = 'DD/MM/YYYY HH:MM'
         for column in (4, 5, 6, 8, 9):
@@ -143,7 +146,8 @@ class TransactionListMixin:
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        summary = self.object_list.aggregate(filtered_count=Count('pk'), filtered_total=Sum(self.total_field))
+        total = Sum(self.total_field, filter=Q(status=Sale.Status.COMPLETED)) if self.transaction_kind == 'sales' else Sum(self.total_field)
+        summary = self.object_list.aggregate(filtered_count=Count('pk'), filtered_total=total)
         params = self.request.GET.copy()
         params.pop('page', None)
         context.update(summary)
@@ -172,6 +176,7 @@ class SaleDetailView(LoginRequiredMixin, DetailView):
     """
 
     model = Sale
+    queryset = Sale.objects.select_related('customer', 'cancellation', 'cancellation__cancelled_by')
     template_name = "transactions/saledetail.html"
 
 
@@ -211,6 +216,34 @@ def SaleCreateView(request):
         return JsonResponse({'status': 'error', 'message': str(error)}, status=400)
 
 
+class SaleCancelView(LoginRequiredMixin, UserPassesTestMixin, FormView):
+    template_name = 'transactions/sale_cancel.html'
+    form_class = SaleCancellationForm
+
+    def test_func(self):
+        return self.request.user.is_staff or self.request.user.is_superuser
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sale'] = get_object_or_404(Sale, pk=self.kwargs['pk'])
+        return context
+
+    def form_valid(self, form):
+        try:
+            cancel_sale(self.kwargs['pk'], self.request.user, form.cleaned_data['reason'])
+        except Sale.DoesNotExist:
+            get_object_or_404(Sale, pk=self.kwargs['pk'])
+        except ValidationError as error:
+            form.add_error(None, error)
+            return self.form_invalid(form)
+        messages.success(self.request, 'Đã hủy đơn và hoàn kho thành công.')
+        return HttpResponseRedirect(reverse('sale-detail', kwargs={'pk': self.kwargs['pk']}))
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Không thể hủy đơn. Vui lòng kiểm tra lý do và trạng thái đơn.')
+        return super().form_invalid(form)
+
+
 class SaleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
     View to delete a sale.
@@ -218,6 +251,21 @@ class SaleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     model = Sale
     template_name = "transactions/saledelete.html"
+
+    def get_object(self, queryset=None):
+        sale = super().get_object(queryset)
+        if sale.status != Sale.Status.CANCELLED:
+            raise PermissionDenied('Chỉ được xóa đơn đã hủy.')
+        return sale
+
+    @transaction.atomic
+    def form_valid(self, form):
+        sale = Sale.objects.select_for_update().get(pk=self.object.pk)
+        if sale.status != Sale.Status.CANCELLED:
+            raise PermissionDenied('Chỉ được xóa đơn đã hủy.')
+        sale.delete()
+        messages.success(self.request, 'Đã xóa đơn đã hủy; lịch sử hủy vẫn được giữ.')
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
         """

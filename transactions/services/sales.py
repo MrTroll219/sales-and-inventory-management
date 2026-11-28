@@ -1,9 +1,11 @@
 from django.db import transaction
+from django.core.exceptions import PermissionDenied
 from store.models import Item
 from accounts.models import Customer
-from transactions.models import Sale, SaleDetail, StockMovement
+from transactions.models import Sale, SaleDetail, StockMovement, SaleCancellation
 from transactions.pricing import SaleInputError, positive_integer, compute_sale_totals, check_client_total
 from .stock import adjust_stock
+from .exceptions import InventoryError, SaleAlreadyCancelled
 
 
 @transaction.atomic
@@ -48,3 +50,30 @@ class SaleLines(list):
             raise SaleInputError('Đơn hàng phải có ít nhất một mặt hàng.')
         super().__init__(lines)
         self.client_totals = client_totals
+
+
+@transaction.atomic
+def cancel_sale(sale_id, user, reason):
+    """HT03: lock the sale; restore inventory and audit exactly once."""
+    if not (user and user.is_authenticated and user.is_active and (user.is_staff or user.is_superuser)):
+        raise PermissionDenied('Bạn không có quyền hủy đơn.')
+    sale = Sale.objects.select_for_update().get(pk=sale_id)
+    if sale.status == Sale.Status.CANCELLED:
+        raise SaleAlreadyCancelled('Đơn đã hủy; không hoàn kho lần nữa.')
+    if not isinstance(reason, str) or len(reason.strip()) < 5:
+        raise InventoryError('Lý do hủy phải có ít nhất 5 ký tự.')
+    quantities = {}
+    for detail in sale.saledetail_set.order_by('item_id', 'pk'):
+        quantities[detail.item_id] = quantities.get(detail.item_id, 0) + detail.quantity
+    restored = []
+    for item_id, quantity in sorted(quantities.items()):
+        adjust_stock(item_id, quantity, reason=StockMovement.Reason.SALE_CANCEL,
+            ref={'type': 'transactions.Sale', 'id': sale.pk, 'user': user})
+        restored.append({'item_id': item_id, 'quantity': quantity})
+    cancellation = SaleCancellation(sale=sale, sale_reference=sale.pk, reason=reason.strip(),
+        cancelled_by=user, restored_items=restored)
+    cancellation.full_clean()
+    cancellation.save()
+    sale.status = Sale.Status.CANCELLED
+    sale.save(update_fields=['status'])
+    return cancellation

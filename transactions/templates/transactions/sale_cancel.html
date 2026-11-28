@@ -1,0 +1,18 @@
+{% extends "store/base.html" %}
+{% block title %}Hủy đơn{% endblock %}
+{% block content %}
+{% include "transactions/sale_messages.html" %}
+<section style="margin:20px;padding:16px;border:1px solid #9fb7ac;font:16px Arial,sans-serif">
+  <h1>Hủy đơn #{{ sale.pk }}</h1>
+  {{ form.non_field_errors }}
+  {% if sale.status == 'COMPLETED' %}
+  <p>Hủy đơn sẽ hoàn kho và lưu lịch sử. Thao tác chỉ hoàn kho một lần.</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.reason.label_tag }} {{ form.reason }} {{ form.reason.errors }}
+    <p><button type="submit">Xác nhận hủy đơn</button></p>
+  </form>
+  {% else %}<p>Đơn đã hủy; không hoàn kho lần nữa.</p>{% endif %}
+  <a href="{% url 'sale-detail' sale.pk %}">Quay lại chi tiết</a>
+</section>
+{% endblock %}

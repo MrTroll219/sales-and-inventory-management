@@ -2,7 +2,7 @@ name: TU02 tests
 
 on:
   push:
-    branches: [bao-tri, tu02-trien-khai-docker, dp02-decimal-rang-buoc, dp01-tach-nghiep-vu-kho, tu03-viet-nam-vnd, ht01-ton-toi-thieu, ht02-loc-giao-dich]
+    branches: [bao-tri, tu02-trien-khai-docker, dp02-decimal-rang-buoc, dp01-tach-nghiep-vu-kho, tu03-viet-nam-vnd, ht01-ton-toi-thieu, ht02-loc-giao-dich, ht03-huy-don]
     paths-ignore: ['docs/**', 'evidence/**']
   pull_request:
     branches: [bao-tri]

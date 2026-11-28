@@ -60,6 +60,7 @@ class TransactionFilter(django_filters.FilterSet):
 
 class SaleFilter(TransactionFilter):
     date_field = 'date_added'
+    status = django_filters.ChoiceFilter(label='Trạng thái đơn', choices=Sale.Status.choices)
     customer = django_filters.ModelChoiceFilter(label='Khách hàng', queryset=Customer.objects.order_by('first_name', 'pk'))
     q = django_filters.CharFilter(label='Tên / số điện thoại khách', method='search_customer', max_length=256)
     min = django_filters.NumberFilter(field_name='grand_total', lookup_expr='gte', label='Tổng tiền từ (VND)',

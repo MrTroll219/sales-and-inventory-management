@@ -1,14 +1,14 @@
-{% extends "store/base.html" %} {% block title %}Confirm delete{% endblock %}
+{% extends "store/base.html" %} {% block title %}Xác nhận xóa{% endblock %}
 {% block content %}
 <div class="container pt-5">
     <form method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Delete Sale</legend>
-            <h5>Are you sure you want to delete the sale "{{ object.slug }}"</h5>
+            <legend class="border-bottom mb-4">Xóa đơn đã hủy</legend>
+            <h5>Bạn có chắc muốn xóa đơn #{{ object.pk }}? Lịch sử hủy được giữ lại.</h5>
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-danger btn-sm" type="submit">Yes, Delete</button>
+            <button class="btn btn-outline-danger btn-sm" type="submit">Xác nhận xóa</button>
             <a class="btn btn-outline-success btn-sm" href="{% url 'saleslist' %}">Hủy</a>
         </div>
     </form>

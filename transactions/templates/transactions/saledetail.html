@@ -1,6 +1,18 @@
 {% extends "store/base.html" %}
 {% load vietnam %} {% load static %}{% block title %}Transaction detail{% endblock %}
 {% block content %}
+{% include "transactions/sale_messages.html" %}
+<section id="sale-status-panel" style="margin:20px;padding:16px;border:1px solid #9fb7ac;font:16px Arial,sans-serif">
+  <p>Trạng thái: <strong>{{ sale.get_status_display }}</strong></p>
+  {% if sale.status == 'CANCELLED' %}
+    <p>Lý do hủy: {{ sale.cancellation.reason }}</p>
+    <p>Người hủy: {{ sale.cancellation.cancelled_by.get_username }}</p>
+    <p>Thời điểm hủy: {{ sale.cancellation.cancelled_at|vn_datetime }}</p>
+    {% if user.is_superuser %}<a href="{% url 'sale-delete' sale.pk %}">Xóa đơn đã hủy</a>{% endif %}
+  {% elif user.is_staff or user.is_superuser %}
+    <a id="cancel-sale" href="{% url 'sale-cancel' sale.pk %}">Hủy đơn</a>
+  {% endif %}
+</section>
 <style>
 	section .receipt {
 		margin: 0;

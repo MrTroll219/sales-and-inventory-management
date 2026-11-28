@@ -5,6 +5,7 @@
 
 {% block title %}Đơn bán{% endblock title %}
 {% block content %}
+{% include "transactions/sale_messages.html" %}
 {% include "transactions/filter_panel.html" %}
 <!-- Header Section -->
 <div class="container my-4">
@@ -46,6 +47,7 @@
                 <th>Tax Percentage</th>
                 <th>Đã trả</th>
                 <th>Tiền thừa</th>
+                <th>Trạng thái</th>
                 <th>Thao tác</th>
             </tr>
         </thead>
@@ -61,7 +63,9 @@
                 <td>{{ sale.tax_percentage }}</td>
                 <td>{{ sale.amount_paid|vnd }}</td>
                 <td>{{ sale.amount_change|vnd }}</td>
+                <td>{{ sale.get_status_display }}</td>
                 <td>
+                    {% if sale.status == "COMPLETED" %}{% if user.is_staff or user.is_superuser %}<a href="{% url 'sale-cancel' sale.pk %}">Hủy đơn</a>{% endif %}{% endif %}
                     <a class="btn btn-outline-info btn-sm" href="{% url 'sale-detail' sale.id %}">
                         <i class="fa-solid fa-eye"></i> View Details
                     </a>

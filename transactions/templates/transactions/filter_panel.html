@@ -12,6 +12,7 @@
     <a href="{{ request.path }}">Xóa bộ lọc</a>
   </form>
   <p id="filter-summary">Số giao dịch: <strong>{{ filtered_count }}</strong> — Tổng tiền: <strong>{{ filtered_total|vnd }}</strong></p>
+  {% if view.transaction_kind == "sales" %}<p>Tổng tiền chỉ tính đơn hoàn tất; đơn đã hủy vẫn có thể xem trong danh sách.</p>{% endif %}
 </section>
 <style>
 .transaction-filters {margin: 20px; padding: 16px; border: 1px solid #b7cec2; font-family: Arial, sans-serif;}

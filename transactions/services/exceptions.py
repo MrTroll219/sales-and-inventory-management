@@ -13,3 +13,7 @@ class InsufficientStock(InventoryError):
     def __init__(self, item, requested, available):
         self.item, self.requested, self.available = item, requested, available
         super().__init__(f'Không đủ tồn kho: {item.name}; yêu cầu {requested}, còn {available}; tồn kho sẽ âm.')
+
+
+class SaleAlreadyCancelled(InventoryError):
+    """HT03: this sale has already restored its inventory."""

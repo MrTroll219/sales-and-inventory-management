@@ -1,9 +1,12 @@
 from store.money import VNDField, to_vnd, MAX_MONEY
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.db.models import F
 from django.db.models.functions import Round
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator, MinLengthValidator
+from django.db.models.functions import Length, Trim
+from django.db.models.lookups import GreaterThanOrEqual
 from django_extensions.db.fields import AutoSlugField
 
 from store.models import Item
@@ -16,6 +19,12 @@ class Sale(models.Model):
     """
     Represents a sale transaction involving a customer.
     """
+
+    class Status(models.TextChoices):
+        COMPLETED = 'COMPLETED', 'Hoàn tất'
+        CANCELLED = 'CANCELLED', 'Đã hủy'
+
+    status = models.CharField(max_length=9, choices=Status.choices, default=Status.COMPLETED, verbose_name='Trạng thái')
 
     date_added = models.DateTimeField(
         auto_now_add=True,
@@ -59,6 +68,7 @@ class Sale(models.Model):
         verbose_name = "Sale"
         verbose_name_plural = "Sales"
         constraints = [
+            models.CheckConstraint(condition=models.Q(status__in=['COMPLETED', 'CANCELLED']), name='sale_status_valid'),
             models.CheckConstraint(condition=models.Q(sub_total__gte=0), name='sale_subtotal_nonnegative'),
             models.CheckConstraint(condition=models.Q(grand_total__gte=0), name='sale_grand_nonnegative'),
             models.CheckConstraint(condition=models.Q(tax_amount__gte=0), name='sale_tax_nonnegative'),
@@ -90,6 +100,30 @@ class Sale(models.Model):
         Returns the total quantity of products in the sale.
         """
         return sum(detail.quantity for detail in self.saledetail_set.all())
+
+
+class SaleCancellation(models.Model):
+    # Keep the audit record even after the explicitly permitted hard deletion.
+    sale = models.OneToOneField(Sale, on_delete=models.SET_NULL, null=True, related_name='cancellation')
+    sale_reference = models.PositiveBigIntegerField(editable=False, verbose_name='Mã đơn gốc')
+    reason = models.TextField(validators=[MinLengthValidator(5)], verbose_name='Lý do hủy')
+    cancelled_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, verbose_name='Người hủy')
+    cancelled_at = models.DateTimeField(auto_now_add=True, verbose_name='Thời điểm hủy')
+    restored_items = models.JSONField(default=list, blank=True, verbose_name='Mặt hàng đã hoàn kho')
+
+    def clean(self):
+        super().clean()
+        if isinstance(self.reason, str):
+            self.reason = self.reason.strip()
+        if not isinstance(self.reason, str) or len(self.reason) < 5:
+            raise ValidationError({'reason': 'Lý do hủy phải có ít nhất 5 ký tự.'})
+
+    class Meta:
+        verbose_name = 'Lịch sử hủy đơn'
+        verbose_name_plural = 'Lịch sử hủy đơn'
+        constraints = [models.CheckConstraint(
+            condition=GreaterThanOrEqual(Length(Trim('reason')), models.Value(5)),
+            name='sale_cancellation_reason_min_length')]
 
 
 class SaleDetail(models.Model):

@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.db.models import Sum
 from store.models import Item
-from transactions.models import StockMovement, Purchase, SaleDetail
+from transactions.models import StockMovement, Purchase, SaleDetail, Sale
 from transactions.services.stock import adjust_stock
 from transactions.services.exceptions import InventoryError
 
@@ -24,7 +24,7 @@ class Command(BaseCommand):
         for item in items:
             book = StockMovement.objects.filter(item=item).aggregate(n=Sum('delta'))['n'] or 0
             incoming = Purchase.objects.filter(item=item).aggregate(n=Sum('quantity'))['n'] or 0
-            outgoing = SaleDetail.objects.filter(item=item).aggregate(n=Sum('quantity'))['n'] or 0
+            outgoing = SaleDetail.objects.filter(item=item, sale__status=Sale.Status.COMPLETED).aggregate(n=Sum('quantity'))['n'] or 0
             row = {'item_id': item.pk, 'quantity': item.quantity, 'movement_total': book,
                    'purchases_minus_sales': incoming-outgoing, 'difference': item.quantity-book,
                    'ledger_minus_trade': book-(incoming-outgoing)}
