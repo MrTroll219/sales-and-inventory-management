@@ -1,5 +1,5 @@
 from django.db.models.functions import Round
-from store.money import VNDField, to_vnd
+from store.money import VNDField, to_vnd, MAX_MONEY
 from django.db import models
 from django.core.validators import MinValueValidator
 from autoslug import AutoSlugField
@@ -63,5 +63,5 @@ class Bill(models.Model):
     class Meta:
         constraints = [
             models.CheckConstraint(condition=models.Q(amount__gte=0), name='bill_amount_nonnegative'),
-            models.CheckConstraint(condition=models.Q(amount=Round(models.F('amount'), 0)), name='bill_amount_vnd_int'),
+            models.CheckConstraint(condition=models.Q(amount=Round(models.F('amount'), 0), amount__lte=MAX_MONEY), name='bill_amount_vnd_int'),
         ]

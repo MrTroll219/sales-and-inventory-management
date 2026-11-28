@@ -1,5 +1,5 @@
 from django.db.models.functions import Round
-from store.money import VNDField, to_vnd
+from store.money import VNDField, to_vnd, MAX_MONEY
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
@@ -77,8 +77,8 @@ class Invoice(models.Model):
             models.CheckConstraint(condition=models.Q(total__gte=0), name='invoice_total_nonnegative'),
             models.CheckConstraint(condition=models.Q(grand_total__gte=0), name='invoice_grand_nonnegative'),
             models.CheckConstraint(condition=models.Q(quantity__gte=0), name='invoice_quantity_nonnegative'),
-            models.CheckConstraint(condition=models.Q(price_per_item=Round(models.F('price_per_item'), 0)), name='invoice_price_per_item_vnd_int'),
-            models.CheckConstraint(condition=models.Q(shipping=Round(models.F('shipping'), 0)), name='invoice_shipping_vnd_int'),
-            models.CheckConstraint(condition=models.Q(total=Round(models.F('total'), 0)), name='invoice_total_vnd_int'),
-            models.CheckConstraint(condition=models.Q(grand_total=Round(models.F('grand_total'), 0)), name='invoice_grand_total_vnd_int'),
+            models.CheckConstraint(condition=models.Q(price_per_item=Round(models.F('price_per_item'), 0), price_per_item__lte=MAX_MONEY), name='invoice_price_per_item_vnd_int'),
+            models.CheckConstraint(condition=models.Q(shipping=Round(models.F('shipping'), 0), shipping__lte=MAX_MONEY), name='invoice_shipping_vnd_int'),
+            models.CheckConstraint(condition=models.Q(total=Round(models.F('total'), 0), total__lte=MAX_MONEY), name='invoice_total_vnd_int'),
+            models.CheckConstraint(condition=models.Q(grand_total=Round(models.F('grand_total'), 0), grand_total__lte=MAX_MONEY), name='invoice_grand_total_vnd_int'),
         ]

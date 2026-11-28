@@ -14,6 +14,8 @@ LABELS = {'name':'Tên', 'description':'Mô tả', 'category':'Danh mục', 'qua
 def localize_form(form):
     for name, field in form.fields.items():
         field.label = LABELS.get(name, field.label)
+        if name == 'delivery_status':
+            field.choices = [(key, {'P':'Chờ giao', 'S':'Đã giao'}.get(key, label)) for key,label in field.choices]
         if isinstance(field, forms.DateTimeField):
             field.input_formats = list(dict.fromkeys([*field.input_formats, *settings.DATETIME_INPUT_FORMATS]))
         elif isinstance(field, forms.DateField):

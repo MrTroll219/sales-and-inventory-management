@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.db import connection, IntegrityError, transaction
+from django.db import connection, IntegrityError, DatabaseError, transaction
 from django.forms import modelform_factory
 from django.template import Context, Template
 from django.test import TestCase, SimpleTestCase
@@ -162,3 +162,8 @@ class VNDApplicationTests(TestCase):
                 cursor.execute('UPDATE store_item SET price = %s WHERE id = %s',[1000.5,self.item.pk])
             self.item.refresh_from_db()
             self.assertEqual(self.item.price,Decimal(1001))
+
+    def test_raw_sql_cannot_store_nonfinite_or_out_of_range_vnd(self):
+        for value in (str(MAX_MONEY+1),'NaN'):
+            with self.subTest(value=value),self.assertRaises(DatabaseError),transaction.atomic(),connection.cursor() as cursor:
+                cursor.execute('UPDATE store_item SET price = %s WHERE id = %s',[value,self.item.pk])

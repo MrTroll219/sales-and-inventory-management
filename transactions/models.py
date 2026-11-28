@@ -1,4 +1,4 @@
-from store.money import VNDField, to_vnd
+from store.money import VNDField, to_vnd, MAX_MONEY
 from django.db import models
 from django.conf import settings
 from django.db.models import F
@@ -65,14 +65,14 @@ class Sale(models.Model):
             models.CheckConstraint(condition=models.Q(amount_paid__gte=0), name='sale_paid_nonnegative'),
             models.CheckConstraint(condition=models.Q(amount_change__gte=0), name='sale_change_nonnegative'),
             models.CheckConstraint(condition=models.Q(tax_percentage__gte=0, tax_percentage__lte=100), name='sale_tax_percentage_range'),
-            # SQLite NUMERIC uses binary arithmetic; round the F expression to cents.
+            # TU03: all money is integral; keep the two F identities at whole-dong scale.
             models.CheckConstraint(condition=models.Q(grand_total=Round(F('sub_total') + F('tax_amount'), 0)), name='sale_grand_matches_parts'),
             models.CheckConstraint(condition=models.Q(amount_change=Round(F('amount_paid') - F('grand_total'), 0)), name='sale_change_matches_payment'),
-            models.CheckConstraint(condition=models.Q(sub_total=Round(models.F('sub_total'), 0)), name='sale_sub_total_vnd_int'),
-            models.CheckConstraint(condition=models.Q(tax_amount=Round(models.F('tax_amount'), 0)), name='sale_tax_amount_vnd_int'),
-            models.CheckConstraint(condition=models.Q(grand_total=Round(models.F('grand_total'), 0)), name='sale_grand_total_vnd_int'),
-            models.CheckConstraint(condition=models.Q(amount_paid=Round(models.F('amount_paid'), 0)), name='sale_amount_paid_vnd_int'),
-            models.CheckConstraint(condition=models.Q(amount_change=Round(models.F('amount_change'), 0)), name='sale_amount_change_vnd_int'),
+            models.CheckConstraint(condition=models.Q(sub_total=Round(models.F('sub_total'), 0), sub_total__lte=MAX_MONEY), name='sale_sub_total_vnd_int'),
+            models.CheckConstraint(condition=models.Q(tax_amount=Round(models.F('tax_amount'), 0), tax_amount__lte=MAX_MONEY), name='sale_tax_amount_vnd_int'),
+            models.CheckConstraint(condition=models.Q(grand_total=Round(models.F('grand_total'), 0), grand_total__lte=MAX_MONEY), name='sale_grand_total_vnd_int'),
+            models.CheckConstraint(condition=models.Q(amount_paid=Round(models.F('amount_paid'), 0), amount_paid__lte=MAX_MONEY), name='sale_amount_paid_vnd_int'),
+            models.CheckConstraint(condition=models.Q(amount_change=Round(models.F('amount_change'), 0), amount_change__lte=MAX_MONEY), name='sale_amount_change_vnd_int'),
         ]
 
     def __str__(self):
@@ -123,8 +123,8 @@ class SaleDetail(models.Model):
             models.CheckConstraint(condition=models.Q(price__gte=0), name='sale_detail_price_nonnegative'),
             models.CheckConstraint(condition=models.Q(total_detail__gte=0), name='sale_detail_total_nonnegative'),
             models.CheckConstraint(condition=models.Q(quantity__gt=0), name='sale_detail_quantity_positive'),
-            models.CheckConstraint(condition=models.Q(price=Round(models.F('price'), 0)), name='saledetail_price_vnd_int'),
-            models.CheckConstraint(condition=models.Q(total_detail=Round(models.F('total_detail'), 0)), name='saledetail_total_detail_vnd_int'),
+            models.CheckConstraint(condition=models.Q(price=Round(models.F('price'), 0), price__lte=MAX_MONEY), name='saledetail_price_vnd_int'),
+            models.CheckConstraint(condition=models.Q(total_detail=Round(models.F('total_detail'), 0), total_detail__lte=MAX_MONEY), name='saledetail_total_detail_vnd_int'),
         ]
 
     def __str__(self):
@@ -191,8 +191,8 @@ class Purchase(models.Model):
             models.CheckConstraint(condition=models.Q(price__gte=0), name='purchase_price_nonnegative'),
             models.CheckConstraint(condition=models.Q(total_value__gte=0), name='purchase_total_nonnegative'),
             models.CheckConstraint(condition=models.Q(quantity__gt=0), name='purchase_quantity_positive'),
-            models.CheckConstraint(condition=models.Q(price=Round(models.F('price'), 0)), name='purchase_price_vnd_int'),
-            models.CheckConstraint(condition=models.Q(total_value=Round(models.F('total_value'), 0)), name='purchase_total_value_vnd_int'),
+            models.CheckConstraint(condition=models.Q(price=Round(models.F('price'), 0), price__lte=MAX_MONEY), name='purchase_price_vnd_int'),
+            models.CheckConstraint(condition=models.Q(total_value=Round(models.F('total_value'), 0), total_value__lte=MAX_MONEY), name='purchase_total_value_vnd_int'),
         ]
 
 

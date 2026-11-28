@@ -1,5 +1,5 @@
 from django.db.models.functions import Round
-from store.money import VNDField, to_vnd
+from store.money import VNDField, to_vnd, MAX_MONEY
 """
 Module: models.py
 
@@ -82,7 +82,7 @@ class Item(models.Model):
         constraints = [
             models.CheckConstraint(condition=models.Q(price__gte=0), name='item_price_nonnegative'),
             models.CheckConstraint(condition=models.Q(quantity__gte=0), name='item_quantity_nonnegative'),
-            models.CheckConstraint(condition=models.Q(price=Round(models.F('price'), 0)), name='item_price_vnd_int'),
+            models.CheckConstraint(condition=models.Q(price=Round(models.F('price'), 0), price__lte=MAX_MONEY), name='item_price_vnd_int'),
         ]
 
 

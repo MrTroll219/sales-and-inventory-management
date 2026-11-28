@@ -110,7 +110,7 @@ def export_purchases_to_excel(request):
             to_excel_datetime(purchase.order_date, ZoneInfo('Asia/Ho_Chi_Minh')),
             to_excel_datetime(purchase.delivery_date, ZoneInfo('Asia/Ho_Chi_Minh')),
             purchase.quantity,
-            purchase.get_delivery_status_display(),
+            {'P':'Chờ giao','S':'Đã giao'}.get(purchase.delivery_status, purchase.get_delivery_status_display()),
             purchase.price,
             purchase.total_value
         ])
