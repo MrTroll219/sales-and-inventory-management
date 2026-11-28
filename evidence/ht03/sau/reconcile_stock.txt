@@ -1,0 +1,21 @@
+{
+  "fix": false,
+  "items": [
+    {
+      "item_id": 1,
+      "quantity": 10,
+      "movement_total": 10,
+      "purchases_minus_sales": 10,
+      "difference": 0,
+      "ledger_minus_trade": 0
+    },
+    {
+      "item_id": 2,
+      "quantity": 10,
+      "movement_total": 10,
+      "purchases_minus_sales": 10,
+      "difference": 0,
+      "ledger_minus_trade": 0
+    }
+  ]
+}

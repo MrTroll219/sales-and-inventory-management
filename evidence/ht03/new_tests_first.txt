@@ -1,0 +1,192 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+
+Found 33 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: crispy_bootstrap5, crispy_forms, django_extensions, django_filters, django_tables2, imagekit, messages, phonenumber_field, staticfiles
+  Apply all migrations: accounts, admin, auth, bills, contenttypes, invoice, sessions, store, transactions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying accounts.0001_initial... OK
+  Applying accounts.0002_alter_profile_email_alter_profile_first_name_and_more... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying store.0001_initial... OK
+  Applying transactions.0001_initial... OK
+  Applying transactions.0002_rename_discount_amount_sale_tax_amount_and_more... OK
+  Applying transactions.0003_alter_purchase_quantity... OK
+  Applying invoice.0001_initial... OK
+  Applying bills.0001_initial... OK
+  Applying transactions.0004_dp02_decimal_constraints... OK
+  Applying store.0002_dp02_decimal_constraints... OK
+  Applying transactions.0005_dp01_stock_movement... OK
+  Applying invoice.0002_dp02_decimal_constraints... OK
+  Applying bills.0002_dp02_decimal_constraints... OK
+  Applying bills.0003_tu03_vnd... OK
+  Applying invoice.0003_tu03_vnd... OK
+  Applying sessions.0001_initial... OK
+  Applying store.0003_tu03_vnd... OK
+  Applying store.0004_ht01_min_stock_level... OK
+  Applying transactions.0006_tu03_vnd... OK
+test_actor_is_protected_from_deletion (transactions.tests.test_ht03_cancellation.CancellationTests.test_actor_is_protected_from_deletion) ... ok
+test_anonymous_and_normal_user_cannot_get_or_post_cancel (transactions.tests.test_ht03_cancellation.CancellationTests.test_anonymous_and_normal_user_cannot_get_or_post_cancel) ... D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\core\handlers\base.py:61: UserWarning: No directory at: D:\CT244H BTPM\BTPM\sales-and-inventory-management\staticfiles\
+  mw_instance = middleware(adapted_handler)
+ok
+test_cancellation_admin_is_read_only_and_sale_status_not_editable (transactions.tests.test_ht03_cancellation.CancellationTests.test_cancellation_admin_is_read_only_and_sale_status_not_editable) ... ok
+test_cancellation_locks_sale_on_postgres (transactions.tests.test_ht03_cancellation.CancellationTests.test_cancellation_locks_sale_on_postgres) ... ok
+test_completed_cannot_be_deleted_and_integer_url_resolves (transactions.tests.test_ht03_cancellation.CancellationTests.test_completed_cannot_be_deleted_and_integer_url_resolves) ... ok
+test_csrf_required_for_cancel_post (transactions.tests.test_ht03_cancellation.CancellationTests.test_csrf_required_for_cancel_post) ... ok
+test_dashboard_revenue_and_count_exclude_cancelled_sales (transactions.tests.test_ht03_cancellation.CancellationTests.test_dashboard_revenue_and_count_exclude_cancelled_sales) ... ok
+test_database_rejects_invalid_status_and_short_reason_and_duplicate_history (transactions.tests.test_ht03_cancellation.CancellationTests.test_database_rejects_invalid_status_and_short_reason_and_duplicate_history) ... ok
+test_detail_and_list_show_status_and_hide_cancel_button_after_cancel (transactions.tests.test_ht03_cancellation.CancellationTests.test_detail_and_list_show_status_and_hide_cancel_button_after_cancel) ... ok
+test_empty_short_whitespace_and_non_string_reasons_rejected (transactions.tests.test_ht03_cancellation.CancellationTests.test_empty_short_whitespace_and_non_string_reasons_rejected) ... ok
+test_failure_on_second_item_rolls_back_first_stock_and_ledger (transactions.tests.test_ht03_cancellation.CancellationTests.test_failure_on_second_item_rolls_back_first_stock_and_ledger) ... ok
+test_get_form_never_changes_stock_and_post_success_shows_message (transactions.tests.test_ht03_cancellation.CancellationTests.test_get_form_never_changes_stock_and_post_success_shows_message) ... ok
+test_history_write_failure_rolls_back_all_stock (transactions.tests.test_ht03_cancellation.CancellationTests.test_history_write_failure_rolls_back_all_stock) ... ok
+test_invalid_reason_post_shows_errors_without_changes (transactions.tests.test_ht03_cancellation.CancellationTests.test_invalid_reason_post_shows_errors_without_changes) ... ok
+test_invalid_status_is_form_error_and_export_400 (transactions.tests.test_ht03_cancellation.CancellationTests.test_invalid_status_is_form_error_and_export_400) ... ok
+test_list_totals_are_revenue_excluding_cancelled_but_count_includes_it (transactions.tests.test_ht03_cancellation.CancellationTests.test_list_totals_are_revenue_excluding_cancelled_but_count_includes_it) ... ok
+test_missing_sale_returns_404 (transactions.tests.test_ht03_cancellation.CancellationTests.test_missing_sale_returns_404) ... ok
+test_normal_user_never_sees_cancel_button (transactions.tests.test_ht03_cancellation.CancellationTests.test_normal_user_never_sees_cancel_button) ... ok
+test_only_superuser_can_delete_cancelled_and_history_survives (transactions.tests.test_ht03_cancellation.CancellationTests.test_only_superuser_can_delete_cancelled_and_history_survives) ... ok
+test_reason_form_and_model_require_five_trimmed_characters (transactions.tests.test_ht03_cancellation.CancellationTests.test_reason_form_and_model_require_five_trimmed_characters) ... ok
+test_reconcile_has_zero_stock_and_trade_differences_after_cancel_and_delete (transactions.tests.test_ht03_cancellation.CancellationTests.test_reconcile_has_zero_stock_and_trade_differences_after_cancel_and_delete) ... ok
+test_repeated_post_shows_error_without_second_restoration (transactions.tests.test_ht03_cancellation.CancellationTests.test_repeated_post_shows_error_without_second_restoration) ... ok
+test_restoration_removes_items_from_ht01_low_stock_list (transactions.tests.test_ht03_cancellation.CancellationTests.test_restoration_removes_items_from_ht01_low_stock_list) ... ok
+test_restores_two_items_audit_actor_reason_and_ledger (transactions.tests.test_ht03_cancellation.CancellationTests.test_restores_two_items_audit_actor_reason_and_ledger) ... ok
+test_sale_admin_refuses_completed_or_non_superuser_delete (transactions.tests.test_ht03_cancellation.CancellationTests.test_sale_admin_refuses_completed_or_non_superuser_delete) ... ok
+test_second_cancel_raises_and_changes_nothing (transactions.tests.test_ht03_cancellation.CancellationTests.test_second_cancel_raises_and_changes_nothing) ... ok
+test_service_checks_permissions_even_without_view (transactions.tests.test_ht03_cancellation.CancellationTests.test_service_checks_permissions_even_without_view) ... ok
+test_status_filter_and_excel_use_same_filtered_ids (transactions.tests.test_ht03_cancellation.CancellationTests.test_status_filter_and_excel_use_same_filtered_ids) ... ok
+test_status_write_failure_rolls_back_history_and_stock (transactions.tests.test_ht03_cancellation.CancellationTests.test_status_write_failure_rolls_back_history_and_stock) ... ok
+test_stock_overflow_is_rejected_atomically (transactions.tests.test_ht03_cancellation.CancellationTests.test_stock_overflow_is_rejected_atomically) ... ok
+test_superuser_without_staff_flag_can_cancel (transactions.tests.test_ht03_cancellation.CancellationTests.test_superuser_without_staff_flag_can_cancel) ... ok
+test_two_threads_restore_same_sale_exactly_once_on_postgresql16 (transactions.tests.test_ht03_concurrency.ConcurrentCancellationTests.test_two_threads_restore_same_sale_exactly_once_on_postgresql16) ... skipped "Database doesn't support feature(s): has_select_for_update"
+test_old_sales_default_completed_without_stock_money_or_detail_changes (transactions.tests.test_ht03_migration.CancellationMigrationTests.test_old_sales_default_completed_without_stock_money_or_detail_changes) ... ERROR
+
+======================================================================
+ERROR: test_old_sales_default_completed_without_stock_money_or_detail_changes (transactions.tests.test_ht03_migration.CancellationMigrationTests.test_old_sales_default_completed_without_stock_money_or_detail_changes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: NOT NULL constraint failed: store_item.min_stock_level
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\CT244H BTPM\BTPM\sales-and-inventory-management\transactions\tests\test_ht03_migration.py", line 20, in test_old_sales_default_completed_without_stock_money_or_detail_changes
+    item=self.apps.get_model('store','Item').objects.create(name='Legacy',category_id=category.pk,quantity=7,price=1000)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\models\query.py", line 665, in create
+    obj.save(force_insert=True, using=self.db)
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\models\base.py", line 902, in save
+    self.save_base(
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\models\base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\models\base.py", line 1169, in _save_table
+    results = self._do_insert(
+              ^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\models\base.py", line 1210, in _do_insert
+    return manager._insert(
+           ^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\models\query.py", line 1873, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1882, in execute_sql
+    cursor.execute(sql, params)
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\CT244H BTPM\tmp\tu01-venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.IntegrityError: NOT NULL constraint failed: store_item.min_stock_level
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.786s
+
+FAILED (errors=1, skipped=1)
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+
+  Applying transactions.0007_ht03_sale_cancellation... OK
+System check identified no issues (0 silenced).
+Profile created!
+Profile created!
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!

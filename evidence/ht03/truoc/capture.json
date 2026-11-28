@@ -1,0 +1,8 @@
+{
+  "commit": "b806fd40a5e7e18bc3151be3a787f6ee6b729732",
+  "url": "http://127.0.0.1:8018/transactions/sale/1/",
+  "http_status": 200,
+  "mode": "before",
+  "external_requests": "blocked",
+  "database": "isolated temporary SQLite"
+}

@@ -1,0 +1,22 @@
+ .github/workflows/tests.yml                        |   2 +-
+ store/views.py                                     |   4 +-
+ transactions/admin.py                              |  50 +++-
+ transactions/filters.py                            |   1 +
+ transactions/forms.py                              |   7 +
+ .../management/commands/reconcile_stock.py         |   4 +-
+ .../migrations/0007_ht03_sale_cancellation.py      |  57 ++++
+ transactions/models.py                             |  36 ++-
+ transactions/services/exceptions.py                |   4 +
+ transactions/services/sales.py                     |  31 ++-
+ .../templates/transactions/filter_panel.html       |   1 +
+ .../templates/transactions/sale_cancel.html        |  18 ++
+ .../templates/transactions/sale_messages.html      |   5 +
+ .../templates/transactions/saledelete.html         |   8 +-
+ .../templates/transactions/saledetail.html         |  12 +
+ .../templates/transactions/sales_list.html         |   4 +
+ transactions/tests/test_ht03_cancellation.py       | 303 +++++++++++++++++++++
+ transactions/tests/test_ht03_concurrency.py        |  56 ++++
+ transactions/tests/test_ht03_migration.py          |  32 +++
+ transactions/urls.py                               |   4 +-
+ transactions/views.py                              |  66 ++++-
+ 21 files changed, 680 insertions(+), 25 deletions(-)

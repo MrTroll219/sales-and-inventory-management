@@ -1,0 +1,3 @@
+18 objects imported automatically (use -v 2 for details).
+
+{"status": null, "items": [{"id": 1, "name": "Sản phẩm A", "quantity": 8}, {"id": 2, "name": "Sản phẩm B", "quantity": 7}], "history": [], "cancel_movements": []}

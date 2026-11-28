@@ -1,0 +1,65 @@
+ht03-evidence
+Operative
+Tổng quan
+Hàng hóa
+Danh sách hàng hóa
+Cần nhập hàng
+Danh mục
+Đơn bán
+Phiếu nhập
+Giao hàng
+Hóa đơn
+Chi phí
+Tài khoản
+Danh sách nhân viên
+Khách hàng
+Nhà cung cấp
+Đăng xuất
+ Inventoryms
+
+Trạng thái: Hoàn tất
+
+Hủy đơn
+In
+
+InventoryMS
+
+Tom Mboya Street, Tudor
+
+Tel: +2547 00 000000
+
+
+
+
+P.O BOX. 90420-80100 MSA
+
+Ngày: 02/01/2026 00:30
+
+Mã đơn: IMS1
+
+Tạm tính
+
+8.000 ₫
+
+
+
+
+Tiền thuế
+
+0 ₫
+
+Tổng cộng
+
+8.000 ₫
+
+Đã trả
+
+8.000 ₫
+
+Tiền thừa
+
+0 ₫
+
+Khách hàng: Khách thử
+
+CẢM ƠN QUÝ KHÁCH
