@@ -1,4 +1,6 @@
 """Shared valid fixtures and DB-level assertions for DP02 constraints."""
+from transactions.services.purchases import create_purchase, update_purchase
+from transactions.tests.purchase_api import purchase_data
 from decimal import Decimal
 from django.db import IntegrityError, connection, transaction
 from django.test import TestCase
@@ -19,7 +21,7 @@ class ConstraintCase(TestCase):
         cls.sale = Sale.objects.create(customer=customer, sub_total=100, tax_amount=10,
             tax_percentage=10, grand_total=110, amount_paid=120, amount_change=10)
         cls.detail = SaleDetail.objects.create(sale=cls.sale, item=cls.item, price=100, quantity=1, total_detail=100)
-        cls.purchase = Purchase.objects.create(item=cls.item, vendor=vendor, price=Decimal('5'), quantity=2)
+        cls.purchase = create_purchase(dict(item=cls.item, vendor=vendor, price=Decimal('5'), quantity=2))
         cls.invoice = Invoice.objects.create(customer_name='DP02', contact_number='123', item=cls.item,
             price_per_item=Decimal('19.99'), quantity=3, shipping=Decimal('0.03'))
         cls.bill = Bill.objects.create(institution_name='DP02', payment_details='Cash', amount=Decimal('10'))

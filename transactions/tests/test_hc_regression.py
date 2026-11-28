@@ -2,6 +2,8 @@
 
 Use an isolated test database. Never seed these cases into a real shop database.
 """
+from transactions.services.purchases import create_purchase, update_purchase
+from transactions.tests.purchase_api import purchase_data
 
 import json
 from decimal import Decimal
@@ -38,11 +40,11 @@ class MaintenanceRegressionTests(TestCase):
         self.client.force_login(self.user)
 
     def create_purchase(self):
-        return Purchase.objects.create(
+        return create_purchase(dict(
             item=self.item, vendor=self.vendor, quantity=10,
             price=Decimal("100.00"), description="Original",
             delivery_date=None,
-        )
+        ))
 
     def sale_payload(self, quantity=2):
         return {
@@ -79,7 +81,7 @@ class MaintenanceRegressionTests(TestCase):
     def test_hc01_sua_mo_ta_khong_doi_ton(self):
         purchase = self.create_purchase()
         purchase.description = "Description edited"
-        purchase.save()
+        update_purchase(purchase.pk, purchase_data(purchase))
         self.item.refresh_from_db()
         self.assertEqual(self.item.quantity, 10)
 

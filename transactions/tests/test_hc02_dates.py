@@ -1,4 +1,6 @@
 """HC02: Excel date handling and lossless minute-precision form round trips."""
+from transactions.services.purchases import create_purchase, update_purchase
+from transactions.tests.purchase_api import purchase_data
 from datetime import datetime, timezone as dt_timezone
 from decimal import Decimal
 from html.parser import HTMLParser
@@ -62,8 +64,8 @@ class ExportAndFormTests(TestCase):
         self.client.force_login(self.user)
 
     def purchase(self, date=None):
-        return Purchase.objects.create(item=self.item, vendor=self.vendor, quantity=10,
-                                       price=Decimal("5.00"), delivery_date=date)
+        return create_purchase(dict(item=self.item, vendor=self.vendor, quantity=10,
+                                       price=Decimal("5.00"), delivery_date=date))
 
     def workbook(self, name):
         response = self.client.get(reverse(name))
