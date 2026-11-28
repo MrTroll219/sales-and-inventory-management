@@ -1,10 +1,11 @@
 {% extends "store/base.html" %}
 {% load vietnam %}
 {% load static %}
-{% load render_table from django_tables2 %}
-{% load querystring from django_tables2 %}
+
+
 {% block title %}Đơn bán{% endblock title %}
 {% block content %}
+{% include "transactions/filter_panel.html" %}
 <!-- Header Section -->
 <div class="container my-4">
     <div class="card shadow-sm rounded p-3">
@@ -16,7 +17,7 @@
                 <a class="btn btn-success btn-sm rounded-pill shadow-sm" href="{% url 'sale-create' %}">
                     <i class="fa-solid fa-plus"></i> Add Sale Order
                 </a>
-                <a class="btn btn-primary btn-sm rounded-pill shadow-sm" href="{% url 'sales-export' %}">
+                <a class="btn btn-primary btn-sm rounded-pill shadow-sm" href="{% url 'sales-export' %}{% if filter_query %}?{{ filter_query }}{% endif %}">
                     <i class="fa-solid fa-download"></i> Xuất Excel
                 </a>
             </div>
@@ -75,7 +76,7 @@
             <ul class="pagination">
                 {% if page_obj.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <a class="page-link" href="?{% if filter_query %}{{ filter_query }}&amp;{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
@@ -93,13 +94,13 @@
                 </li>
                 {% else %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    <a class="page-link" href="?{% if filter_query %}{{ filter_query }}&amp;{% endif %}page={{ i }}">{{ i }}</a>
                 </li>
                 {% endif %}
                 {% endfor %}
                 {% if page_obj.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <a class="page-link" href="?{% if filter_query %}{{ filter_query }}&amp;{% endif %}page={{ page_obj.next_page_number }}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

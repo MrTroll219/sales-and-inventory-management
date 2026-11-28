@@ -6,6 +6,7 @@ from decimal import Decimal, DecimalException
 from functools import wraps
 
 from django.core.exceptions import ValidationError
+from django.db.models import Count, Sum
 
 # Django core imports
 from django.http import JsonResponse, HttpResponse, HttpResponseNotAllowed
@@ -28,6 +29,7 @@ from store.models import Item
 from accounts.models import Customer
 from .models import Sale, Purchase, SaleDetail
 from .forms import PurchaseForm
+from .filters import filtered_transactions, export_filename
 from .utils import to_excel_datetime
 from .pricing import SaleInputError
 from .services.sales import create_sale, SaleLines
@@ -45,6 +47,9 @@ def is_ajax(request):
 
 @login_required
 def export_sales_to_excel(request):
+    filters, sales = filtered_transactions('sales', request.GET)
+    if not filters.is_valid():
+        return JsonResponse({'status': 'error', 'errors': filters.form.errors.get_json_data()}, status=400)
     # Create a workbook and select the active worksheet.
     workbook = Workbook()
     worksheet = workbook.active
@@ -54,9 +59,6 @@ def export_sales_to_excel(request):
     columns = ['Mã', 'Ngày bán', 'Khách hàng', 'Tạm tính (VND)', 'Tổng (VND)',
                'Thuế (VND)', 'Thuế (%)', 'Đã trả (VND)', 'Tiền thừa (VND)']
     worksheet.append(columns)
-
-    # Fetch sales data
-    sales = Sale.objects.all()
 
     for sale in sales:
         worksheet.append([
@@ -80,7 +82,7 @@ def export_sales_to_excel(request):
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
     )
-    response['Content-Disposition'] = 'attachment; filename=sales.xlsx'
+    response['Content-Disposition'] = 'attachment; filename=' + export_filename('sales', filters)
     workbook.save(response)
 
     return response
@@ -88,6 +90,9 @@ def export_sales_to_excel(request):
 
 @login_required
 def export_purchases_to_excel(request):
+    filters, purchases = filtered_transactions('purchases', request.GET)
+    if not filters.is_valid():
+        return JsonResponse({'status': 'error', 'errors': filters.form.errors.get_json_data()}, status=400)
     # Create a workbook and select the active worksheet.
     workbook = Workbook()
     worksheet = workbook.active
@@ -97,9 +102,6 @@ def export_purchases_to_excel(request):
     columns = ['Mã', 'Mặt hàng', 'Mô tả', 'Nhà cung cấp', 'Ngày nhập', 'Ngày giao',
                'Số lượng', 'Trạng thái giao', 'Đơn giá (VND)', 'Thành tiền (VND)']
     worksheet.append(columns)
-
-    # Fetch purchases data
-    purchases = Purchase.objects.all()
 
     for purchase in purchases:
         worksheet.append([
@@ -125,13 +127,33 @@ def export_purchases_to_excel(request):
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
     )
-    response['Content-Disposition'] = 'attachment; filename=purchases.xlsx'
+    response['Content-Disposition'] = 'attachment; filename=' + export_filename('purchases', filters)
     workbook.save(response)
 
     return response
 
 
-class SaleListView(LoginRequiredMixin, ListView):
+class TransactionListMixin:
+    transaction_kind = None
+    total_field = None
+
+    def get_queryset(self):
+        self.transaction_filter, queryset = filtered_transactions(self.transaction_kind, self.request.GET)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        summary = self.object_list.aggregate(filtered_count=Count('pk'), filtered_total=Sum(self.total_field))
+        params = self.request.GET.copy()
+        params.pop('page', None)
+        context.update(summary)
+        context['filtered_total'] = summary['filtered_total'] or Decimal(0)
+        context['transaction_filter'] = self.transaction_filter
+        context['filter_query'] = params.urlencode()
+        return context
+
+
+class SaleListView(LoginRequiredMixin, TransactionListMixin, ListView):
     """
     View to list all sales with pagination.
     """
@@ -140,7 +162,8 @@ class SaleListView(LoginRequiredMixin, ListView):
     template_name = "transactions/sales_list.html"
     context_object_name = "sales"
     paginate_by = 10
-    ordering = ['date_added']
+    transaction_kind = 'sales'
+    total_field = 'grand_total'
 
 
 class SaleDetailView(LoginRequiredMixin, DetailView):
@@ -209,7 +232,7 @@ class SaleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user.is_superuser
 
 
-class PurchaseListView(LoginRequiredMixin, ListView):
+class PurchaseListView(LoginRequiredMixin, TransactionListMixin, ListView):
     """
     View to list all purchases with pagination.
     """
@@ -217,6 +240,8 @@ class PurchaseListView(LoginRequiredMixin, ListView):
     model = Purchase
     template_name = "transactions/purchases_list.html"
     context_object_name = "purchases"
+    transaction_kind = "purchases"
+    total_field = "total_value"
     paginate_by = 10
 
 

@@ -1,0 +1,22 @@
+{% load vietnam %}
+<section class="transaction-filters" aria-label="Bộ lọc giao dịch">
+  <h2>Lọc giao dịch</h2>
+  <form method="get">
+    {{ transaction_filter.form.non_field_errors }}
+    <div class="transaction-filter-fields">
+      {% for field in transaction_filter.form %}
+      <div>{{ field.label_tag }} {{ field }} {{ field.errors }}</div>
+      {% endfor %}
+    </div>
+    <button type="submit">Lọc</button>
+    <a href="{{ request.path }}">Xóa bộ lọc</a>
+  </form>
+  <p id="filter-summary">Số giao dịch: <strong>{{ filtered_count }}</strong> — Tổng tiền: <strong>{{ filtered_total|vnd }}</strong></p>
+</section>
+<style>
+.transaction-filters {margin: 20px; padding: 16px; border: 1px solid #b7cec2; font-family: Arial, sans-serif;}
+.transaction-filter-fields {display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;}
+.transaction-filter-fields label {display: block; margin-bottom: 4px;}
+.transaction-filter-fields input,.transaction-filter-fields select {max-width: 240px; padding: 5px;}
+.transaction-filters .errorlist {color: #a31616;}
+</style>
