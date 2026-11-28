@@ -1,0 +1,2143 @@
+{
+  "source_tag": "v1-bao-tri",
+  "source_commit": "1b06b135e630cf23d79da08a3c322120956d3647",
+  "verified_ci_sha": "123101a85ea74091c2863e0a00f952477918d925",
+  "files": [
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "h2_sections": 16,
+      "h3_sections": 33,
+      "whitespace_words": 5376,
+      "bytes": 35766,
+      "page_count": null,
+      "page_note": "Markdown không có phân trang cố định; không xuất DOCX vì không có Pandoc."
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "h2_sections": 18,
+      "h3_sections": 3,
+      "whitespace_words": 4347,
+      "bytes": 28792,
+      "page_count": null,
+      "page_note": "Markdown không có phân trang cố định; không xuất DOCX vì không có Pandoc."
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "h2_sections": 9,
+      "h3_sections": 20,
+      "whitespace_words": 4429,
+      "bytes": 36772,
+      "page_count": null,
+      "page_note": "Markdown không có phân trang cố định; không xuất DOCX vì không có Pandoc."
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "h2_sections": 9,
+      "h3_sections": 19,
+      "whitespace_words": 5429,
+      "bytes": 47246,
+      "page_count": null,
+      "page_note": "Markdown không có phân trang cố định; không xuất DOCX vì không có Pandoc."
+    }
+  ],
+  "test_case_counts": {
+    "HC01": 6,
+    "HC02": 6,
+    "HC03": 6,
+    "TU01": 6,
+    "TU02": 6,
+    "DP02": 6,
+    "DP01": 6,
+    "TU03": 7,
+    "HT01": 6,
+    "HT02": 6,
+    "HT03": 8
+  },
+  "selected_test_cases": [
+    {
+      "code": "HC01",
+      "id": "TC-HC01-01",
+      "path": "transactions/tests/test_hc01_purchase_stock.py",
+      "method": "test_reduce_quantity_changes_stock_by_difference",
+      "cls": "PurchaseStockTests",
+      "line": 39,
+      "feature": "Giảm số lượng nhập",
+      "data": "Phiếu A:10, giá5; sửa quantity=4; B tồn7",
+      "expected": "A tồn4/B7; total_value=20",
+      "result_id": "transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_reduce_quantity_changes_stock_by_difference"
+    },
+    {
+      "code": "HC01",
+      "id": "TC-HC01-02",
+      "path": "transactions/tests/test_hc01_purchase_stock.py",
+      "method": "test_change_item_moves_old_and_new_quantities",
+      "cls": "PurchaseStockTests",
+      "line": 47,
+      "feature": "Đổi mặt hàng",
+      "data": "Phiếu A10 đổi thành B6; B ban đầu7",
+      "expected": "A về0, B thành13; phiếu trỏ B, quantity6",
+      "result_id": "transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_change_item_moves_old_and_new_quantities"
+    },
+    {
+      "code": "HC01",
+      "id": "TC-HC01-03",
+      "path": "transactions/tests/test_hc01_purchase_stock.py",
+      "method": "test_repeated_unchanged_save_does_not_add_stock",
+      "cls": "PurchaseStockTests",
+      "line": 56,
+      "feature": "Lưu không đổi",
+      "data": "Tạo phiếu10 rồi gọi update hai lần không đổi",
+      "expected": "A vẫn10, B vẫn7",
+      "result_id": "transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_repeated_unchanged_save_does_not_add_stock"
+    },
+    {
+      "code": "HC01",
+      "id": "TC-HC01-04",
+      "path": "transactions/tests/test_hc01_purchase_stock.py",
+      "method": "test_reduce_below_sold_stock_rolls_back_purchase",
+      "cls": "PurchaseStockTests",
+      "line": 77,
+      "feature": "Chặn âm kho",
+      "data": "Phiếu10 nhưng tồn còn2; sửa phiếu còn1",
+      "expected": "ValidationError có \"sẽ âm\"; phiếu giữ10/50, tồn2",
+      "result_id": "transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_reduce_below_sold_stock_rolls_back_purchase"
+    },
+    {
+      "code": "HC01",
+      "id": "TC-HC01-05",
+      "path": "transactions/tests/test_hc01_purchase_stock.py",
+      "method": "test_form_shows_validation_error_without_database_writes",
+      "cls": "PurchaseStockTests",
+      "line": 87,
+      "feature": "Lỗi trên form",
+      "data": "POST sửa phiếu10 thành1 khi tồn2",
+      "expected": "HTTP200 form lỗi; quantity/description/tồn không đổi",
+      "result_id": "transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_form_shows_validation_error_without_database_writes"
+    },
+    {
+      "code": "HC01",
+      "id": "TC-HC01-06",
+      "path": "transactions/tests/test_hc01_purchase_stock.py",
+      "method": "test_stale_purchase_uses_current_database_quantity",
+      "cls": "PurchaseStockTests",
+      "line": 62,
+      "feature": "Dữ liệu trong bộ nhớ cũ",
+      "data": "Phiếu10; một bản sửa15, bản stale sửa12",
+      "expected": "Tồn cuối12, không cộng theo quantity stale10",
+      "result_id": "transactions.tests.test_hc01_purchase_stock.PurchaseStockTests.test_stale_purchase_uses_current_database_quantity"
+    },
+    {
+      "code": "HC02",
+      "id": "TC-HC02-01",
+      "path": "transactions/tests/test_hc02_dates.py",
+      "method": "test_none_stays_empty",
+      "cls": "ExcelDateTests",
+      "line": 24,
+      "feature": "Ngày NULL",
+      "data": "to_excel_datetime(None)",
+      "expected": "Trả None",
+      "result_id": "transactions.tests.test_hc02_dates.ExcelDateTests.test_none_stays_empty"
+    },
+    {
+      "code": "HC02",
+      "id": "TC-HC02-02",
+      "path": "transactions/tests/test_hc02_dates.py",
+      "method": "test_local_timezone_conversion_crosses_midnight",
+      "cls": "ExcelDateTests",
+      "line": 37,
+      "feature": "Đổi ngày theo timezone",
+      "data": "UTC 01/01/2026 17:30, timezone VN",
+      "expected": "Naive 02/01/2026 00:30",
+      "result_id": "transactions.tests.test_hc02_dates.ExcelDateTests.test_local_timezone_conversion_crosses_midnight"
+    },
+    {
+      "code": "HC02",
+      "id": "TC-HC02-03",
+      "path": "transactions/tests/test_hc02_dates.py",
+      "method": "test_purchase_export_mixed_dates_and_cell_formats",
+      "cls": "ExportAndFormTests",
+      "line": 83,
+      "feature": "Excel ngày đủ/thiếu",
+      "data": "Hai phiếu, một delivery_date NULL, một UTC17:30",
+      "expected": "3 dòng gồm header; ô NULL trống; ngày VN đúng và format DD/MM/YYYY HH:MM",
+      "result_id": "transactions.tests.test_hc02_dates.ExportAndFormTests.test_purchase_export_mixed_dates_and_cell_formats"
+    },
+    {
+      "code": "HC02",
+      "id": "TC-HC02-04",
+      "path": "transactions/tests/test_hc02_dates.py",
+      "method": "test_empty_purchase_export_has_headers_only",
+      "cls": "ExportAndFormTests",
+      "line": 107,
+      "feature": "Excel tập rỗng",
+      "data": "Không có phiếu nhập",
+      "expected": "Workbook một dòng; cột6 có tiêu đề Ngày giao",
+      "result_id": "transactions.tests.test_hc02_dates.ExportAndFormTests.test_empty_purchase_export_has_headers_only"
+    },
+    {
+      "code": "HC02",
+      "id": "TC-HC02-05",
+      "path": "transactions/tests/test_hc02_dates.py",
+      "method": "test_edit_form_round_trip_preserves_delivery_date",
+      "cls": "ExportAndFormTests",
+      "line": 132,
+      "feature": "Giữ ngày khi sửa mô tả",
+      "data": "GET form, POST lại value 2026-01-02T00:30, đổi mô tả",
+      "expected": "Redirect302; ngày DB giữ UTC17:30; tồn vẫn10",
+      "result_id": "transactions.tests.test_hc02_dates.ExportAndFormTests.test_edit_form_round_trip_preserves_delivery_date"
+    },
+    {
+      "code": "HC02",
+      "id": "TC-HC02-06",
+      "path": "transactions/tests/test_hc02_dates.py",
+      "method": "test_exports_still_require_login",
+      "cls": "ExportAndFormTests",
+      "line": 115,
+      "feature": "Bảo vệ export",
+      "data": "Logout rồi gọi sales-export/purchases-export",
+      "expected": "Redirect tới login, không xuất trái quyền",
+      "result_id": "transactions.tests.test_hc02_dates.ExportAndFormTests.test_exports_still_require_login"
+    },
+    {
+      "code": "HC03",
+      "id": "TC-HC03-01",
+      "path": "transactions/tests/test_hc03_sales.py",
+      "method": "test_valid_sale_uses_database_price_ignoring_client_price",
+      "cls": "SaleCreationTests",
+      "line": 94,
+      "feature": "Giá máy chủ",
+      "data": "DB giá100/tồn5, bán2; client khai price0.01",
+      "expected": "HTTP200; detail giá100/tổng200; Sale tổng200; tồn còn3",
+      "result_id": "transactions.tests.test_hc03_sales.SaleCreationTests.test_valid_sale_uses_database_price_ignoring_client_price"
+    },
+    {
+      "code": "HC03",
+      "id": "TC-HC03-02",
+      "path": "transactions/tests/test_hc03_sales.py",
+      "method": "test_additive_tax_and_change_are_calculated_by_server",
+      "cls": "SaleCreationTests",
+      "line": 106,
+      "feature": "Thuế cộng thêm",
+      "data": "2×100, thuế10%, trả250; client tax/change999",
+      "expected": "Thuế20, tổng220, tiền thừa30",
+      "result_id": "transactions.tests.test_hc03_sales.SaleCreationTests.test_additive_tax_and_change_are_calculated_by_server"
+    },
+    {
+      "code": "HC03",
+      "id": "TC-HC03-03",
+      "path": "transactions/tests/test_hc03_sales.py",
+      "method": "test_underpayment_is_rejected",
+      "cls": "SaleCreationTests",
+      "line": 115,
+      "feature": "Thanh toán thiếu",
+      "data": "Đơn200, amount_paid199",
+      "expected": "JSON400; Sale/Detail/kho không đổi",
+      "result_id": "transactions.tests.test_hc03_sales.SaleCreationTests.test_underpayment_is_rejected"
+    },
+    {
+      "code": "HC03",
+      "id": "TC-HC03-04",
+      "path": "transactions/tests/test_hc03_sales.py",
+      "method": "test_duplicate_lines_over_stock_are_rejected_as_a_group",
+      "cls": "SaleCreationTests",
+      "line": 119,
+      "feature": "Gộp dòng trùng",
+      "data": "Hai dòng cùng item quantity3+3, tồn5",
+      "expected": "JSON400; không có ghi dở dang",
+      "result_id": "transactions.tests.test_hc03_sales.SaleCreationTests.test_duplicate_lines_over_stock_are_rejected_as_a_group"
+    },
+    {
+      "code": "HC03",
+      "id": "TC-HC03-05",
+      "path": "transactions/tests/test_hc03_sales.py",
+      "method": "test_ajax_anonymous_is_json_401_with_no_writes",
+      "cls": "SaleCreationTests",
+      "line": 208,
+      "feature": "AJAX chưa login",
+      "data": "Logout rồi POST payload hợp lệ",
+      "expected": "JSON401 status error; snapshot DB giữ nguyên",
+      "result_id": "transactions.tests.test_hc03_sales.SaleCreationTests.test_ajax_anonymous_is_json_401_with_no_writes"
+    },
+    {
+      "code": "HC03",
+      "id": "TC-HC03-06",
+      "path": "transactions/tests/test_hc03_sales.py",
+      "method": "test_invalid_quantity_values_are_rejected",
+      "cls": "SaleCreationTests",
+      "line": 140,
+      "feature": "Số lượng không hợp lệ",
+      "data": "Ma trận quantity sai trong test, gồm không nguyên/không dương",
+      "expected": "Mọi trường hợp bị từ chối400 và giữ snapshot",
+      "result_id": "transactions.tests.test_hc03_sales.SaleCreationTests.test_invalid_quantity_values_are_rejected"
+    },
+    {
+      "code": "TU01",
+      "id": "TC-TU01-01",
+      "path": "accounts/tests/test_tu01_upgrade.py",
+      "method": "test_empty_accounts_schema_migrates_to_0002",
+      "cls": "ProfileUpgradeTests",
+      "line": 48,
+      "feature": "Migration DB trống",
+      "data": "Schema accounts0001 không Profile",
+      "expected": "Migrate0002 thành công, count0, email unique",
+      "result_id": "accounts.tests.test_tu01_upgrade.ProfileUpgradeTests.test_empty_accounts_schema_migrates_to_0002"
+    },
+    {
+      "code": "TU01",
+      "id": "TC-TU01-02",
+      "path": "accounts/tests/test_tu01_upgrade.py",
+      "method": "test_demo_data_migrates_without_changing_values",
+      "cls": "ProfileUpgradeTests",
+      "line": 54,
+      "feature": "Migration dữ liệu demo",
+      "data": "Email thường, rỗng một lần, nhiều NULL; tên30 ký tự",
+      "expected": "Dữ liệu id/email/tên giữ nguyên; unique hoạt động",
+      "result_id": "accounts.tests.test_tu01_upgrade.ProfileUpgradeTests.test_demo_data_migrates_without_changing_values"
+    },
+    {
+      "code": "TU01",
+      "id": "TC-TU01-03",
+      "path": "accounts/tests/test_tu01_upgrade.py",
+      "method": "test_preflight_detects_duplicates_including_empty_and_overlong_data",
+      "cls": "ProfileUpgradeTests",
+      "line": 91,
+      "feature": "Phát hiện dữ liệu xấu",
+      "data": "Email trùng, hai chuỗi rỗng, email151, tên31",
+      "expected": "CommandError; report đúng; chỉ SELECT, dữ liệu không đổi",
+      "result_id": "accounts.tests.test_tu01_upgrade.ProfileUpgradeTests.test_preflight_detects_duplicates_including_empty_and_overlong_data"
+    },
+    {
+      "code": "TU01",
+      "id": "TC-TU01-04",
+      "path": "accounts/tests/test_tu01_upgrade.py",
+      "method": "test_preflight_allows_multiple_null_emails_and_boundary_lengths",
+      "cls": "ProfileUpgradeTests",
+      "line": 113,
+      "feature": "Dữ liệu biên hợp lệ",
+      "data": "Nhiều email NULL, một rỗng, email150, tên30",
+      "expected": "safe_to_migrate=true, không báo trùng",
+      "result_id": "accounts.tests.test_tu01_upgrade.ProfileUpgradeTests.test_preflight_allows_multiple_null_emails_and_boundary_lengths"
+    },
+    {
+      "code": "TU01",
+      "id": "TC-TU01-05",
+      "path": "transactions/tests/test_tu01_storage.py",
+      "method": "test_collectstatic_writes_manifest_and_rewrites_css_asset",
+      "cls": "StorageUpgradeTests",
+      "line": 15,
+      "feature": "Manifest static",
+      "data": "CSS tham chiếu SVG, production storage trong thư mục tạm",
+      "expected": "Có staticfiles.json, file băm và URL CSS đã rewrite",
+      "result_id": "transactions.tests.test_tu01_storage.StorageUpgradeTests.test_collectstatic_writes_manifest_and_rewrites_css_asset"
+    },
+    {
+      "code": "TU01",
+      "id": "TC-TU01-06",
+      "path": "transactions/tests/test_tu01_storage.py",
+      "method": "test_default_storage_still_saves_and_reads_media",
+      "cls": "StorageUpgradeTests",
+      "line": 39,
+      "feature": "Media storage",
+      "data": "Lưu TU01 sample.txt trong MEDIA_ROOT tạm",
+      "expected": "Đọc đúng bytes và URL /test-media/tu01/sample.txt",
+      "result_id": "transactions.tests.test_tu01_storage.StorageUpgradeTests.test_default_storage_still_saves_and_reads_media"
+    },
+    {
+      "code": "TU02",
+      "id": "TC-TU02-01",
+      "path": "transactions/tests/test_tu02_settings.py",
+      "method": "test_debug_defaults_false_and_local_sqlite_remains_available",
+      "cls": "DeploymentSettingsTests",
+      "line": 52,
+      "feature": "Mặc định môi trường",
+      "data": "Không truyền DEBUG/DB override",
+      "expected": "DEBUG false; DB sqlite; hosts mặc định đúng test",
+      "result_id": "transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_debug_defaults_false_and_local_sqlite_remains_available"
+    },
+    {
+      "code": "TU02",
+      "id": "TC-TU02-02",
+      "path": "transactions/tests/test_tu02_settings.py",
+      "method": "test_missing_secret_is_rejected",
+      "cls": "DeploymentSettingsTests",
+      "line": 58,
+      "feature": "Secret bắt buộc",
+      "data": "SECRET_KEY không có trong env thử",
+      "expected": "Lỗi rõ SECRET_KEY is required",
+      "result_id": "transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_missing_secret_is_rejected"
+    },
+    {
+      "code": "TU02",
+      "id": "TC-TU02-03",
+      "path": "transactions/tests/test_tu02_settings.py",
+      "method": "test_generic_database_variables_override_azure_variables",
+      "cls": "DeploymentSettingsTests",
+      "line": 78,
+      "feature": "Ưu tiên cấu hình DB",
+      "data": "Đồng thời DB_* generic và AZURE_POSTGRESQL_*",
+      "expected": "Dùng DB_NAME/user/password/host/port generic theo assert",
+      "result_id": "transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_generic_database_variables_override_azure_variables"
+    },
+    {
+      "code": "TU02",
+      "id": "TC-TU02-04",
+      "path": "transactions/tests/test_tu02_settings.py",
+      "method": "test_ssl_true_sets_https_cookie_hsts_and_proxy_flags",
+      "cls": "DeploymentSettingsTests",
+      "line": 105,
+      "feature": "Chính sách HTTPS",
+      "data": "DJANGO_SECURE_SSL=true; HSTS mặc định hoặc override",
+      "expected": "Redirect/cookie secure bật; HSTS3600/31536000; proxy header đúng",
+      "result_id": "transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_ssl_true_sets_https_cookie_hsts_and_proxy_flags"
+    },
+    {
+      "code": "TU02",
+      "id": "TC-TU02-05",
+      "path": "transactions/tests/test_tu02_settings.py",
+      "method": "test_production_deploy_check_has_zero_issues",
+      "cls": "DeploymentSettingsTests",
+      "line": 130,
+      "feature": "Deploy check",
+      "data": "Key fixture dài, SSL true, domain thử, HSTS flags",
+      "expected": "Exit0; System check identified no issues",
+      "result_id": "transactions.tests.test_tu02_settings.DeploymentSettingsTests.test_production_deploy_check_has_zero_issues"
+    },
+    {
+      "code": "TU02",
+      "id": "TC-TU02-06",
+      "path": "transactions/tests/test_tu02_settings.py",
+      "method": "test_missing_default_is_seeded_as_valid_jpeg",
+      "cls": "DefaultMediaTests",
+      "line": 160,
+      "feature": "Ảnh mặc định",
+      "data": "MEDIA_ROOT tạm thiếu avatar",
+      "expected": "Copy đúng bytes nguồn và ảnh JPEG hợp lệ",
+      "result_id": "transactions.tests.test_tu02_settings.DefaultMediaTests.test_missing_default_is_seeded_as_valid_jpeg"
+    },
+    {
+      "code": "DP02",
+      "id": "TC-DP02-01",
+      "path": "transactions/tests/test_dp02_decimal.py",
+      "method": "test_sale_grand_matches_parts",
+      "cls": "TransactionConstraintTests",
+      "line": 20,
+      "feature": "CHECK tổng tiền",
+      "data": "Fixture sub100/tax10, update grand111/change9",
+      "expected": "IntegrityError bởi sale_grand_matches_parts",
+      "result_id": "transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_sale_grand_matches_parts"
+    },
+    {
+      "code": "DP02",
+      "id": "TC-DP02-02",
+      "path": "transactions/tests/test_dp02_decimal.py",
+      "method": "test_sale_change_matches_payment",
+      "cls": "TransactionConstraintTests",
+      "line": 21,
+      "feature": "CHECK tiền thừa",
+      "data": "Fixture paid120/grand110, update change9",
+      "expected": "IntegrityError bởi sale_change_matches_payment",
+      "result_id": "transactions.tests.test_dp02_decimal.TransactionConstraintTests.test_sale_change_matches_payment"
+    },
+    {
+      "code": "DP02",
+      "id": "TC-DP02-03",
+      "path": "transactions/tests/test_dp02_migrations.py",
+      "method": "test_legacy_demo_migrates_with_half_up_decimal_values_preserved",
+      "cls": "DecimalMigrationTests",
+      "line": 65,
+      "feature": "Chuyển Float/cent lịch sử",
+      "data": "Schema v0; item1.005; invoice19.99, phí0.105; bill2.675",
+      "expected": "Ở mốc DP02: item1.01, invoice total59.97/grand60.08, bill2.68; kho giữ10",
+      "result_id": "transactions.tests.test_dp02_migrations.DecimalMigrationTests.test_legacy_demo_migrates_with_half_up_decimal_values_preserved"
+    },
+    {
+      "code": "DP02",
+      "id": "TC-DP02-04",
+      "path": "transactions/tests/test_dp02_migrations.py",
+      "method": "test_fractional_and_negative_invoice_quantities_block_before_conversion",
+      "cls": "DecimalMigrationTests",
+      "line": 86,
+      "feature": "Chặn quantity lịch sử",
+      "data": "Invoice.quantity lần lượt1.5 và -1",
+      "expected": "Preflight lỗi; migration RuntimeError; quantity không tự làm tròn",
+      "result_id": "transactions.tests.test_dp02_migrations.DecimalMigrationTests.test_fractional_and_negative_invoice_quantities_block_before_conversion"
+    },
+    {
+      "code": "DP02",
+      "id": "TC-DP02-05",
+      "path": "transactions/tests/test_dp02_migrations.py",
+      "method": "test_clean_preflight_uses_only_read_queries_and_changes_nothing",
+      "cls": "DecimalMigrationTests",
+      "line": 122,
+      "feature": "Preflight chỉ đọc",
+      "data": "Dữ liệu lịch sử sạch",
+      "expected": "safe_to_migrate=true; SELECT/PRAGMA; Invoice không đổi",
+      "result_id": "transactions.tests.test_dp02_migrations.DecimalMigrationTests.test_clean_preflight_uses_only_read_queries_and_changes_nothing"
+    },
+    {
+      "code": "DP02",
+      "id": "TC-DP02-06",
+      "path": "invoice/tests/test_dp02_decimal.py",
+      "method": "test_fractional_or_negative_quantity_is_not_rounded",
+      "cls": "InvoiceDecimalTests",
+      "line": 38,
+      "feature": "Validation Invoice",
+      "data": "quantity1.5, -1, NaN, Infinity",
+      "expected": "ValidationError, không tự làm tròn để lưu",
+      "result_id": "invoice.tests.test_dp02_decimal.InvoiceDecimalTests.test_fractional_or_negative_quantity_is_not_rounded"
+    },
+    {
+      "code": "DP01",
+      "id": "TC-DP01-01",
+      "path": "transactions/tests/test_dp01_services.py",
+      "method": "test_adjustment_records_exact_delta_balance_reference_and_actor",
+      "cls": "InventoryServiceTests",
+      "line": 44,
+      "feature": "Movement đúng tham chiếu",
+      "data": "Tồn10, adjust -2, ref count42 và user",
+      "expected": "Tồn8; delta-2, after8; ref/actor đúng",
+      "result_id": "transactions.tests.test_dp01_services.InventoryServiceTests.test_adjustment_records_exact_delta_balance_reference_and_actor"
+    },
+    {
+      "code": "DP01",
+      "id": "TC-DP01-02",
+      "path": "transactions/tests/test_dp01_services.py",
+      "method": "test_update_purchase_posts_only_difference",
+      "cls": "InventoryServiceTests",
+      "line": 97,
+      "feature": "Sửa phiếu qua service",
+      "data": "Fixture tồn10, nhập3 rồi sửa5, sau đó chỉ sửa description",
+      "expected": "Tồn15; movement delta2; sửa description không thêm bút toán",
+      "result_id": "transactions.tests.test_dp01_services.InventoryServiceTests.test_update_purchase_posts_only_difference"
+    },
+    {
+      "code": "DP01",
+      "id": "TC-DP01-03",
+      "path": "transactions/tests/test_dp01_services.py",
+      "method": "test_delete_purchase_debits_stock_and_preserves_audit_reference",
+      "cls": "InventoryServiceTests",
+      "line": 118,
+      "feature": "Xóa phiếu",
+      "data": "Fixture tồn10, nhập3 rồi xóa",
+      "expected": "Phiếu mất; tồn10; PURCHASE_DELETE -3, after10, giữ ref_id",
+      "result_id": "transactions.tests.test_dp01_services.InventoryServiceTests.test_delete_purchase_debits_stock_and_preserves_audit_reference"
+    },
+    {
+      "code": "DP01",
+      "id": "TC-DP01-04",
+      "path": "transactions/tests/test_dp01_services.py",
+      "method": "test_ledger_failure_rolls_back_stock_write",
+      "cls": "InventoryServiceTests",
+      "line": 77,
+      "feature": "Rollback movement",
+      "data": "Mock StockMovement.create lỗi sau cập nhật F",
+      "expected": "RuntimeError; snapshot tồn/chứng từ/ledger giữ nguyên",
+      "result_id": "transactions.tests.test_dp01_services.InventoryServiceTests.test_ledger_failure_rolls_back_stock_write"
+    },
+    {
+      "code": "DP01",
+      "id": "TC-DP01-05",
+      "path": "transactions/tests/test_dp01_services.py",
+      "method": "test_reconcile_is_read_only_until_fix_and_fix_is_idempotent",
+      "cls": "InventoryServiceTests",
+      "line": 187,
+      "feature": "Đối soát và repair",
+      "data": "DB test cố ý đổi tồn10 thành7, ledger10",
+      "expected": "Lệnh đọc không ghi; --fix về10, delta0; fix lần hai không thêm record",
+      "result_id": "transactions.tests.test_dp01_services.InventoryServiceTests.test_reconcile_is_read_only_until_fix_and_fix_is_idempotent"
+    },
+    {
+      "code": "DP01",
+      "id": "TC-DP01-06",
+      "path": "transactions/tests/test_dp01_architecture.py",
+      "method": "test_only_stock_module_explicitly_writes_item_quantity",
+      "cls": "InventoryArchitectureTests",
+      "line": 33,
+      "feature": "Kiến trúc ghi kho",
+      "data": "Quét source app, trừ tests/migrations/stock.py",
+      "expected": "Không có mẫu ghi Item.quantity trái đầu mối",
+      "result_id": "transactions.tests.test_dp01_architecture.InventoryArchitectureTests.test_only_stock_module_explicitly_writes_item_quantity"
+    },
+    {
+      "code": "TU03",
+      "id": "TC-TU03-01",
+      "path": "transactions/tests/test_tu03_vnd.py",
+      "method": "test_half_up_rounding",
+      "cls": "VNDCurrencyTests",
+      "line": 31,
+      "feature": "Round đồng",
+      "data": "1234.5,1234.4,19.99,-1.5 trong test helper",
+      "expected": "1235,1234,20,-2; không suy ra model chấp nhận tiền âm",
+      "result_id": "transactions.tests.test_tu03_vnd.VNDCurrencyTests.test_half_up_rounding"
+    },
+    {
+      "code": "TU03",
+      "id": "TC-TU03-02",
+      "path": "transactions/tests/test_tu03_vnd.py",
+      "method": "test_formatter_and_template_filter",
+      "cls": "VNDCurrencyTests",
+      "line": 35,
+      "feature": "Định dạng VND",
+      "data": "1250000 qua helper và filter",
+      "expected": "Cùng trả 1.250.000 ₫",
+      "result_id": "transactions.tests.test_tu03_vnd.VNDCurrencyTests.test_formatter_and_template_filter"
+    },
+    {
+      "code": "TU03",
+      "id": "TC-TU03-03",
+      "path": "transactions/tests/test_tu03_vnd.py",
+      "method": "test_sale_tax_rounds_to_dong_and_inventory_is_unchanged_in_policy",
+      "cls": "VNDApplicationTests",
+      "line": 79,
+      "feature": "Thuế nguyên đồng",
+      "data": "3×33333, thuế10%, trả110000, tồn10",
+      "expected": "Sub99999/tax10000/grand109999/change1; tồn7, movement-3",
+      "result_id": "transactions.tests.test_tu03_vnd.VNDApplicationTests.test_sale_tax_rounds_to_dong_and_inventory_is_unchanged_in_policy"
+    },
+    {
+      "code": "TU03",
+      "id": "TC-TU03-04",
+      "path": "transactions/tests/test_tu03_vnd.py",
+      "method": "test_all_money_forms_reject_fraction_and_accept_integral_value",
+      "cls": "VNDApplicationTests",
+      "line": 87,
+      "feature": "Form tiền nguyên",
+      "data": "Item/Purchase/Invoice/Bill: 1000.5 và 1000.00",
+      "expected": "Từ chối phần lẻ với thông báo; nhận giá trị nguyên",
+      "result_id": "transactions.tests.test_tu03_vnd.VNDApplicationTests.test_all_money_forms_reject_fraction_and_accept_integral_value"
+    },
+    {
+      "code": "TU03",
+      "id": "TC-TU03-05",
+      "path": "transactions/tests/test_tu03_vnd.py",
+      "method": "test_excel_sales_forces_vn_time_and_numeric_vnd_columns",
+      "cls": "VNDApplicationTests",
+      "line": 109,
+      "feature": "Excel giờ VN",
+      "data": "Sale UTC01/01/2026 17:30, override runtime UTC",
+      "expected": "Excel02/01/2026 00:30, tổng109999, format ₫",
+      "result_id": "transactions.tests.test_tu03_vnd.VNDApplicationTests.test_excel_sales_forces_vn_time_and_numeric_vnd_columns"
+    },
+    {
+      "code": "TU03",
+      "id": "TC-TU03-06",
+      "path": "transactions/tests/test_tu03_migrations.py",
+      "method": "test_legacy_decimal_values_round_half_up_without_touching_stock",
+      "cls": "VNDMigrationTests",
+      "line": 41,
+      "feature": "Migration VND",
+      "data": "Giá cũ19.99 và dữ liệu Decimal hợp lệ",
+      "expected": "Giá20, kho12 giữ nguyên; tổng sale109999, change1",
+      "result_id": "transactions.tests.test_tu03_migrations.VNDMigrationTests.test_legacy_decimal_values_round_half_up_without_touching_stock"
+    },
+    {
+      "code": "TU03",
+      "id": "TC-TU03-07",
+      "path": "transactions/tests/test_tu03_migrations.py",
+      "method": "test_rounding_conflicts_stop_migration_without_repair_or_disabled_checks",
+      "cls": "VNDMigrationTests",
+      "line": 57,
+      "feature": "Xung đột round",
+      "data": "Sub0.49, tax0.49, grand0.98 trong schema lịch sử",
+      "expected": "Preflight false, migration dừng; dữ liệu0.98/giá19.99 giữ nguyên",
+      "result_id": "transactions.tests.test_tu03_migrations.VNDMigrationTests.test_rounding_conflicts_stop_migration_without_repair_or_disabled_checks"
+    },
+    {
+      "code": "HT01",
+      "id": "TC-HT01-01",
+      "path": "store/tests/test_ht01_restock.py",
+      "method": "test_boundaries_match_queryset_and_property",
+      "cls": "RestockTests",
+      "line": 52,
+      "feature": "Biên cảnh báo",
+      "data": "Các item3/5,5/5,6/5, ngưỡng0",
+      "expected": "Query và property đồng ý: chỉ3/5,5/5 cần nhập",
+      "result_id": "store.tests.test_ht01_restock.RestockTests.test_boundaries_match_queryset_and_property"
+    },
+    {
+      "code": "HT01",
+      "id": "TC-HT01-02",
+      "path": "store/tests/test_ht01_restock.py",
+      "method": "test_sale_enters_list_and_purchase_to_target_leaves_it",
+      "cls": "RestockTests",
+      "line": 84,
+      "feature": "Bán/nhập thay trạng thái",
+      "data": "Item6/5 bán3 rồi nhập7 qua service",
+      "expected": "3/5 xuất hiện;10/5 biến mất",
+      "result_id": "store.tests.test_ht01_restock.RestockTests.test_sale_enters_list_and_purchase_to_target_leaves_it"
+    },
+    {
+      "code": "HT01",
+      "id": "TC-HT01-03",
+      "path": "store/tests/test_ht01_restock.py",
+      "method": "test_dashboard_count_and_link_match_list",
+      "cls": "RestockTests",
+      "line": 95,
+      "feature": "Dashboard đồng bộ",
+      "data": "Hai item cần nhập, bán item6 xuống5",
+      "expected": "Count2 rồi3, link tới low-stock đúng",
+      "result_id": "store.tests.test_ht01_restock.RestockTests.test_dashboard_count_and_link_match_list"
+    },
+    {
+      "code": "HT01",
+      "id": "TC-HT01-04",
+      "path": "store/tests/test_ht01_restock.py",
+      "method": "test_anonymous_list_export_and_dashboard_redirect",
+      "cls": "RestockTests",
+      "line": 103,
+      "feature": "Quyền xem",
+      "data": "Logout, gọi list/export/dashboard",
+      "expected": "Redirect login cho các URL",
+      "result_id": "store.tests.test_ht01_restock.RestockTests.test_anonymous_list_export_and_dashboard_redirect"
+    },
+    {
+      "code": "HT01",
+      "id": "TC-HT01-05",
+      "path": "store/tests/test_ht01_restock.py",
+      "method": "test_purchase_prefill_is_initial_only_and_does_not_write",
+      "cls": "RestockTests",
+      "line": 111,
+      "feature": "Điền sẵn item",
+      "data": "GET ?item=<id>; POST item khác",
+      "expected": "GET không ghi; POST giữ item đã bind thay vì bị GET ghi đè",
+      "result_id": "store.tests.test_ht01_restock.RestockTests.test_purchase_prefill_is_initial_only_and_does_not_write"
+    },
+    {
+      "code": "HT01",
+      "id": "TC-HT01-06",
+      "path": "store/tests/test_ht01_restock.py",
+      "method": "test_excel_matches_live_list_has_vietnamese_headers_and_vn_timestamp",
+      "cls": "RestockTests",
+      "line": 183,
+      "feature": "Excel cần nhập",
+      "data": "Danh sách fixture; mockUTC01/01/2026 17:30",
+      "expected": "Dòng đúng tập/thứ tự, header Việt, timestamp02/01 00:30",
+      "result_id": "store.tests.test_ht01_restock.RestockTests.test_excel_matches_live_list_has_vietnamese_headers_and_vn_timestamp"
+    },
+    {
+      "code": "HT02",
+      "id": "TC-HT02-01",
+      "path": "transactions/tests/test_ht02_filters.py",
+      "method": "test_vietnam_date_bounds_include_last_microsecond_exclude_next_midnight",
+      "cls": "TransactionFilterTests",
+      "line": 69,
+      "feature": "Biên ngày Việt Nam",
+      "data": "5 mốc UTC theo fixture, lọc tháng11/2026",
+      "expected": "Sale/Purchase chỉ indices2,4,1; loại00:00 hôm sau",
+      "result_id": "transactions.tests.test_ht02_filters.TransactionFilterTests.test_vietnam_date_bounds_include_last_microsecond_exclude_next_midnight"
+    },
+    {
+      "code": "HT02",
+      "id": "TC-HT02-02",
+      "path": "transactions/tests/test_ht02_filters.py",
+      "method": "test_customer_and_combined_date_customer",
+      "cls": "TransactionFilterTests",
+      "line": 85,
+      "feature": "Ngày và khách",
+      "data": "Customer A; kết hợp01–30/11",
+      "expected": "Toàn kỳ3 dòng, kết hợp2 dòng",
+      "result_id": "transactions.tests.test_ht02_filters.TransactionFilterTests.test_customer_and_combined_date_customer"
+    },
+    {
+      "code": "HT02",
+      "id": "TC-HT02-03",
+      "path": "transactions/tests/test_ht02_filters.py",
+      "method": "test_every_valid_filter_exports_exact_list_queryset",
+      "cls": "TransactionFilterTests",
+      "line": 118,
+      "feature": "List/Excel cùng tập",
+      "data": "Bốn tổ hợp sale/purchase theo test",
+      "expected": "Cùng danh sách ID và số dòng toàn tập",
+      "result_id": "transactions.tests.test_ht02_filters.TransactionFilterTests.test_every_valid_filter_exports_exact_list_queryset"
+    },
+    {
+      "code": "HT02",
+      "id": "TC-HT02-04",
+      "path": "transactions/tests/test_ht02_filters.py",
+      "method": "test_pagination_and_export_links_keep_query_and_totals_include_all_pages",
+      "cls": "TransactionFilterTests",
+      "line": 135,
+      "feature": "Phân trang và tổng",
+      "data": "Khách A có14 sale, truy cập trang2",
+      "expected": "4 dòng trang2, tổng17000, Excel14; query giữ",
+      "result_id": "transactions.tests.test_ht02_filters.TransactionFilterTests.test_pagination_and_export_links_keep_query_and_totals_include_all_pages"
+    },
+    {
+      "code": "HT02",
+      "id": "TC-HT02-05",
+      "path": "transactions/tests/test_ht02_filters.py",
+      "method": "test_invalid_parameters_are_errors_never_500",
+      "cls": "TransactionFilterTests",
+      "line": 168,
+      "feature": "Tham số rác",
+      "data": "customer=abc, min=xyz, NaN/âm/lẻ/ngày sai và các subTest",
+      "expected": "List200 có lỗi/count0; export400, không500",
+      "result_id": "transactions.tests.test_ht02_filters.TransactionFilterTests.test_invalid_parameters_are_errors_never_500"
+    },
+    {
+      "code": "HT02",
+      "id": "TC-HT02-06",
+      "path": "transactions/tests/test_ht02_filters.py",
+      "method": "test_exports_use_one_joined_query_independent_of_row_count",
+      "cls": "TransactionFilterTests",
+      "line": 218,
+      "feature": "Tránh N+1",
+      "data": "RequestFactory export mỗi loại1 và5 dòng",
+      "expected": "assertNumQueries(1) cho mỗi export, row count đúng",
+      "result_id": "transactions.tests.test_ht02_filters.TransactionFilterTests.test_exports_use_one_joined_query_independent_of_row_count"
+    },
+    {
+      "code": "HT03",
+      "id": "TC-HT03-01",
+      "path": "transactions/tests/test_ht03_cancellation.py",
+      "method": "test_restores_two_items_audit_actor_reason_and_ledger",
+      "cls": "CancellationTests",
+      "line": 56,
+      "feature": "Hoàn kho/audit",
+      "data": "A×2, B×3 đã bán, tồn8/7; reason có khoảng trắng",
+      "expected": "Tồn10/10; reason trim; đúng actor;2 SALE_CANCEL và JSON A2/B3",
+      "result_id": "transactions.tests.test_ht03_cancellation.CancellationTests.test_restores_two_items_audit_actor_reason_and_ledger"
+    },
+    {
+      "code": "HT03",
+      "id": "TC-HT03-02",
+      "path": "transactions/tests/test_ht03_cancellation.py",
+      "method": "test_second_cancel_raises_and_changes_nothing",
+      "cls": "CancellationTests",
+      "line": 71,
+      "feature": "Hủy lặp",
+      "data": "Đã hủy, gọi lại actor/reason khác",
+      "expected": "SaleAlreadyCancelled; kho/audit/ledger không đổi",
+      "result_id": "transactions.tests.test_ht03_cancellation.CancellationTests.test_second_cancel_raises_and_changes_nothing"
+    },
+    {
+      "code": "HT03",
+      "id": "TC-HT03-03",
+      "path": "transactions/tests/test_ht03_cancellation.py",
+      "method": "test_empty_short_whitespace_and_non_string_reasons_rejected",
+      "cls": "CancellationTests",
+      "line": 78,
+      "feature": "Lý do không hợp lệ",
+      "data": "Rỗng,abcd,khoảng trắng,None,số,bool",
+      "expected": "InventoryError và snapshot giữ nguyên",
+      "result_id": "transactions.tests.test_ht03_cancellation.CancellationTests.test_empty_short_whitespace_and_non_string_reasons_rejected"
+    },
+    {
+      "code": "HT03",
+      "id": "TC-HT03-04",
+      "path": "transactions/tests/test_ht03_cancellation.py",
+      "method": "test_anonymous_and_normal_user_cannot_get_or_post_cancel",
+      "cls": "CancellationTests",
+      "line": 138,
+      "feature": "Phân quyền hủy",
+      "data": "Anonymous/user thường GET/POST",
+      "expected": "Redirect login hoặc403; kho không đổi",
+      "result_id": "transactions.tests.test_ht03_cancellation.CancellationTests.test_anonymous_and_normal_user_cannot_get_or_post_cancel"
+    },
+    {
+      "code": "HT03",
+      "id": "TC-HT03-05",
+      "path": "transactions/tests/test_ht03_cancellation.py",
+      "method": "test_dashboard_revenue_and_count_exclude_cancelled_sales",
+      "cls": "CancellationTests",
+      "line": 201,
+      "feature": "Doanh thu",
+      "data": "Đơn hủy8000, đơn hoàn tất1000",
+      "expected": "Dashboard chỉ có đơn1000 và tổng1000",
+      "result_id": "transactions.tests.test_ht03_cancellation.CancellationTests.test_dashboard_revenue_and_count_exclude_cancelled_sales"
+    },
+    {
+      "code": "HT03",
+      "id": "TC-HT03-06",
+      "path": "transactions/tests/test_ht03_cancellation.py",
+      "method": "test_only_superuser_can_delete_cancelled_and_history_survives",
+      "cls": "CancellationTests",
+      "line": 242,
+      "feature": "Xóa sau hủy",
+      "data": "Staff thử xóa rồi superuser xóa cùng đơn",
+      "expected": "Staff403; super302; audit saleNULL giữ mã gốc, không hoàn thêm",
+      "result_id": "transactions.tests.test_ht03_cancellation.CancellationTests.test_only_superuser_can_delete_cancelled_and_history_survives"
+    },
+    {
+      "code": "HT03",
+      "id": "TC-HT03-07",
+      "path": "transactions/tests/test_ht03_cancellation.py",
+      "method": "test_reconcile_has_zero_stock_and_trade_differences_after_cancel_and_delete",
+      "cls": "CancellationTests",
+      "line": 285,
+      "feature": "Đối soát sau hủy",
+      "data": "Hai item có phiếu nhập và đơn bị hủy; sau đó xóa đơn",
+      "expected": "difference=0 và ledger_minus_trade=0, kho10 mỗi item",
+      "result_id": "transactions.tests.test_ht03_cancellation.CancellationTests.test_reconcile_has_zero_stock_and_trade_differences_after_cancel_and_delete"
+    },
+    {
+      "code": "HT03",
+      "id": "TC-HT03-08",
+      "path": "transactions/tests/test_ht03_concurrency.py",
+      "method": "test_two_threads_restore_same_sale_exactly_once_on_postgresql16",
+      "cls": "ConcurrentCancellationTests",
+      "line": 24,
+      "feature": "Hai luồng đồng thời",
+      "data": "Barrier2, hai connection gọi cancel_sale một đơn",
+      "expected": "PG16:1 cancelled+1 already_cancelled;1 audit,2 ledger; kho10/10",
+      "result_id": "transactions.tests.test_ht03_concurrency.ConcurrentCancellationTests.test_two_threads_restore_same_sale_exactly_once_on_postgresql16"
+    }
+  ],
+  "test_evidence": "evidence/final/ci/postgres16-python3.12/suite.txt",
+  "mermaid_version": "11.12.0",
+  "mermaid_diagrams": [
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 339,
+      "status": "parse_and_render_ok",
+      "type": "flowchart-v2",
+      "width": 1283.140625,
+      "height": 465
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "line": 12,
+      "status": "parse_and_render_ok",
+      "type": "flowchart-v2",
+      "width": 1118.578125,
+      "height": 526
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "line": 31,
+      "status": "parse_and_render_ok",
+      "type": "flowchart-v2",
+      "width": 1407.453125,
+      "height": 450
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "line": 52,
+      "status": "parse_and_render_ok",
+      "type": "flowchart-v2",
+      "width": 1568,
+      "height": 475.828125
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "line": 76,
+      "status": "parse_and_render_ok",
+      "type": "class",
+      "width": 998.078125,
+      "height": 994
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "line": 138,
+      "status": "parse_and_render_ok",
+      "type": "class",
+      "width": 967.03125,
+      "height": 545.984375
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "line": 196,
+      "status": "parse_and_render_ok",
+      "type": "class",
+      "width": 750.953125,
+      "height": 656
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "line": 241,
+      "status": "parse_and_render_ok",
+      "type": "class",
+      "width": 1014.375,
+      "height": 898
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "line": 304,
+      "status": "parse_and_render_ok",
+      "type": "sequence",
+      "width": 1568,
+      "height": 949.734375
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "line": 339,
+      "status": "parse_and_render_ok",
+      "type": "sequence",
+      "width": 1568,
+      "height": 1080.484375
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "line": 375,
+      "status": "parse_and_render_ok",
+      "type": "sequence",
+      "width": 1568,
+      "height": 895.0625
+    }
+  ],
+  "local_links_checked": 260,
+  "local_links": [
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../HC01.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../HC02.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../HC03.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../TU01.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../TU02.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../DP02.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../DP01.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../TU03.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../HT01.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../HT02.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../HT03.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../docs/BAO_CAO_TONG_HOP.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../docs/HC01.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../docs/HC02.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../docs/HC03.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../docs/TU01.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../docs/TU02.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../docs/DP02.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../docs/DP01.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../docs/TU03.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../docs/HT01.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../docs/HT02.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../docs/HT03.md"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/ancestors.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../evidence/final/test_history.json"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../InventoryMS/settings.py"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../store/models.py"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../accounts/models.py"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../transactions/models.py"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../invoice/models.py"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../bills/models.py"
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../HC01.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../HC02.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../HC03.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../TU01.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../TU02.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../DP02.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../DP01.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../TU03.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../HT01.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../HT02.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../HT03.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../docs/BAO_CAO_TONG_HOP.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../docs/HC01.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../docs/HC02.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../docs/HC03.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../docs/TU01.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../docs/TU02.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../docs/DP02.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../docs/DP01.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../docs/TU03.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../docs/HT01.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../docs/HT02.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../docs/HT03.md"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../store/money.py"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../transactions/pricing.py"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../transactions/services/stock.py"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../transactions/services/purchases.py"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../transactions/services/sales.py"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../transactions/filters.py"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../transactions/models.py"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../transactions/tests/test_tu03_vnd.py"
+    },
+    {
+      "file": "02_DAC_TA.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../HC01.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../HC02.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../HC03.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../TU01.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../TU02.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../DP02.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../DP01.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../TU03.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../HT01.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../HT02.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../HT03.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../docs/BAO_CAO_TONG_HOP.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../docs/HC01.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../docs/HC02.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../docs/HC03.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../docs/TU01.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../docs/TU02.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../docs/DP02.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../docs/DP01.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../docs/TU03.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../docs/HT01.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../docs/HT02.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../docs/HT03.md"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../transactions/services/stock.py"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../transactions/services/purchases.py"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../transactions/services/sales.py"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../transactions/models.py"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../transactions/admin.py"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../transactions/pricing.py"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../transactions/filters.py"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../transactions/utils.py"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../store/models.py"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../accounts/models.py"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../invoice/models.py"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../bills/models.py"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../InventoryMS/settings.py"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../Dockerfile"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../docker-compose.yml"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../nginx/default.conf"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../entrypoint.sh"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../evidence/final/migration_project_order.txt"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../evidence/final/ci_run.json"
+    },
+    {
+      "file": "03_THIET_KE.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../HC01.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_hc01_purchase_stock.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/postgres16-python3.12/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../HC02.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_hc02_dates.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/postgres16-python3.12/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../HC03.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_hc03_sales.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/postgres16-python3.12/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../TU01.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../accounts/tests/test_tu01_upgrade.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_tu01_storage.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/postgres16-python3.12/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../TU02.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_tu02_settings.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/postgres16-python3.12/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../DP02.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_dp02_decimal.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_dp02_migrations.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../invoice/tests/test_dp02_decimal.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/postgres16-python3.12/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../DP01.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_dp01_services.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_dp01_architecture.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/postgres16-python3.12/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../TU03.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_tu03_vnd.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_tu03_migrations.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/postgres16-python3.12/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../HT01.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../store/tests/test_ht01_restock.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/postgres16-python3.12/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../HT02.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_ht02_filters.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/postgres16-python3.12/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../HT03.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_ht03_cancellation.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_ht03_concurrency.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/postgres16-python3.12/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/v0_suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/p0b_suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/hc01/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/hc02/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/hc03/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/tu01/sau_strict_suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/tu02/bo-sung/sqlite_suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/dp02/sau_suite_sqlite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/dp01/sau_suite_sqlite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/tu03/sau_suite_sqlite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/ht01/sau_suite_sqlite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/ht02/sau_suite_sqlite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/ht03/sau_suite_sqlite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/coverage_by_app.json"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/coverage_report.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/v0_coverage_report.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../DP02.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/dp02/coverage_summary.json"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/truoc/03_hc01_ton_sau_tao.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/hc01/sau/02_ton_sau_tao.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/truoc/06_hc02_loi_500_xuat_excel.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/hc02/sau/01_xuat_excel_thanh_cong.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/truoc/09_hc03_chi_tiet_don_sai.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/hc03/sau/09_hc03_chi_tiet_don_dung.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/tu01/sau/01_dashboard.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/compose-health-persistence/login.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/tu03/truoc/sale_detail.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/tu03/sau/sale_detail.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/ht01/sau/low_stock_list.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/ht01/sau/dashboard_card.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/ht02/truoc/sales_list.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/ht02/sau/sales_list.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/ht03/truoc/sale_detail_before_cancel.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/ht03/sau/sale_detail_before_cancel.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/ht03/sau/sale_detail_cancelled.png"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci_run.json"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../.github/workflows/tests.yml"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/sqlite-python3.10/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/sqlite-python3.12/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/postgres16-python3.10/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/postgres16-python3.12/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/compose-health-persistence/ps_after.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci/compose-health-persistence/persistence.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../docs/BAO_CAO_TONG_HOP.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../docs/HC01.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../docs/HC02.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../docs/HC03.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../docs/TU01.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../docs/TU02.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../docs/DP02.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../docs/DP01.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../docs/TU03.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../docs/HT01.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../docs/HT02.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../docs/HT03.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_hc01_purchase_stock.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_hc02_dates.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_hc03_sales.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../accounts/tests/test_tu01_upgrade.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_tu01_storage.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_tu02_settings.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_dp02_decimal.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_dp02_migrations.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../invoice/tests/test_dp02_decimal.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_dp01_services.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_dp01_architecture.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_tu03_vnd.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_tu03_migrations.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../store/tests/test_ht01_restock.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_ht02_filters.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_ht03_cancellation.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_ht03_concurrency.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/tests/test_hc_regression.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/models.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../transactions/views.py"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/test_history.json"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/coverage_by_app.json"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/coverage_final.json"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/coverage_v0.json"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/ci_run.json"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/final/coverage_suite_sqlite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/dp02/coverage_summary.json"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/p0b_suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/hc01/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/hc02/suite.txt"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/ht01/BANG_CHUNG.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/ht02/BANG_CHUNG.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/ht03/BANG_CHUNG.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../evidence/truoc/BANG_CHUNG_TRUOC.md"
+    },
+    {
+      "file": "04_KIEM_THU.md",
+      "target": "../../../huong-dan-va-prompt-codex.md"
+    }
+  ],
+  "missing_information": [
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 29,
+      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 30,
+      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 55,
+      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 56,
+      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 81,
+      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 82,
+      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 107,
+      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 108,
+      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 133,
+      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 134,
+      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 159,
+      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 160,
+      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 185,
+      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 186,
+      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 212,
+      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 213,
+      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 239,
+      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 240,
+      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 265,
+      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 266,
+      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 291,
+      "text": "- **Người đề xuất:** [cần bổ sung] — nguồn không định danh cá nhân/đơn vị ký phiếu."
+    },
+    {
+      "file": "01_PHAN_TICH_TAC_DONG.md",
+      "line": 292,
+      "text": "- **Mức ưu tiên chính thức:** [cần bổ sung] — chưa có trường ưu tiên được phê duyệt trong nguồn."
+    }
+  ],
+  "pandoc": {
+    "available_on_PATH": false,
+    "common_paths_checked": [
+      "C:/Program Files/Pandoc/pandoc.exe",
+      "C:/Users/ADMIN/AppData/Local/Pandoc/pandoc.exe"
+    ],
+    "docx_exported": false,
+    "reason": "Không tìm thấy Pandoc; không cài thêm hoặc giả lập DOCX."
+  },
+  "scope": "New course documents only; existing application code, tests and prior evidence unchanged."
+}
