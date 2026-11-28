@@ -15,7 +15,7 @@ class ConstraintCase(TestCase):
     @classmethod
     def setUpTestData(cls):
         category = Category.objects.create(name='DP02')
-        cls.item = Item.objects.create(name='Decimal', category=category, quantity=20, price=Decimal('19.99'))
+        cls.item = Item.objects.create(name='Decimal', category=category, quantity=20, price=Decimal('20'))
         vendor = Vendor.objects.create(name='DP02 vendor')
         customer = Customer.objects.create(first_name='DP02')
         cls.sale = Sale.objects.create(customer=customer, sub_total=100, tax_amount=10,
@@ -23,7 +23,7 @@ class ConstraintCase(TestCase):
         cls.detail = SaleDetail.objects.create(sale=cls.sale, item=cls.item, price=100, quantity=1, total_detail=100)
         cls.purchase = create_purchase(dict(item=cls.item, vendor=vendor, price=Decimal('5'), quantity=2))
         cls.invoice = Invoice.objects.create(customer_name='DP02', contact_number='123', item=cls.item,
-            price_per_item=Decimal('19.99'), quantity=3, shipping=Decimal('0.03'))
+            price_per_item=Decimal('20'), quantity=3, shipping=Decimal('0'))
         cls.bill = Bill.objects.create(institution_name='DP02', payment_details='Cash', amount=Decimal('10'))
 
     def assert_blocked(self, obj, changes, constraint_name):

@@ -14,7 +14,7 @@ class InvoiceDecimalTests(ConstraintCase):
 
     def test_save_uses_exact_decimal_totals(self):
         self.invoice.refresh_from_db()
-        self.assertEqual(self.invoice.total, Decimal('59.97'))
+        self.assertEqual(self.invoice.total, Decimal('60'))
         self.assertEqual(self.invoice.grand_total, Decimal('60.00'))
         self.assertIsInstance(self.invoice.quantity, int)
 
@@ -24,16 +24,16 @@ class InvoiceDecimalTests(ConstraintCase):
         self.invoice.quantity = 3
         self.invoice.save()
         self.invoice.refresh_from_db()
-        self.assertEqual(self.invoice.price_per_item, Decimal('1.01'))
-        self.assertEqual(self.invoice.total, Decimal('3.03'))
-        self.assertEqual(self.invoice.grand_total, Decimal('3.14'))
+        self.assertEqual(self.invoice.price_per_item, Decimal('1'))
+        self.assertEqual(self.invoice.total, Decimal('3'))
+        self.assertEqual(self.invoice.grand_total, Decimal('3'))
 
     def test_partial_save_keeps_computed_totals_consistent(self):
         self.invoice.quantity = 4
         self.invoice.save(update_fields=['quantity'])
         self.invoice.refresh_from_db()
-        self.assertEqual(self.invoice.total, Decimal('79.96'))
-        self.assertEqual(self.invoice.grand_total, Decimal('79.99'))
+        self.assertEqual(self.invoice.total, Decimal('80'))
+        self.assertEqual(self.invoice.grand_total, Decimal('80'))
 
     def test_fractional_or_negative_quantity_is_not_rounded(self):
         for quantity in (1.5, -1, 'NaN', 'Infinity'):

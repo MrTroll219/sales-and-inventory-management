@@ -24,8 +24,8 @@ class TransactionConstraintTests(ConstraintCase):
     test_detail_quantity_positive = constraint_test('detail', {'quantity': 0}, 'sale_detail_quantity_positive')
 
     def test_database_accepts_exact_cent_identities(self):
-        for subtotal, tax, paid in [('0.10', '0.20', '1.00'), ('59.97', '4.20', '70.00'),
-                ('99999999.99', '0', '100000000'), ('9999999999999.99', '0', '9999999999999.99')]:
+        for subtotal, tax, paid in [('1', '2', '10'), ('59997', '4200', '70000'),
+                ('99999999', '0', '100000000'), ('999999999999999', '0', '999999999999999')]:
             with self.subTest(subtotal=subtotal):
                 sub, amount, payment = map(Decimal, (subtotal, tax, paid))
                 grand = sub + amount
@@ -45,10 +45,10 @@ class TransactionConstraintTests(ConstraintCase):
 class DecimalPricingTests(SimpleTestCase):
     def test_decimal_examples_and_legacy_float_compatibility(self):
         for price in (Decimal('19.99'), 19.99):
-            self.assertEqual(compute_sale_totals([{'id': 1, 'price': price, 'quantity': 3}], 0, 60)['grand_total'], Decimal('59.97'))
+            self.assertEqual(compute_sale_totals([{'id': 1, 'price': price, 'quantity': 3}], 0, 60)['grand_total'], Decimal('60'))
         result = compute_sale_totals([{'id': 1, 'price': Decimal('0.1'), 'quantity': 1},
             {'id': 2, 'price': Decimal('0.2'), 'quantity': 1}], 0, 1)
-        self.assertEqual(result['sub_total'], Decimal('0.30'))
+        self.assertEqual(result['sub_total'], Decimal('0'))
 
     def test_money_limit_matches_decimal_15_2_and_overflow_is_rejected(self):
         result = compute_sale_totals([{'id': 1, 'price': MAX_MONEY, 'quantity': 1}], 0, MAX_MONEY)

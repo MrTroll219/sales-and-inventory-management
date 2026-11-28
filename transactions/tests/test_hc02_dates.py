@@ -107,7 +107,7 @@ class ExportAndFormTests(TestCase):
     def test_empty_purchase_export_has_headers_only(self):
         sheet = self.workbook("purchases-export")
         self.assertEqual(sheet.max_row, 1)
-        self.assertEqual(sheet.cell(1, 6).value, "Delivery Date")
+        self.assertEqual(sheet.cell(1, 6).value, "Ngày giao")
 
     def test_empty_sales_export_has_headers_only(self):
         self.assertEqual(self.workbook("sales-export").max_row, 1)

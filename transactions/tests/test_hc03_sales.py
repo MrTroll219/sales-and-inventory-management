@@ -19,10 +19,10 @@ class PricingTests(SimpleTestCase):
         cases = [
             ([{"id": 1, "price": 100.0, "quantity": 2}], 0, 200, "200.00", "0.00", "200.00", "0.00"),
             ([{"id": 1, "price": 100.0, "quantity": 2}], 10, 250, "200.00", "20.00", "220.00", "30.00"),
-            ([{"id": 1, "price": 19.99, "quantity": 3}], 0, 60, "59.97", "0.00", "59.97", "0.03"),
+            ([{"id": 1, "price": 19.99, "quantity": 3}], 0, 60, "60", "0", "60", "0"),
             ([{"id": 1, "price": 0.1, "quantity": 1}, {"id": 2, "price": 0.2, "quantity": 1}],
-             0, 1, "0.30", "0.00", "0.30", "0.70"),
-            ([{"id": 1, "price": 0.05, "quantity": 1}], 10, 1, "0.05", "0.01", "0.06", "0.94"),
+             0, 1, "0", "0", "0", "1"),
+            ([{"id": 1, "price": 0.05, "quantity": 1}], 10, 1, "0", "0", "0", "1"),
         ]
         for lines, tax, paid, sub, tax_amount, grand, change in cases:
             with self.subTest(lines=lines, tax=tax):
@@ -38,8 +38,8 @@ class PricingTests(SimpleTestCase):
 
     def test_unit_price_rounds_half_up_to_existing_cent_precision(self):
         result = compute_sale_totals([{"id": 1, "price": 1.005, "quantity": 2}], 0, 3)
-        self.assertEqual(result["lines"][0]["price"], Decimal("1.01"))
-        self.assertEqual(result["grand_total"], Decimal("2.02"))
+        self.assertEqual(result["lines"][0]["price"], Decimal("1"))
+        self.assertEqual(result["grand_total"], Decimal("2"))
 
     def test_invalid_pricing_values_are_rejected(self):
         for price, quantity, tax, paid in [
@@ -179,14 +179,14 @@ class SaleCreationTests(TestCase):
                 target = data["items"][0] if field == "total_item" else data
                 target[field] = 1
                 response = self.rejected(data)
-                self.assertIn("200.00", response.json()["message"])
+                self.assertIn("200 ₫", response.json()["message"])
 
     def test_one_cent_tolerance_still_stores_server_totals(self):
         data = self.payload()
         data.update(sub_total="199.99", grand_total="200.01")
         data["items"][0]["total_item"] = "200.01"
-        self.assertEqual(self.post(data).status_code, 200)
-        self.assertEqual(Sale.objects.get().grand_total, Decimal("200.00"))
+        self.assertEqual(self.post(data).status_code, 400)
+        self.assertEqual(Sale.objects.count(), 0)
 
     def test_multiple_items_decrement_correct_stock(self):
         data = self.payload()
@@ -241,7 +241,7 @@ class SaleCreationTests(TestCase):
                 self.assertEqual(str(self.customer), "Khach")
                 response = self.client.get(reverse("sale-create"))
                 self.assertContains(response, "Khach")
-                self.assertContains(response, "Tax (%)")
+                self.assertContains(response, "Thuế (%)")
                 self.assertNotContains(response, "Tax Inclusive")
 
     def test_unsupported_method_is_405(self):

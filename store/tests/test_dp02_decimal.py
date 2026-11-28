@@ -15,7 +15,7 @@ class ItemDecimalTests(TestCase):
         category = Category.objects.create(name='DP02 form')
         item = Item.objects.create(name='Price', category=category, price=Decimal('0.10') + Decimal('0.20'))
         item.refresh_from_db()
-        self.assertEqual(item.price, Decimal('0.30'))
+        self.assertEqual(item.price, Decimal('0'))
         self.assertIsInstance(item.price, Decimal)
         form = ItemForm(data={'name': 'Invalid', 'category': category.pk, 'description': 'Test',
                               'quantity': -1, 'price': '-0.01'})

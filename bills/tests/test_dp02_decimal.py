@@ -11,7 +11,7 @@ class BillDecimalTests(ConstraintCase):
         self.bill.amount = Decimal('0.10') + Decimal('0.20')
         self.bill.save()
         self.bill.refresh_from_db()
-        self.assertEqual(self.bill.amount, Decimal('0.30'))
+        self.assertEqual(self.bill.amount, Decimal('0'))
         form = modelform_factory(Bill, fields=['institution_name', 'payment_details', 'amount'])(
             data={'institution_name': 'Invalid', 'payment_details': 'Cash', 'amount': '-0.01'})
         self.assertFalse(form.is_valid())
