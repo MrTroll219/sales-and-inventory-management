@@ -1,0 +1,4 @@
+git fetch --all
+Fetching upstream
+Fetching origin
+Exit code: 0

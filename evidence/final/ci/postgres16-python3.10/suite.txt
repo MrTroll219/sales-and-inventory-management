@@ -1,0 +1,503 @@
+Creating test database for alias 'default' ('test_inventory_ci')...
+Found 247 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: crispy_bootstrap5, crispy_forms, django_extensions, django_filters, django_tables2, imagekit, messages, phonenumber_field, staticfiles
+  Apply all migrations: accounts, admin, auth, bills, contenttypes, invoice, sessions, store, transactions
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying accounts.0001_initial... OK
+  Applying accounts.0002_alter_profile_email_alter_profile_first_name_and_more... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying store.0001_initial... OK
+  Applying transactions.0001_initial... OK
+  Applying transactions.0002_rename_discount_amount_sale_tax_amount_and_more... OK
+  Applying transactions.0003_alter_purchase_quantity... OK
+  Applying invoice.0001_initial... OK
+  Applying bills.0001_initial... OK
+  Applying transactions.0004_dp02_decimal_constraints... OK
+  Applying store.0002_dp02_decimal_constraints... OK
+  Applying transactions.0005_dp01_stock_movement... OK
+  Applying invoice.0002_dp02_decimal_constraints... OK
+  Applying bills.0002_dp02_decimal_constraints... OK
+  Applying bills.0003_tu03_vnd... OK
+  Applying invoice.0003_tu03_vnd... OK
+  Applying sessions.0001_initial... OK
+  Applying store.0003_tu03_vnd... OK
+  Applying store.0004_ht01_min_stock_level... OK
+  Applying transactions.0006_tu03_vnd... OK
+  Applying transactions.0007_ht03_sale_cancellation...test_amount_nonnegative (bills.tests.test_dp02_decimal.BillDecimalTests)
+Database rejects {'amount': -1} with bill_amount_nonnegative installed. ... ok
+test_amount_round_trip_and_form_error (bills.tests.test_dp02_decimal.BillDecimalTests) ... ok
+test_fractional_or_negative_quantity_is_not_rounded (invoice.tests.test_dp02_decimal.InvoiceDecimalTests) ... ok
+test_grand_nonnegative (invoice.tests.test_dp02_decimal.InvoiceDecimalTests)
+Database rejects {'grand_total': -1} with invoice_grand_nonnegative installed. ... ok
+test_model_form_reports_money_and_integer_errors (invoice.tests.test_dp02_decimal.InvoiceDecimalTests) ... ok
+test_partial_save_keeps_computed_totals_consistent (invoice.tests.test_dp02_decimal.InvoiceDecimalTests) ... ok
+test_price_nonnegative (invoice.tests.test_dp02_decimal.InvoiceDecimalTests)
+Database rejects {'price_per_item': -1} with invoice_price_nonnegative installed. ... ok
+test_quantity_nonnegative (invoice.tests.test_dp02_decimal.InvoiceDecimalTests)
+Database rejects {'quantity': -1} with invoice_quantity_nonnegative installed. ... ok
+test_save_rounds_half_up_and_supports_legacy_float_inputs (invoice.tests.test_dp02_decimal.InvoiceDecimalTests) ... ok
+test_save_uses_exact_decimal_totals (invoice.tests.test_dp02_decimal.InvoiceDecimalTests) ... ok
+test_shipping_nonnegative (invoice.tests.test_dp02_decimal.InvoiceDecimalTests)
+Database rejects {'shipping': -1} with invoice_shipping_nonnegative installed. ... ok
+test_total_nonnegative (invoice.tests.test_dp02_decimal.InvoiceDecimalTests)
+Database rejects {'total': -1} with invoice_total_nonnegative installed. ... ok
+test_price_nonnegative (store.tests.test_dp02_decimal.ItemConstraintTests)
+Database rejects {'price': -1} with item_price_nonnegative installed. ... ok
+test_quantity_nonnegative (store.tests.test_dp02_decimal.ItemConstraintTests)
+Database rejects {'quantity': -1} with item_quantity_nonnegative installed. ... ok
+test_decimal_round_trip_and_form_errors (store.tests.test_dp02_decimal.ItemDecimalTests) ... ok
+test_anonymous_list_export_and_dashboard_redirect (store.tests.test_ht01_restock.RestockTests) ... /opt/hostedtoolcache/Python/3.10.22/x64/lib/python3.10/site-packages/django/core/handlers/base.py:61: UserWarning: No directory at: /home/runner/work/sales-and-inventory-management/sales-and-inventory-management/staticfiles/
+  mw_instance = middleware(adapted_handler)
+ok
+test_boundaries_match_queryset_and_property (store.tests.test_ht01_restock.RestockTests) ... ok
+test_dashboard_count_and_link_match_list (store.tests.test_ht01_restock.RestockTests) ... ok
+test_edit_threshold_only_does_not_change_stock_or_ledger (store.tests.test_ht01_restock.RestockTests) ... ok
+test_empty_list_and_excel_are_valid (store.tests.test_ht01_restock.RestockTests) ... ok
+test_excel_matches_live_list_has_vietnamese_headers_and_vn_timestamp (store.tests.test_ht01_restock.RestockTests) ... ok
+test_export_includes_items_beyond_list_pagination_and_missing_vendor (store.tests.test_ht01_restock.RestockTests) ... ok
+test_invalid_prefill_is_ignored_without_server_error (store.tests.test_ht01_restock.RestockTests) ... ok
+test_large_threshold_formula_does_not_overflow_postgres_integer (store.tests.test_ht01_restock.RestockTests) ... ok
+test_list_orders_by_shortage_descending (store.tests.test_ht01_restock.RestockTests) ... ok
+test_omitted_threshold_preserves_old_value_and_new_item_defaults_to_zero (store.tests.test_ht01_restock.RestockTests) ... ok
+test_only_low_stock_product_rows_are_highlighted (store.tests.test_ht01_restock.RestockTests) ... ok
+test_product_edit_page_shows_threshold_and_can_disable_it (store.tests.test_ht01_restock.RestockTests) ... ok
+test_purchase_prefill_is_initial_only_and_does_not_write (store.tests.test_ht01_restock.RestockTests) ... ok
+test_sale_enters_list_and_purchase_to_target_leaves_it (store.tests.test_ht01_restock.RestockTests) ... ok
+test_shortage_and_suggested_quantity_follow_formula (store.tests.test_ht01_restock.RestockTests) ... ok
+test_threshold_edit_does_not_overwrite_stock_changed_after_form_validation (store.tests.test_ht01_restock.RestockTests) ... ok
+test_threshold_form_rejects_negative_fractional_and_overflow (store.tests.test_ht01_restock.RestockTests) ... ok
+test_threshold_negative_is_rejected_by_model_and_database (store.tests.test_ht01_restock.RestockTests) ... ok
+test_zero_threshold_disables_warning_for_any_nonnegative_stock (store.tests.test_ht01_restock.RestockTests) ... ok
+test_adjustment_records_exact_delta_balance_reference_and_actor (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_adjustment_uses_f_expression_and_database_row_lock (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_create_purchase_posts_once_with_reference (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_create_sale_detail_failure_rolls_back_stock_and_ledger (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_create_sale_insufficient_stock_rolls_back_everything (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_create_sale_rejects_untrusted_header_totals_before_writes (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_create_sale_uses_db_price_groups_lines_and_records_actor (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_delete_purchase_debits_stock_and_preserves_audit_reference (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_delete_purchase_that_would_make_stock_negative_is_rejected (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_insufficient_stock_exposes_item_requested_and_available (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_invalid_delta_or_reason_does_not_write (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_invalid_purchase_input_is_rejected_atomically (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_item_form_uses_stock_service_for_create_and_edit (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_ledger_failure_rolls_back_stock_write (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_metadata_only_item_save_does_not_overwrite_newer_stock (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_purchase_and_movement_admin_are_read_only (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_purchase_create_view_calls_service_once (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_purchase_delete_view_reports_inventory_error_and_then_can_delete (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_purchase_failure_after_stock_write_rolls_back_document_and_ledger (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_purchase_save_only_calculates_value_without_stock_side_effect (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_reconcile_is_read_only_until_fix_and_fix_is_idempotent (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_update_purchase_moves_two_items_with_matching_ledger (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_update_purchase_posts_only_difference (transactions.tests.test_dp01_services.InventoryServiceTests) ... ok
+test_database_accepts_exact_cent_identities (transactions.tests.test_dp02_decimal.TransactionConstraintTests) ... ok
+test_detail_price_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'price': -1} with sale_detail_price_nonnegative installed. ... ok
+test_detail_quantity_positive (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'quantity': 0} with sale_detail_quantity_positive installed. ... ok
+test_detail_total_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'total_detail': -1} with sale_detail_total_nonnegative installed. ... ok
+test_purchase_form_rejects_nonpositive_quantity_and_negative_price (transactions.tests.test_dp02_decimal.TransactionConstraintTests) ... ok
+test_purchase_price_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'price': -1} with purchase_price_nonnegative installed. ... ok
+test_purchase_quantity_positive (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'quantity': 0} with purchase_quantity_positive installed. ... ok
+test_purchase_total_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'total_value': -1} with purchase_total_nonnegative installed. ... ok
+test_sale_change_matches_payment (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'amount_change': 9} with sale_change_matches_payment installed. ... ok
+test_sale_change_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'amount_change': -1, 'amount_paid': 109} with sale_change_nonnegative installed. ... ok
+test_sale_grand_matches_parts (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'grand_total': 111, 'amount_change': 9} with sale_grand_matches_parts installed. ... ok
+test_sale_grand_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'grand_total': -1} with sale_grand_nonnegative installed. ... ok
+test_sale_paid_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'amount_paid': -1} with sale_paid_nonnegative installed. ... ok
+test_sale_subtotal_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'sub_total': -1, 'tax_amount': 111} with sale_subtotal_nonnegative installed. ... ok
+test_sale_tax_nonnegative (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'tax_amount': -1, 'sub_total': 111} with sale_tax_nonnegative installed. ... ok
+test_sale_tax_percentage_lower (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'tax_percentage': -1} with sale_tax_percentage_range installed. ... ok
+test_sale_tax_percentage_upper (transactions.tests.test_dp02_decimal.TransactionConstraintTests)
+Database rejects {'tax_percentage': 101} with sale_tax_percentage_range installed. ... ok
+test_change_item_moves_old_and_new_quantities (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_change_item_with_consumed_stock_rolls_back_both_items (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_delivery_status_does_not_change_stock_policy (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_empty_update_fields_does_not_save_or_change_stock (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_form_shows_validation_error_without_database_writes (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_partial_description_save_ignores_unsaved_stock_fields (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_partial_quantity_save_updates_total_value (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_price_only_change_does_not_change_stock (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_purchase_insert_failure_rolls_back_stock (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_reduce_below_sold_stock_rolls_back_purchase (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_reduce_quantity_changes_stock_by_difference (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_repeated_unchanged_save_does_not_add_stock (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_stale_item_cache_does_not_overwrite_other_purchases (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_stale_purchase_uses_current_database_quantity (transactions.tests.test_hc01_purchase_stock.PurchaseStockTests) ... ok
+test_blank_delivery_date_remains_optional (transactions.tests.test_hc02_dates.ExportAndFormTests) ... ok
+test_description_only_edit_preserves_existing_seconds (transactions.tests.test_hc02_dates.ExportAndFormTests) ... ok
+test_edit_form_round_trip_preserves_delivery_date (transactions.tests.test_hc02_dates.ExportAndFormTests) ... ok
+test_empty_purchase_export_has_headers_only (transactions.tests.test_hc02_dates.ExportAndFormTests) ... ok
+test_empty_sales_export_has_headers_only (transactions.tests.test_hc02_dates.ExportAndFormTests) ... ok
+test_explicit_date_change_and_clear_are_still_saved (transactions.tests.test_hc02_dates.ExportAndFormTests) ... ok
+test_exports_still_require_login (transactions.tests.test_hc02_dates.ExportAndFormTests) ... ok
+test_previous_datetime_input_format_remains_accepted (transactions.tests.test_hc02_dates.ExportAndFormTests) ... ok
+test_purchase_export_mixed_dates_and_cell_formats (transactions.tests.test_hc02_dates.ExportAndFormTests) ... ok
+test_sales_export_uses_local_time_and_date_format (transactions.tests.test_hc02_dates.ExportAndFormTests) ... ok
+test_widget_renders_datetime_local_value (transactions.tests.test_hc02_dates.ExportAndFormTests) ... ok
+test_additive_tax_and_change_are_calculated_by_server (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_ajax_anonymous_is_json_401_with_no_writes (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_anonymous_ajax_with_real_csrf_token_is_401 (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_client_total_mismatches_report_expected_value (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_database_failure_after_stock_write_rolls_back_all (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_duplicate_lines_over_stock_are_rejected_as_a_group (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_duplicate_valid_lines_create_one_detail (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_invalid_customer_or_item_ids_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_invalid_paid_values_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_invalid_quantity_values_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_invalid_tax_values_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_missing_or_invalid_json_shapes_are_rejected (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_multiple_items_decrement_correct_stock (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_one_cent_tolerance_still_stores_server_totals (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_page_renders_customer_without_last_name_and_tax_label (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_regular_anonymous_requests_redirect_to_login (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_underpayment_is_rejected (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_unsupported_method_is_405 (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_valid_sale_uses_database_price_ignoring_client_price (transactions.tests.test_hc03_sales.SaleCreationTests) ... ok
+test_hc01_sua_mo_ta_khong_doi_ton (transactions.tests.test_hc_regression.MaintenanceRegressionTests) ... ok
+test_hc01_sua_qua_form_tang_so_luong (transactions.tests.test_hc_regression.MaintenanceRegressionTests) ... ok
+test_hc01_tao_phieu_nhap_chi_cong_mot_lan (transactions.tests.test_hc_regression.MaintenanceRegressionTests) ... ok
+test_hc02_xuat_excel_khi_khong_co_ngay_giao (transactions.tests.test_hc_regression.MaintenanceRegressionTests) ... ok
+test_hc03_so_luong_am (transactions.tests.test_hc_regression.MaintenanceRegressionTests) ... ok
+test_hc03_tu_choi_tong_tien_gia (transactions.tests.test_hc_regression.MaintenanceRegressionTests) ... ok
+test_hc03_yeu_cau_dang_nhap (transactions.tests.test_hc_regression.MaintenanceRegressionTests) ... ok
+test_anonymous_cannot_list_or_export (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_blank_and_unknown_parameters_preserve_unfiltered_results (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_count_and_money_are_for_full_filtered_set (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_customer_and_combined_date_customer (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_customer_search_full_name_phone_and_nullable_last_name (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_date_from_and_date_to_work_independently (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_empty_result_has_zero_summary_and_header_only_excel (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_equal_timestamps_have_stable_pk_tiebreak (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_every_valid_filter_exports_exact_list_queryset (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_excel_keeps_vietnam_time_headers_and_vnd_formats (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_exports_use_one_joined_query_independent_of_row_count (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_filenames_include_normalized_date_range (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_filtering_and_export_never_write_inventory_or_ledger (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_invalid_parameters_are_errors_never_500 (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_iso_dates_equal_vietnamese_dates (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_list_querysets_join_related_objects_without_n_plus_one (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_money_range_is_inclusive_and_combines_with_customer (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_no_parameters_returns_all_newest_first_in_list_and_excel (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_pagination_and_export_links_keep_query_and_totals_include_all_pages (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_purchase_pagination_keeps_vendor_item_and_status (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_purchase_vendor_item_status_and_combination (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_reversed_dates_show_error_and_export_400_not_all_data (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_reversed_money_range_is_validation_error (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_same_day_range_includes_2359_vietnam (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_vietnam_date_bounds_include_last_microsecond_exclude_next_midnight (transactions.tests.test_ht02_filters.TransactionFilterTests) ... ok
+test_actor_is_protected_from_deletion (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_anonymous_and_normal_user_cannot_get_or_post_cancel (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_cancellation_admin_is_read_only_and_sale_status_not_editable (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_cancellation_locks_sale_on_postgres (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_completed_cannot_be_deleted_and_integer_url_resolves (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_csrf_required_for_cancel_post (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_dashboard_revenue_and_count_exclude_cancelled_sales (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_database_rejects_invalid_status_and_short_reason_and_duplicate_history (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_detail_and_list_show_status_and_hide_cancel_button_after_cancel (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_empty_short_whitespace_and_non_string_reasons_rejected (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_failure_on_second_item_rolls_back_first_stock_and_ledger (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_get_form_never_changes_stock_and_post_success_shows_message (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_history_write_failure_rolls_back_all_stock (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_invalid_reason_post_shows_errors_without_changes (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_invalid_status_is_form_error_and_export_400 (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_list_totals_are_revenue_excluding_cancelled_but_count_includes_it (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_missing_sale_returns_404 (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_normal_user_never_sees_cancel_button (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_only_superuser_can_delete_cancelled_and_history_survives (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_reason_form_and_model_require_five_trimmed_characters (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_reconcile_has_zero_stock_and_trade_differences_after_cancel_and_delete (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_repeated_post_shows_error_without_second_restoration (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_restoration_removes_items_from_ht01_low_stock_list (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_restores_two_items_audit_actor_reason_and_ledger (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_sale_admin_refuses_completed_or_non_superuser_delete (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_second_cancel_raises_and_changes_nothing (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_service_checks_permissions_even_without_view (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_status_filter_and_excel_use_same_filtered_ids (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_status_write_failure_rolls_back_history_and_stock (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_stock_overflow_is_rejected_atomically (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_superuser_without_staff_flag_can_cancel (transactions.tests.test_ht03_cancellation.CancellationTests) ... ok
+test_all_money_fields_have_zero_scale_and_integrality_checks (transactions.tests.test_tu03_vnd.VNDApplicationTests) ... ok
+test_all_money_forms_reject_fraction_and_accept_integral_value (transactions.tests.test_tu03_vnd.VNDApplicationTests) ... ok
+test_excel_purchases_keeps_missing_delivery_empty (transactions.tests.test_tu03_vnd.VNDApplicationTests) ... ok
+test_excel_sales_forces_vn_time_and_numeric_vnd_columns (transactions.tests.test_tu03_vnd.VNDApplicationTests) ... ok
+test_raw_sql_cannot_store_nonfinite_or_out_of_range_vnd (transactions.tests.test_tu03_vnd.VNDApplicationTests) ... ok
+test_sale_detail_displays_vnd_and_vietnamese_date (transactions.tests.test_tu03_vnd.VNDApplicationTests) ... ok
+test_sale_tax_rounds_to_dong_and_inventory_is_unchanged_in_policy (transactions.tests.test_tu03_vnd.VNDApplicationTests) ... ok
+test_sqlite_cannot_store_fractional_money_via_raw_sql (transactions.tests.test_tu03_vnd.VNDApplicationTests) ... ok
+test_vietnamese_datetime_form_input_is_accepted (transactions.tests.test_tu03_vnd.VNDApplicationTests) ... ok
+test_demo_data_migrates_without_changing_values (accounts.tests.test_tu01_upgrade.ProfileUpgradeTests) ... ok
+test_empty_accounts_schema_migrates_to_0002 (accounts.tests.test_tu01_upgrade.ProfileUpgradeTests) ... ok
+test_preflight_allows_multiple_null_emails_and_boundary_lengths (accounts.tests.test_tu01_upgrade.ProfileUpgradeTests) ... ok
+test_preflight_detects_duplicates_including_empty_and_overlong_data (accounts.tests.test_tu01_upgrade.ProfileUpgradeTests) ... ok
+test_existing_items_get_zero_threshold_without_stock_or_price_changes (store.tests.test_ht01_migration.MinStockMigrationTests) ... ok
+test_architecture_guard_detects_each_supported_bypass (transactions.tests.test_dp01_architecture.InventoryArchitectureTests) ... ok
+test_only_stock_module_explicitly_writes_item_quantity (transactions.tests.test_dp01_architecture.InventoryArchitectureTests) ... ok
+test_public_mutating_services_are_atomic (transactions.tests.test_dp01_architecture.InventoryArchitectureTests) ... ok
+test_existing_stock_is_preserved_and_has_an_opening_ledger_entry (transactions.tests.test_dp01_opening.OpeningBalanceMigrationTests) ... ok
+test_decimal_examples_and_legacy_float_compatibility (transactions.tests.test_dp02_decimal.DecimalPricingTests) ... ok
+test_money_limit_matches_decimal_15_2_and_overflow_is_rejected (transactions.tests.test_dp02_decimal.DecimalPricingTests) ... ok
+test_tax_precision_matches_schema (transactions.tests.test_dp02_decimal.DecimalPricingTests) ... ok
+test_clean_preflight_uses_only_read_queries_and_changes_nothing (transactions.tests.test_dp02_migrations.DecimalMigrationTests) ... ok
+test_fractional_and_negative_invoice_quantities_block_before_conversion (transactions.tests.test_dp02_migrations.DecimalMigrationTests) ... ok
+test_legacy_demo_migrates_with_half_up_decimal_values_preserved (transactions.tests.test_dp02_migrations.DecimalMigrationTests) ... ok
+test_other_legacy_violations_are_reported_and_migration_does_not_repair_them (transactions.tests.test_dp02_migrations.DecimalMigrationTests) ... ok
+test_aware_utc_in_utc (transactions.tests.test_hc02_dates.ExcelDateTests) ... ok
+test_local_timezone_conversion_crosses_midnight (transactions.tests.test_hc02_dates.ExcelDateTests) ... ok
+test_naive_datetime_is_unchanged (transactions.tests.test_hc02_dates.ExcelDateTests) ... ok
+test_none_stays_empty (transactions.tests.test_hc02_dates.ExcelDateTests) ... ok
+test_duplicate_lines_are_grouped (transactions.tests.test_hc03_sales.PricingTests) ... ok
+test_empty_and_malformed_lines_are_rejected (transactions.tests.test_hc03_sales.PricingTests) ... ok
+test_invalid_pricing_values_are_rejected (transactions.tests.test_hc03_sales.PricingTests) ... ok
+test_pricing_examples (transactions.tests.test_hc03_sales.PricingTests) ... ok
+test_unit_price_rounds_half_up_to_existing_cent_precision (transactions.tests.test_hc03_sales.PricingTests) ... ok
+test_two_threads_restore_same_sale_exactly_once_on_postgresql16 (transactions.tests.test_ht03_concurrency.ConcurrentCancellationTests) ... ok
+test_old_sales_default_completed_without_stock_money_or_detail_changes (transactions.tests.test_ht03_migration.CancellationMigrationTests) ... ok
+test_collectstatic_writes_manifest_and_rewrites_css_asset (transactions.tests.test_tu01_storage.StorageUpgradeTests) ... ok
+test_default_storage_still_saves_and_reads_media (transactions.tests.test_tu01_storage.StorageUpgradeTests) ... ok
+test_health_probe_supplies_https_proxy_header_when_configured (transactions.tests.test_tu02_settings.ContainerHealthTests) ... ok
+test_health_probe_uses_allowed_host_in_http_lab (transactions.tests.test_tu02_settings.ContainerHealthTests) ... ok
+test_existing_default_is_never_overwritten (transactions.tests.test_tu02_settings.DefaultMediaTests) ... ok
+test_local_django_media_is_served_only_when_debug_true (transactions.tests.test_tu02_settings.DefaultMediaTests) ... ok
+test_missing_default_is_seeded_as_valid_jpeg (transactions.tests.test_tu02_settings.DefaultMediaTests) ... ok
+test_azure_only_configuration_and_partial_generic_override_work (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_debug_defaults_false_and_local_sqlite_remains_available (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_debug_true_allows_explicit_development_key (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_dotenv_is_loaded_without_overriding_process_environment (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_generic_database_variables_override_azure_variables (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_hosts_origins_and_media_are_environment_driven (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_http_lab_disables_https_specific_flags (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_invalid_boolean_or_negative_hsts_is_rejected (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_missing_postgres_fields_and_invalid_engine_are_rejected (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_missing_secret_is_rejected (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_production_deploy_check_has_zero_issues (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_short_or_weak_production_secret_is_rejected (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_ssl_true_sets_https_cookie_hsts_and_proxy_flags (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_test_storage_is_plain_and_production_storage_is_manifest (transactions.tests.test_tu02_settings.DeploymentSettingsTests) ... ok
+test_legacy_decimal_values_round_half_up_without_touching_stock (transactions.tests.test_tu03_migrations.VNDMigrationTests) ... ok
+test_rounding_conflicts_stop_migration_without_repair_or_disabled_checks (transactions.tests.test_tu03_migrations.VNDMigrationTests) ... ok
+test_client_totals_have_zero_tolerance (transactions.tests.test_tu03_vnd.VNDCurrencyTests) ... ok
+test_formatter_and_template_filter (transactions.tests.test_tu03_vnd.VNDCurrencyTests) ... ok
+test_half_up_rounding (transactions.tests.test_tu03_vnd.VNDCurrencyTests) ... ok
+test_no_legacy_currency_units_in_templates (transactions.tests.test_tu03_vnd.VNDCurrencyTests) ... ok
+test_nonfinite_and_boolean_money_is_rejected (transactions.tests.test_tu03_vnd.VNDCurrencyTests) ... ok
+test_settings_are_vietnamese_and_keep_aware_datetimes (transactions.tests.test_tu03_vnd.VNDCurrencyTests) ... ok
+
+----------------------------------------------------------------------
+Ran 247 tests in 23.705s
+
+OK
+Destroying test database for alias 'default' ('test_inventory_ci')...
+ OK
+System check identified no issues (0 silenced).
+Failed to populate slug Bill.slug from date
+Failed to populate slug Bill.slug from date
+Failed to populate slug Bill.slug from date
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile updated!
+Profile created!
+Profile updated!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Profile created!
+Failed to populate slug Bill.slug from date
+Profile created!
+Profile updated!
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile created!
+Profile created!
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile created!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile updated!
+Profile created!
+Profile updated!
+Profile created!
+Profile updated!
+Profile created!
+Profile updated!
+Profile created!
+Profile updated!
+Profile created!
+Profile updated!
+Profile created!
+Profile updated!
+Profile created!
+Profile updated!
+Profile created!
+Profile updated!
+Profile created!
+Profile updated!
+Profile created!

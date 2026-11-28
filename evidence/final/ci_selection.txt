@@ -1,0 +1,4 @@
+Selected CI run 46141942142 (push bao-tri), exact SHA 123101a85ea74091c2863e0a00f952477918d925.
+Workflow already includes bao-tri; no workflow edit.
+Duplicate manual dispatch 46142043593 was cancelled by this session; not used as verification evidence.
+All 5 jobs on selected run success.

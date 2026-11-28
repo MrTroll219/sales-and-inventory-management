@@ -1,0 +1,25 @@
+{
+  "source_sha": "123101a85ea74091c2863e0a00f952477918d925",
+  "database": "disposable SQLite, removed after run",
+  "coverage_source": [
+    "store",
+    "accounts",
+    "transactions",
+    "invoice",
+    "bills"
+  ],
+  "coverage_omit": [
+    "*/tests/*",
+    "*/tests.py",
+    "*/migrations/*"
+  ],
+  "production_check": {
+    "DEBUG": false,
+    "SSL": true,
+    "HSTS": 3600,
+    "include_subdomains": true,
+    "preload": true,
+    "secret_saved": false
+  },
+  "real_database_modified": false
+}

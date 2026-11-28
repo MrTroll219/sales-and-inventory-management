@@ -1,0 +1,65 @@
+Name                                                     Stmts   Miss  Cover   Missing
+--------------------------------------------------------------------------------------
+accounts\__init__.py                                         0      0   100%
+accounts\admin.py                                           10      0   100%
+accounts\apps.py                                             6      0   100%
+accounts\filters.py                                          6      6     0%   1-11
+accounts\forms.py                                           27      0   100%
+accounts\management\__init__.py                              0      0   100%
+accounts\management\commands\__init__.py                     0      0   100%
+accounts\management\commands\check_profile_data.py          15      0   100%
+accounts\models.py                                          56      5    91%   76-79, 85
+accounts\signals.py                                         11      0   100%
+accounts\tables.py                                           9      0   100%
+accounts\urls.py                                             8      0   100%
+accounts\views.py                                          115     31    73%   41-49, 58, 70-85, 121, 127, 144, 150, 166, 172, 228, 235-242
+bills\__init__.py                                            0      0   100%
+bills\admin.py                                               6      0   100%
+bills\apps.py                                                4      0   100%
+bills\models.py                                             20      1    95%   61
+bills\tables.py                                              8      0   100%
+bills\urls.py                                                3      0   100%
+bills\views.py                                              37      5    86%   52, 72, 76, 86, 90
+invoice\__init__.py                                          0      0   100%
+invoice\admin.py                                             6      0   100%
+invoice\apps.py                                              4      0   100%
+invoice\models.py                                           37      1    97%   71
+invoice\tables.py                                            8      0   100%
+invoice\urls.py                                              7      1    86%   47
+invoice\views.py                                            42      6    86%   45, 63, 81, 87, 102, 108
+store\__init__.py                                            0      0   100%
+store\admin.py                                              25      4    84%   38-41
+store\apps.py                                                4      0   100%
+store\filters.py                                             6      6     0%   1-11
+store\form_labels.py                                        20      2    90%   22, 34
+store\forms.py                                              38      2    95%   23, 25
+store\models.py                                             67      9    87%   93, 96-102, 133
+store\money.py                                              37      1    97%   36
+store\tables.py                                             12      0   100%
+store\templatetags\__init__.py                               0      0   100%
+store\templatetags\vietnam.py                               15      0   100%
+store\urls.py                                                8      1    88%   133
+store\views.py                                             194     37    81%   162-172, 188, 209-212, 235, 253-256, 289-300, 365-368, 393, 403, 415, 422-434
+transactions\__init__.py                                     0      0   100%
+transactions\admin.py                                       73      5    93%   31, 47, 54-55, 79
+transactions\apps.py                                         6      0   100%
+transactions\filters.py                                     72      1    99%   97
+transactions\forms.py                                       26      0   100%
+transactions\management\__init__.py                          0      0   100%
+transactions\management\commands\__init__.py                 0      0   100%
+transactions\management\commands\check_decimal_data.py      19      2    89%   19-20
+transactions\management\commands\check_vnd_data.py          17      0   100%
+transactions\management\commands\reconcile_stock.py         30      2    93%   36-37
+transactions\models.py                                     108      7    94%   92, 102, 168, 211-213, 220
+transactions\pricing.py                                     70      4    94%   40, 42-43, 81
+transactions\services\__init__.py                            0      0   100%
+transactions\services\exceptions.py                          9      0   100%
+transactions\services\purchases.py                          61      3    95%   16, 33-34
+transactions\services\sales.py                              65      0   100%
+transactions\services\stock.py                              54      2    96%   41, 45
+transactions\signals.py                                      0      0   100%
+transactions\urls.py                                         6      0   100%
+transactions\utils.py                                        7      0   100%
+transactions\views.py                                      222      1    99%   265
+--------------------------------------------------------------------------------------
+TOTAL                                                     1716    145    92%

@@ -1,0 +1,246 @@
+Planned operations:
+contenttypes.0001_initial
+    Create model ContentType
+    Alter unique_together for contenttype (1 constraint(s))
+auth.0001_initial
+    Create model Permission
+    Create model Group
+    Create model User
+accounts.0001_initial
+    Create model Customer
+    Create model Vendor
+    Create model Profile
+accounts.0002_alter_profile_email_alter_profile_first_name_and_more
+    Alter field email on profile
+    Alter field first_name on profile
+    Alter field last_name on profile
+admin.0001_initial
+    Create model LogEntry
+admin.0002_logentry_remove_auto_add
+    Alter field action_time on logentry
+admin.0003_logentry_add_action_flag_choices
+    Alter field action_flag on logentry
+contenttypes.0002_remove_content_type_name
+    Change Meta options on contenttype
+    Alter field name on contenttype
+    Raw Python operation
+    Remove field name from contenttype
+auth.0002_alter_permission_name_max_length
+    Alter field name on permission
+auth.0003_alter_user_email_max_length
+    Alter field email on user
+auth.0004_alter_user_username_opts
+    Alter field username on user
+auth.0005_alter_user_last_login_null
+    Alter field last_login on user
+auth.0006_require_contenttypes_0002
+auth.0007_alter_validators_add_error_messages
+    Alter field username on user
+auth.0008_alter_user_username_max_length
+    Alter field username on user
+auth.0009_alter_user_last_name_max_length
+    Alter field last_name on user
+auth.0010_alter_group_name_max_length
+    Alter field name on group
+auth.0011_update_proxy_permissions
+    Raw Python operation ->     Update the content_type of prox…
+auth.0012_alter_user_first_name_max_length
+    Alter field first_name on user
+store.0001_initial
+    Create model Category
+    Create model Item
+    Create model Delivery
+transactions.0001_initial
+    Create model Sale
+    Create model SaleDetail
+    Create model Purchase
+transactions.0002_rename_discount_amount_sale_tax_amount_and_more
+    Rename field discount_amount on sale to tax_amount
+    Rename field discount_percentage on sale to tax_percentage
+transactions.0003_alter_purchase_quantity
+    Alter field quantity on purchase
+invoice.0001_initial
+    Create model Invoice
+bills.0001_initial
+    Create model Bill
+transactions.0004_dp02_decimal_constraints
+    Raw Python operation
+    Add field dp02_tax_percentage to sale
+    Raw Python operation
+    Alter field price on purchase
+    Alter field quantity on purchase
+    Alter field total_value on purchase
+    Alter field amount_change on sale
+    Alter field amount_paid on sale
+    Alter field grand_total on sale
+    Alter field sub_total on sale
+    Alter field tax_amount on sale
+    Alter field tax_percentage on sale
+    Alter field price on saledetail
+    Alter field quantity on saledetail
+    Alter field total_detail on saledetail
+    Raw Python operation
+    Remove field dp02_tax_percentage from sale
+    Create constraint purchase_price_nonnegative on model purchase
+    Create constraint purchase_total_nonnegative on model purchase
+    Create constraint purchase_quantity_positive on model purchase
+    Create constraint sale_subtotal_nonnegative on model sale
+    Create constraint sale_grand_nonnegative on model sale
+    Create constraint sale_tax_nonnegative on model sale
+    Create constraint sale_paid_nonnegative on model sale
+    Create constraint sale_change_nonnegative on model sale
+    Create constraint sale_tax_percentage_range on model sale
+    Create constraint sale_grand_matches_parts on model sale
+    Create constraint sale_change_matches_payment on model sale
+    Create constraint sale_detail_price_nonnegative on model saledetail
+    Create constraint sale_detail_total_nonnegative on model saledetail
+    Create constraint sale_detail_quantity_positive on model saledetail
+store.0002_dp02_decimal_constraints
+    Raw Python operation
+    Add field dp02_price to item
+    Raw Python operation
+    Alter field price on item
+    Alter field quantity on item
+    Raw Python operation
+    Remove field dp02_price from item
+    Create constraint item_price_nonnegative on model item
+    Create constraint item_quantity_nonnegative on model item
+transactions.0005_dp01_stock_movement
+    Create model StockMovement
+    Raw Python operation
+invoice.0002_dp02_decimal_constraints
+    Raw Python operation
+    Add field dp02_price_per_item to invoice
+    Add field dp02_shipping to invoice
+    Add field dp02_total to invoice
+    Add field dp02_grand_total to invoice
+    Raw Python operation
+    Alter field grand_total on invoice
+    Alter field price_per_item on invoice
+    Alter field quantity on invoice
+    Alter field shipping on invoice
+    Alter field total on invoice
+    Raw Python operation
+    Remove field dp02_price_per_item from invoice
+    Remove field dp02_shipping from invoice
+    Remove field dp02_total from invoice
+    Remove field dp02_grand_total from invoice
+    Create constraint invoice_price_nonnegative on model invoice
+    Create constraint invoice_shipping_nonnegative on model invoice
+    Create constraint invoice_total_nonnegative on model invoice
+    Create constraint invoice_grand_nonnegative on model invoice
+    Create constraint invoice_quantity_nonnegative on model invoice
+bills.0002_dp02_decimal_constraints
+    Raw Python operation
+    Add field dp02_amount to bill
+    Raw Python operation
+    Alter field amount on bill
+    Raw Python operation
+    Remove field dp02_amount from bill
+    Create constraint bill_amount_nonnegative on model bill
+bills.0003_tu03_vnd
+    Raw Python operation
+    Add field tu03_amount to bill
+    Raw Python operation
+    Alter field amount on bill
+    Raw Python operation
+    Alter field amount on bill
+    Remove field tu03_amount from bill
+    Create constraint bill_amount_vnd_int on model bill
+invoice.0003_tu03_vnd
+    Raw Python operation
+    Add field tu03_price_per_item to invoice
+    Add field tu03_shipping to invoice
+    Add field tu03_total to invoice
+    Add field tu03_grand_total to invoice
+    Raw Python operation
+    Alter field price_per_item on invoice
+    Alter field shipping on invoice
+    Alter field total on invoice
+    Alter field grand_total on invoice
+    Raw Python operation
+    Alter field grand_total on invoice
+    Alter field price_per_item on invoice
+    Alter field shipping on invoice
+    Alter field total on invoice
+    Remove field tu03_price_per_item from invoice
+    Remove field tu03_shipping from invoice
+    Remove field tu03_total from invoice
+    Remove field tu03_grand_total from invoice
+    Create constraint invoice_price_per_item_vnd_int on model invoice
+    Create constraint invoice_shipping_vnd_int on model invoice
+    Create constraint invoice_total_vnd_int on model invoice
+    Create constraint invoice_grand_total_vnd_int on model invoice
+sessions.0001_initial
+    Create model Session
+store.0003_tu03_vnd
+    Raw Python operation
+    Add field tu03_price to item
+    Raw Python operation
+    Alter field price on item
+    Raw Python operation
+    Alter field price on item
+    Remove field tu03_price from item
+    Create constraint item_price_vnd_int on model item
+store.0004_ht01_min_stock_level
+    Add field min_stock_level to item
+transactions.0006_tu03_vnd
+    Raw Python operation
+    Add field tu03_price to purchase
+    Add field tu03_total_value to purchase
+    Add field tu03_sub_total to sale
+    Add field tu03_tax_amount to sale
+    Add field tu03_grand_total to sale
+    Add field tu03_amount_paid to sale
+    Add field tu03_amount_change to sale
+    Add field tu03_price to saledetail
+    Add field tu03_total_detail to saledetail
+    Raw Python operation
+    Alter field price on purchase
+    Alter field total_value on purchase
+    Alter field sub_total on sale
+    Alter field tax_amount on sale
+    Alter field grand_total on sale
+    Alter field amount_paid on sale
+    Alter field amount_change on sale
+    Alter field price on saledetail
+    Alter field total_detail on saledetail
+    Raw Python operation
+    Alter field price on purchase
+    Alter field total_value on purchase
+    Alter field amount_change on sale
+    Alter field amount_paid on sale
+    Alter field grand_total on sale
+    Alter field sub_total on sale
+    Alter field tax_amount on sale
+    Alter field price on saledetail
+    Alter field total_detail on saledetail
+    Remove field tu03_price from purchase
+    Remove field tu03_total_value from purchase
+    Remove field tu03_sub_total from sale
+    Remove field tu03_tax_amount from sale
+    Remove field tu03_grand_total from sale
+    Remove field tu03_amount_paid from sale
+    Remove field tu03_amount_change from sale
+    Remove field tu03_price from saledetail
+    Remove field tu03_total_detail from saledetail
+    Remove constraint sale_grand_matches_parts from model sale
+    Remove constraint sale_change_matches_payment from model sale
+    Create constraint purchase_price_vnd_int on model purchase
+    Create constraint purchase_total_value_vnd_int on model purchase
+    Create constraint sale_grand_matches_parts on model sale
+    Create constraint sale_change_matches_payment on model sale
+    Create constraint sale_sub_total_vnd_int on model sale
+    Create constraint sale_tax_amount_vnd_int on model sale
+    Create constraint sale_grand_total_vnd_int on model sale
+    Create constraint sale_amount_paid_vnd_int on model sale
+    Create constraint sale_amount_change_vnd_int on model sale
+    Create constraint saledetail_price_vnd_int on model saledetail
+    Create constraint saledetail_total_detail_vnd_int on model saledetail
+transactions.0007_ht03_sale_cancellation
+    Create model SaleCancellation
+    Add field status to sale
+    Create constraint sale_status_valid on model sale
+    Add field cancelled_by to salecancellation
+    Add field sale to salecancellation
+    Create constraint sale_cancellation_reason_min_length on model salecancellation

@@ -1,0 +1,56 @@
+{
+  "v0": {
+    "store": {
+      "covered_lines": 208,
+      "statements": 279,
+      "percent": 74.55
+    },
+    "accounts": {
+      "covered_lines": 196,
+      "statements": 248,
+      "percent": 79.03
+    },
+    "transactions": {
+      "covered_lines": 157,
+      "statements": 283,
+      "percent": 55.48
+    },
+    "invoice": {
+      "covered_lines": 75,
+      "statements": 86,
+      "percent": 87.21
+    },
+    "bills": {
+      "covered_lines": 66,
+      "statements": 72,
+      "percent": 91.67
+    }
+  },
+  "final": {
+    "store": {
+      "covered_lines": 364,
+      "statements": 426,
+      "percent": 85.45
+    },
+    "accounts": {
+      "covered_lines": 221,
+      "statements": 263,
+      "percent": 84.03
+    },
+    "transactions": {
+      "covered_lines": 818,
+      "statements": 845,
+      "percent": 96.8
+    },
+    "invoice": {
+      "covered_lines": 96,
+      "statements": 104,
+      "percent": 92.31
+    },
+    "bills": {
+      "covered_lines": 72,
+      "statements": 78,
+      "percent": 92.31
+    }
+  }
+}

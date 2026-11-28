@@ -1,0 +1,4 @@
+FINAL source SHA: 123101a85ea74091c2863e0a00f952477918d925
+Before final commit, git diff --name-only 123101a is empty. All existing tracked files, including business code, tests, models, migrations, workflow and remotes are unchanged.
+New paths only: docs/BAO_CAO_TONG_HOP.md and evidence/final/.
+No real DB, no reconcile --fix, no PR.

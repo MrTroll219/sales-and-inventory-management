@@ -1,0 +1,129 @@
+[
+  {
+    "label": "runtime",
+    "argv": [
+      "-c",
+      "import sys,django,sqlite3,coverage; print(sys.version); print(\"Django\",django.get_version()); print(\"SQLite\",sqlite3.sqlite_version); print(\"coverage\",coverage.__version__)"
+    ],
+    "exit_code": 0
+  },
+  {
+    "label": "check",
+    "argv": [
+      "manage.py",
+      "check"
+    ],
+    "exit_code": 0
+  },
+  {
+    "label": "check_deploy",
+    "argv": [
+      "manage.py",
+      "check",
+      "--deploy"
+    ],
+    "exit_code": 0
+  },
+  {
+    "label": "migrations_check",
+    "argv": [
+      "manage.py",
+      "makemigrations",
+      "--check",
+      "--dry-run"
+    ],
+    "exit_code": 0
+  },
+  {
+    "label": "migration_plan",
+    "argv": [
+      "manage.py",
+      "migrate",
+      "--plan"
+    ],
+    "exit_code": 0
+  },
+  {
+    "label": "migrate_empty",
+    "argv": [
+      "manage.py",
+      "migrate",
+      "--noinput"
+    ],
+    "exit_code": 0
+  },
+  {
+    "label": "showmigrations",
+    "argv": [
+      "manage.py",
+      "showmigrations",
+      "--plan"
+    ],
+    "exit_code": 0
+  },
+  {
+    "label": "check_decimal_data",
+    "argv": [
+      "manage.py",
+      "check_decimal_data"
+    ],
+    "exit_code": 0
+  },
+  {
+    "label": "check_vnd_data",
+    "argv": [
+      "manage.py",
+      "check_vnd_data"
+    ],
+    "exit_code": 0
+  },
+  {
+    "label": "reconcile_stock",
+    "argv": [
+      "manage.py",
+      "reconcile_stock"
+    ],
+    "exit_code": 0
+  },
+  {
+    "label": "coverage_suite_sqlite",
+    "argv": [
+      "-W",
+      "error::DeprecationWarning",
+      "-W",
+      "error::PendingDeprecationWarning",
+      "-m",
+      "coverage",
+      "run",
+      "--source=store,accounts,transactions,invoice,bills",
+      "--omit=*/tests/*,*/tests.py,*/migrations/*",
+      "manage.py",
+      "test",
+      ".",
+      "-v",
+      "2"
+    ],
+    "exit_code": 0
+  },
+  {
+    "label": "coverage_report",
+    "argv": [
+      "-m",
+      "coverage",
+      "report",
+      "-m"
+    ],
+    "exit_code": 0
+  },
+  {
+    "label": "coverage_json",
+    "argv": [
+      "-m",
+      "coverage",
+      "json",
+      "-o",
+      "D:\\CT244H BTPM\\BTPM\\sales-and-inventory-management\\evidence\\final\\coverage_final.json"
+    ],
+    "exit_code": 0
+  }
+]

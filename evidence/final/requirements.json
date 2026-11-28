@@ -1,0 +1,112 @@
+[
+  {
+    "code": "HC01",
+    "type": "Hiệu chỉnh",
+    "name": "Tồn kho phiếu nhập",
+    "branch": "hc01-ton-kho-phieu-nhap",
+    "sha": "31654e6d3333cd8c6046b3b84ff6d564e5ae3258",
+    "added_tests": 14,
+    "migration": "Không",
+    "status": "Hoàn tất; PASS bản cuối"
+  },
+  {
+    "code": "HC02",
+    "type": "Hiệu chỉnh",
+    "name": "Excel và ngày giao",
+    "branch": "hc02-xuat-excel-ngay-giao",
+    "sha": "0b62b64a1bce6942a4db2ef15ec9d595fbf5d986",
+    "added_tests": 15,
+    "migration": "Không",
+    "status": "Hoàn tất; PASS bản cuối"
+  },
+  {
+    "code": "HC03",
+    "type": "Hiệu chỉnh",
+    "name": "Tính tiền máy chủ",
+    "branch": "hc03-tinh-tien-may-chu",
+    "sha": "fbac946e8fd34dcfa6d42148c5dab988a043e0d3",
+    "added_tests": 24,
+    "migration": "Không",
+    "status": "Hoàn tất; PASS bản cuối"
+  },
+  {
+    "code": "TU01",
+    "type": "Thích ứng",
+    "name": "Nâng Django 5.2",
+    "branch": "tu01-nang-django-52",
+    "sha": "86e8d04328c5fd3b83af02079c54f6a89babfb2b",
+    "added_tests": 6,
+    "migration": "accounts/0002",
+    "status": "Hoàn tất; PASS bản cuối"
+  },
+  {
+    "code": "TU02",
+    "type": "Thích ứng",
+    "name": "Docker, PostgreSQL16, nginx/MEDIA",
+    "branch": "tu02-trien-khai-docker",
+    "sha": "723a835212325c3875cb10942c4b220380b2444d",
+    "added_tests": 19,
+    "migration": "Không",
+    "status": "Hoàn tất; PASS bản cuối"
+  },
+  {
+    "code": "DP02",
+    "type": "Dự phòng",
+    "name": "Decimal và ràng buộc",
+    "branch": "dp02-decimal-rang-buoc",
+    "sha": "b72bf15dab5c0828e80193e010c7ce613cf8999a",
+    "added_tests": 39,
+    "migration": "store/0002; transactions/0004; invoice/0002; bills/0002",
+    "status": "Hoàn tất; PASS bản cuối"
+  },
+  {
+    "code": "DP01",
+    "type": "Dự phòng",
+    "name": "Tách dịch vụ kho, sổ kho",
+    "branch": "dp01-tach-nghiep-vu-kho",
+    "sha": "abcfe86209c4f2db7d6997b1b0bc74614e42b5bd",
+    "added_tests": 27,
+    "migration": "transactions/0005",
+    "status": "Hoàn tất; PASS bản cuối"
+  },
+  {
+    "code": "TU03",
+    "type": "Thích ứng",
+    "name": "Giờ Việt Nam, tiếng Việt, VND",
+    "branch": "tu03-viet-nam-vnd",
+    "sha": "607c952e510466ff6c9c76773821d7c9a076900a",
+    "added_tests": 17,
+    "migration": "store/0003; transactions/0006; invoice/0003; bills/0003",
+    "status": "Hoàn tất; PASS bản cuối"
+  },
+  {
+    "code": "HT01",
+    "type": "Hoàn thiện",
+    "name": "Ngưỡng tồn tối thiểu",
+    "branch": "ht01-ton-toi-thieu",
+    "sha": "35176c40b7f40a8dccdf88f2e22e4c33327c5644",
+    "added_tests": 21,
+    "migration": "store/0004",
+    "status": "Hoàn tất; PASS bản cuối"
+  },
+  {
+    "code": "HT02",
+    "type": "Hoàn thiện",
+    "name": "Lọc và xuất giao dịch",
+    "branch": "ht02-loc-giao-dich",
+    "sha": "b806fd40a5e7e18bc3151be3a787f6ee6b729732",
+    "added_tests": 25,
+    "migration": "Không",
+    "status": "Hoàn tất; PASS bản cuối"
+  },
+  {
+    "code": "HT03",
+    "type": "Hoàn thiện",
+    "name": "Hủy đơn, lịch sử, hoàn kho",
+    "branch": "ht03-huy-don",
+    "sha": "123101a85ea74091c2863e0a00f952477918d925",
+    "added_tests": 33,
+    "migration": "transactions/0007",
+    "status": "Hoàn tất; PASS bản cuối"
+  }
+]

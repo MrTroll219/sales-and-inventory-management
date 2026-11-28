@@ -1,0 +1,748 @@
+.dockerignore                                      |   15 +-
+ .env.example                                       |   24 +
+ .gitattributes                                     |    1 +
+ .github/workflows/ci.yml                           |    6 +-
+ .github/workflows/ci_tf.yml                        |   49 +-
+ .github/workflows/failed-deploy-scenario.yml       |    8 +-
+ .github/workflows/monitor.yml                      |   12 +-
+ .github/workflows/tests.yml                        |  144 ++
+ .gitignore                                         |    6 +
+ Dockerfile                                         |   25 +-
+ InventoryMS/settings.py                            |  129 +-
+ accounts/management/__init__.py                    |    1 +
+ accounts/management/commands/__init__.py           |    1 +
+ accounts/management/commands/check_profile_data.py |   32 +
+ ...file_email_alter_profile_first_name_and_more.py |   28 +
+ accounts/models.py                                 |    4 +-
+ .../accounts/customer_confirm_delete.html          |    2 +-
+ accounts/templates/accounts/customer_form.html     |    2 +-
+ accounts/templates/accounts/customer_list.html     |   12 +-
+ accounts/templates/accounts/login.html             |    6 +-
+ accounts/templates/accounts/logout.html            |    4 +-
+ accounts/templates/accounts/profile.html           |    4 +-
+ accounts/templates/accounts/register.html          |    6 +-
+ accounts/templates/accounts/staffcreate.html       |    2 +-
+ accounts/templates/accounts/staffdelete.html       |    2 +-
+ accounts/templates/accounts/stafflist.html         |   10 +-
+ accounts/templates/accounts/staffupdate.html       |    2 +-
+ .../templates/accounts/vendor_confirm_delete.html  |    2 +-
+ accounts/templates/accounts/vendor_form.html       |    4 +-
+ accounts/templates/accounts/vendor_list.html       |   12 +-
+ accounts/tests.py                                  |    1 -
+ accounts/tests/__init__.py                         |    1 +
+ accounts/tests/test_tu01_upgrade.py                |  120 ++
+ bills/migrations/0002_dp02_decimal_constraints.py  |   34 +
+ bills/migrations/0003_tu03_vnd.py                  |   38 +
+ bills/models.py                                    |   14 +-
+ bills/templates/bills/bill_list.html               |   25 +-
+ bills/templates/bills/billcreate.html              |    2 +-
+ bills/templates/bills/billdelete.html              |    2 +-
+ bills/templates/bills/billupdate.html              |    2 +-
+ bills/tests.py                                     |    1 -
+ bills/tests/__init__.py                            |    0
+ bills/tests/test_dp02_decimal.py                   |   18 +
+ bills/views.py                                     |    5 +-
+ docker-compose.yml                                 |   51 +
+ docs/DP01.md                                       |  226 +++
+ docs/DP02.md                                       |  202 +++
+ docs/HC01.md                                       |  166 +++
+ docs/HC02.md                                       |  155 ++
+ docs/HC03.md                                       |  178 +++
+ docs/HT01.md                                       |  144 ++
+ docs/HT02.md                                       |  159 ++
+ docs/HT03.md                                       |  207 +++
+ docs/KE_HOACH_MOI_TRUONG.md                        |  108 ++
+ docs/TRIEN_KHAI.md                                 |  247 ++++
+ docs/TU01.md                                       |  250 ++++
+ docs/TU02.md                                       |  107 ++
+ docs/TU03.md                                       |  239 +++
+ entrypoint.sh                                      |    9 +
+ evidence/P0_HUONG_DAN.md                           |   81 +
+ evidence/dp01/BANG_CHUNG.md                        |   51 +
+ evidence/dp01/TEST_CU_KHONG_DOI_KY_VONG.md         |   26 +
+ evidence/dp01/check.txt                            |    1 +
+ evidence/dp01/ci-final-run.json                    |    1 +
+ .../compose-health-persistence/build_up.txt        |  361 +++++
+ .../compose-health-persistence/compose_logs.txt    |   49 +
+ .../ci-final/compose-health-persistence/config.txt |    1 +
+ .../compose-health-persistence/default_image.txt   |    1 +
+ .../default_image_after.txt                        |    1 +
+ .../down_keep_volumes.txt                          |   14 +
+ .../compose-health-persistence/forwarded_https.txt |    1 +
+ .../compose-health-persistence/http_lab_up.txt     |   19 +
+ .../ci-final/compose-health-persistence/login.png  |  Bin 0 -> 279912 bytes
+ .../compose-health-persistence/login_http.txt      |    1 +
+ .../media_http_after.txt                           |    1 +
+ .../media_http_before.txt                          |    1 +
+ .../compose-health-persistence/nginx_config.txt    |    2 +
+ .../compose-health-persistence/persistence.txt     |    3 +
+ .../production_check_deploy.txt                    |    1 +
+ .../compose-health-persistence/ps_after.txt        |    4 +
+ .../compose-health-persistence/ps_before.txt       |    4 +
+ .../ci-final/compose-health-persistence/seed.txt   |    3 +
+ .../compose-health-persistence/seed_image.txt      |    1 +
+ .../ci-final/compose-health-persistence/ssl_up.txt |   19 +
+ .../compose-health-persistence/up_again.txt        |   24 +
+ .../dp01/ci-final/postgres16-python3.10/check.txt  |    1 +
+ .../ci-final/postgres16-python3.10/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.10/runtime.txt     |    3 +
+ .../dp01/ci-final/postgres16-python3.10/suite.txt  |  294 ++++
+ .../dp01/ci-final/postgres16-python3.12/check.txt  |    1 +
+ .../ci-final/postgres16-python3.12/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.12/runtime.txt     |    3 +
+ .../dp01/ci-final/postgres16-python3.12/suite.txt  |  294 ++++
+ evidence/dp01/dp02_constraints_unchanged.txt       |    1 +
+ evidence/dp01/initial_new_tests_failure.txt        |  318 ++++
+ evidence/dp01/legacy_assertions.json               |   54 +
+ evidence/dp01/legacy_calls_diff.patch              |   93 ++
+ evidence/dp01/migrations_check.txt                 |    1 +
+ evidence/dp01/sau_suite_sqlite.txt                 |  296 ++++
+ evidence/dp01/truoc_suite.txt                      |  243 +++
+ evidence/dp01/view_lines.txt                       |    2 +
+ evidence/dp02/BANG_CHUNG.md                        |   84 ++
+ evidence/dp02/check.txt                            |    1 +
+ evidence/dp02/ci-final-run.json                    |    1 +
+ .../compose-health-persistence/build_up.txt        |  359 +++++
+ .../compose-health-persistence/compose_logs.txt    |   49 +
+ .../ci-final/compose-health-persistence/config.txt |    1 +
+ .../compose-health-persistence/default_image.txt   |    1 +
+ .../default_image_after.txt                        |    1 +
+ .../down_keep_volumes.txt                          |   14 +
+ .../compose-health-persistence/forwarded_https.txt |    1 +
+ .../compose-health-persistence/http_lab_up.txt     |   19 +
+ .../ci-final/compose-health-persistence/login.png  |  Bin 0 -> 279912 bytes
+ .../compose-health-persistence/login_http.txt      |    1 +
+ .../media_http_after.txt                           |    1 +
+ .../media_http_before.txt                          |    1 +
+ .../compose-health-persistence/nginx_config.txt    |    2 +
+ .../compose-health-persistence/persistence.txt     |    3 +
+ .../production_check_deploy.txt                    |    1 +
+ .../compose-health-persistence/ps_after.txt        |    4 +
+ .../compose-health-persistence/ps_before.txt       |    4 +
+ .../ci-final/compose-health-persistence/seed.txt   |    3 +
+ .../compose-health-persistence/seed_image.txt      |    1 +
+ .../ci-final/compose-health-persistence/ssl_up.txt |   19 +
+ .../compose-health-persistence/up_again.txt        |   24 +
+ .../dp02/ci-final/postgres16-python3.10/check.txt  |    1 +
+ .../ci-final/postgres16-python3.10/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.10/runtime.txt     |    3 +
+ .../dp02/ci-final/postgres16-python3.10/suite.txt  |  241 +++
+ .../dp02/ci-final/postgres16-python3.12/check.txt  |    1 +
+ .../ci-final/postgres16-python3.12/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.12/runtime.txt     |    3 +
+ .../dp02/ci-final/postgres16-python3.12/suite.txt  |  241 +++
+ .../compose-health-persistence/build_up.txt        |  364 +++++
+ .../compose-health-persistence/compose_logs.txt    |   49 +
+ .../compose-health-persistence/config.txt          |    1 +
+ .../compose-health-persistence/default_image.txt   |    1 +
+ .../default_image_after.txt                        |    1 +
+ .../down_keep_volumes.txt                          |   14 +
+ .../compose-health-persistence/forwarded_https.txt |    1 +
+ .../compose-health-persistence/http_lab_up.txt     |   19 +
+ .../compose-health-persistence/login.png           |  Bin 0 -> 279912 bytes
+ .../compose-health-persistence/login_http.txt      |    1 +
+ .../media_http_after.txt                           |    1 +
+ .../media_http_before.txt                          |    1 +
+ .../compose-health-persistence/nginx_config.txt    |    2 +
+ .../compose-health-persistence/persistence.txt     |    3 +
+ .../production_check_deploy.txt                    |    1 +
+ .../compose-health-persistence/ps_after.txt        |    4 +
+ .../compose-health-persistence/ps_before.txt       |    4 +
+ .../ci-initial/compose-health-persistence/seed.txt |    3 +
+ .../compose-health-persistence/seed_image.txt      |    1 +
+ .../compose-health-persistence/ssl_up.txt          |   19 +
+ .../compose-health-persistence/up_again.txt        |   24 +
+ .../ci-initial/postgres16-python3.10/check.txt     |    1 +
+ .../postgres16-python3.10/migrations.txt           |    1 +
+ .../ci-initial/postgres16-python3.10/runtime.txt   |    3 +
+ .../ci-initial/postgres16-python3.10/suite.txt     |  284 ++++
+ .../ci-initial/postgres16-python3.12/check.txt     |    1 +
+ .../postgres16-python3.12/migrations.txt           |    1 +
+ .../ci-initial/postgres16-python3.12/runtime.txt   |    3 +
+ .../ci-initial/postgres16-python3.12/suite.txt     |  293 ++++
+ evidence/dp02/ci_initial_failed.txt                |  937 ++++++++++++
+ evidence/dp02/coverage_summary.json                |   59 +
+ evidence/dp02/initial_fixture_failure.txt          |  116 ++
+ evidence/dp02/migrations_check.txt                 |    1 +
+ evidence/dp02/sau_coverage.json                    |    1 +
+ evidence/dp02/sau_coverage.txt                     |   42 +
+ evidence/dp02/sau_suite_sqlite.txt                 |  243 +++
+ evidence/dp02/scope_check.txt                      |    3 +
+ evidence/dp02/truoc_coverage.json                  |    1 +
+ evidence/dp02/truoc_coverage.txt                   |   39 +
+ evidence/dp02/truoc_suite.txt                      |  173 +++
+ evidence/hc01/check.txt                            |    1 +
+ evidence/hc01/migrations.txt                       |    5 +
+ evidence/hc01/regression.txt                       |  141 ++
+ evidence/hc01/sau/01_ton_ban_dau.png               |  Bin 0 -> 42514 bytes
+ evidence/hc01/sau/02_ton_sau_tao.png               |  Bin 0 -> 42730 bytes
+ evidence/hc01/sau/03_ton_sau_sua_mo_ta.png         |  Bin 0 -> 43122 bytes
+ evidence/hc01/sau/04_ton_sau_tang.png              |  Bin 0 -> 42926 bytes
+ evidence/hc01/sau/05_ton_sau_giam.png              |  Bin 0 -> 42774 bytes
+ evidence/hc01/sau/06_tu_choi_am_kho.png            |  Bin 0 -> 46920 bytes
+ evidence/hc01/sau/07_kho_khong_doi_sau_tu_choi.png |  Bin 0 -> 42810 bytes
+ evidence/hc01/sau/migrate.txt                      |   28 +
+ evidence/hc01/sau/observations.json                |  118 ++
+ evidence/hc01/sau/server.txt                       |   72 +
+ evidence/hc01/suite.txt                            |  157 ++
+ evidence/hc01/targeted.txt                         |   61 +
+ evidence/hc02/check.txt                            |    1 +
+ evidence/hc02/hc01.txt                             |   61 +
+ evidence/hc02/migrations.txt                       |    5 +
+ evidence/hc02/regression.txt                       |  107 ++
+ evidence/hc02/sau/01_xuat_excel_thanh_cong.png     |  Bin 0 -> 51424 bytes
+ evidence/hc02/sau/02_form_hien_dung_ngay_giao.png  |  Bin 0 -> 43180 bytes
+ evidence/hc02/sau/03_sau_luu_ngay_giao_van_con.png |  Bin 0 -> 42257 bytes
+ evidence/hc02/sau/BANG_CHUNG_SAU.md                |   27 +
+ evidence/hc02/sau/migrate.txt                      |   28 +
+ evidence/hc02/sau/observations.json                |  114 ++
+ evidence/hc02/sau/purchases.xlsx                   |  Bin 0 -> 5349 bytes
+ evidence/hc02/sau/server.txt                       |   39 +
+ evidence/hc02/suite.txt                            |  150 ++
+ evidence/hc02/targeted.txt                         |   72 +
+ evidence/hc03/BANG_CHUNG_SAU.md                    |   21 +
+ evidence/hc03/check.txt                            |    1 +
+ evidence/hc03/hc01.txt                             |   61 +
+ evidence/hc03/hc02.txt                             |   72 +
+ evidence/hc03/migrations.txt                       |    5 +
+ evidence/hc03/regression.txt                       |   60 +
+ evidence/hc03/sau/07_hc03_trang_tao_don.png        |  Bin 0 -> 52688 bytes
+ evidence/hc03/sau/08_hc03_tong_tien_gia_400.png    |  Bin 0 -> 58706 bytes
+ evidence/hc03/sau/09_hc03_chi_tiet_don_dung.png    |  Bin 0 -> 157720 bytes
+ evidence/hc03/sau/10_hc03_chua_dang_nhap_401.png   |  Bin 0 -> 222661 bytes
+ evidence/hc03/sau/11_hc03_so_luong_am_400.png      |  Bin 0 -> 58694 bytes
+ evidence/hc03/sau/migrate.txt                      |   28 +
+ evidence/hc03/sau/observations.json                |  137 ++
+ evidence/hc03/sau/server.txt                       |   39 +
+ evidence/hc03/suite.txt                            |  147 ++
+ evidence/hc03/targeted.txt                         |   89 ++
+ evidence/ht01/BANG_CHUNG.md                        |   20 +
+ evidence/ht01/capture.py                           |  102 ++
+ evidence/ht01/check.txt                            |    1 +
+ evidence/ht01/ci-final-run.json                    |    1 +
+ .../compose-health-persistence/build_up.txt        |  362 +++++
+ .../compose-health-persistence/compose_logs.txt    |   49 +
+ .../ci-final/compose-health-persistence/config.txt |    1 +
+ .../compose-health-persistence/default_image.txt   |    1 +
+ .../default_image_after.txt                        |    1 +
+ .../down_keep_volumes.txt                          |   14 +
+ .../compose-health-persistence/forwarded_https.txt |    1 +
+ .../compose-health-persistence/http_lab_up.txt     |   19 +
+ .../ci-final/compose-health-persistence/login.png  |  Bin 0 -> 280212 bytes
+ .../compose-health-persistence/login_http.txt      |    1 +
+ .../media_http_after.txt                           |    1 +
+ .../media_http_before.txt                          |    1 +
+ .../compose-health-persistence/nginx_config.txt    |    2 +
+ .../compose-health-persistence/persistence.txt     |    3 +
+ .../production_check_deploy.txt                    |    1 +
+ .../compose-health-persistence/ps_after.txt        |    4 +
+ .../compose-health-persistence/ps_before.txt       |    4 +
+ .../ci-final/compose-health-persistence/seed.txt   |    3 +
+ .../compose-health-persistence/seed_image.txt      |    1 +
+ .../ci-final/compose-health-persistence/ssl_up.txt |   19 +
+ .../compose-health-persistence/up_again.txt        |   24 +
+ .../ht01/ci-final/postgres16-python3.10/check.txt  |    1 +
+ .../ci-final/postgres16-python3.10/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.10/runtime.txt     |    3 +
+ .../ht01/ci-final/postgres16-python3.10/suite.txt  |  376 +++++
+ .../ht01/ci-final/postgres16-python3.12/check.txt  |    1 +
+ .../ci-final/postgres16-python3.12/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.12/runtime.txt     |    3 +
+ .../ht01/ci-final/postgres16-python3.12/suite.txt  |  376 +++++
+ evidence/ht01/ci-final/sqlite-python3.10/check.txt |    1 +
+ .../ht01/ci-final/sqlite-python3.10/migrations.txt |    1 +
+ .../ht01/ci-final/sqlite-python3.10/runtime.txt    |    3 +
+ evidence/ht01/ci-final/sqlite-python3.10/suite.txt |  376 +++++
+ evidence/ht01/ci-final/sqlite-python3.12/check.txt |    1 +
+ .../ht01/ci-final/sqlite-python3.12/migrations.txt |    1 +
+ .../ht01/ci-final/sqlite-python3.12/runtime.txt    |    3 +
+ evidence/ht01/ci-final/sqlite-python3.12/suite.txt |  376 +++++
+ evidence/ht01/diff_stat.txt                        |   17 +
+ evidence/ht01/migrations_check.txt                 |    1 +
+ evidence/ht01/old_168_suite.txt                    |  336 +++++
+ evidence/ht01/sau/capture.json                     |   11 +
+ evidence/ht01/sau/collectstatic.txt                |    2 +
+ evidence/ht01/sau/dashboard.png                    |  Bin 0 -> 39278 bytes
+ evidence/ht01/sau/dashboard_card.png               |  Bin 0 -> 2317 bytes
+ evidence/ht01/sau/excel_cells.json                 |  159 ++
+ evidence/ht01/sau/low_stock.xlsx                   |  Bin 0 -> 5923 bytes
+ evidence/ht01/sau/low_stock_list.png               |  Bin 0 -> 45006 bytes
+ evidence/ht01/sau/low_stock_list.txt               |   27 +
+ evidence/ht01/sau/migrate.txt                      |   39 +
+ evidence/ht01/sau/server.txt                       |    8 +
+ evidence/ht01/sau_suite_sqlite.txt                 |  378 +++++
+ evidence/ht01/scope_checks.txt                     |   32 +
+ evidence/ht01/test_cases.md                        |   27 +
+ evidence/ht02/BANG_CHUNG.md                        |   26 +
+ evidence/ht02/capture.py                           |  118 ++
+ evidence/ht02/check.txt                            |    1 +
+ evidence/ht02/ci-final-run.json                    |    1 +
+ .../compose-health-persistence/build_up.txt        |  352 +++++
+ .../compose-health-persistence/compose_logs.txt    |   49 +
+ .../ci-final/compose-health-persistence/config.txt |    1 +
+ .../compose-health-persistence/default_image.txt   |    1 +
+ .../default_image_after.txt                        |    1 +
+ .../down_keep_volumes.txt                          |   14 +
+ .../compose-health-persistence/forwarded_https.txt |    1 +
+ .../compose-health-persistence/http_lab_up.txt     |   19 +
+ .../ci-final/compose-health-persistence/login.png  |  Bin 0 -> 280212 bytes
+ .../compose-health-persistence/login_http.txt      |    1 +
+ .../media_http_after.txt                           |    1 +
+ .../media_http_before.txt                          |    1 +
+ .../compose-health-persistence/nginx_config.txt    |    2 +
+ .../compose-health-persistence/persistence.txt     |    3 +
+ .../production_check_deploy.txt                    |    1 +
+ .../compose-health-persistence/ps_after.txt        |    4 +
+ .../compose-health-persistence/ps_before.txt       |    4 +
+ .../ci-final/compose-health-persistence/seed.txt   |    3 +
+ .../compose-health-persistence/seed_image.txt      |    1 +
+ .../ci-final/compose-health-persistence/ssl_up.txt |   19 +
+ .../compose-health-persistence/up_again.txt        |   24 +
+ .../ht02/ci-final/postgres16-python3.10/check.txt  |    1 +
+ .../ci-final/postgres16-python3.10/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.10/runtime.txt     |    3 +
+ .../ht02/ci-final/postgres16-python3.10/suite.txt  |  427 ++++++
+ .../ht02/ci-final/postgres16-python3.12/check.txt  |    1 +
+ .../ci-final/postgres16-python3.12/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.12/runtime.txt     |    3 +
+ .../ht02/ci-final/postgres16-python3.12/suite.txt  |  427 ++++++
+ evidence/ht02/ci-final/sqlite-python3.10/check.txt |    1 +
+ .../ht02/ci-final/sqlite-python3.10/migrations.txt |    1 +
+ .../ht02/ci-final/sqlite-python3.10/runtime.txt    |    3 +
+ evidence/ht02/ci-final/sqlite-python3.10/suite.txt |  427 ++++++
+ evidence/ht02/ci-final/sqlite-python3.12/check.txt |    1 +
+ .../ht02/ci-final/sqlite-python3.12/migrations.txt |    1 +
+ .../ht02/ci-final/sqlite-python3.12/runtime.txt    |    3 +
+ evidence/ht02/ci-final/sqlite-python3.12/suite.txt |  427 ++++++
+ evidence/ht02/diff_stat.txt                        |    9 +
+ evidence/ht02/migrations_check.txt                 |    1 +
+ evidence/ht02/new_tests.txt                        |  107 ++
+ evidence/ht02/new_tests_first.txt                  |  131 ++
+ evidence/ht02/old_189_suite.txt                    |  378 +++++
+ evidence/ht02/sau/capture.json                     |   21 +
+ evidence/ht02/sau/collectstatic.txt                |    2 +
+ evidence/ht02/sau/excel_cells.json                 |  294 ++++
+ evidence/ht02/sau/migrate.txt                      |   39 +
+ evidence/ht02/sau/purchases.xlsx                   |  Bin 0 -> 5379 bytes
+ evidence/ht02/sau/purchases_list.png               |  Bin 0 -> 43433 bytes
+ evidence/ht02/sau/purchases_list.txt               |   41 +
+ evidence/ht02/sau/sales.xlsx                       |  Bin 0 -> 5338 bytes
+ evidence/ht02/sau/sales_list.png                   |  Bin 0 -> 46759 bytes
+ evidence/ht02/sau/sales_list.txt                   |   37 +
+ evidence/ht02/sau/server.txt                       |    9 +
+ evidence/ht02/sau_suite_sqlite.txt                 |  429 ++++++
+ evidence/ht02/scope_checks.txt                     |   66 +
+ evidence/ht02/test_cases.md                        |   31 +
+ evidence/ht02/truoc/capture.json                   |   21 +
+ evidence/ht02/truoc/collectstatic.txt              |    2 +
+ evidence/ht02/truoc/excel_cells.json               |  579 ++++++++
+ evidence/ht02/truoc/migrate.txt                    |   39 +
+ evidence/ht02/truoc/purchases.xlsx                 |  Bin 0 -> 5519 bytes
+ evidence/ht02/truoc/purchases_list.png             |  Bin 0 -> 40281 bytes
+ evidence/ht02/truoc/purchases_list.txt             |   26 +
+ evidence/ht02/truoc/sales.xlsx                     |  Bin 0 -> 5476 bytes
+ evidence/ht02/truoc/sales_list.png                 |  Bin 0 -> 45551 bytes
+ evidence/ht02/truoc/sales_list.txt                 |   26 +
+ evidence/ht02/truoc/server.txt                     |    9 +
+ evidence/ht03/BANG_CHUNG.md                        |   23 +
+ evidence/ht03/capture.py                           |  140 ++
+ evidence/ht03/check.txt                            |    1 +
+ evidence/ht03/ci-final-run.json                    |    1 +
+ .../compose-health-persistence/build_up.txt        |  367 +++++
+ .../compose-health-persistence/compose_logs.txt    |   49 +
+ .../ci-final/compose-health-persistence/config.txt |    1 +
+ .../compose-health-persistence/default_image.txt   |    1 +
+ .../default_image_after.txt                        |    1 +
+ .../down_keep_volumes.txt                          |   14 +
+ .../compose-health-persistence/forwarded_https.txt |    1 +
+ .../compose-health-persistence/http_lab_up.txt     |   19 +
+ .../ci-final/compose-health-persistence/login.png  |  Bin 0 -> 280212 bytes
+ .../compose-health-persistence/login_http.txt      |    1 +
+ .../media_http_after.txt                           |    1 +
+ .../media_http_before.txt                          |    1 +
+ .../compose-health-persistence/nginx_config.txt    |    2 +
+ .../compose-health-persistence/persistence.txt     |    3 +
+ .../production_check_deploy.txt                    |    1 +
+ .../compose-health-persistence/ps_after.txt        |    4 +
+ .../compose-health-persistence/ps_before.txt       |    4 +
+ .../ci-final/compose-health-persistence/seed.txt   |    3 +
+ .../compose-health-persistence/seed_image.txt      |    1 +
+ .../ci-final/compose-health-persistence/ssl_up.txt |   19 +
+ .../compose-health-persistence/up_again.txt        |   24 +
+ .../ht03/ci-final/postgres16-python3.10/check.txt  |    1 +
+ .../ci-final/postgres16-python3.10/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.10/runtime.txt     |    3 +
+ .../ht03/ci-final/postgres16-python3.10/suite.txt  |  503 +++++++
+ .../ht03/ci-final/postgres16-python3.12/check.txt  |    1 +
+ .../ci-final/postgres16-python3.12/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.12/runtime.txt     |    3 +
+ .../ht03/ci-final/postgres16-python3.12/suite.txt  |  503 +++++++
+ evidence/ht03/ci-final/sqlite-python3.10/check.txt |    1 +
+ .../ht03/ci-final/sqlite-python3.10/migrations.txt |    1 +
+ .../ht03/ci-final/sqlite-python3.10/runtime.txt    |    3 +
+ evidence/ht03/ci-final/sqlite-python3.10/suite.txt |  502 +++++++
+ evidence/ht03/ci-final/sqlite-python3.12/check.txt |    1 +
+ .../ht03/ci-final/sqlite-python3.12/migrations.txt |    1 +
+ .../ht03/ci-final/sqlite-python3.12/runtime.txt    |    3 +
+ evidence/ht03/ci-final/sqlite-python3.12/suite.txt |  502 +++++++
+ evidence/ht03/diff_stat.txt                        |   22 +
+ evidence/ht03/migrations_check.txt                 |    1 +
+ evidence/ht03/new_tests_first.txt                  |  192 +++
+ evidence/ht03/old_214_after.txt                    |  430 ++++++
+ evidence/ht03/sau/cancel_form.png                  |  Bin 0 -> 32716 bytes
+ evidence/ht03/sau/cancelled_sales.xlsx             |  Bin 0 -> 5303 bytes
+ evidence/ht03/sau/capture.json                     |    8 +
+ evidence/ht03/sau/collectstatic.txt                |    2 +
+ evidence/ht03/sau/excel_cells.json                 |  102 ++
+ evidence/ht03/sau/migrate.txt                      |   40 +
+ evidence/ht03/sau/reconcile_stock.txt              |   21 +
+ evidence/ht03/sau/sale_detail_before_cancel.png    |  Bin 0 -> 43472 bytes
+ evidence/ht03/sau/sale_detail_before_cancel.txt    |   65 +
+ evidence/ht03/sau/sale_detail_cancelled.png        |  Bin 0 -> 50331 bytes
+ evidence/ht03/sau/sale_detail_cancelled.txt        |   72 +
+ evidence/ht03/sau/sale_list_before_cancel.png      |  Bin 0 -> 47603 bytes
+ evidence/ht03/sau/sale_list_cancelled.png          |  Bin 0 -> 47515 bytes
+ evidence/ht03/sau/server.txt                       |   21 +
+ evidence/ht03/sau/snapshot.json                    |   44 +
+ evidence/ht03/sau/snapshot_raw.txt                 |    3 +
+ evidence/ht03/sau_suite_sqlite.txt                 |  504 +++++++
+ evidence/ht03/scope_checks.txt                     |   66 +
+ evidence/ht03/test_cases.md                        |   37 +
+ evidence/ht03/truoc/capture.json                   |    8 +
+ evidence/ht03/truoc/collectstatic.txt              |    2 +
+ evidence/ht03/truoc/migrate.txt                    |   39 +
+ evidence/ht03/truoc/sale_detail_before_cancel.png  |  Bin 0 -> 40743 bytes
+ evidence/ht03/truoc/sale_detail_before_cancel.txt  |   61 +
+ evidence/ht03/truoc/sale_list_before_cancel.png    |  Bin 0 -> 43909 bytes
+ evidence/ht03/truoc/server.txt                     |    7 +
+ evidence/ht03/truoc/snapshot.json                  |   17 +
+ evidence/ht03/truoc/snapshot_raw.txt               |    3 +
+ evidence/ht03/truoc_214_suite.txt                  |  429 ++++++
+ evidence/p0_check.txt                              |    1 +
+ evidence/p0_dependencies.txt                       |   29 +
+ evidence/p0_migrations.txt                         |    5 +
+ evidence/p0_suite.txt                              |  126 ++
+ evidence/p0_truoc.txt                              |  165 +++
+ evidence/p0b_capture.txt                           |   12 +
+ evidence/p0b_check.txt                             |    1 +
+ evidence/p0b_migrations.txt                        |    5 +
+ evidence/p0b_regression.txt                        |  165 +++
+ evidence/p0b_suite.txt                             |  126 ++
+ evidence/truoc/01_hc01_ton_ban_dau.png             |  Bin 0 -> 42397 bytes
+ evidence/truoc/02_hc01_tao_phieu_nhap.png          |  Bin 0 -> 42494 bytes
+ evidence/truoc/03_hc01_ton_sau_tao.png             |  Bin 0 -> 42455 bytes
+ evidence/truoc/04_hc01_ton_sau_sua_mo_ta.png       |  Bin 0 -> 42550 bytes
+ evidence/truoc/05_hc02_phieu_khong_ngay_giao.png   |  Bin 0 -> 40918 bytes
+ evidence/truoc/06_hc02_loi_500_xuat_excel.png      |  Bin 0 -> 778261 bytes
+ evidence/truoc/07_hc03_trang_tao_don.png           |  Bin 0 -> 52632 bytes
+ evidence/truoc/08_hc03_phan_hoi_success.png        |  Bin 0 -> 59536 bytes
+ evidence/truoc/09_hc03_chi_tiet_don_sai.png        |  Bin 0 -> 155971 bytes
+ evidence/truoc/10_hc03_chua_dang_nhap.png          |  Bin 0 -> 59587 bytes
+ evidence/truoc/BANG_CHUNG_TRUOC.md                 |   32 +
+ evidence/truoc/SHA256.json                         |   42 +
+ evidence/truoc/observations.json                   |  380 +++++
+ evidence/tu01/BANG_CHUNG_SAU.md                    |   24 +
+ evidence/tu01/check.txt                            |    1 +
+ evidence/tu01/check_deploy.txt                     |   11 +
+ evidence/tu01/dependencies.md                      |   19 +
+ evidence/tu01/migration/demo_51_business.txt       |    0
+ evidence/tu01/migration/demo_51_migrate.txt        |   28 +
+ evidence/tu01/migration/demo_51_seed.txt           |    2 +
+ evidence/tu01/migration/demo_52_migrate.txt        |    4 +
+ evidence/tu01/migration/demo_after.txt             |    3 +
+ evidence/tu01/migration/demo_before.txt            |    1 +
+ evidence/tu01/migration/demo_preflight.txt         |    6 +
+ evidence/tu01/migration/empty_52_migrate.txt       |   29 +
+ evidence/tu01/migration/empty_after.txt            |    3 +
+ evidence/tu01/migration/empty_preflight.txt        |    6 +
+ evidence/tu01/migration/ui_52_business.txt         |    1 +
+ evidence/tu01/migration/ui_52_seed.txt             |    4 +
+ evidence/tu01/migration/ui_collectstatic.txt       |    2 +
+ evidence/tu01/migration_summary.json               |   29 +
+ evidence/tu01/migrations_check.txt                 |    1 +
+ evidence/tu01/new_tests.txt                        |   50 +
+ evidence/tu01/pip_check.txt                        |    1 +
+ evidence/tu01/pypi_version.json                    |    6 +
+ evidence/tu01/python310.txt                        |    5 +
+ evidence/tu01/python312.txt                        |    1 +
+ evidence/tu01/sau/01_dashboard.png                 |  Bin 0 -> 64901 bytes
+ evidence/tu01/sau/02_tao_don_ban.png               |  Bin 0 -> 52446 bytes
+ evidence/tu01/sau/03_danh_sach_phieu_nhap.png      |  Bin 0 -> 39308 bytes
+ evidence/tu01/sau/observations.json                |   25 +
+ evidence/tu01/sau/server.txt                       |   27 +
+ evidence/tu01/sau/server_recapture.txt             |   27 +
+ evidence/tu01/sau_collectstatic.txt                |    2 +
+ evidence/tu01/sau_dependencies.txt                 |   31 +
+ evidence/tu01/sau_manifest.json                    |   12 +
+ evidence/tu01/sau_strict_initial.txt               |  558 +++++++
+ evidence/tu01/sau_strict_suite.txt                 |  152 ++
+ evidence/tu01/truoc_collectstatic.txt              |    2 +
+ evidence/tu01/truoc_dependencies.txt               |   31 +
+ evidence/tu01/truoc_manifest.txt                   |    1 +
+ evidence/tu01/truoc_suite.txt                      |  147 ++
+ evidence/tu02/actionlint.txt                       |    1 +
+ evidence/tu02/actionlint_initial.txt               |    4 +
+ evidence/tu02/bo-sung/BANG_CHUNG.md                |   91 ++
+ evidence/tu02/bo-sung/check.txt                    |    1 +
+ evidence/tu02/bo-sung/ci-run.json                  |    1 +
+ .../ci/compose-health-persistence/build_up.txt     |  369 +++++
+ .../ci/compose-health-persistence/compose_logs.txt |   49 +
+ .../ci/compose-health-persistence/config.txt       |    1 +
+ .../compose-health-persistence/default_image.txt   |    1 +
+ .../default_image_after.txt                        |    1 +
+ .../down_keep_volumes.txt                          |   14 +
+ .../compose-health-persistence/forwarded_https.txt |    1 +
+ .../ci/compose-health-persistence/http_lab_up.txt  |   19 +
+ .../ci/compose-health-persistence/login.png        |  Bin 0 -> 279912 bytes
+ .../ci/compose-health-persistence/login_http.txt   |    1 +
+ .../media_http_after.txt                           |    1 +
+ .../media_http_before.txt                          |    1 +
+ .../ci/compose-health-persistence/nginx_config.txt |    2 +
+ .../ci/compose-health-persistence/persistence.txt  |    3 +
+ .../production_check_deploy.txt                    |    1 +
+ .../ci/compose-health-persistence/ps_after.txt     |    4 +
+ .../ci/compose-health-persistence/ps_before.txt    |    4 +
+ .../bo-sung/ci/compose-health-persistence/seed.txt |    3 +
+ .../ci/compose-health-persistence/seed_image.txt   |    1 +
+ .../ci/compose-health-persistence/ssl_up.txt       |   19 +
+ .../ci/compose-health-persistence/up_again.txt     |   24 +
+ .../bo-sung/ci/postgres16-python3.10/check.txt     |    1 +
+ .../ci/postgres16-python3.10/migrations.txt        |    1 +
+ .../bo-sung/ci/postgres16-python3.10/runtime.txt   |    3 +
+ .../bo-sung/ci/postgres16-python3.10/suite.txt     |  171 +++
+ .../bo-sung/ci/postgres16-python3.12/check.txt     |    1 +
+ .../ci/postgres16-python3.12/migrations.txt        |    1 +
+ .../bo-sung/ci/postgres16-python3.12/runtime.txt   |    3 +
+ .../bo-sung/ci/postgres16-python3.12/suite.txt     |  171 +++
+ evidence/tu02/bo-sung/migrations.txt               |    1 +
+ evidence/tu02/bo-sung/sqlite_suite.txt             |  173 +++
+ evidence/tu02/check.txt                            |    1 +
+ evidence/tu02/ci-final-run.json                    |    1 +
+ .../compose-health-persistence/build_up.txt        |  284 ++++
+ .../compose-health-persistence/compose_logs.txt    |   28 +
+ .../ci-final/compose-health-persistence/config.txt |    1 +
+ .../down_keep_volumes.txt                          |   10 +
+ .../ci-final/compose-health-persistence/login.png  |  Bin 0 -> 279912 bytes
+ .../compose-health-persistence/login_http.txt      |    1 +
+ .../compose-health-persistence/persistence.txt     |    3 +
+ .../compose-health-persistence/ps_after.txt        |    3 +
+ .../compose-health-persistence/ps_before.txt       |    3 +
+ .../ci-final/compose-health-persistence/seed.txt   |    3 +
+ .../compose-health-persistence/up_again.txt        |   16 +
+ .../tu02/ci-final/postgres16-python3.10/check.txt  |    1 +
+ .../ci-final/postgres16-python3.10/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.10/runtime.txt     |    3 +
+ .../tu02/ci-final/postgres16-python3.10/suite.txt  |  168 +++
+ .../tu02/ci-final/postgres16-python3.12/check.txt  |    1 +
+ .../ci-final/postgres16-python3.12/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.12/runtime.txt     |    3 +
+ .../tu02/ci-final/postgres16-python3.12/suite.txt  |  168 +++
+ .../compose-health-persistence/build_up.txt        |  284 ++++
+ .../compose-health-persistence/compose_logs.txt    |   28 +
+ .../compose-health-persistence/config.txt          |    1 +
+ .../down_keep_volumes.txt                          |   10 +
+ .../compose-health-persistence/login.png           |  Bin 0 -> 279912 bytes
+ .../compose-health-persistence/login_http.txt      |    1 +
+ .../compose-health-persistence/persistence.txt     |    3 +
+ .../compose-health-persistence/ps_after.txt        |    3 +
+ .../compose-health-persistence/ps_before.txt       |    3 +
+ .../ci-initial/compose-health-persistence/seed.txt |    3 +
+ .../compose-health-persistence/up_again.txt        |   16 +
+ .../ci-initial/postgres16-python3.10/check.txt     |    1 +
+ .../postgres16-python3.10/migrations.txt           |    1 +
+ .../ci-initial/postgres16-python3.10/runtime.txt   |    3 +
+ .../ci-initial/postgres16-python3.10/suite.txt     |  215 +++
+ .../ci-initial/postgres16-python3.12/check.txt     |    1 +
+ .../postgres16-python3.12/migrations.txt           |    1 +
+ .../ci-initial/postgres16-python3.12/runtime.txt   |    3 +
+ .../ci-initial/postgres16-python3.12/suite.txt     |  227 +++
+ evidence/tu02/ci_initial_failed.txt                | 1562 ++++++++++++++++++++
+ evidence/tu02/local_container_status.txt           |    1 +
+ evidence/tu02/migrations_check.txt                 |    1 +
+ evidence/tu02/production_check_deploy.txt          |    1 +
+ evidence/tu02/sqlite_suite.txt                     |  170 +++
+ evidence/tu02/static_before_tests.txt              |    1 +
+ evidence/tu02/yaml_check.txt                       |    6 +
+ evidence/tu03/BANG_CHUNG.md                        |   60 +
+ evidence/tu03/approved_test_scope.json             |   62 +
+ evidence/tu03/check.txt                            |    1 +
+ evidence/tu03/ci-final-run.json                    |    1 +
+ .../compose-health-persistence/build_up.txt        |  356 +++++
+ .../compose-health-persistence/compose_logs.txt    |   49 +
+ .../ci-final/compose-health-persistence/config.txt |    1 +
+ .../compose-health-persistence/default_image.txt   |    1 +
+ .../default_image_after.txt                        |    1 +
+ .../down_keep_volumes.txt                          |   14 +
+ .../compose-health-persistence/forwarded_https.txt |    1 +
+ .../compose-health-persistence/http_lab_up.txt     |   19 +
+ .../ci-final/compose-health-persistence/login.png  |  Bin 0 -> 280212 bytes
+ .../compose-health-persistence/login_http.txt      |    1 +
+ .../media_http_after.txt                           |    1 +
+ .../media_http_before.txt                          |    1 +
+ .../compose-health-persistence/nginx_config.txt    |    2 +
+ .../compose-health-persistence/persistence.txt     |    3 +
+ .../production_check_deploy.txt                    |    1 +
+ .../compose-health-persistence/ps_after.txt        |    4 +
+ .../compose-health-persistence/ps_before.txt       |    4 +
+ .../ci-final/compose-health-persistence/seed.txt   |    3 +
+ .../compose-health-persistence/seed_image.txt      |    1 +
+ .../ci-final/compose-health-persistence/ssl_up.txt |   19 +
+ .../compose-health-persistence/up_again.txt        |   24 +
+ .../tu03/ci-final/postgres16-python3.10/check.txt  |    1 +
+ .../ci-final/postgres16-python3.10/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.10/runtime.txt     |    3 +
+ .../tu03/ci-final/postgres16-python3.10/suite.txt  |  333 +++++
+ .../tu03/ci-final/postgres16-python3.12/check.txt  |    1 +
+ .../ci-final/postgres16-python3.12/migrations.txt  |    1 +
+ .../ci-final/postgres16-python3.12/runtime.txt     |    3 +
+ .../tu03/ci-final/postgres16-python3.12/suite.txt  |  333 +++++
+ evidence/tu03/ci-final/sqlite-python3.10/check.txt |    1 +
+ .../tu03/ci-final/sqlite-python3.10/migrations.txt |    1 +
+ .../tu03/ci-final/sqlite-python3.10/runtime.txt    |    3 +
+ evidence/tu03/ci-final/sqlite-python3.10/suite.txt |  333 +++++
+ evidence/tu03/ci-final/sqlite-python3.12/check.txt |    1 +
+ .../tu03/ci-final/sqlite-python3.12/migrations.txt |    1 +
+ .../tu03/ci-final/sqlite-python3.12/runtime.txt    |    3 +
+ evidence/tu03/ci-final/sqlite-python3.12/suite.txt |  333 +++++
+ evidence/tu03/legacy_test_changes.patch            |   93 ++
+ evidence/tu03/migrations_check.txt                 |    1 +
+ evidence/tu03/sau/collectstatic.txt                |    2 +
+ evidence/tu03/sau/excel_cells.json                 |  199 +++
+ evidence/tu03/sau/migrate.txt                      |   38 +
+ evidence/tu03/sau/purchases.xlsx                   |  Bin 0 -> 5343 bytes
+ evidence/tu03/sau/sale_detail.png                  |  Bin 0 -> 44590 bytes
+ evidence/tu03/sau/sale_detail.txt                  |   61 +
+ evidence/tu03/sau/sales.xlsx                       |  Bin 0 -> 5287 bytes
+ evidence/tu03/sau/server.txt                       |    6 +
+ evidence/tu03/sau_suite_sqlite.txt                 |  335 +++++
+ evidence/tu03/scope_checks.txt                     |    6 +
+ evidence/tu03/template_currency_scan.txt           |    1 +
+ evidence/tu03/truoc/collectstatic.txt              |    2 +
+ evidence/tu03/truoc/excel_cells.json               |  199 +++
+ evidence/tu03/truoc/migrate.txt                    |   34 +
+ evidence/tu03/truoc/purchases.xlsx                 |  Bin 0 -> 5274 bytes
+ evidence/tu03/truoc/sale_detail.png                |  Bin 0 -> 44406 bytes
+ evidence/tu03/truoc/sale_detail.txt                |   61 +
+ evidence/tu03/truoc/sales.xlsx                     |  Bin 0 -> 5202 bytes
+ evidence/tu03/truoc/server.txt                     |    6 +
+ .../migrations/0002_dp02_decimal_constraints.py    |   76 +
+ invoice/migrations/0003_tu03_vnd.py                |   74 +
+ invoice/models.py                                  |   58 +-
+ invoice/templates/invoice/invoicecreate.html       |    2 +-
+ invoice/templates/invoice/invoicedelete.html       |    2 +-
+ invoice/templates/invoice/invoicedetail.html       |   23 +-
+ invoice/templates/invoice/invoicelist.html         |   27 +-
+ invoice/templates/invoice/invoiceupdate.html       |    2 +-
+ invoice/tests.py                                   |    3 -
+ invoice/tests/__init__.py                          |    0
+ invoice/tests/test_dp02_decimal.py                 |   49 +
+ invoice/views.py                                   |    5 +-
+ nginx/default.conf                                 |   32 +
+ requirements.txt                                   |    2 +-
+ scripts/capture_tu03_evidence.py                   |  106 ++
+ scripts/chay_p0b.ps1                               |   36 +
+ scripts/chup_bang_chung_truoc.py                   |  223 +++
+ scripts/chup_hc01_sau.py                           |  153 ++
+ scripts/chup_hc02_sau.py                           |  160 ++
+ scripts/chup_hc03_sau.py                           |  192 +++
+ scripts/ci_compose_smoke.py                        |  104 ++
+ scripts/container_healthcheck.py                   |   18 +
+ scripts/hc03_console.js                            |   36 +
+ scripts/kiem_tra_tu01.py                           |  177 +++
+ scripts/p0b_seed.py                                |   21 +
+ scripts/seed_default_media.py                      |   20 +
+ static/css/style.css                               |   12 +
+ static/images/profile_pics/default.jpg             |  Bin 0 -> 2902 bytes
+ store/admin.py                                     |    7 +
+ store/form_labels.py                               |   34 +
+ store/forms.py                                     |   34 +-
+ store/migrations/0002_dp02_decimal_constraints.py  |   43 +
+ store/migrations/0003_tu03_vnd.py                  |   38 +
+ store/migrations/0004_ht01_min_stock_level.py      |   19 +
+ store/models.py                                    |   37 +-
+ store/money.py                                     |   49 +
+ store/templates/store/base.html                    |    2 +-
+ store/templates/store/category_confirm_delete.html |    2 +-
+ store/templates/store/category_detail.html         |    4 +-
+ store/templates/store/category_form.html           |    2 +-
+ store/templates/store/category_list.html           |    6 +-
+ store/templates/store/dashboard.html               |    9 +-
+ store/templates/store/deliveries.html              |   23 +-
+ store/templates/store/deliveriescreate.html        |    2 +-
+ store/templates/store/delivery_form.html           |    2 +-
+ store/templates/store/deliverydelete.html          |    2 +-
+ store/templates/store/deliveryupdate.html          |    2 +-
+ store/templates/store/low_stock_list.html          |   32 +
+ store/templates/store/productcreate.html           |   20 +-
+ store/templates/store/productdelete.html           |    2 +-
+ store/templates/store/productslist.html            |   29 +-
+ store/templates/store/productupdate.html           |   20 +-
+ store/templates/store/sidebar.html                 |   31 +-
+ store/templatetags/__init__.py                     |    0
+ store/templatetags/vietnam.py                      |   20 +
+ store/tests.py                                     |    3 -
+ store/tests/__init__.py                            |    0
+ store/tests/test_dp02_decimal.py                   |   24 +
+ store/tests/test_ht01_migration.py                 |   24 +
+ store/tests/test_ht01_restock.py                   |  208 +++
+ store/urls.py                                      |    2 +
+ store/views.py                                     |   44 +-
+ transactions/admin.py                              |   78 +-
+ transactions/filters.py                            |  102 +-
+ transactions/forms.py                              |   29 +-
+ transactions/management/__init__.py                |    0
+ transactions/management/commands/__init__.py       |    0
+ .../management/commands/check_decimal_data.py      |   25 +
+ transactions/management/commands/check_vnd_data.py |   21 +
+ .../management/commands/reconcile_stock.py         |   39 +
+ .../migrations/0004_dp02_decimal_constraints.py    |  143 ++
+ .../migrations/0005_dp01_stock_movement.py         |   45 +
+ transactions/migrations/0006_tu03_vnd.py           |  151 ++
+ .../migrations/0007_ht03_sale_cancellation.py      |   57 +
+ transactions/migrations/_dp02_data.py              |  117 ++
+ transactions/migrations/_tu03_data.py              |   84 ++
+ transactions/models.py                             |  177 ++-
+ transactions/pricing.py                            |   97 ++
+ transactions/services/__init__.py                  |    1 +
+ transactions/services/exceptions.py                |   19 +
+ transactions/services/purchases.py                 |   74 +
+ transactions/services/sales.py                     |   79 +
+ transactions/services/stock.py                     |   68 +
+ transactions/signals.py                            |   15 +-
+ transactions/tables.py                             |   38 -
+ .../templates/transactions/filter_panel.html       |   23 +
+ .../templates/transactions/purchasedelete.html     |    5 +-
+ .../templates/transactions/purchases_form.html     |    2 +-
+ .../templates/transactions/purchases_list.html     |   40 +-
+ .../templates/transactions/sale_cancel.html        |   18 +
+ .../templates/transactions/sale_create.html        |   65 +-
+ .../templates/transactions/sale_messages.html      |    5 +
+ .../templates/transactions/saledelete.html         |   10 +-
+ .../templates/transactions/saledetail.html         |   45 +-
+ .../templates/transactions/sales_form.html         |    2 +-
+ .../templates/transactions/sales_list.html         |   52 +-
+ transactions/tests.py                              |    3 -
+ transactions/tests/__init__.py                     |    1 +
+ transactions/tests/dp02_support.py                 |   41 +
+ transactions/tests/purchase_api.py                 |    6 +
+ transactions/tests/test_dp01_architecture.py       |   58 +
+ transactions/tests/test_dp01_opening.py            |   32 +
+ transactions/tests/test_dp01_services.py           |  230 +++
+ transactions/tests/test_dp02_decimal.py            |   63 +
+ transactions/tests/test_dp02_migrations.py         |  128 ++
+ transactions/tests/test_hc01_purchase_stock.py     |  163 ++
+ transactions/tests/test_hc02_dates.py              |  188 +++
+ transactions/tests/test_hc03_sales.py              |  249 ++++
+ transactions/tests/test_hc_regression.py           |  136 ++
+ transactions/tests/test_ht02_filters.py            |  248 ++++
+ transactions/tests/test_ht03_cancellation.py       |  303 ++++
+ transactions/tests/test_ht03_concurrency.py        |   56 +
+ transactions/tests/test_ht03_migration.py          |   32 +
+ transactions/tests/test_tu01_storage.py            |   47 +
+ transactions/tests/test_tu02_settings.py           |  197 +++
+ transactions/tests/test_tu03_migrations.py         |   66 +
+ transactions/tests/test_tu03_vnd.py                |  169 +++
+ transactions/urls.py                               |    4 +-
+ transactions/utils.py                              |   11 +
+ transactions/views.py                              |  349 ++---
+ 747 files changed, 39963 insertions(+), 659 deletions(-)

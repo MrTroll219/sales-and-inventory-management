@@ -1,0 +1,80 @@
+{
+  "(root)": {
+    "files": 8,
+    "added": 125,
+    "deleted": 8,
+    "binary": 0
+  },
+  ".github": {
+    "files": 5,
+    "added": 176,
+    "deleted": 43,
+    "binary": 0
+  },
+  "InventoryMS": {
+    "files": 1,
+    "added": 82,
+    "deleted": 47,
+    "binary": 0
+  },
+  "accounts": {
+    "files": 22,
+    "added": 220,
+    "deleted": 38,
+    "binary": 0
+  },
+  "bills": {
+    "files": 11,
+    "added": 121,
+    "deleted": 20,
+    "binary": 0
+  },
+  "docs": {
+    "files": 13,
+    "added": 2388,
+    "deleted": 0,
+    "binary": 0
+  },
+  "evidence": {
+    "files": 568,
+    "added": 30461,
+    "deleted": 0,
+    "binary": 65
+  },
+  "invoice": {
+    "files": 12,
+    "added": 275,
+    "deleted": 46,
+    "binary": 0
+  },
+  "nginx": {
+    "files": 1,
+    "added": 32,
+    "deleted": 0,
+    "binary": 0
+  },
+  "scripts": {
+    "files": 12,
+    "added": 1246,
+    "deleted": 0,
+    "binary": 0
+  },
+  "static": {
+    "files": 2,
+    "added": 12,
+    "deleted": 0,
+    "binary": 1
+  },
+  "store": {
+    "files": 34,
+    "added": 694,
+    "deleted": 82,
+    "binary": 0
+  },
+  "transactions": {
+    "files": 58,
+    "added": 4131,
+    "deleted": 375,
+    "binary": 0
+  }
+}

@@ -1,0 +1,93 @@
+[
+  {
+    "stage": "v0-goc",
+    "tests": 0,
+    "added": 0,
+    "evidence": "final/v0_suite.txt",
+    "result": "NO TESTS RAN"
+  },
+  {
+    "stage": "P0/P0b",
+    "tests": 7,
+    "added": 7,
+    "evidence": "p0b_suite.txt",
+    "result": "6 FAIL + 1 ERROR"
+  },
+  {
+    "stage": "HC01",
+    "tests": 21,
+    "added": 14,
+    "evidence": "hc01/suite.txt",
+    "result": "3 FAIL + 1 ERROR"
+  },
+  {
+    "stage": "HC02",
+    "tests": 36,
+    "added": 15,
+    "evidence": "hc02/suite.txt",
+    "result": "3 FAIL"
+  },
+  {
+    "stage": "HC03",
+    "tests": 60,
+    "added": 24,
+    "evidence": "hc03/suite.txt",
+    "result": "OK"
+  },
+  {
+    "stage": "TU01",
+    "tests": 66,
+    "added": 6,
+    "evidence": "tu01/sau_strict_suite.txt",
+    "result": "OK"
+  },
+  {
+    "stage": "TU02",
+    "tests": 85,
+    "added": 19,
+    "evidence": "tu02/bo-sung/sqlite_suite.txt",
+    "result": "OK"
+  },
+  {
+    "stage": "DP02",
+    "tests": 124,
+    "added": 39,
+    "evidence": "dp02/sau_suite_sqlite.txt",
+    "result": "OK"
+  },
+  {
+    "stage": "DP01",
+    "tests": 151,
+    "added": 27,
+    "evidence": "dp01/sau_suite_sqlite.txt",
+    "result": "OK"
+  },
+  {
+    "stage": "TU03",
+    "tests": 168,
+    "added": 17,
+    "evidence": "tu03/sau_suite_sqlite.txt",
+    "result": "OK"
+  },
+  {
+    "stage": "HT01",
+    "tests": 189,
+    "added": 21,
+    "evidence": "ht01/sau_suite_sqlite.txt",
+    "result": "OK"
+  },
+  {
+    "stage": "HT02",
+    "tests": 214,
+    "added": 25,
+    "evidence": "ht02/sau_suite_sqlite.txt",
+    "result": "OK"
+  },
+  {
+    "stage": "HT03",
+    "tests": 247,
+    "added": 33,
+    "evidence": "ht03/sau_suite_sqlite.txt",
+    "result": "OK (SQLite skip 1 concurrency; PG16 không skip)"
+  }
+]
