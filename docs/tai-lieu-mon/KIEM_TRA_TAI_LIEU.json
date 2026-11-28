@@ -4,40 +4,49 @@
   "verified_ci_sha": "123101a85ea74091c2863e0a00f952477918d925",
   "files": [
     {
+      "file": "00_KE_HOACH_BAO_TRI.md",
+      "h2_sections": 10,
+      "h3_sections": 3,
+      "whitespace_words": 2450,
+      "bytes": 15068,
+      "page_count": 8,
+      "page_note": "Số trang bản Word A4 render bằng LibreOffice; Microsoft Word có thể phân trang khác."
+    },
+    {
       "file": "01_PHAN_TICH_TAC_DONG.md",
-      "h2_sections": 16,
-      "h3_sections": 33,
-      "whitespace_words": 5522,
-      "bytes": 36525,
-      "page_count": 18,
-      "page_note": "Số trang DOCX sau khi cập nhật mục lục và render bằng LibreOffice 26.8.3.1; Microsoft Word có thể phân trang khác."
+      "h2_sections": 17,
+      "h3_sections": 55,
+      "whitespace_words": 11934,
+      "bytes": 73277,
+      "page_count": 31,
+      "page_note": "Số trang bản Word A4 render bằng LibreOffice; Microsoft Word có thể phân trang khác."
     },
     {
       "file": "02_DAC_TA.md",
-      "h2_sections": 18,
-      "h3_sections": 3,
-      "whitespace_words": 4347,
-      "bytes": 28792,
-      "page_count": 13,
-      "page_note": "Số trang DOCX sau khi cập nhật mục lục và render bằng LibreOffice 26.8.3.1; Microsoft Word có thể phân trang khác."
+      "h2_sections": 20,
+      "h3_sections": 15,
+      "whitespace_words": 7747,
+      "bytes": 48465,
+      "page_count": 23,
+      "page_note": "Số trang bản Word A4 render bằng LibreOffice; Microsoft Word có thể phân trang khác."
     },
     {
       "file": "03_THIET_KE.md",
-      "h2_sections": 9,
-      "h3_sections": 20,
-      "whitespace_words": 4429,
-      "bytes": 36772,
-      "page_count": 23,
-      "page_note": "Số trang DOCX sau khi cập nhật mục lục và render bằng LibreOffice 26.8.3.1; Microsoft Word có thể phân trang khác."
+      "h2_sections": 13,
+      "h3_sections": 25,
+      "whitespace_words": 7250,
+      "bytes": 56659,
+      "page_count": 30,
+      "page_note": "Số trang bản Word A4 render bằng LibreOffice; Microsoft Word có thể phân trang khác."
     },
     {
       "file": "04_KIEM_THU.md",
-      "h2_sections": 9,
-      "h3_sections": 19,
-      "whitespace_words": 5460,
-      "bytes": 47468,
-      "page_count": 36,
-      "page_note": "Số trang DOCX sau khi cập nhật mục lục và render bằng LibreOffice 26.8.3.1; Microsoft Word có thể phân trang khác."
+      "h2_sections": 11,
+      "h3_sections": 28,
+      "whitespace_words": 7147,
+      "bytes": 57895,
+      "page_count": 37,
+      "page_note": "Số trang bản Word A4 render bằng LibreOffice; Microsoft Word có thể phân trang khác."
     }
   ],
   "test_case_counts": {
@@ -887,7 +896,7 @@
   "mermaid_diagrams": [
     {
       "file": "01_PHAN_TICH_TAC_DONG.md",
-      "line": 341,
+      "line": 648,
       "status": "parse_and_render_ok",
       "type": "flowchart-v2",
       "width": 1283.140625,
@@ -896,7 +905,7 @@
     },
     {
       "file": "03_THIET_KE.md",
-      "line": 12,
+      "line": 33,
       "status": "parse_and_render_ok",
       "type": "flowchart-v2",
       "width": 1118.578125,
@@ -905,7 +914,7 @@
     },
     {
       "file": "03_THIET_KE.md",
-      "line": 31,
+      "line": 52,
       "status": "parse_and_render_ok",
       "type": "flowchart-v2",
       "width": 1407.453125,
@@ -914,7 +923,7 @@
     },
     {
       "file": "03_THIET_KE.md",
-      "line": 52,
+      "line": 73,
       "status": "parse_and_render_ok",
       "type": "flowchart-v2",
       "width": 1568,
@@ -923,7 +932,7 @@
     },
     {
       "file": "03_THIET_KE.md",
-      "line": 76,
+      "line": 97,
       "status": "parse_and_render_ok",
       "type": "class",
       "width": 998.078125,
@@ -932,7 +941,7 @@
     },
     {
       "file": "03_THIET_KE.md",
-      "line": 138,
+      "line": 159,
       "status": "parse_and_render_ok",
       "type": "class",
       "width": 967.03125,
@@ -941,7 +950,7 @@
     },
     {
       "file": "03_THIET_KE.md",
-      "line": 196,
+      "line": 217,
       "status": "parse_and_render_ok",
       "type": "class",
       "width": 750.953125,
@@ -950,7 +959,7 @@
     },
     {
       "file": "03_THIET_KE.md",
-      "line": 241,
+      "line": 262,
       "status": "parse_and_render_ok",
       "type": "class",
       "width": 1014.375,
@@ -959,7 +968,7 @@
     },
     {
       "file": "03_THIET_KE.md",
-      "line": 304,
+      "line": 325,
       "status": "parse_and_render_ok",
       "type": "sequence",
       "width": 1568,
@@ -968,7 +977,7 @@
     },
     {
       "file": "03_THIET_KE.md",
-      "line": 339,
+      "line": 360,
       "status": "parse_and_render_ok",
       "type": "sequence",
       "width": 1568,
@@ -977,7 +986,7 @@
     },
     {
       "file": "03_THIET_KE.md",
-      "line": 375,
+      "line": 396,
       "status": "parse_and_render_ok",
       "type": "sequence",
       "width": 1568,
@@ -985,8 +994,32 @@
       "png": "img/03_tuan_tu_xuat_excel_loc.png"
     }
   ],
-  "local_links_checked": 260,
+  "local_links_checked": 266,
   "local_links": [
+    {
+      "file": "00_KE_HOACH_BAO_TRI.md",
+      "target": "../BAO_CAO_TONG_HOP.md"
+    },
+    {
+      "file": "00_KE_HOACH_BAO_TRI.md",
+      "target": "../KE_HOACH_MOI_TRUONG.md"
+    },
+    {
+      "file": "00_KE_HOACH_BAO_TRI.md",
+      "target": "../TRIEN_KHAI.md"
+    },
+    {
+      "file": "00_KE_HOACH_BAO_TRI.md",
+      "target": "../../evidence/final/requirements.json"
+    },
+    {
+      "file": "00_KE_HOACH_BAO_TRI.md",
+      "target": "../../evidence/final/test_history.json"
+    },
+    {
+      "file": "00_KE_HOACH_BAO_TRI.md",
+      "target": "../../evidence/final/ci_run.json"
+    },
     {
       "file": "01_PHAN_TICH_TAC_DONG.md",
       "target": "../HC01.md"
@@ -2039,7 +2072,7 @@
     "font": "Times New Roman",
     "intermediate_files_committed": false
   },
-  "scope": "Chỉ cập nhật tài liệu môn học, ảnh sơ đồ và bản DOCX; không sửa mã nguồn, test hoặc bằng chứng nghiệp vụ trước đó.",
+  "scope": "Chỉ sửa hồ sơ môn học và xuất lại Word A4; không sửa mã nguồn, test hoặc evidence nghiệp vụ, không chạy lại suite trong lần biên soạn tài liệu.",
   "resolved_information": {
     "filled_fields": 22,
     "remaining_fields": 0,
@@ -2113,7 +2146,7 @@
       }
     ]
   },
-  "documentation_base_commit": "7a880e67be932be5f475c2111ab688093ff151ec",
+  "documentation_base_commit": "31668be43387263908d5b5d2ea16718560e381a9",
   "mermaid_previous_parser_version": "11.12.0",
   "mermaid_render": {
     "tool": "npx -y @mermaid-js/mermaid-cli",
@@ -2206,52 +2239,67 @@
   "docx_validation": {
     "tool": "python-docx 1.2.0",
     "renderer": "LibreOffice 26.8.3.1 + render_docx.py",
-    "render_dpi": 110,
+    "render_dpi": 95,
     "files": [
       {
-        "file": "docx/01_PHAN_TICH_TAC_DONG.docx",
+        "file": "docx/00_KE_HOACH_BAO_TRI.docx",
         "images": 1,
-        "tables": 13,
-        "headings": 49,
-        "pages": 18,
-        "image_pages": [
-          17
+        "tables": 6,
+        "headings": 13,
+        "pages": 8,
+        "paper": "A4",
+        "section_sizes_mm": [
+          [
+            210.0,
+            297.0
+          ]
         ],
-        "repeated_table_headers": 13,
-        "toc_field": true,
-        "toc_cached_entries": true,
-        "missing_marker": false,
-        "mermaid_fence": false,
-        "fonts": [
+        "font": "Times New Roman",
+        "fonts_rendered": [
           "BAAAAA+TimesNewRomanPSMT",
           "CAAAAA+TimesNewRomanPS-BoldMT",
           "DAAAAA+TimesNewRomanPS-BoldMT",
           "EAAAAA+TimesNewRomanPS-BoldMT",
           "FAAAAA+TimesNewRomanPS-BoldMT",
           "GAAAAA+TimesNewRomanPSMT",
-          "HAAAAA+SymbolMT",
+          "HAAAAA+TimesNewRomanPS-BoldMT",
           "IAAAAA+TimesNewRomanPS-BoldMT",
           "JAAAAA+TimesNewRomanPS-BoldMT",
           "KAAAAA+TimesNewRomanPSMT",
-          "LAAAAA+TimesNewRomanPS-ItalicMT"
+          "LAAAAA+SymbolMT"
         ],
-        "visual_review_all_pages": true,
-        "no_page_margin_overflow": true,
-        "sha256": "8564173429b0d3a9be2c32681ba3e2bf0d2dd62429cf7303bcb5b078495aa82e"
-      },
-      {
-        "file": "docx/02_DAC_TA.docx",
-        "images": 0,
-        "tables": 22,
-        "headings": 21,
-        "pages": 13,
-        "image_pages": [],
-        "repeated_table_headers": 22,
-        "toc_field": true,
-        "toc_cached_entries": true,
+        "toc": true,
+        "toc_on_separate_page": true,
+        "toc_cache_updated": true,
         "missing_marker": false,
         "mermaid_fence": false,
-        "fonts": [
+        "tc_names_missing_in_render": [],
+        "margin_overflow": [],
+        "sha256": "6df0c97812471b2416f6ad946ee380905adb3eed0386c5ab9f6ccbb050f1e975"
+      },
+      {
+        "file": "docx/01_PHAN_TICH_TAC_DONG.docx",
+        "images": 2,
+        "tables": 37,
+        "headings": 72,
+        "pages": 31,
+        "paper": "A4",
+        "section_sizes_mm": [
+          [
+            210.0,
+            297.0
+          ],
+          [
+            210.0,
+            297.0
+          ],
+          [
+            210.0,
+            297.0
+          ]
+        ],
+        "font": "Times New Roman",
+        "fonts_rendered": [
           "BAAAAA+TimesNewRomanPSMT",
           "CAAAAA+TimesNewRomanPS-BoldMT",
           "DAAAAA+TimesNewRomanPS-BoldMT",
@@ -2259,79 +2307,173 @@
           "FAAAAA+TimesNewRomanPS-BoldMT",
           "GAAAAA+TimesNewRomanPSMT",
           "HAAAAA+TimesNewRomanPS-BoldMT",
-          "IAAAAA+SymbolMT"
+          "IAAAAA+TimesNewRomanPS-BoldMT",
+          "JAAAAA+TimesNewRomanPS-BoldMT",
+          "KAAAAA+TimesNewRomanPSMT",
+          "LAAAAA+SymbolMT",
+          "MAAAAA+TimesNewRomanPS-ItalicMT"
         ],
-        "visual_review_all_pages": true,
-        "no_page_margin_overflow": true,
-        "sha256": "1106adde94b019c98c22fc2ced1a2d6a92ec514be5c41bf9d35e99923b077146"
-      },
-      {
-        "file": "docx/03_THIET_KE.docx",
-        "images": 10,
-        "tables": 2,
-        "headings": 29,
-        "pages": 23,
-        "image_pages": [
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          10,
-          12,
-          14
-        ],
-        "repeated_table_headers": 2,
-        "toc_field": true,
-        "toc_cached_entries": true,
+        "toc": true,
+        "toc_on_separate_page": true,
+        "toc_cache_updated": true,
         "missing_marker": false,
         "mermaid_fence": false,
-        "fonts": [
+        "tc_names_missing_in_render": [],
+        "margin_overflow": [],
+        "sha256": "ee7b4d997a49adfcfe57c8bae34ab0d07003f15e3391e623104567f0367cad9f"
+      },
+      {
+        "file": "docx/02_DAC_TA.docx",
+        "images": 1,
+        "tables": 35,
+        "headings": 35,
+        "pages": 23,
+        "paper": "A4",
+        "section_sizes_mm": [
+          [
+            210.0,
+            297.0
+          ]
+        ],
+        "font": "Times New Roman",
+        "fonts_rendered": [
           "BAAAAA+TimesNewRomanPSMT",
           "CAAAAA+TimesNewRomanPS-BoldMT",
           "DAAAAA+TimesNewRomanPS-BoldMT",
           "EAAAAA+TimesNewRomanPS-BoldMT",
-          "FAAAAA+TimesNewRomanPS-ItalicMT",
-          "GAAAAA+TimesNewRomanPS-BoldMT",
+          "FAAAAA+TimesNewRomanPS-BoldMT",
+          "GAAAAA+TimesNewRomanPSMT",
           "HAAAAA+TimesNewRomanPS-BoldMT",
-          "IAAAAA+TimesNewRomanPSMT",
-          "JAAAAA+SymbolMT"
+          "IAAAAA+TimesNewRomanPS-BoldMT",
+          "JAAAAA+TimesNewRomanPS-BoldMT",
+          "KAAAAA+TimesNewRomanPSMT",
+          "LAAAAA+SymbolMT",
+          "MAAAAA+TimesNewRomanPS-ItalicMT"
         ],
-        "visual_review_all_pages": true,
-        "no_page_margin_overflow": true,
-        "sha256": "e97a452fdc7403737585c4fe6aee80e03984713b54c3e6b087bbb5ead26052b8"
+        "toc": true,
+        "toc_on_separate_page": true,
+        "toc_cache_updated": true,
+        "missing_marker": false,
+        "mermaid_fence": false,
+        "tc_names_missing_in_render": [],
+        "margin_overflow": [],
+        "sha256": "4a93d4b099b08ba193f0cde416ce8a34a6c7fd8db508bb1c364e5d29c587e337"
+      },
+      {
+        "file": "docx/03_THIET_KE.docx",
+        "images": 11,
+        "tables": 11,
+        "headings": 38,
+        "pages": 30,
+        "paper": "A4",
+        "section_sizes_mm": [
+          [
+            210.0,
+            297.0
+          ]
+        ],
+        "font": "Times New Roman",
+        "fonts_rendered": [
+          "BAAAAA+TimesNewRomanPSMT",
+          "CAAAAA+TimesNewRomanPS-BoldMT",
+          "DAAAAA+TimesNewRomanPS-BoldMT",
+          "EAAAAA+TimesNewRomanPS-BoldMT",
+          "FAAAAA+TimesNewRomanPS-BoldMT",
+          "GAAAAA+TimesNewRomanPSMT",
+          "HAAAAA+TimesNewRomanPS-BoldMT",
+          "IAAAAA+TimesNewRomanPS-BoldMT",
+          "JAAAAA+TimesNewRomanPS-BoldMT",
+          "KAAAAA+TimesNewRomanPSMT",
+          "LAAAAA+TimesNewRomanPS-ItalicMT",
+          "MAAAAA+SymbolMT"
+        ],
+        "toc": true,
+        "toc_on_separate_page": true,
+        "toc_cache_updated": true,
+        "missing_marker": false,
+        "mermaid_fence": false,
+        "tc_names_missing_in_render": [],
+        "margin_overflow": [],
+        "sha256": "70e0817b3ac45d309f90ff1aa5ce9b992e8a6479317166670b1b42d340304d4a"
       },
       {
         "file": "docx/04_KIEM_THU.docx",
-        "images": 17,
-        "tables": 15,
-        "headings": 28,
-        "pages": 36,
-        "image_pages": [
-          18,
-          19,
-          20,
-          21,
-          22,
-          23,
-          24,
-          25,
-          26,
-          27,
-          28,
-          29,
-          30,
-          31,
-          32,
-          33
+        "images": 18,
+        "tables": 19,
+        "headings": 39,
+        "pages": 37,
+        "paper": "A4",
+        "section_sizes_mm": [
+          [
+            210.0,
+            297.0
+          ],
+          [
+            210.0,
+            297.0
+          ],
+          [
+            210.0,
+            297.0
+          ]
         ],
-        "repeated_table_headers": 15,
-        "toc_field": true,
-        "toc_cached_entries": true,
+        "font": "Times New Roman",
+        "fonts_rendered": [
+          "BAAAAA+TimesNewRomanPSMT",
+          "CAAAAA+TimesNewRomanPS-BoldMT",
+          "DAAAAA+TimesNewRomanPS-BoldMT",
+          "EAAAAA+TimesNewRomanPS-BoldMT",
+          "FAAAAA+TimesNewRomanPS-BoldMT",
+          "GAAAAA+TimesNewRomanPSMT",
+          "HAAAAA+TimesNewRomanPS-BoldMT",
+          "IAAAAA+TimesNewRomanPS-BoldMT",
+          "JAAAAA+TimesNewRomanPS-BoldMT",
+          "KAAAAA+TimesNewRomanPSMT",
+          "LAAAAA+TimesNewRomanPS-BoldMT",
+          "MAAAAA+TimesNewRomanPSMT",
+          "NAAAAA+TimesNewRomanPS-ItalicMT",
+          "OAAAAA+SymbolMT"
+        ],
+        "toc": true,
+        "toc_on_separate_page": true,
+        "toc_cache_updated": true,
         "missing_marker": false,
         "mermaid_fence": false,
-        "fonts": [
+        "tc_names_missing_in_render": [],
+        "margin_overflow": [],
+        "sha256": "d4caa74e5e4bd72fe00190ec2ff131d510ed15504db7f0644bc04d8052d62475"
+      },
+      {
+        "file": "docx/BAO_CAO_PROJECT_2.docx",
+        "images": 29,
+        "tables": 110,
+        "headings": 205,
+        "pages": 120,
+        "paper": "A4",
+        "section_sizes_mm": [
+          [
+            210.0,
+            297.0
+          ],
+          [
+            210.0,
+            297.0
+          ],
+          [
+            210.0,
+            297.0
+          ],
+          [
+            210.0,
+            297.0
+          ],
+          [
+            210.0,
+            297.0
+          ]
+        ],
+        "font": "Times New Roman",
+        "fonts_rendered": [
           "BAAAAA+TimesNewRomanPSMT",
           "CAAAAA+TimesNewRomanPS-BoldMT",
           "DAAAAA+TimesNewRomanPS-BoldMT",
@@ -2341,13 +2483,68 @@
           "HAAAAA+TimesNewRomanPS-BoldMT",
           "IAAAAA+TimesNewRomanPS-BoldMT",
           "JAAAAA+TimesNewRomanPSMT",
-          "KAAAAA+TimesNewRomanPS-ItalicMT",
-          "LAAAAA+SymbolMT"
+          "KAAAAA+TimesNewRomanPS-BoldMT",
+          "LAAAAA+SymbolMT",
+          "MAAAAA+TimesNewRomanPS-ItalicMT",
+          "NAAAAA+TimesNewRomanPS-ItalicMT",
+          "OAAAAA+TimesNewRomanPS-BoldMT",
+          "PAAAAA+TimesNewRomanPSMT"
         ],
-        "visual_review_all_pages": true,
-        "no_page_margin_overflow": true,
-        "sha256": "2447b2abd45ccebd623c8d67c0f8851f8fd38a78a0b78948c2ba3380202f8fbb"
+        "toc": true,
+        "toc_on_separate_page": true,
+        "toc_cache_updated": true,
+        "missing_marker": false,
+        "mermaid_fence": false,
+        "tc_names_missing_in_render": [],
+        "margin_overflow": [],
+        "sha256": "5cf911f01de993ad427a2bc087adf0593d6b6270b96b7d2e95868a7dc73db1e7"
       }
+    ],
+    "all_table_cell_text_retained": true,
+    "all_69_tc_names_retained": true,
+    "visual_review": "Đã rà trang bìa, mục lục, bảng, sơ đồ và ảnh trên bản render; kiểm tra lại các trang bị ảnh hưởng sau chỉnh phân trang."
+  },
+  "course_template_alignment": {
+    "version": "1.1",
+    "date": "28/11/2026",
+    "school": "ĐẠI HỌC CẦN THƠ – TRƯỜNG CÔNG NGHỆ THÔNG TIN & TRUYỀN THÔNG",
+    "course": "CT244H – Bảo trì phần mềm",
+    "advisor": "Ph.D Huỳnh Quang Nghi",
+    "members": [
+      {
+        "name": "Nguyễn Đức Khang",
+        "student_id": "B2303874",
+        "assignment": "Phân tích"
+      },
+      {
+        "name": "Châu Trường Phúc",
+        "student_id": "B2303892",
+        "assignment": "Thực hiện và thiết kế"
+      },
+      {
+        "name": "Nguyễn Trường Thịnh",
+        "student_id": "B2303905",
+        "assignment": "Kiểm thử và báo cáo"
+      }
+    ],
+    "identity_source": "Trang bìa DMTHINH.docx; tên trường và logo từ mẫu Tài liệu kiểm thử.docx; phân công do người dùng xác nhận",
+    "maintenance_plan_added": true,
+    "alternative_solutions_per_requirement": 2,
+    "alternatives_are_retrospective": true,
+    "effort_estimates_are_not_actuals": true,
+    "fr_traceability_count": 65,
+    "old_tc_rows_unchanged": 69,
+    "mermaid_blocks_unchanged": 11,
+    "combined_report": "docx/BAO_CAO_PROJECT_2.docx",
+    "remaining_group_confirmations": [
+      "Học kỳ thực tế",
+      "Mức độ hoàn thành và đánh giá trách nhiệm của từng người",
+      "Ngày và quyết định ký duyệt nhóm",
+      "Đơn giá/chi phí/lịch thực tế nếu nhóm có nguồn"
+    ],
+    "not_delivered_in_this_revision": [
+      "Slide PowerPoint",
+      "Kịch bản demo trình bày trước lớp"
     ]
   }
 }

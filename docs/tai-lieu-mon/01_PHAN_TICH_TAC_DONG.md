@@ -7,6 +7,27 @@ Phạm vi khảo sát là bản ứng dụng `123101a`, được đóng gói tro
 
 Trong tình huống môn học này, người đề xuất được mô hình hóa bằng vai trò giả lập phía khách hàng; riêng DP01 và DP02 là đề xuất nội bộ của nhóm bảo trì. Nhóm thực hiện đóng vai đơn vị cung cấp dịch vụ bảo trì, không dùng tên thành viên nhóm để thay cho người đề xuất. Các mức ưu tiên và lý do dưới đây được xác lập theo danh sách người dùng đã xác nhận.
 
+## Hồ sơ tài liệu và hướng dẫn đọc
+
+Tài liệu được biên soạn cho nhóm bảo trì, người phản biện và giảng viên học phần Bảo trì phần mềm. Người đọc nghiệp vụ tập trung vào hiện trạng, hành vi mong muốn và bằng chứng; người triển khai đọc thêm kiến trúc, migration và ràng buộc. Phạm vi là 11 yêu cầu trên hệ thống bán hàng và tồn kho Django; không bổ sung chức năng ngoài phạm vi đã thực hiện.
+
+| Phiên bản | Ngày | Người chuẩn bị | Nội dung cập nhật |
+|---|---|---|---|
+| 1.0 | 28/11/2026 | Nhóm Nguyễn Đức Khang, Châu Trường Phúc, Nguyễn Trường Thịnh | Hồ sơ kỹ thuật và bản Word ban đầu, commit 31668be |
+| 1.1 | 28/11/2026 | Nhóm Nguyễn Đức Khang, Châu Trường Phúc, Nguyễn Trường Thịnh | Bổ sung cấu trúc theo mẫu Project 2, xuất Word A4; chưa có chữ ký phê duyệt của nhóm |
+
+Quy ước: **[GIỮ]** là nội dung kế thừa; **[SỬA]** là điều chỉnh chức năng đang có; **[MỚI]** là nội dung bổ sung. Mã HC/TU/HT/DP liên kết yêu cầu bảo trì; FR/NFR là tiêu chí chức năng/phi chức năng; TC là trường hợp kiểm thử. Những mã FR/NFR/TC được đặt trong bộ hồ sơ này, không giả định phần mềm gốc đã có đặc tả với các mã tương tự.
+
+| Thuật ngữ | Giải thích |
+|---|---|
+| Baseline | Mốc đối chiếu cố định v0-goc; không đồng nhất với main hiện tại của tác giả |
+| Migration / preflight | Chuyển schema, dữ liệu / kiểm tra dữ liệu trước chuyển đổi |
+| Atomic / rollback | Ghi toàn bộ giao dịch hoặc phục hồi toàn bộ khi thất bại |
+| Ledger / StockMovement | Sổ ghi biến động tồn kho dùng để đối soát |
+| CI / coverage | Kiểm chứng tự động / tỷ lệ dòng mã được thực thi, không đồng nghĩa chứng minh hết lỗi |
+
+Nguồn biểu mẫu: bộ Project 2 do môn học cung cấp, gồm Yeucau_Project2.pdf, KehoachBT.pdf, Phantichsutacdong.pdf, DactaYCTD.pdf, ThietkeYCTD.pdf, Tài liệu kiểm thử.docx và Vidu_Dacta_Thietke.pdf. Mẫu kiểm thử ghi học kỳ 3 năm 2024–2025; đây là thông tin của mẫu, không dùng làm học kỳ thực tế của nhóm. Ngày và người phê duyệt nghiệp vụ chưa có hồ sơ riêng, không suy diễn từ trạng thái test PASS.
+
 ## 1. Hệ thống gốc và phương pháp phân tích
 
 Hệ thống là ứng dụng web Django tổ chức theo mô hình Model–View–Template: URL định tuyến đến view, model/ORM thao tác dữ liệu, template và JavaScript phục vụ giao diện. Bản gốc là `v0-goc`, commit `038cbd5a7e3f4bdfab96f7f9d61016d1d2ea2dc4`, Django 5.1; Dockerfile/CI gốc hướng Python 3.10, SQLite dùng mặc định khi không có cấu hình Azure PostgreSQL. Excel được tạo bằng openpyxl, biểu mẫu dựa trên Django forms; django-filter và django-tables2 hiện diện nhưng một số khai báo giao dịch là mã chết. Các thông tin này được đối chiếu từ hướng dẫn, source tại tag, git log v0-goc..bao-tri và báo cáo tổng hợp, không suy ra rằng PostgreSQL bản gốc đã được nghiệm thu.
@@ -51,6 +72,32 @@ Mỗi phiếu mới chỉ cộng kho một lần; khi sửa phải dùng số l�
 
 DP01 phải bảo toàn các hành vi đã sửa khi chuyển khỏi save(); HT01 phụ thuộc số dư đúng; HT03 bổ sung hoàn kho bán hàng, không thay quy tắc nhập. Bộ test của HC01 và test liên quan phải được đối chiếu tại mốc lịch sử và tại bản cuối; không coi thay đổi cách triển khai sau DP01/TU03 là một lỗi của đặc tả ban đầu. Các tiêu chí FR/NFR nằm trong 02_DAC_TA.md, minh chứng TC trong 04_KIEM_THU.md.
 
+### Tiếp nhận và phê duyệt thay đổi
+
+| Trường hồ sơ | Nội dung |
+|---|---|
+| Mã yêu cầu và dự án | HC01; hệ thống quản lý bán hàng và tồn kho Django |
+| Người tiếp nhận / phân tích | Vai trò điều phối bảo trì / phân tích hệ thống; tên người thực hiện do nhóm điền |
+| Ngày yêu cầu, tiếp nhận, phân tích | Chưa có phiếu có ngày riêng; nhóm đối chiếu nhật ký thực tế, không lấy ngày commit thay ngày đề xuất |
+| Liên hệ người đề xuất | Vai trò giả lập trong bài tập; không phát sinh địa chỉ, số điện thoại hoặc email cá nhân |
+| Mã yêu cầu gốc | Không tìm thấy mã đặc tả gốc trong hồ sơ cung cấp; nhận diện chức năng cũ bằng tên/view/model và tag v0-goc |
+| Ban quản lý sự thay đổi | Nhóm duyệt thay đổi giả lập; tên thành viên và ngày ký do nhóm xác nhận |
+| Tình trạng | Yêu cầu đã được thực hiện theo phạm vi giao và có báo cáo riêng; chưa có biên bản ký duyệt khách hàng/giảng viên |
+| Quyết định cần ghi trước khi nộp | Nhóm ghi chấp nhận, từ chối hoặc đánh giá thêm cùng lý do; không mặc định test PASS là đã ký duyệt |
+
+### So sánh giải pháp và lựa chọn
+
+Hai phương án sau là phân tích kỹ thuật hồi cứu phục vụ mẫu môn học, không phải bằng chứng nhóm đã thử cả hai. Khoảng giờ công là **ước lượng lập kế hoạch**, chưa được đo hoặc phê duyệt. Mỗi phương án cần một người thực hiện có kỹ năng ghi trong bảng và một người review nếu nhóm bố trí được; không quy ra số thành viên thực tế. Chi phí C = H × R + I, chưa có đơn giá R hoặc chi phí hạ tầng I.
+
+| Phương án | Cách thực hiện | Năng lực và công cụ | Ước lượng công sức |
+|---|---|---|---|
+| A | Giữ xử lý trong model, bỏ signal cộng trùng và tính delta trong atomic; đây là cách sửa ở mốc HC01. | Django ORM và test hồi quy; phiên bản công cụ thực tế đối chiếu báo cáo HC01 | 8–12 giờ công; C = H × R + I |
+| B | Chuyển ngay nhập/xuất sang lớp dịch vụ và buộc mọi caller đi qua dịch vụ. | ORM, rà caller và test kiến trúc; phiên bản công cụ thực tế đối chiếu báo cáo HC01 | 16–24 giờ công; C = H × R + I |
+
+**Đề xuất chọn A:** A có phạm vi sửa nhỏ và chứng minh được ba lỗi P0; bước B được thực hiện có kiểm soát sau ở DP01, tránh gộp hai yêu cầu vào một mốc.
+
+**Tác động tới tài liệu:** cập nhật các mục HC01 trong đặc tả 02, thiết kế 03, TC-HC01-* và ảnh/log tương ứng trong kiểm thử 04; cập nhật hướng dẫn triển khai khi schema, cấu hình hoặc thao tác vận hành đổi. Mức tác động và liên hệ yêu cầu khác được giữ trong bảng phạm vi ở trên.
+
 ## 3. Phiếu yêu cầu HC02 – Excel và ngày giao
 
 - **Mã:** HC02. **Loại:** bảo trì hiệu chỉnh. Sửa lỗi xuất dữ liệu và lỗi giữ ngày giao của chức năng hiện hữu.
@@ -76,6 +123,32 @@ Dùng tiện ích đổi ngày chung, xử lý None/aware/naive an toàn; giữ 
 ### Tác động liên yêu cầu và kiểm soát hồi quy
 
 TU03 dùng lại tiện ích với giờ Việt Nam; HT01 và HT02 kế thừa quy tắc xuất; TU01/TU02 cần giữ hành vi render và storage khi nâng môi trường. Bộ test của HC02 và test liên quan phải được đối chiếu tại mốc lịch sử và tại bản cuối; không coi thay đổi cách triển khai sau DP01/TU03 là một lỗi của đặc tả ban đầu. Các tiêu chí FR/NFR nằm trong 02_DAC_TA.md, minh chứng TC trong 04_KIEM_THU.md.
+
+### Tiếp nhận và phê duyệt thay đổi
+
+| Trường hồ sơ | Nội dung |
+|---|---|
+| Mã yêu cầu và dự án | HC02; hệ thống quản lý bán hàng và tồn kho Django |
+| Người tiếp nhận / phân tích | Vai trò điều phối bảo trì / phân tích hệ thống; tên người thực hiện do nhóm điền |
+| Ngày yêu cầu, tiếp nhận, phân tích | Chưa có phiếu có ngày riêng; nhóm đối chiếu nhật ký thực tế, không lấy ngày commit thay ngày đề xuất |
+| Liên hệ người đề xuất | Vai trò giả lập trong bài tập; không phát sinh địa chỉ, số điện thoại hoặc email cá nhân |
+| Mã yêu cầu gốc | Không tìm thấy mã đặc tả gốc trong hồ sơ cung cấp; nhận diện chức năng cũ bằng tên/view/model và tag v0-goc |
+| Ban quản lý sự thay đổi | Nhóm duyệt thay đổi giả lập; tên thành viên và ngày ký do nhóm xác nhận |
+| Tình trạng | Yêu cầu đã được thực hiện theo phạm vi giao và có báo cáo riêng; chưa có biên bản ký duyệt khách hàng/giảng viên |
+| Quyết định cần ghi trước khi nộp | Nhóm ghi chấp nhận, từ chối hoặc đánh giá thêm cùng lý do; không mặc định test PASS là đã ký duyệt |
+
+### So sánh giải pháp và lựa chọn
+
+Hai phương án sau là phân tích kỹ thuật hồi cứu phục vụ mẫu môn học, không phải bằng chứng nhóm đã thử cả hai. Khoảng giờ công là **ước lượng lập kế hoạch**, chưa được đo hoặc phê duyệt. Mỗi phương án cần một người thực hiện có kỹ năng ghi trong bảng và một người review nếu nhóm bố trí được; không quy ra số thành viên thực tế. Chi phí C = H × R + I, chưa có đơn giá R hoặc chi phí hạ tầng I.
+
+| Phương án | Cách thực hiện | Năng lực và công cụ | Ước lượng công sức |
+|---|---|---|---|
+| A | Chuẩn hóa datetime bằng helper dùng chung, xử lý None và sửa widget datetime-local; đã áp dụng. | Django forms, timezone, openpyxl; phiên bản công cụ thực tế đối chiếu báo cáo HC02 | 6–10 giờ công; C = H × R + I |
+| B | Chuyển export sang hàng đợi nền và chuẩn hóa dữ liệu trong bộ tạo báo cáo riêng. | Worker, broker, bộ export mới; phiên bản công cụ thực tế đối chiếu báo cáo HC02 | 20–32 giờ công; C = H × R + I |
+
+**Đề xuất chọn A:** A giải quyết trực tiếp NULL và mất ngày mà không thêm hạ tầng không cần thiết cho quy mô bài tập.
+
+**Tác động tới tài liệu:** cập nhật các mục HC02 trong đặc tả 02, thiết kế 03, TC-HC02-* và ảnh/log tương ứng trong kiểm thử 04; cập nhật hướng dẫn triển khai khi schema, cấu hình hoặc thao tác vận hành đổi. Mức tác động và liên hệ yêu cầu khác được giữ trong bảng phạm vi ở trên.
 
 ## 4. Phiếu yêu cầu HC03 – Tính tiền máy chủ
 
@@ -103,6 +176,32 @@ Máy chủ lấy giá DB, gộp dòng trùng, tính tiền và thuế cộng th�
 
 DP02 thay kiểu lưu tiền; DP01 di chuyển transaction bán sang service; TU03 đổi lượng tử hóa; HT03 dùng các SaleDetail để hoàn đúng lượng đã bán. Bộ test của HC03 và test liên quan phải được đối chiếu tại mốc lịch sử và tại bản cuối; không coi thay đổi cách triển khai sau DP01/TU03 là một lỗi của đặc tả ban đầu. Các tiêu chí FR/NFR nằm trong 02_DAC_TA.md, minh chứng TC trong 04_KIEM_THU.md.
 
+### Tiếp nhận và phê duyệt thay đổi
+
+| Trường hồ sơ | Nội dung |
+|---|---|
+| Mã yêu cầu và dự án | HC03; hệ thống quản lý bán hàng và tồn kho Django |
+| Người tiếp nhận / phân tích | Vai trò điều phối bảo trì / phân tích hệ thống; tên người thực hiện do nhóm điền |
+| Ngày yêu cầu, tiếp nhận, phân tích | Chưa có phiếu có ngày riêng; nhóm đối chiếu nhật ký thực tế, không lấy ngày commit thay ngày đề xuất |
+| Liên hệ người đề xuất | Vai trò giả lập trong bài tập; không phát sinh địa chỉ, số điện thoại hoặc email cá nhân |
+| Mã yêu cầu gốc | Không tìm thấy mã đặc tả gốc trong hồ sơ cung cấp; nhận diện chức năng cũ bằng tên/view/model và tag v0-goc |
+| Ban quản lý sự thay đổi | Nhóm duyệt thay đổi giả lập; tên thành viên và ngày ký do nhóm xác nhận |
+| Tình trạng | Yêu cầu đã được thực hiện theo phạm vi giao và có báo cáo riêng; chưa có biên bản ký duyệt khách hàng/giảng viên |
+| Quyết định cần ghi trước khi nộp | Nhóm ghi chấp nhận, từ chối hoặc đánh giá thêm cùng lý do; không mặc định test PASS là đã ký duyệt |
+
+### So sánh giải pháp và lựa chọn
+
+Hai phương án sau là phân tích kỹ thuật hồi cứu phục vụ mẫu môn học, không phải bằng chứng nhóm đã thử cả hai. Khoảng giờ công là **ước lượng lập kế hoạch**, chưa được đo hoặc phê duyệt. Mỗi phương án cần một người thực hiện có kỹ năng ghi trong bảng và một người review nếu nhóm bố trí được; không quy ra số thành viên thực tế. Chi phí C = H × R + I, chưa có đơn giá R hoặc chi phí hạ tầng I.
+
+| Phương án | Cách thực hiện | Năng lực và công cụ | Ước lượng công sức |
+|---|---|---|---|
+| A | Tính lại tiền từ DB ở server, validate và ghi đơn/kho trong atomic; đã áp dụng. | Decimal, ORM, test HTTP và rollback; phiên bản công cụ thực tế đối chiếu báo cáo HC03 | 16–24 giờ công; C = H × R + I |
+| B | Đưa tính giá/thuế sang một dịch vụ bên ngoài và xác thực phản hồi. | API, xác thực, vận hành dịch vụ bổ sung; phiên bản công cụ thực tế đối chiếu báo cáo HC03 | 32–48 giờ công; C = H × R + I |
+
+**Đề xuất chọn A:** A bảo vệ giá, tổng tiền và kho trong một transaction cục bộ; B thêm độ trễ và rủi ro nhất quán liên dịch vụ.
+
+**Tác động tới tài liệu:** cập nhật các mục HC03 trong đặc tả 02, thiết kế 03, TC-HC03-* và ảnh/log tương ứng trong kiểm thử 04; cập nhật hướng dẫn triển khai khi schema, cấu hình hoặc thao tác vận hành đổi. Mức tác động và liên hệ yêu cầu khác được giữ trong bảng phạm vi ở trên.
+
 ## 5. Phiếu yêu cầu TU01 – Nâng Django 5.2
 
 - **Mã:** TU01. **Loại:** bảo trì thích ứng. Điều chỉnh hệ thống theo môi trường framework Django 5.2 thay cho nền 5.1.
@@ -128,6 +227,32 @@ Chuyển Django 5.2.19, dùng STORAGES đúng API, bổ sung accounts/0002 sau k
 ### Tác động liên yêu cầu và kiểm soát hồi quy
 
 TU02 sử dụng settings/storage mới; DP02 phụ thuộc accounts/0002; toàn bộ bộ test hiện hữu cần tiếp tục chạy sau nâng. Bộ test của TU01 và test liên quan phải được đối chiếu tại mốc lịch sử và tại bản cuối; không coi thay đổi cách triển khai sau DP01/TU03 là một lỗi của đặc tả ban đầu. Các tiêu chí FR/NFR nằm trong 02_DAC_TA.md, minh chứng TC trong 04_KIEM_THU.md.
+
+### Tiếp nhận và phê duyệt thay đổi
+
+| Trường hồ sơ | Nội dung |
+|---|---|
+| Mã yêu cầu và dự án | TU01; hệ thống quản lý bán hàng và tồn kho Django |
+| Người tiếp nhận / phân tích | Vai trò điều phối bảo trì / phân tích hệ thống; tên người thực hiện do nhóm điền |
+| Ngày yêu cầu, tiếp nhận, phân tích | Chưa có phiếu có ngày riêng; nhóm đối chiếu nhật ký thực tế, không lấy ngày commit thay ngày đề xuất |
+| Liên hệ người đề xuất | Vai trò giả lập trong bài tập; không phát sinh địa chỉ, số điện thoại hoặc email cá nhân |
+| Mã yêu cầu gốc | Không tìm thấy mã đặc tả gốc trong hồ sơ cung cấp; nhận diện chức năng cũ bằng tên/view/model và tag v0-goc |
+| Ban quản lý sự thay đổi | Nhóm duyệt thay đổi giả lập; tên thành viên và ngày ký do nhóm xác nhận |
+| Tình trạng | Yêu cầu đã được thực hiện theo phạm vi giao và có báo cáo riêng; chưa có biên bản ký duyệt khách hàng/giảng viên |
+| Quyết định cần ghi trước khi nộp | Nhóm ghi chấp nhận, từ chối hoặc đánh giá thêm cùng lý do; không mặc định test PASS là đã ký duyệt |
+
+### So sánh giải pháp và lựa chọn
+
+Hai phương án sau là phân tích kỹ thuật hồi cứu phục vụ mẫu môn học, không phải bằng chứng nhóm đã thử cả hai. Khoảng giờ công là **ước lượng lập kế hoạch**, chưa được đo hoặc phê duyệt. Mỗi phương án cần một người thực hiện có kỹ năng ghi trong bảng và một người review nếu nhóm bố trí được; không quy ra số thành viên thực tế. Chi phí C = H × R + I, chưa có đơn giá R hoặc chi phí hạ tầng I.
+
+| Phương án | Cách thực hiện | Năng lực và công cụ | Ước lượng công sức |
+|---|---|---|---|
+| A | Nâng đúng Django 5.2.x, đổi STORAGES, chỉ nâng phụ thuộc bắt buộc và bổ sung migration; đã áp dụng. | Dependency audit, migration, warnings test; phiên bản công cụ thực tế đối chiếu báo cáo TU01 | 10–16 giờ công; C = H × R + I |
+| B | Đóng băng môi trường 5.1 và backport từng bản vá do nhóm tự quản. | Theo dõi bản vá, kiểm thử riêng; phiên bản công cụ thực tế đối chiếu báo cáo TU01 | 20–32 giờ công; C = H × R + I |
+
+**Đề xuất chọn A:** A đáp ứng nền tảng đích và giảm chi phí theo dõi vá riêng; B không đạt mục tiêu chuyển Django 5.2.
+
+**Tác động tới tài liệu:** cập nhật các mục TU01 trong đặc tả 02, thiết kế 03, TC-TU01-* và ảnh/log tương ứng trong kiểm thử 04; cập nhật hướng dẫn triển khai khi schema, cấu hình hoặc thao tác vận hành đổi. Mức tác động và liên hệ yêu cầu khác được giữ trong bảng phạm vi ở trên.
 
 ## 6. Phiếu yêu cầu TU02 – Docker, PostgreSQL16, nginx/MEDIA
 
@@ -155,6 +280,32 @@ Dùng Python 3.12/Gunicorn non-root, PostgreSQL16, nginx phục vụ media, volu
 
 DP02/TU03 cần kiểm migration trên PostgreSQL16; HT03 dùng môi trường này để chứng minh khóa hàng; test storage TU01 cần override production backend rõ ràng. Bộ test của TU02 và test liên quan phải được đối chiếu tại mốc lịch sử và tại bản cuối; không coi thay đổi cách triển khai sau DP01/TU03 là một lỗi của đặc tả ban đầu. Các tiêu chí FR/NFR nằm trong 02_DAC_TA.md, minh chứng TC trong 04_KIEM_THU.md.
 
+### Tiếp nhận và phê duyệt thay đổi
+
+| Trường hồ sơ | Nội dung |
+|---|---|
+| Mã yêu cầu và dự án | TU02; hệ thống quản lý bán hàng và tồn kho Django |
+| Người tiếp nhận / phân tích | Vai trò điều phối bảo trì / phân tích hệ thống; tên người thực hiện do nhóm điền |
+| Ngày yêu cầu, tiếp nhận, phân tích | Chưa có phiếu có ngày riêng; nhóm đối chiếu nhật ký thực tế, không lấy ngày commit thay ngày đề xuất |
+| Liên hệ người đề xuất | Vai trò giả lập trong bài tập; không phát sinh địa chỉ, số điện thoại hoặc email cá nhân |
+| Mã yêu cầu gốc | Không tìm thấy mã đặc tả gốc trong hồ sơ cung cấp; nhận diện chức năng cũ bằng tên/view/model và tag v0-goc |
+| Ban quản lý sự thay đổi | Nhóm duyệt thay đổi giả lập; tên thành viên và ngày ký do nhóm xác nhận |
+| Tình trạng | Yêu cầu đã được thực hiện theo phạm vi giao và có báo cáo riêng; chưa có biên bản ký duyệt khách hàng/giảng viên |
+| Quyết định cần ghi trước khi nộp | Nhóm ghi chấp nhận, từ chối hoặc đánh giá thêm cùng lý do; không mặc định test PASS là đã ký duyệt |
+
+### So sánh giải pháp và lựa chọn
+
+Hai phương án sau là phân tích kỹ thuật hồi cứu phục vụ mẫu môn học, không phải bằng chứng nhóm đã thử cả hai. Khoảng giờ công là **ước lượng lập kế hoạch**, chưa được đo hoặc phê duyệt. Mỗi phương án cần một người thực hiện có kỹ năng ghi trong bảng và một người review nếu nhóm bố trí được; không quy ra số thành viên thực tế. Chi phí C = H × R + I, chưa có đơn giá R hoặc chi phí hạ tầng I.
+
+| Phương án | Cách thực hiện | Năng lực và công cụ | Ước lượng công sức |
+|---|---|---|---|
+| A | Compose web/nginx/PostgreSQL, env, volume và collectstatic khi build; đã áp dụng. | Docker, nginx, Linux và CI; phiên bản công cụ thực tế đối chiếu báo cáo TU02 | 20–32 giờ công; C = H × R + I |
+| B | Cài trực tiếp Gunicorn/nginx/PostgreSQL trên máy chủ, quản lý bằng dịch vụ hệ thống. | Quản trị Linux, system service, backup; phiên bản công cụ thực tế đối chiếu báo cáo TU02 | 24–40 giờ công; C = H × R + I |
+
+**Đề xuất chọn A:** A tạo môi trường lặp lại được và phù hợp CI; B khả thi nhưng phụ thuộc nhiều thao tác máy chủ.
+
+**Tác động tới tài liệu:** cập nhật các mục TU02 trong đặc tả 02, thiết kế 03, TC-TU02-* và ảnh/log tương ứng trong kiểm thử 04; cập nhật hướng dẫn triển khai khi schema, cấu hình hoặc thao tác vận hành đổi. Mức tác động và liên hệ yêu cầu khác được giữ trong bảng phạm vi ở trên.
+
 ## 7. Phiếu yêu cầu DP02 – Decimal và ràng buộc
 
 - **Mã:** DP02. **Loại:** bảo trì dự phòng. Phòng ngừa sai số và dữ liệu bất hợp lệ bằng kiểu Decimal, ràng buộc DB và hồi quy dữ liệu trước khi mở rộng nghiệp vụ.
@@ -180,6 +331,32 @@ Chuẩn hóa Decimal(15,2) tại mốc DP02, quantity Invoice nguyên không âm
 ### Tác động liên yêu cầu và kiểm soát hồi quy
 
 DP01 cần kiểu tiền và constraints ổn định trước refactor; TU03 kế thừa Decimal rồi đổi scale thành 0; mọi form, export và fixture tiền chịu tác động. Bộ test của DP02 và test liên quan phải được đối chiếu tại mốc lịch sử và tại bản cuối; không coi thay đổi cách triển khai sau DP01/TU03 là một lỗi của đặc tả ban đầu. Các tiêu chí FR/NFR nằm trong 02_DAC_TA.md, minh chứng TC trong 04_KIEM_THU.md.
+
+### Tiếp nhận và phê duyệt thay đổi
+
+| Trường hồ sơ | Nội dung |
+|---|---|
+| Mã yêu cầu và dự án | DP02; hệ thống quản lý bán hàng và tồn kho Django |
+| Người tiếp nhận / phân tích | Vai trò điều phối bảo trì / phân tích hệ thống; tên người thực hiện do nhóm điền |
+| Ngày yêu cầu, tiếp nhận, phân tích | Chưa có phiếu có ngày riêng; nhóm đối chiếu nhật ký thực tế, không lấy ngày commit thay ngày đề xuất |
+| Liên hệ người đề xuất | Vai trò giả lập trong bài tập; không phát sinh địa chỉ, số điện thoại hoặc email cá nhân |
+| Mã yêu cầu gốc | Không tìm thấy mã đặc tả gốc trong hồ sơ cung cấp; nhận diện chức năng cũ bằng tên/view/model và tag v0-goc |
+| Ban quản lý sự thay đổi | Nhóm duyệt thay đổi giả lập; tên thành viên và ngày ký do nhóm xác nhận |
+| Tình trạng | Yêu cầu đã được thực hiện theo phạm vi giao và có báo cáo riêng; chưa có biên bản ký duyệt khách hàng/giảng viên |
+| Quyết định cần ghi trước khi nộp | Nhóm ghi chấp nhận, từ chối hoặc đánh giá thêm cùng lý do; không mặc định test PASS là đã ký duyệt |
+
+### So sánh giải pháp và lựa chọn
+
+Hai phương án sau là phân tích kỹ thuật hồi cứu phục vụ mẫu môn học, không phải bằng chứng nhóm đã thử cả hai. Khoảng giờ công là **ước lượng lập kế hoạch**, chưa được đo hoặc phê duyệt. Mỗi phương án cần một người thực hiện có kỹ năng ghi trong bảng và một người review nếu nhóm bố trí được; không quy ra số thành viên thực tế. Chi phí C = H × R + I, chưa có đơn giá R hoặc chi phí hạ tầng I.
+
+| Phương án | Cách thực hiện | Năng lực và công cụ | Ước lượng công sức |
+|---|---|---|---|
+| A | Decimal và CHECK tại DB, preflight, cột tạm và migration có kiểm chứng; đã áp dụng. | SQL, Decimal, migration hai DB; phiên bản công cụ thực tế đối chiếu báo cáo DP02 | 20–32 giờ công; C = H × R + I |
+| B | Giữ Float nhưng bổ sung validate ở form/service và audit định kỳ. | Python validation và job audit; phiên bản công cụ thực tế đối chiếu báo cáo DP02 | 10–16 giờ công; C = H × R + I |
+
+**Đề xuất chọn A:** A chặn dữ liệu sai cả khi ghi ngoài form; B không đủ bảo đảm ràng buộc DB và vẫn mang sai số Float.
+
+**Tác động tới tài liệu:** cập nhật các mục DP02 trong đặc tả 02, thiết kế 03, TC-DP02-* và ảnh/log tương ứng trong kiểm thử 04; cập nhật hướng dẫn triển khai khi schema, cấu hình hoặc thao tác vận hành đổi. Mức tác động và liên hệ yêu cầu khác được giữ trong bảng phạm vi ở trên.
 
 ## 8. Phiếu yêu cầu DP01 – Tách dịch vụ kho, sổ kho
 
@@ -208,6 +385,32 @@ Tạo transactions/services, chỉ adjust_stock ghi Item.quantity; service publi
 
 TU03 phải đổi cách round trong pricing/service mà không phân tán ghi kho; HT01 đọc số dư do service duy trì; HT03 thêm cancel_sale và reason SALE_CANCEL. Bộ test của DP01 và test liên quan phải được đối chiếu tại mốc lịch sử và tại bản cuối; không coi thay đổi cách triển khai sau DP01/TU03 là một lỗi của đặc tả ban đầu. Các tiêu chí FR/NFR nằm trong 02_DAC_TA.md, minh chứng TC trong 04_KIEM_THU.md.
 
+### Tiếp nhận và phê duyệt thay đổi
+
+| Trường hồ sơ | Nội dung |
+|---|---|
+| Mã yêu cầu và dự án | DP01; hệ thống quản lý bán hàng và tồn kho Django |
+| Người tiếp nhận / phân tích | Vai trò điều phối bảo trì / phân tích hệ thống; tên người thực hiện do nhóm điền |
+| Ngày yêu cầu, tiếp nhận, phân tích | Chưa có phiếu có ngày riêng; nhóm đối chiếu nhật ký thực tế, không lấy ngày commit thay ngày đề xuất |
+| Liên hệ người đề xuất | Vai trò giả lập trong bài tập; không phát sinh địa chỉ, số điện thoại hoặc email cá nhân |
+| Mã yêu cầu gốc | Không tìm thấy mã đặc tả gốc trong hồ sơ cung cấp; nhận diện chức năng cũ bằng tên/view/model và tag v0-goc |
+| Ban quản lý sự thay đổi | Nhóm duyệt thay đổi giả lập; tên thành viên và ngày ký do nhóm xác nhận |
+| Tình trạng | Yêu cầu đã được thực hiện theo phạm vi giao và có báo cáo riêng; chưa có biên bản ký duyệt khách hàng/giảng viên |
+| Quyết định cần ghi trước khi nộp | Nhóm ghi chấp nhận, từ chối hoặc đánh giá thêm cùng lý do; không mặc định test PASS là đã ký duyệt |
+
+### So sánh giải pháp và lựa chọn
+
+Hai phương án sau là phân tích kỹ thuật hồi cứu phục vụ mẫu môn học, không phải bằng chứng nhóm đã thử cả hai. Khoảng giờ công là **ước lượng lập kế hoạch**, chưa được đo hoặc phê duyệt. Mỗi phương án cần một người thực hiện có kỹ năng ghi trong bảng và một người review nếu nhóm bố trí được; không quy ra số thành viên thực tế. Chi phí C = H × R + I, chưa có đơn giá R hoặc chi phí hạ tầng I.
+
+| Phương án | Cách thực hiện | Năng lực và công cụ | Ước lượng công sức |
+|---|---|---|---|
+| A | Tách dịch vụ kho, adjust_stock duy nhất và sổ StockMovement; đã áp dụng. | Transaction, locking, test kiến trúc; phiên bản công cụ thực tế đối chiếu báo cáo DP01 | 20–32 giờ công; C = H × R + I |
+| B | Dùng trigger DB để cập nhật kho và ghi lịch sử từ chứng từ. | SQL trigger riêng SQLite/PostgreSQL; phiên bản công cụ thực tế đối chiếu báo cáo DP01 | 24–40 giờ công; C = H × R + I |
+
+**Đề xuất chọn A:** A giữ logic nghiệp vụ Python và truy vết được bằng test chung; B tăng khác biệt giữa hai backend.
+
+**Tác động tới tài liệu:** cập nhật các mục DP01 trong đặc tả 02, thiết kế 03, TC-DP01-* và ảnh/log tương ứng trong kiểm thử 04; cập nhật hướng dẫn triển khai khi schema, cấu hình hoặc thao tác vận hành đổi. Mức tác động và liên hệ yêu cầu khác được giữ trong bảng phạm vi ở trên.
+
 ## 9. Phiếu yêu cầu TU03 – Giờ Việt Nam, tiếng Việt, VND
 
 - **Mã:** TU03. **Loại:** bảo trì thích ứng. Điều chỉnh hệ thống cho ngôn ngữ, múi giờ, ngày tháng và đồng tiền của bối cảnh cửa hàng tại Việt Nam.
@@ -235,6 +438,32 @@ Dùng Asia/Ho_Chi_Minh, vi, VND nguyên đồng; một module tiền HALF_UP, fo
 
 HT01/HT02/HT03 phải dùng nhãn, tiền và giờ theo TU03; DP01 tiếp tục sở hữu kho; test migration DP02 phải giữ kỳ vọng cent tại mốc lịch sử. Bộ test của TU03 và test liên quan phải được đối chiếu tại mốc lịch sử và tại bản cuối; không coi thay đổi cách triển khai sau DP01/TU03 là một lỗi của đặc tả ban đầu. Các tiêu chí FR/NFR nằm trong 02_DAC_TA.md, minh chứng TC trong 04_KIEM_THU.md.
 
+### Tiếp nhận và phê duyệt thay đổi
+
+| Trường hồ sơ | Nội dung |
+|---|---|
+| Mã yêu cầu và dự án | TU03; hệ thống quản lý bán hàng và tồn kho Django |
+| Người tiếp nhận / phân tích | Vai trò điều phối bảo trì / phân tích hệ thống; tên người thực hiện do nhóm điền |
+| Ngày yêu cầu, tiếp nhận, phân tích | Chưa có phiếu có ngày riêng; nhóm đối chiếu nhật ký thực tế, không lấy ngày commit thay ngày đề xuất |
+| Liên hệ người đề xuất | Vai trò giả lập trong bài tập; không phát sinh địa chỉ, số điện thoại hoặc email cá nhân |
+| Mã yêu cầu gốc | Không tìm thấy mã đặc tả gốc trong hồ sơ cung cấp; nhận diện chức năng cũ bằng tên/view/model và tag v0-goc |
+| Ban quản lý sự thay đổi | Nhóm duyệt thay đổi giả lập; tên thành viên và ngày ký do nhóm xác nhận |
+| Tình trạng | Yêu cầu đã được thực hiện theo phạm vi giao và có báo cáo riêng; chưa có biên bản ký duyệt khách hàng/giảng viên |
+| Quyết định cần ghi trước khi nộp | Nhóm ghi chấp nhận, từ chối hoặc đánh giá thêm cùng lý do; không mặc định test PASS là đã ký duyệt |
+
+### So sánh giải pháp và lựa chọn
+
+Hai phương án sau là phân tích kỹ thuật hồi cứu phục vụ mẫu môn học, không phải bằng chứng nhóm đã thử cả hai. Khoảng giờ công là **ước lượng lập kế hoạch**, chưa được đo hoặc phê duyệt. Mỗi phương án cần một người thực hiện có kỹ năng ghi trong bảng và một người review nếu nhóm bố trí được; không quy ra số thành viên thực tế. Chi phí C = H × R + I, chưa có đơn giá R hoặc chi phí hạ tầng I.
+
+| Phương án | Cách thực hiện | Năng lực và công cụ | Ước lượng công sức |
+|---|---|---|---|
+| A | Module to_vnd thống nhất, VNDField, migration lượng tử hóa và localtime; đã áp dụng. | Decimal, i18n, timezone, migration; phiên bản công cụ thực tế đối chiếu báo cáo TU03 | 24–40 giờ công; C = H × R + I |
+| B | Chỉ đổi giao diện sang VND/ngày Việt Nam, giữ tiền lẻ và múi giờ xử lý cũ. | Template, JS và định dạng workbook; phiên bản công cụ thực tế đối chiếu báo cáo TU03 | 8–12 giờ công; C = H × R + I |
+
+**Đề xuất chọn A:** A đồng bộ dữ liệu, tính toán, form và export; B chỉ đổi cách nhìn và không đạt tiền nguyên/tính giờ đúng.
+
+**Tác động tới tài liệu:** cập nhật các mục TU03 trong đặc tả 02, thiết kế 03, TC-TU03-* và ảnh/log tương ứng trong kiểm thử 04; cập nhật hướng dẫn triển khai khi schema, cấu hình hoặc thao tác vận hành đổi. Mức tác động và liên hệ yêu cầu khác được giữ trong bảng phạm vi ở trên.
+
 ## 10. Phiếu yêu cầu HT01 – Ngưỡng tồn tối thiểu
 
 - **Mã:** HT01. **Loại:** bảo trì hoàn thiện. Bổ sung khả năng cảnh báo và hỗ trợ quyết định nhập hàng, hoàn thiện chức năng quản lý kho hiện có.
@@ -260,6 +489,32 @@ Lưu ngưỡng từng hàng, liệt kê tồn bằng/thấp ngưỡng đã bật
 ### Tác động liên yêu cầu và kiểm soát hồi quy
 
 HT03 hoàn kho có thể làm item rời danh sách; các đường ghi DP01 phải được giữ; thay đổi metadata không được làm lệch sổ. Bộ test của HT01 và test liên quan phải được đối chiếu tại mốc lịch sử và tại bản cuối; không coi thay đổi cách triển khai sau DP01/TU03 là một lỗi của đặc tả ban đầu. Các tiêu chí FR/NFR nằm trong 02_DAC_TA.md, minh chứng TC trong 04_KIEM_THU.md.
+
+### Tiếp nhận và phê duyệt thay đổi
+
+| Trường hồ sơ | Nội dung |
+|---|---|
+| Mã yêu cầu và dự án | HT01; hệ thống quản lý bán hàng và tồn kho Django |
+| Người tiếp nhận / phân tích | Vai trò điều phối bảo trì / phân tích hệ thống; tên người thực hiện do nhóm điền |
+| Ngày yêu cầu, tiếp nhận, phân tích | Chưa có phiếu có ngày riêng; nhóm đối chiếu nhật ký thực tế, không lấy ngày commit thay ngày đề xuất |
+| Liên hệ người đề xuất | Vai trò giả lập trong bài tập; không phát sinh địa chỉ, số điện thoại hoặc email cá nhân |
+| Mã yêu cầu gốc | Không tìm thấy mã đặc tả gốc trong hồ sơ cung cấp; nhận diện chức năng cũ bằng tên/view/model và tag v0-goc |
+| Ban quản lý sự thay đổi | Nhóm duyệt thay đổi giả lập; tên thành viên và ngày ký do nhóm xác nhận |
+| Tình trạng | Yêu cầu đã được thực hiện theo phạm vi giao và có báo cáo riêng; chưa có biên bản ký duyệt khách hàng/giảng viên |
+| Quyết định cần ghi trước khi nộp | Nhóm ghi chấp nhận, từ chối hoặc đánh giá thêm cùng lý do; không mặc định test PASS là đã ký duyệt |
+
+### So sánh giải pháp và lựa chọn
+
+Hai phương án sau là phân tích kỹ thuật hồi cứu phục vụ mẫu môn học, không phải bằng chứng nhóm đã thử cả hai. Khoảng giờ công là **ước lượng lập kế hoạch**, chưa được đo hoặc phê duyệt. Mỗi phương án cần một người thực hiện có kỹ năng ghi trong bảng và một người review nếu nhóm bố trí được; không quy ra số thành viên thực tế. Chi phí C = H × R + I, chưa có đơn giá R hoặc chi phí hạ tầng I.
+
+| Phương án | Cách thực hiện | Năng lực và công cụ | Ước lượng công sức |
+|---|---|---|---|
+| A | Ngưỡng trên Item, query trực tiếp tồn hiện tại, cảnh báo và export; đã áp dụng. | ORM annotation, form, template; phiên bản công cụ thực tế đối chiếu báo cáo HT01 | 10–16 giờ công; C = H × R + I |
+| B | Dùng job định kỳ chụp danh sách cần nhập vào bảng riêng và gửi cảnh báo. | Scheduler, bảng snapshot và kiểm đồng bộ; phiên bản công cụ thực tế đối chiếu báo cáo HT01 | 20–32 giờ công; C = H × R + I |
+
+**Đề xuất chọn A:** A dùng tồn hiện tại nên phản ánh ngay sau bán, nhập hoặc hủy; B có nguy cơ cảnh báo chậm và lệch snapshot.
+
+**Tác động tới tài liệu:** cập nhật các mục HT01 trong đặc tả 02, thiết kế 03, TC-HT01-* và ảnh/log tương ứng trong kiểm thử 04; cập nhật hướng dẫn triển khai khi schema, cấu hình hoặc thao tác vận hành đổi. Mức tác động và liên hệ yêu cầu khác được giữ trong bảng phạm vi ở trên.
 
 ## 11. Phiếu yêu cầu HT02 – Lọc và xuất giao dịch
 
@@ -287,6 +542,32 @@ Một đường lọc đã validate cho list/export, theo ngày Việt Nam và c
 
 HT03 thêm status vào SaleFilter và loại CANCELLED khỏi tổng doanh thu; HC02/TU03 cung cấp quy tắc Excel/ngày/tiền; không thay luồng kho DP01. Bộ test của HT02 và test liên quan phải được đối chiếu tại mốc lịch sử và tại bản cuối; không coi thay đổi cách triển khai sau DP01/TU03 là một lỗi của đặc tả ban đầu. Các tiêu chí FR/NFR nằm trong 02_DAC_TA.md, minh chứng TC trong 04_KIEM_THU.md.
 
+### Tiếp nhận và phê duyệt thay đổi
+
+| Trường hồ sơ | Nội dung |
+|---|---|
+| Mã yêu cầu và dự án | HT02; hệ thống quản lý bán hàng và tồn kho Django |
+| Người tiếp nhận / phân tích | Vai trò điều phối bảo trì / phân tích hệ thống; tên người thực hiện do nhóm điền |
+| Ngày yêu cầu, tiếp nhận, phân tích | Chưa có phiếu có ngày riêng; nhóm đối chiếu nhật ký thực tế, không lấy ngày commit thay ngày đề xuất |
+| Liên hệ người đề xuất | Vai trò giả lập trong bài tập; không phát sinh địa chỉ, số điện thoại hoặc email cá nhân |
+| Mã yêu cầu gốc | Không tìm thấy mã đặc tả gốc trong hồ sơ cung cấp; nhận diện chức năng cũ bằng tên/view/model và tag v0-goc |
+| Ban quản lý sự thay đổi | Nhóm duyệt thay đổi giả lập; tên thành viên và ngày ký do nhóm xác nhận |
+| Tình trạng | Yêu cầu đã được thực hiện theo phạm vi giao và có báo cáo riêng; chưa có biên bản ký duyệt khách hàng/giảng viên |
+| Quyết định cần ghi trước khi nộp | Nhóm ghi chấp nhận, từ chối hoặc đánh giá thêm cùng lý do; không mặc định test PASS là đã ký duyệt |
+
+### So sánh giải pháp và lựa chọn
+
+Hai phương án sau là phân tích kỹ thuật hồi cứu phục vụ mẫu môn học, không phải bằng chứng nhóm đã thử cả hai. Khoảng giờ công là **ước lượng lập kế hoạch**, chưa được đo hoặc phê duyệt. Mỗi phương án cần một người thực hiện có kỹ năng ghi trong bảng và một người review nếu nhóm bố trí được; không quy ra số thành viên thực tế. Chi phí C = H × R + I, chưa có đơn giá R hoặc chi phí hạ tầng I.
+
+| Phương án | Cách thực hiện | Năng lực và công cụ | Ước lượng công sức |
+|---|---|---|---|
+| A | FilterSet và hàm queryset chung cho list/export, giữ GET; đã áp dụng. | django-filter, query, openpyxl; phiên bản công cụ thực tế đối chiếu báo cáo HT02 | 16–24 giờ công; C = H × R + I |
+| B | Tạo trang báo cáo riêng có bộ lọc/export độc lập với danh sách giao dịch. | View/report riêng và đối chiếu hai logic; phiên bản công cụ thực tế đối chiếu báo cáo HT02 | 24–36 giờ công; C = H × R + I |
+
+**Đề xuất chọn A:** A dùng một hợp đồng lọc cho list/export nên giảm sai lệch; B dễ lặp logic và làm kết quả không khớp.
+
+**Tác động tới tài liệu:** cập nhật các mục HT02 trong đặc tả 02, thiết kế 03, TC-HT02-* và ảnh/log tương ứng trong kiểm thử 04; cập nhật hướng dẫn triển khai khi schema, cấu hình hoặc thao tác vận hành đổi. Mức tác động và liên hệ yêu cầu khác được giữ trong bảng phạm vi ở trên.
+
 ## 12. Phiếu yêu cầu HT03 – Hủy đơn, lịch sử, hoàn kho
 
 - **Mã:** HT03. **Loại:** bảo trì hoàn thiện. Bổ sung nghiệp vụ hủy có kiểm soát, lịch sử và hoàn kho thay cho chức năng xóa đơn không đáp ứng quản trị giao dịch.
@@ -313,6 +594,32 @@ Hủy có lý do và actor/time; khóa Sale, hoàn qua DP01 đúng một lần; 
 ### Tác động liên yêu cầu và kiểm soát hồi quy
 
 Dùng service/sổ DP01; mở rộng filter HT02; tác động count/đề xuất HT01 qua số dư; giữ format tiền/ngày TU03. Bộ test của HT03 và test liên quan phải được đối chiếu tại mốc lịch sử và tại bản cuối; không coi thay đổi cách triển khai sau DP01/TU03 là một lỗi của đặc tả ban đầu. Các tiêu chí FR/NFR nằm trong 02_DAC_TA.md, minh chứng TC trong 04_KIEM_THU.md.
+
+### Tiếp nhận và phê duyệt thay đổi
+
+| Trường hồ sơ | Nội dung |
+|---|---|
+| Mã yêu cầu và dự án | HT03; hệ thống quản lý bán hàng và tồn kho Django |
+| Người tiếp nhận / phân tích | Vai trò điều phối bảo trì / phân tích hệ thống; tên người thực hiện do nhóm điền |
+| Ngày yêu cầu, tiếp nhận, phân tích | Chưa có phiếu có ngày riêng; nhóm đối chiếu nhật ký thực tế, không lấy ngày commit thay ngày đề xuất |
+| Liên hệ người đề xuất | Vai trò giả lập trong bài tập; không phát sinh địa chỉ, số điện thoại hoặc email cá nhân |
+| Mã yêu cầu gốc | Không tìm thấy mã đặc tả gốc trong hồ sơ cung cấp; nhận diện chức năng cũ bằng tên/view/model và tag v0-goc |
+| Ban quản lý sự thay đổi | Nhóm duyệt thay đổi giả lập; tên thành viên và ngày ký do nhóm xác nhận |
+| Tình trạng | Yêu cầu đã được thực hiện theo phạm vi giao và có báo cáo riêng; chưa có biên bản ký duyệt khách hàng/giảng viên |
+| Quyết định cần ghi trước khi nộp | Nhóm ghi chấp nhận, từ chối hoặc đánh giá thêm cùng lý do; không mặc định test PASS là đã ký duyệt |
+
+### So sánh giải pháp và lựa chọn
+
+Hai phương án sau là phân tích kỹ thuật hồi cứu phục vụ mẫu môn học, không phải bằng chứng nhóm đã thử cả hai. Khoảng giờ công là **ước lượng lập kế hoạch**, chưa được đo hoặc phê duyệt. Mỗi phương án cần một người thực hiện có kỹ năng ghi trong bảng và một người review nếu nhóm bố trí được; không quy ra số thành viên thực tế. Chi phí C = H × R + I, chưa có đơn giá R hoặc chi phí hạ tầng I.
+
+| Phương án | Cách thực hiện | Năng lực và công cụ | Ước lượng công sức |
+|---|---|---|---|
+| A | Trạng thái, audit OneToOne và cancel_sale khóa đơn, hoàn kho qua service; đã áp dụng. | Transaction, locking, test hai luồng; phiên bản công cụ thực tế đối chiếu báo cáo HT03 | 24–40 giờ công; C = H × R + I |
+| B | Xóa đơn và lưu bản sao ngoài hệ thống, hoàn kho thủ công qua điều chỉnh riêng. | Quy trình nghiệp vụ thủ công và lưu trữ ngoài; phiên bản công cụ thực tế đối chiếu báo cáo HT03 | 12–20 giờ công; C = H × R + I |
+
+**Đề xuất chọn A:** A bảo đảm audit và hoàn đúng một lần qua khóa transaction; B không đạt nguyên tử, lịch sử và chống hủy lặp.
+
+**Tác động tới tài liệu:** cập nhật các mục HT03 trong đặc tả 02, thiết kế 03, TC-HT03-* và ảnh/log tương ứng trong kiểm thử 04; cập nhật hướng dẫn triển khai khi schema, cấu hình hoặc thao tác vận hành đổi. Mức tác động và liên hệ yêu cầu khác được giữ trong bảng phạm vi ở trên.
 
 ## 13. Ma trận phụ thuộc giữa các yêu cầu
 
@@ -406,3 +713,7 @@ Tác động trọng yếu tập trung ở hai trục: tính toàn vẹn số d�
 - [invoice/models.py](../../invoice/models.py)
 - [bills/models.py](../../bills/models.py)
 - [../huong-dan-va-prompt-codex.md](../../../huong-dan-va-prompt-codex.md): phần C, các mục Hiện trạng, Yêu cầu và Tiêu chí chấp nhận. Tệp ở thư mục cha, không thuộc Git của repo; liên kết có hiệu lực trong workspace đã cung cấp.
+
+- Bộ biểu mẫu Project 2 do học phần cung cấp: kế hoạch, phân tích tác động, đặc tả, thiết kế, kiểm thử; đối chiếu các mục tương ứng trong bản cập nhật 1.1.
+
+- Thông tin trường theo trang bìa mẫu Tài liệu kiểm thử.docx; lớp CT244H – Bảo trì phần mềm theo người dùng; giảng viên Ph.D Huỳnh Quang Nghi và thành viên Nguyễn Đức Khang (B2303874), Châu Trường Phúc (B2303892), Nguyễn Trường Thịnh (B2303905) theo trang bìa DMTHINH.docx do người dùng cung cấp.

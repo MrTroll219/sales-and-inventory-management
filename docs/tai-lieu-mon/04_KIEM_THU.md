@@ -5,6 +5,27 @@ Bộ tài liệu môn Bảo trì phần mềm – Project 2. Đề tài: **Bảo
 Phạm vi khảo sát là bản ứng dụng `123101a`, được đóng gói trong tag `v1-bao-tri` ở commit `1b06b13`; nhánh tài liệu kế thừa tag này. Các số liệu lấy từ `docs/BAO_CAO_TONG_HOP.md` và hồ sơ `evidence/final/`, không phải một lần chạy test mới của nhánh tài liệu. Mã FR/NFR/TC trong bộ tài liệu là định danh truy vết do tài liệu này quy định, không phải tên yêu cầu có sẵn trong code.
 
 
+## Hồ sơ tài liệu và hướng dẫn đọc
+
+Tài liệu được biên soạn cho nhóm bảo trì, người phản biện và giảng viên học phần Bảo trì phần mềm. Người đọc nghiệp vụ tập trung vào hiện trạng, hành vi mong muốn và bằng chứng; người triển khai đọc thêm kiến trúc, migration và ràng buộc. Phạm vi là 11 yêu cầu trên hệ thống bán hàng và tồn kho Django; không bổ sung chức năng ngoài phạm vi đã thực hiện.
+
+| Phiên bản | Ngày | Người chuẩn bị | Nội dung cập nhật |
+|---|---|---|---|
+| 1.0 | 28/11/2026 | Nhóm Nguyễn Đức Khang, Châu Trường Phúc, Nguyễn Trường Thịnh | Hồ sơ kỹ thuật và bản Word ban đầu, commit 31668be |
+| 1.1 | 28/11/2026 | Nhóm Nguyễn Đức Khang, Châu Trường Phúc, Nguyễn Trường Thịnh | Bổ sung cấu trúc theo mẫu Project 2, xuất Word A4; chưa có chữ ký phê duyệt của nhóm |
+
+Quy ước: **[GIỮ]** là nội dung kế thừa; **[SỬA]** là điều chỉnh chức năng đang có; **[MỚI]** là nội dung bổ sung. Mã HC/TU/HT/DP liên kết yêu cầu bảo trì; FR/NFR là tiêu chí chức năng/phi chức năng; TC là trường hợp kiểm thử. Những mã FR/NFR/TC được đặt trong bộ hồ sơ này, không giả định phần mềm gốc đã có đặc tả với các mã tương tự.
+
+| Thuật ngữ | Giải thích |
+|---|---|
+| Baseline | Mốc đối chiếu cố định v0-goc; không đồng nhất với main hiện tại của tác giả |
+| Migration / preflight | Chuyển schema, dữ liệu / kiểm tra dữ liệu trước chuyển đổi |
+| Atomic / rollback | Ghi toàn bộ giao dịch hoặc phục hồi toàn bộ khi thất bại |
+| Ledger / StockMovement | Sổ ghi biến động tồn kho dùng để đối soát |
+| CI / coverage | Kiểm chứng tự động / tỷ lệ dòng mã được thực thi, không đồng nghĩa chứng minh hết lỗi |
+
+Nguồn biểu mẫu: bộ Project 2 do môn học cung cấp, gồm Yeucau_Project2.pdf, KehoachBT.pdf, Phantichsutacdong.pdf, DactaYCTD.pdf, ThietkeYCTD.pdf, Tài liệu kiểm thử.docx và Vidu_Dacta_Thietke.pdf. Mẫu kiểm thử ghi học kỳ 3 năm 2024–2025; đây là thông tin của mẫu, không dùng làm học kỳ thực tế của nhóm. Ngày và người phê duyệt nghiệp vụ chưa có hồ sơ riêng, không suy diễn từ trạng thái test PASS.
+
 ## 1. Chiến lược kiểm thử
 
 Kiểm thử có hai mục tiêu: chứng minh lỗi gốc và chứng minh bản sửa giữ các bất biến nghiệp vụ. P0 chủ động viết kỳ vọng đúng rồi chạy trên code sai; test đỏ ở P0 không phải bằng chứng thất bại của bản cuối. Hồi quy được mở rộng dần và chạy lại sau mỗi yêu cầu. Các TC dưới là chọn lọc từ test thật, không phải bộ test mới được tự viết cho tài liệu.
@@ -317,7 +338,69 @@ Backup/restore, cửa sổ dừng ghi, lượng tử hóa tiền không đảo n
 
 ## 8. Tình trạng biên soạn và xuất tài liệu
 
-Bốn tệp Markdown được kiểm tra liên kết nguồn/ảnh, tên test và log tương ứng; Mermaid được parse/render để kiểm cú pháp, gồm classDef màu. Kết quả kỹ thuật và số mục/TC ghi trong KIEM_TRA_TAI_LIEU.json. Bản cập nhật đã cài Pandoc qua winget và xuất bốn tệp DOCX có mục lục, font Times New Roman và ảnh nhúng. Sơ đồ được render bằng Mermaid CLI thành PNG nền trắng trong img/; các khối Mermaid của Markdown vẫn được giữ nguyên. Số ảnh, bảng, heading và kết quả kiểm tra DOCX được ghi trong KIEM_TRA_TAI_LIEU.json. Bản Markdown trung gian và reference.docx dùng để xuất chỉ lưu trong thư mục build tạm, không commit.
+Bốn tệp Markdown được kiểm tra liên kết nguồn/ảnh, tên test và log tương ứng; Mermaid được parse/render để kiểm cú pháp, gồm classDef màu. Kết quả kỹ thuật và số mục/TC ghi trong KIEM_TRA_TAI_LIEU.json. Bản cập nhật đã cài Pandoc qua winget và xuất các tệp DOCX A4 có mục lục, font Times New Roman và ảnh nhúng. Sơ đồ được render bằng Mermaid CLI thành PNG nền trắng trong img/; các khối Mermaid của Markdown vẫn được giữ nguyên. Số ảnh, bảng, heading và kết quả kiểm tra DOCX được ghi trong KIEM_TRA_TAI_LIEU.json. Bản Markdown trung gian và reference.docx dùng để xuất chỉ lưu trong thư mục build tạm, không commit.
+
+## 9. Kế hoạch và quản lý kiểm thử theo mẫu học phần
+
+### 9.1. Mục tiêu, phạm vi và tính năng được kiểm thử
+
+Mục tiêu là chứng minh các lỗi đã tái hiện ở P0 được khắc phục và thay đổi mới bảo toàn tiền, kho, quyền truy cập, migration. Phạm vi gồm HC01–HC03, TU01–TU03, DP01–DP02, HT01–HT03; các nhóm TC và đường dẫn test thật ở phần 2 là tập tiêu biểu của suite đã có, không phải test được bổ sung trong lần biên soạn báo cáo này.
+
+### 9.2. Tính năng không kiểm thử và giới hạn
+
+Chưa kiểm dữ liệu cửa hàng thật, chuyển tiền theo tỷ giá, hiệu năng ở tải lớn, mọi cấu hình proxy/TLS hoặc mọi đường admin/SQL. Không tuyên bố kiểm toàn bộ phần mềm gốc chỉ vì chạy suite 247 test. Kịch bản hai luồng chỉ chạy PostgreSQL; SQLite bỏ qua test đó có công bố. Số đo coverage trong báo cáo là local SQLite; không gán số này cho PostgreSQL khi không có nguồn.
+
+### 9.3. Cách tiếp cận và tiêu chí thành công thất bại
+
+Tiếp cận dựa rủi ro: khóa các lỗi gốc bằng test hồi quy; kiểm unit cho tiền/ngày/settings; integration cho form/view/service/Excel; migration trên schema lịch sử và dữ liệu hợp lệ/không hợp lệ; concurrency cho hủy đơn. UI dùng ảnh đã lưu và workbook thật; kiểm tra bằng mắt không thay assertion DB.
+
+Một TC đạt khi assertion về dữ liệu, phản hồi hoặc ràng buộc đúng theo mốc được kiểm; TC thất bại khi sai kết quả, phát sinh lỗi bất ngờ hoặc vi phạm rollback. Giai đoạn cuối chỉ đạt khi check không lỗi, không thiếu migration và suite đúng cấu hình chạy thành công; deploy check cần cấu hình production SSL. Test đỏ ở P0/HC01/HC02 là bằng chứng lỗi tồn tại tại mốc đó, không phải thành công của bản cuối. Không tự chuyển FAIL thành PASS bằng đổi assertion hoặc skip.
+
+### 9.4. Tiêu chí đình chỉ và yêu cầu bắt đầu lại
+
+Dừng lượt kiểm khi thiếu secret/cấu hình DB, không tạo được schema thử, dữ liệu thử lẫn dữ liệu thật, migration phát hiện bất hợp lệ hoặc có test fail chưa giải thích. Giữ log, xác định SHA và môi trường; phân loại lỗi sản phẩm với lỗi môi trường trước khi xử lý.
+
+Chạy lại khi môi trường đã tái tạo tách biệt, nguồn dữ liệu đã được xử lý có phép hoặc lỗi trong phạm vi được sửa; bắt đầu bằng test liên quan rồi toàn suite nếu thay code/schema. Bản báo cáo chỉ dùng lại kết quả ở đúng SHA đã kiểm, không ghi một lần chạy mới khi chỉ chỉnh tài liệu. Nếu thay source sau mốc kiểm thì kết quả cũ không thay cho nghiệm thu mới.
+
+### 9.5. Công việc, trách nhiệm và quyền hạn
+
+| Hoạt động | Người chịu trách nhiệm theo vai trò | Đầu ra / quyền hạn |
+|---|---|---|
+| Lập TC và dữ liệu | Người kiểm thử | Bảng TC truy vết FR và dữ liệu thử; không tự đổi yêu cầu |
+| Chuẩn bị môi trường | Quản trị hệ thống nhóm | SQLite, PostgreSQL16 CI, env giả; không truy cập DB thật nếu chưa được phép |
+| Thực thi và lưu log | Người kiểm thử / CI | SHA, lệnh, output, workbook và ảnh |
+| Phân tích lỗi | Người thực hiện và người review | Phát hiện, phạm vi sửa, test tái hiện; không che lỗi ngoài phạm vi |
+| Quyết định nghiệm thu | Người duyệt thay đổi của nhóm | Chấp nhận hoặc yêu cầu kiểm thêm; tên và ngày ký phải do nhóm điền |
+
+Tên thành viên thật và mức đóng góp được ghi ở bảng phân công chung. Nếu kiêm nhiệm, nhóm ghi đúng thực tế. Kênh giao tiếp là Git/log/tài liệu và kênh nhóm xác nhận; kết quả lỗi cần kèm cách tái hiện, mong đợi, thực tế, mức độ và người xử lý.
+
+### 9.6. Môi trường, tài nguyên và huấn luyện
+
+Môi trường thực tế, phiên bản và CI ở phần 1 và 6. Máy local chưa chạy Docker thì không ghi là đã chạy; smoke container dựa vào CI được trích đúng nguồn. DB thử tạo riêng, ảnh tải lên thử lưu riêng; logic test không gọi mạng. Việc tải package/image hoặc trình duyệt thuộc chuẩn bị môi trường, có thể cần mạng.
+
+Người kiểm thử cần đọc quy tắc VND, giờ Việt Nam, atomic/rollback, dịch vụ kho và hướng dẫn chạy suite. Nhóm tự bố trí người kiểm tra chéo; không có hồ sơ đào tạo thì chỉ ghi nội dung cần hướng dẫn, không ghi đã huấn luyện.
+
+### 9.7. Lịch, dự đoán và chi phí
+
+Các mốc kiểm gắn với P0 → HC → TU01/TU02 → DP02/DP01 → TU03 → HT01/HT02/HT03 → FINAL, theo tiến trình phần 3. Ngày, người và số giờ thực tế lấy từ nhật ký nhóm nếu có; không suy ra giờ công từ thời gian chạy suite hoặc ngày commit.
+
+Kế hoạch kiểm thử phục vụ ước lượng: mỗi thay đổi cần chuẩn bị dữ liệu, chạy test liên quan, toàn suite, đọc log và review bằng chứng. Công sức đã nằm trong khoảng ước lượng ở tài liệu 01; không cộng thêm lần nữa thành tổng dự án. Chi phí tính H × R + I; R, I và thời gian của nhóm chưa được cung cấp nên chưa xác lập số tiền thực tế.
+
+### 9.8. Rủi ro và biện pháp xử lý
+
+| Rủi ro | Ảnh hưởng | Biện pháp |
+|---|---|---|
+| Chỉ kiểm SQLite | Không chứng minh khóa bản ghi và khác biệt numeric PostgreSQL | Giữ CI PostgreSQL16, đọc kết quả riêng từng backend |
+| Dữ liệu migration không sạch | Dừng hoặc sai tiền khi chuyển schema | Preflight, DB bản sao, backup và đối chiếu đẳng thức |
+| Ảnh UI khác mốc code | Diễn giải sai trước/sau | Ghi SHA/mốc ảnh; không dùng ảnh mới làm hiện trạng gốc |
+| CDN/mạng không sẵn | Giao diện trang trí thiếu, tải môi trường thất bại | Tách kiểm logic khỏi bước cài; công bố giới hạn ảnh |
+| Test qua nhưng còn đường admin/SQL | Có thể vượt dịch vụ nghiệp vụ | Ghi tồn đọng và quyền vận hành; không kết luận hết lỗi |
+| Thông tin nhóm thiếu | Chưa đủ hồ sơ nộp môn | Điền MSSV, vai trò, đánh giá và phê duyệt trước khi nộp |
+
+### 9.9. Sản phẩm bàn giao của kiểm thử
+
+Bảng TC, mã test, log suite/check/migration/CI, số đo coverage có nguồn, ảnh trước/sau, workbook và danh mục lỗi còn mở. Hồ sơ trong evidence giữ nguyên nội dung; tài liệu này diễn giải và dẫn nguồn, không sửa log để có kết quả đẹp. Phần kết quả thực tế ở bảng TC là xác nhận assertion tương ứng trong log, không phải ảnh chụp output riêng của từng test.
+
 
 ## Nguồn tham chiếu
 
@@ -369,3 +452,7 @@ Bốn tệp Markdown được kiểm tra liên kết nguồn/ảnh, tên test v�
 - [evidence/ht03/BANG_CHUNG.md](../../evidence/ht03/BANG_CHUNG.md)
 - [evidence/truoc/BANG_CHUNG_TRUOC.md](../../evidence/truoc/BANG_CHUNG_TRUOC.md)
 - [../huong-dan-va-prompt-codex.md](../../../huong-dan-va-prompt-codex.md): phần C, các mục Hiện trạng, Yêu cầu và Tiêu chí chấp nhận. Tệp ở thư mục cha, không thuộc Git của repo; liên kết có hiệu lực trong workspace đã cung cấp.
+
+- Bộ biểu mẫu Project 2 do học phần cung cấp: kế hoạch, phân tích tác động, đặc tả, thiết kế, kiểm thử; đối chiếu các mục tương ứng trong bản cập nhật 1.1.
+
+- Thông tin trường theo trang bìa mẫu Tài liệu kiểm thử.docx; lớp CT244H – Bảo trì phần mềm theo người dùng; giảng viên Ph.D Huỳnh Quang Nghi và thành viên Nguyễn Đức Khang (B2303874), Châu Trường Phúc (B2303892), Nguyễn Trường Thịnh (B2303905) theo trang bìa DMTHINH.docx do người dùng cung cấp.

@@ -5,6 +5,27 @@ Bộ tài liệu môn Bảo trì phần mềm – Project 2. Đề tài: **Bảo
 Phạm vi khảo sát là bản ứng dụng `123101a`, được đóng gói trong tag `v1-bao-tri` ở commit `1b06b13`; nhánh tài liệu kế thừa tag này. Các số liệu lấy từ `docs/BAO_CAO_TONG_HOP.md` và hồ sơ `evidence/final/`, không phải một lần chạy test mới của nhánh tài liệu. Mã FR/NFR/TC trong bộ tài liệu là định danh truy vết do tài liệu này quy định, không phải tên yêu cầu có sẵn trong code.
 
 
+## Hồ sơ tài liệu và hướng dẫn đọc
+
+Tài liệu được biên soạn cho nhóm bảo trì, người phản biện và giảng viên học phần Bảo trì phần mềm. Người đọc nghiệp vụ tập trung vào hiện trạng, hành vi mong muốn và bằng chứng; người triển khai đọc thêm kiến trúc, migration và ràng buộc. Phạm vi là 11 yêu cầu trên hệ thống bán hàng và tồn kho Django; không bổ sung chức năng ngoài phạm vi đã thực hiện.
+
+| Phiên bản | Ngày | Người chuẩn bị | Nội dung cập nhật |
+|---|---|---|---|
+| 1.0 | 28/11/2026 | Nhóm Nguyễn Đức Khang, Châu Trường Phúc, Nguyễn Trường Thịnh | Hồ sơ kỹ thuật và bản Word ban đầu, commit 31668be |
+| 1.1 | 28/11/2026 | Nhóm Nguyễn Đức Khang, Châu Trường Phúc, Nguyễn Trường Thịnh | Bổ sung cấu trúc theo mẫu Project 2, xuất Word A4; chưa có chữ ký phê duyệt của nhóm |
+
+Quy ước: **[GIỮ]** là nội dung kế thừa; **[SỬA]** là điều chỉnh chức năng đang có; **[MỚI]** là nội dung bổ sung. Mã HC/TU/HT/DP liên kết yêu cầu bảo trì; FR/NFR là tiêu chí chức năng/phi chức năng; TC là trường hợp kiểm thử. Những mã FR/NFR/TC được đặt trong bộ hồ sơ này, không giả định phần mềm gốc đã có đặc tả với các mã tương tự.
+
+| Thuật ngữ | Giải thích |
+|---|---|
+| Baseline | Mốc đối chiếu cố định v0-goc; không đồng nhất với main hiện tại của tác giả |
+| Migration / preflight | Chuyển schema, dữ liệu / kiểm tra dữ liệu trước chuyển đổi |
+| Atomic / rollback | Ghi toàn bộ giao dịch hoặc phục hồi toàn bộ khi thất bại |
+| Ledger / StockMovement | Sổ ghi biến động tồn kho dùng để đối soát |
+| CI / coverage | Kiểm chứng tự động / tỷ lệ dòng mã được thực thi, không đồng nghĩa chứng minh hết lỗi |
+
+Nguồn biểu mẫu: bộ Project 2 do môn học cung cấp, gồm Yeucau_Project2.pdf, KehoachBT.pdf, Phantichsutacdong.pdf, DactaYCTD.pdf, ThietkeYCTD.pdf, Tài liệu kiểm thử.docx và Vidu_Dacta_Thietke.pdf. Mẫu kiểm thử ghi học kỳ 3 năm 2024–2025; đây là thông tin của mẫu, không dùng làm học kỳ thực tế của nhóm. Ngày và người phê duyệt nghiệp vụ chưa có hồ sơ riêng, không suy diễn từ trạng thái test PASS.
+
 ## 1. Nguyên tắc và kiến trúc trước bảo trì
 
 Thiết kế giữ cấu trúc Django nhiều app hiện có; không dựng thêm một microservice hoặc lớp miền không có trong source. Mục tiêu là cô lập ghi tồn, chuẩn hóa tiền và làm rõ hợp đồng giữa view, service, ORM và giao diện. Sơ đồ trước mô tả hành vi tại tag v0-goc; sơ đồ sau mô tả bản đóng gói cuối. Các biểu tượng module trong sơ đồ lớp chỉ nhóm hàm Python thật, không phải lớp mới được tự giả định.
@@ -681,6 +702,173 @@ Chuyển Float→Decimal và cents→đồng mất thông tin phần lẻ; rever
 
 Thiết kế mô tả bản đã thực hiện, không bổ sung service, bảng hay quyền ngoài source. Các đường admin/ORM còn mở, sai route và giới hạn precision Excel được giữ trong danh mục tồn đọng, không được vẽ thành thành phần đã sửa. Màu sơ đồ đánh dấu thay đổi tại từng mốc, trong khi bảng CSDL ghi bản cuối; hai góc nhìn không đồng nhất về thời điểm nhưng được ghi rõ. Cú pháp Mermaid được kiểm tra bằng công cụ parse/render; kết quả xác minh và tình trạng Pandoc lưu ở KIEM_TRA_TAI_LIEU.json trong cùng thư mục.
 
+## 9. Bổ sung cơ sở thiết kế và từ điển dữ liệu
+
+Thiết kế giữ kiến trúc Django MVT để giảm phạm vi thay đổi; lớp dịch vụ DP01 tập trung transaction và kho thay vì tách microservice hoặc trigger riêng từng backend. DB constraint bổ sung lớp bảo vệ độc lập với form. nginx xử lý media khi DEBUG=False; static build nằm trong image. Lựa chọn và phương án thay thế theo từng yêu cầu được phân tích ở tài liệu 01; không diễn giải kiến trúc sau như cơ chế cấm mọi SQL/admin tùy ý.
+
+Từ điển dưới bao quát dữ liệu chính liên quan đến phạm vi bảo trì, không thay thế mô tả model nguyên bản. Các trường tiền hiện tại là VNDField kế thừa DecimalField(15,0); phần trăm thuế giữ Decimal(5,2). Tên bảng sales và sale_details là db_table thực tế, không tự ghép tiền tố app.
+
+| Đối tượng và trường | Kiểu / ràng buộc | Ý nghĩa và xử lý |
+|---|---|---|
+| Bill.amount | VNDField(15,0), không âm | Chi phí; [SỬA] DP02/TU03 |
+| Customer | Đối tượng khách hàng; tên nối an toàn | Tác nhân được tham chiếu ở Sale; [SỬA] HC03 xử lý last_name rỗng |
+| Invoice.quantity | PositiveIntegerField, cho 0 | [SỬA] DP02; giả định 0 còn cần nghiệm thu nghiệp vụ |
+| Invoice.price_per_item, shipping, total, grand_total | VNDField(15,0), không âm | [SỬA] DP02/TU03; logic hóa đơn theo model, không đồng nhất Sale |
+| Item.price | VNDField(15,0), không âm | Giá DB làm nguồn tính; [SỬA] DP02/TU03 |
+| Item.quantity | Số nguyên không âm | Số dư; [SỬA] DP01 chỉ adjust_stock ghi trong đường ứng dụng |
+| Item.min_stock_level | PositiveIntegerField, default 0 | [MỚI] HT01; 0 tắt cảnh báo |
+| Item.needs_restock, stock_shortage, suggested_order_qty | Property / queryset, không phải cột | [MỚI] HT01; tính từ số dư và ngưỡng |
+| Profile.email, first_name, last_name | email max150 unique; tên max30 | [SỬA] TU01; preflight không tự gộp |
+| Purchase.item, vendor | ForeignKey theo model | Hàng và nhà cung cấp của phiếu nhập |
+| Purchase.price, total_value, quantity | Tiền VND; lượng nguyên dương | Service nhập tính total, delta tồn; save chỉ tính tiền sau DP01 |
+| Purchase.delivery_date | Datetime có thể NULL | [SỬA] HC02 giữ giá trị khi chỉ sửa mô tả |
+| Sale.customer, date_added | Khách; datetime có timezone | Tham chiếu khách và thời điểm lọc/xuất |
+| Sale.sub_total, tax_amount, grand_total | Tiền VND không âm | grand_total = sub_total + tax_amount |
+| Sale.amount_paid, amount_change | Tiền VND không âm | amount_change = amount_paid − grand_total |
+| Sale.tax_percentage | Decimal(5,2), 0..100 | Thuế cộng thêm, làm tròn đến đồng sau TU03 |
+| Sale.status | COMPLETED / CANCELLED | [MỚI] HT03; mặc định COMPLETED |
+| SaleCancellation | OneToOne sale nullable SET_NULL; sale_reference | [MỚI] HT03; audit còn tham chiếu mã khi đơn bị xóa |
+| SaleCancellation.reason, cancelled_by, cancelled_at | Lý do >=5 sau trim; FK User PROTECT; thời điểm | Ai hủy, vì sao và khi nào |
+| SaleCancellation.restored_items | JSON | Số lượng đã hoàn của từng item; không thay sổ kho |
+| SaleDetail.item, quantity, price, total_detail | FK; lượng nguyên dương; tiền VND không âm | Dòng bán; căn cứ hoàn kho |
+| StockMovement | FK item; delta; quantity_after; reason; ref_type/ref_id | [MỚI] DP01; delta và số dư sau điều chỉnh; lý do theo choice/CHECK |
+| StockMovement.created_by, created_at | User nullable SET_NULL; thời điểm | Thông tin truy vết người tạo và thời điểm |
+| Vendor | Nhà cung cấp | Dùng ở phiếu nhập và thông tin hàng cần nhập |
+
+## 10. Thiết kế giao diện và sử dụng dữ liệu
+
+Ảnh giao diện thật được đặt trong mục bằng chứng tài liệu 04 và dẫn lại ở từng chức năng dưới đây; không tự vẽ thêm màn hình chưa tồn tại. Mã thiết kế TK-<MÃ> là mã mới để truy vết trong hồ sơ này; không tìm thấy mã thiết kế gốc có sẵn. Thay đổi giữ, sửa và mới được gắn nhãn rõ; thiết kế lớp có màu theo chú thích ở phần 3.
+
+### 10.1. TK-HC01-HC02
+
+| Thành phần thiết kế | Mô tả |
+|---|---|
+| Mục đích và thay đổi | [SỬA] Tạo và sửa phiếu nhập |
+| Hàm/lớp | PurchaseForm / PurchaseCreateView / PurchaseUpdateView |
+| Điều khiển giao diện | item, vendor: lựa chọn; quantity, price: số; description: văn bản; delivery_date: datetime-local có thể trống; delivery_status: lựa chọn |
+| Mặc định, xử lý và ràng buộc | Khi tạo chưa có ngày giao có thể để trống; khi sửa dùng giá trị DB, giữ giây nếu không đổi phút. item từ GET chỉ là dữ liệu điền sẵn, người dùng có thể đổi. |
+| Sử dụng dữ liệu: thêm/sửa/xóa/truy vấn | Purchase: thêm/sửa/truy vấn; Item: đọc và cập nhật tồn qua service; StockMovement: thêm sau DP01. |
+| Giao diện minh họa | evidence/hc02/sau/ và mục 5.2 tài liệu 04 |
+
+### 10.2. TK-HC03-TU03
+
+| Thành phần thiết kế | Mô tả |
+|---|---|
+| Mục đích và thay đổi | [SỬA] Tạo và chi tiết đơn bán |
+| Hàm/lớp | SaleCreateView, create_sale, compute_sale_totals |
+| Điều khiển giao diện | Khách: lựa chọn; dòng hàng/lượng; thuế/phải trả/đã trả; nút lưu; chi tiết hiển thị tiền qua vnd |
+| Mặc định, xử lý và ràng buộc | Thuế trong 0..100; tiền nguyên; JS chỉ hỗ trợ xem trước; server quyết định giá/tổng. Sai trả lỗi, không ghi dở. |
+| Sử dụng dữ liệu: thêm/sửa/xóa/truy vấn | Sale/SaleDetail: thêm/truy vấn; Item: đọc, trừ qua service; StockMovement: thêm. |
+| Giao diện minh họa | evidence/hc03/sau/, evidence/tu03/ và mục 5.3/5.5 tài liệu 04 |
+
+### 10.3. TK-HT01
+
+| Thành phần thiết kế | Mô tả |
+|---|---|
+| Mục đích và thay đổi | [MỚI] Ngưỡng và danh sách cần nhập |
+| Hàm/lớp | ItemForm, LowStockListView, export_low_stock_to_excel |
+| Điều khiển giao diện | Ngưỡng: số nguyên; bảng tên/danh mục/tồn/ngưỡng/thiếu/đề xuất/NCC; nút tạo phiếu; liên kết Excel; thẻ dashboard |
+| Mặc định, xử lý và ràng buộc | Ngưỡng mặc định 0; cần nhập khi min>0 và tồn<=min; sắp thiếu giảm dần; nút tạo phiếu truyền item, không ghi phiếu ở GET. |
+| Sử dụng dữ liệu: thêm/sửa/xóa/truy vấn | Item: sửa metadata qua save_item, truy vấn ngưỡng/tồn; Purchase chưa ghi khi mới mở form. |
+| Giao diện minh họa | evidence/ht01/ và mục 5.6 tài liệu 04 |
+
+### 10.4. TK-HT02
+
+| Thành phần thiết kế | Mô tả |
+|---|---|
+| Mục đích và thay đổi | [MỚI] Bộ lọc danh sách giao dịch |
+| Hàm/lớp | SaleFilter, PurchaseFilter, TransactionListMixin |
+| Điều khiển giao diện | Ngày từ/đến; khách và tìm tên/sđt, tiền min/max; phiếu nhập thêm NCC/hàng/trạng thái giao; nút lọc và xuất Excel; phân trang |
+| Mặc định, xử lý và ràng buộc | Không điều kiện lấy tất cả; đầu vào sai hiện lỗi; date_to trọn ngày Việt Nam; export mang GET và dùng tập đầy đủ, không chỉ trang hiện tại. |
+| Sử dụng dữ liệu: thêm/sửa/xóa/truy vấn | Sale/Customer hoặc Purchase/Item/Vendor: chỉ truy vấn; không ghi tồn. |
+| Giao diện minh họa | evidence/ht02/ và mục 5.7 tài liệu 04 |
+
+### 10.5. TK-HT03
+
+| Thành phần thiết kế | Mô tả |
+|---|---|
+| Mục đích và thay đổi | [MỚI] Form hủy và lịch sử đơn |
+| Hàm/lớp | SaleCancellationForm, SaleCancelView, cancel_sale |
+| Điều khiển giao diện | Lý do: textarea; nút xác nhận; nhãn trạng thái; thông tin người/thời điểm/lý do trên chi tiết |
+| Mặc định, xử lý và ràng buộc | Ẩn nút khi đã hủy; quyền kiểm lại ở server; lý do sau trim >=5; hủy lặp không hoàn lần hai; superuser chỉ xóa đơn đã hủy. |
+| Sử dụng dữ liệu: thêm/sửa/xóa/truy vấn | Sale: sửa status/truy vấn; SaleDetail: đọc; Item: hoàn qua service; StockMovement/SaleCancellation: thêm; xóa Sale giữ audit theo SET_NULL. |
+| Giao diện minh họa | evidence/ht03/ và mục 5.8 tài liệu 04 |
+
+Các yêu cầu TU01/TU02/DP02/DP01 chủ yếu thay nền tảng, dữ liệu hoặc tổ chức mã; không giả định có màn hình thao tác riêng. Giao diện được giữ và kiểm chứng qua ảnh/log/test đã dẫn. Nguồn ghi SaleDetail admin trực tiếp vẫn là rủi ro còn mở, không được che bởi sơ đồ dịch vụ.
+
+## 11. Bảng tham khảo tới các yêu cầu chức năng
+
+Mỗi FR trong tài liệu 02 được gắn với thành phần triển khai. Liên kết TC theo mã yêu cầu là nhóm kiểm chứng, không khẳng định ánh xạ một-một từng FR tới một test duy nhất. Chữ ký hàm và luồng từng yêu cầu ở phần 7 vẫn là mô tả chi tiết; bảng dưới phục vụ tra cứu theo mã đặc tả.
+
+| Mã FR | Thành phần đáp ứng | Nhóm bằng chứng |
+|---|---|---|
+| FR-HC01-1 | Purchase service, PurchaseUpdateView, adjust_stock | TC-HC01-*; docs/HC01.md |
+| FR-HC01-2 | Purchase service, PurchaseUpdateView, adjust_stock | TC-HC01-*; docs/HC01.md |
+| FR-HC01-3 | Purchase service, PurchaseUpdateView, adjust_stock | TC-HC01-*; docs/HC01.md |
+| FR-HC01-4 | Purchase service, PurchaseUpdateView, adjust_stock | TC-HC01-*; docs/HC01.md |
+| FR-HC01-5 | Purchase service, PurchaseUpdateView, adjust_stock | TC-HC01-*; docs/HC01.md |
+| FR-HC02-1 | to_excel_datetime, PurchaseForm, hai view export | TC-HC02-*; docs/HC02.md |
+| FR-HC02-2 | to_excel_datetime, PurchaseForm, hai view export | TC-HC02-*; docs/HC02.md |
+| FR-HC02-3 | to_excel_datetime, PurchaseForm, hai view export | TC-HC02-*; docs/HC02.md |
+| FR-HC02-4 | to_excel_datetime, PurchaseForm, hai view export | TC-HC02-*; docs/HC02.md |
+| FR-HC02-5 | to_excel_datetime, PurchaseForm, hai view export | TC-HC02-*; docs/HC02.md |
+| FR-HC03-1 | SaleCreateView, compute_sale_totals, create_sale | TC-HC03-*; docs/HC03.md |
+| FR-HC03-2 | SaleCreateView, compute_sale_totals, create_sale | TC-HC03-*; docs/HC03.md |
+| FR-HC03-3 | SaleCreateView, compute_sale_totals, create_sale | TC-HC03-*; docs/HC03.md |
+| FR-HC03-4 | SaleCreateView, compute_sale_totals, create_sale | TC-HC03-*; docs/HC03.md |
+| FR-HC03-5 | SaleCreateView, compute_sale_totals, create_sale | TC-HC03-*; docs/HC03.md |
+| FR-HC03-6 | SaleCreateView, compute_sale_totals, create_sale | TC-HC03-*; docs/HC03.md |
+| FR-TU01-1 | requirements, InventoryMS.settings.STORAGES, accounts/0002, check_profile_data | TC-TU01-*; docs/TU01.md |
+| FR-TU01-2 | requirements, InventoryMS.settings.STORAGES, accounts/0002, check_profile_data | TC-TU01-*; docs/TU01.md |
+| FR-TU01-3 | requirements, InventoryMS.settings.STORAGES, accounts/0002, check_profile_data | TC-TU01-*; docs/TU01.md |
+| FR-TU01-4 | requirements, InventoryMS.settings.STORAGES, accounts/0002, check_profile_data | TC-TU01-*; docs/TU01.md |
+| FR-TU01-5 | requirements, InventoryMS.settings.STORAGES, accounts/0002, check_profile_data | TC-TU01-*; docs/TU01.md |
+| FR-TU02-1 | settings, Dockerfile, compose/nginx, entrypoint, CI smoke | TC-TU02-*; docs/TU02.md |
+| FR-TU02-2 | settings, Dockerfile, compose/nginx, entrypoint, CI smoke | TC-TU02-*; docs/TU02.md |
+| FR-TU02-3 | settings, Dockerfile, compose/nginx, entrypoint, CI smoke | TC-TU02-*; docs/TU02.md |
+| FR-TU02-4 | settings, Dockerfile, compose/nginx, entrypoint, CI smoke | TC-TU02-*; docs/TU02.md |
+| FR-TU02-5 | settings, Dockerfile, compose/nginx, entrypoint, CI smoke | TC-TU02-*; docs/TU02.md |
+| FR-TU02-6 | settings, Dockerfile, compose/nginx, entrypoint, CI smoke | TC-TU02-*; docs/TU02.md |
+| FR-DP02-1 | VND/Decimal model fields, CHECK, migration DP02, check_decimal_data | TC-DP02-*; docs/DP02.md |
+| FR-DP02-2 | VND/Decimal model fields, CHECK, migration DP02, check_decimal_data | TC-DP02-*; docs/DP02.md |
+| FR-DP02-3 | VND/Decimal model fields, CHECK, migration DP02, check_decimal_data | TC-DP02-*; docs/DP02.md |
+| FR-DP02-4 | VND/Decimal model fields, CHECK, migration DP02, check_decimal_data | TC-DP02-*; docs/DP02.md |
+| FR-DP02-5 | VND/Decimal model fields, CHECK, migration DP02, check_decimal_data | TC-DP02-*; docs/DP02.md |
+| FR-DP01-1 | transactions.services, adjust_stock, StockMovement, reconcile_stock | TC-DP01-*; docs/DP01.md |
+| FR-DP01-2 | transactions.services, adjust_stock, StockMovement, reconcile_stock | TC-DP01-*; docs/DP01.md |
+| FR-DP01-3 | transactions.services, adjust_stock, StockMovement, reconcile_stock | TC-DP01-*; docs/DP01.md |
+| FR-DP01-4 | transactions.services, adjust_stock, StockMovement, reconcile_stock | TC-DP01-*; docs/DP01.md |
+| FR-DP01-5 | transactions.services, adjust_stock, StockMovement, reconcile_stock | TC-DP01-*; docs/DP01.md |
+| FR-DP01-6 | transactions.services, adjust_stock, StockMovement, reconcile_stock | TC-DP01-*; docs/DP01.md |
+| FR-TU03-1 | store.money, VNDField/form field, vnd filter, migration TU03, Excel helper | TC-TU03-*; docs/TU03.md |
+| FR-TU03-2 | store.money, VNDField/form field, vnd filter, migration TU03, Excel helper | TC-TU03-*; docs/TU03.md |
+| FR-TU03-3 | store.money, VNDField/form field, vnd filter, migration TU03, Excel helper | TC-TU03-*; docs/TU03.md |
+| FR-TU03-4 | store.money, VNDField/form field, vnd filter, migration TU03, Excel helper | TC-TU03-*; docs/TU03.md |
+| FR-TU03-5 | store.money, VNDField/form field, vnd filter, migration TU03, Excel helper | TC-TU03-*; docs/TU03.md |
+| FR-TU03-6 | store.money, VNDField/form field, vnd filter, migration TU03, Excel helper | TC-TU03-*; docs/TU03.md |
+| FR-TU03-7 | store.money, VNDField/form field, vnd filter, migration TU03, Excel helper | TC-TU03-*; docs/TU03.md |
+| FR-HT01-1 | Item.min_stock_level, ItemQuerySet, LowStockListView, dashboard và export | TC-HT01-*; docs/HT01.md |
+| FR-HT01-2 | Item.min_stock_level, ItemQuerySet, LowStockListView, dashboard và export | TC-HT01-*; docs/HT01.md |
+| FR-HT01-3 | Item.min_stock_level, ItemQuerySet, LowStockListView, dashboard và export | TC-HT01-*; docs/HT01.md |
+| FR-HT01-4 | Item.min_stock_level, ItemQuerySet, LowStockListView, dashboard và export | TC-HT01-*; docs/HT01.md |
+| FR-HT01-5 | Item.min_stock_level, ItemQuerySet, LowStockListView, dashboard và export | TC-HT01-*; docs/HT01.md |
+| FR-HT01-6 | Item.min_stock_level, ItemQuerySet, LowStockListView, dashboard và export | TC-HT01-*; docs/HT01.md |
+| FR-HT02-1 | SaleFilter/PurchaseFilter, filtered_transactions, TransactionListMixin, export | TC-HT02-*; docs/HT02.md |
+| FR-HT02-2 | SaleFilter/PurchaseFilter, filtered_transactions, TransactionListMixin, export | TC-HT02-*; docs/HT02.md |
+| FR-HT02-3 | SaleFilter/PurchaseFilter, filtered_transactions, TransactionListMixin, export | TC-HT02-*; docs/HT02.md |
+| FR-HT02-4 | SaleFilter/PurchaseFilter, filtered_transactions, TransactionListMixin, export | TC-HT02-*; docs/HT02.md |
+| FR-HT02-5 | SaleFilter/PurchaseFilter, filtered_transactions, TransactionListMixin, export | TC-HT02-*; docs/HT02.md |
+| FR-HT02-6 | SaleFilter/PurchaseFilter, filtered_transactions, TransactionListMixin, export | TC-HT02-*; docs/HT02.md |
+| FR-HT03-1 | cancel_sale, SaleCancellation, cancel/delete views, filter và dashboard | TC-HT03-*; docs/HT03.md |
+| FR-HT03-2 | cancel_sale, SaleCancellation, cancel/delete views, filter và dashboard | TC-HT03-*; docs/HT03.md |
+| FR-HT03-3 | cancel_sale, SaleCancellation, cancel/delete views, filter và dashboard | TC-HT03-*; docs/HT03.md |
+| FR-HT03-4 | cancel_sale, SaleCancellation, cancel/delete views, filter và dashboard | TC-HT03-*; docs/HT03.md |
+| FR-HT03-5 | cancel_sale, SaleCancellation, cancel/delete views, filter và dashboard | TC-HT03-*; docs/HT03.md |
+| FR-HT03-6 | cancel_sale, SaleCancellation, cancel/delete views, filter và dashboard | TC-HT03-*; docs/HT03.md |
+| FR-HT03-7 | cancel_sale, SaleCancellation, cancel/delete views, filter và dashboard | TC-HT03-*; docs/HT03.md |
+| FR-HT03-8 | cancel_sale, SaleCancellation, cancel/delete views, filter và dashboard | TC-HT03-*; docs/HT03.md |
+
+
 ## Nguồn tham chiếu
 
 - [docs/BAO_CAO_TONG_HOP.md](../../docs/BAO_CAO_TONG_HOP.md)
@@ -715,3 +903,7 @@ Thiết kế mô tả bản đã thực hiện, không bổ sung service, bảng
 - [evidence/final/migration_project_order.txt](../../evidence/final/migration_project_order.txt)
 - [evidence/final/ci_run.json](../../evidence/final/ci_run.json)
 - [../huong-dan-va-prompt-codex.md](../../../huong-dan-va-prompt-codex.md): phần C, các mục Hiện trạng, Yêu cầu và Tiêu chí chấp nhận. Tệp ở thư mục cha, không thuộc Git của repo; liên kết có hiệu lực trong workspace đã cung cấp.
+
+- Bộ biểu mẫu Project 2 do học phần cung cấp: kế hoạch, phân tích tác động, đặc tả, thiết kế, kiểm thử; đối chiếu các mục tương ứng trong bản cập nhật 1.1.
+
+- Thông tin trường theo trang bìa mẫu Tài liệu kiểm thử.docx; lớp CT244H – Bảo trì phần mềm theo người dùng; giảng viên Ph.D Huỳnh Quang Nghi và thành viên Nguyễn Đức Khang (B2303874), Châu Trường Phúc (B2303892), Nguyễn Trường Thịnh (B2303905) theo trang bìa DMTHINH.docx do người dùng cung cấp.

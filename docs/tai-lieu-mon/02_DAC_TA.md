@@ -5,6 +5,27 @@ Bộ tài liệu môn Bảo trì phần mềm – Project 2. Đề tài: **Bảo
 Phạm vi khảo sát là bản ứng dụng `123101a`, được đóng gói trong tag `v1-bao-tri` ở commit `1b06b13`; nhánh tài liệu kế thừa tag này. Các số liệu lấy từ `docs/BAO_CAO_TONG_HOP.md` và hồ sơ `evidence/final/`, không phải một lần chạy test mới của nhánh tài liệu. Mã FR/NFR/TC trong bộ tài liệu là định danh truy vết do tài liệu này quy định, không phải tên yêu cầu có sẵn trong code.
 
 
+## Hồ sơ tài liệu và hướng dẫn đọc
+
+Tài liệu được biên soạn cho nhóm bảo trì, người phản biện và giảng viên học phần Bảo trì phần mềm. Người đọc nghiệp vụ tập trung vào hiện trạng, hành vi mong muốn và bằng chứng; người triển khai đọc thêm kiến trúc, migration và ràng buộc. Phạm vi là 11 yêu cầu trên hệ thống bán hàng và tồn kho Django; không bổ sung chức năng ngoài phạm vi đã thực hiện.
+
+| Phiên bản | Ngày | Người chuẩn bị | Nội dung cập nhật |
+|---|---|---|---|
+| 1.0 | 28/11/2026 | Nhóm Nguyễn Đức Khang, Châu Trường Phúc, Nguyễn Trường Thịnh | Hồ sơ kỹ thuật và bản Word ban đầu, commit 31668be |
+| 1.1 | 28/11/2026 | Nhóm Nguyễn Đức Khang, Châu Trường Phúc, Nguyễn Trường Thịnh | Bổ sung cấu trúc theo mẫu Project 2, xuất Word A4; chưa có chữ ký phê duyệt của nhóm |
+
+Quy ước: **[GIỮ]** là nội dung kế thừa; **[SỬA]** là điều chỉnh chức năng đang có; **[MỚI]** là nội dung bổ sung. Mã HC/TU/HT/DP liên kết yêu cầu bảo trì; FR/NFR là tiêu chí chức năng/phi chức năng; TC là trường hợp kiểm thử. Những mã FR/NFR/TC được đặt trong bộ hồ sơ này, không giả định phần mềm gốc đã có đặc tả với các mã tương tự.
+
+| Thuật ngữ | Giải thích |
+|---|---|
+| Baseline | Mốc đối chiếu cố định v0-goc; không đồng nhất với main hiện tại của tác giả |
+| Migration / preflight | Chuyển schema, dữ liệu / kiểm tra dữ liệu trước chuyển đổi |
+| Atomic / rollback | Ghi toàn bộ giao dịch hoặc phục hồi toàn bộ khi thất bại |
+| Ledger / StockMovement | Sổ ghi biến động tồn kho dùng để đối soát |
+| CI / coverage | Kiểm chứng tự động / tỷ lệ dòng mã được thực thi, không đồng nghĩa chứng minh hết lỗi |
+
+Nguồn biểu mẫu: bộ Project 2 do môn học cung cấp, gồm Yeucau_Project2.pdf, KehoachBT.pdf, Phantichsutacdong.pdf, DactaYCTD.pdf, ThietkeYCTD.pdf, Tài liệu kiểm thử.docx và Vidu_Dacta_Thietke.pdf. Mẫu kiểm thử ghi học kỳ 3 năm 2024–2025; đây là thông tin của mẫu, không dùng làm học kỳ thực tế của nhóm. Ngày và người phê duyệt nghiệp vụ chưa có hồ sơ riêng, không suy diễn từ trạng thái test PASS.
+
 ## 1. Quy ước và phạm vi đặc tả
 
 Mỗi mệnh đề “phải” là tiêu chí kiểm chứng được tổng hợp từ yêu cầu/tiêu chí chấp nhận và hành vi đã được ghi nhận. FR mô tả chức năng; NFR mô tả tính nguyên tử, tính toàn vẹn, bảo mật, tương thích hoặc khả năng kiểm thử. Những chính sách thay đổi theo thời gian được nêu rõ mốc: tiền cent ở HC03/DP02, tiền nguyên VND ở bản cuối. Không biến các giả định chưa xác nhận cho vận hành thật thành quyết định đã được ký duyệt.
@@ -302,6 +323,204 @@ Các giả định được nguồn ghi rõ cần người vận hành/chủ h�
 
 Không sửa dữ liệu thật, chạy --fix, cấp quyền mới hoặc triển khai production trong công việc soạn tài liệu. Các mã FR/NFR là phương tiện truy vết cho nghiệm thu, không phải đề xuất mở rộng phạm vi đã làm.
 
+## 18. Đặc tả nghiệp vụ theo biểu mẫu môn học
+
+Các yêu cầu dưới đây bổ sung góc nhìn người sử dụng cho bảng FR/NFR ở phần trên. **[SỬA]** gồm HC01–HC03, TU01–TU03, DP01–DP02 vì điều chỉnh chức năng/hạ tầng/quy tắc hiện hữu; **[MỚI]** gồm HT01–HT03. Một yêu cầu có thể chứa cả phần giữ và phần bổ sung; nhãn chỉ phục vụ truy vết, không thay loại bảo trì. Không có mã đặc tả gốc trong nguồn; mã FR hiện tại do tài liệu này đặt và không được giả mạo thành mã cũ.
+
+### 18.1. HC01 và hành vi trước sau
+
+| Trường đặc tả | Nội dung |
+|---|---|
+| Mã và tên | HC01 – Tồn kho phiếu nhập |
+| Dấu hiệu thay đổi | [SỬA] |
+| Mã chức năng gốc | Không có trong nguồn; nhận diện từ chức năng tại tag v0-goc |
+| Mục đích | Chỉ cộng một lần khi tạo; sửa áp delta hoặc chuyển cả hai mặt hàng |
+| Đối tượng sử dụng | Nhân viên đăng nhập được phép tạo/sửa phiếu nhập |
+| Tiền điều kiện | Có hàng và nhà cung cấp; phiếu tồn tại khi sửa |
+| Hành vi cũ | Lưu phiếu có thể cộng cả số lượng đầy đủ và signal khi tạo |
+| Hành vi mới | Chỉ cộng một lần khi tạo; sửa áp delta hoặc chuyển cả hai mặt hàng |
+| Cách xử lý | Nhập thông tin phiếu → kiểm giá/số lượng → lưu qua dịch vụ nhập → hiển thị phiếu và tồn mới |
+| Luồng phụ và ngoại lệ | Âm tồn do giảm/đổi: báo lỗi, giữ nguyên DB; chỉ sửa mô tả: tồn không đổi |
+| Kết quả | Phiếu và tồn khớp; không ghi dở dang |
+| Ràng buộc và truy vết | Theo FR-HC01-*, NFR-HC01-* ở phần trên; TC-HC01-* trong tài liệu 04. Chính sách tiền cuối dùng TU03, cập nhật kho cuối qua DP01. |
+
+### 18.2. HC02 và hành vi trước sau
+
+| Trường đặc tả | Nội dung |
+|---|---|
+| Mã và tên | HC02 – Xuất Excel và giữ ngày giao |
+| Dấu hiệu thay đổi | [SỬA] |
+| Mã chức năng gốc | Không có trong nguồn; nhận diện từ chức năng tại tag v0-goc |
+| Mục đích | Export chấp nhận NULL; form giữ ngày giao, dùng giá trị datetime-local hợp lệ |
+| Đối tượng sử dụng | Nhân viên kho / kế toán đăng nhập |
+| Tiền điều kiện | Có thể có phiếu chưa có ngày giao hoặc không có giao dịch |
+| Hành vi cũ | Export có thể lỗi khi ngày NULL; sửa mô tả có thể xóa ngày giao |
+| Hành vi mới | Export chấp nhận NULL; form giữ ngày giao, dùng giá trị datetime-local hợp lệ |
+| Cách xử lý | Mở phiếu → sửa mô tả/giữ ngày → lưu; mở danh sách → xuất Excel |
+| Luồng phụ và ngoại lệ | Ngày trống để ô trống; tập rỗng vẫn có header; chưa đăng nhập chuyển login |
+| Kết quả | Workbook hợp lệ; ngày giao cũ không mất ngoài ý định |
+| Ràng buộc và truy vết | Theo FR-HC02-*, NFR-HC02-* ở phần trên; TC-HC02-* trong tài liệu 04. Chính sách tiền cuối dùng TU03, cập nhật kho cuối qua DP01. |
+
+### 18.3. HC03 và hành vi trước sau
+
+| Trường đặc tả | Nội dung |
+|---|---|
+| Mã và tên | HC03 – Tính tiền tại máy chủ |
+| Dấu hiệu thay đổi | [SỬA] |
+| Mã chức năng gốc | Không có trong nguồn; nhận diện từ chức năng tại tag v0-goc |
+| Mục đích | Máy chủ lấy giá DB, gộp dòng, tính thuế cộng thêm và đối chiếu toàn bộ |
+| Đối tượng sử dụng | Người tạo đơn đăng nhập |
+| Tiền điều kiện | Khách và hàng tồn tại; số lượng dương, đủ tồn, thanh toán đủ |
+| Hành vi cũ | Trình duyệt có thể tự khai giá/tổng hoặc gửi số lượng sai |
+| Hành vi mới | Máy chủ lấy giá DB, gộp dòng, tính thuế cộng thêm và đối chiếu toàn bộ |
+| Cách xử lý | Chọn khách/hàng → nhập lượng/thuế/thanh toán → gửi → server kiểm → tạo đơn và trừ kho |
+| Luồng phụ và ngoại lệ | Dữ liệu sai trả 400 và rollback; AJAX chưa đăng nhập 401; request thường chuyển login |
+| Kết quả | Đơn, chi tiết, tồn nhất quán và tổng tiền không theo khai báo giả |
+| Ràng buộc và truy vết | Theo FR-HC03-*, NFR-HC03-* ở phần trên; TC-HC03-* trong tài liệu 04. Chính sách tiền cuối dùng TU03, cập nhật kho cuối qua DP01. |
+
+### 18.4. TU01 và hành vi trước sau
+
+| Trường đặc tả | Nội dung |
+|---|---|
+| Mã và tên | TU01 – Nâng cấp Django 5.2 |
+| Dấu hiệu thay đổi | [SỬA] |
+| Mã chức năng gốc | Không có trong nguồn; nhận diện từ chức năng tại tag v0-goc |
+| Mục đích | Django 5.2.19 đã kiểm; STORAGES đúng và migration accounts/0002 |
+| Đối tượng sử dụng | Quản trị hệ thống |
+| Tiền điều kiện | Có bản sao môi trường và kiểm tra dữ liệu Profile trước migration |
+| Hành vi cũ | Django 5.1; storage cấu hình cũ và sai khác model/migration |
+| Hành vi mới | Django 5.2.19 đã kiểm; STORAGES đúng và migration accounts/0002 |
+| Cách xử lý | Cài phụ thuộc → preflight Profile → migrate → collectstatic → kiểm chứng |
+| Luồng phụ và ngoại lệ | Email trùng/tên quá dài: dừng xử lý dữ liệu riêng, không tự gộp; lỗi test phải công bố |
+| Kết quả | Ứng dụng tương thích bản đích, manifest static có trong build |
+| Ràng buộc và truy vết | Theo FR-TU01-*, NFR-TU01-* ở phần trên; TC-TU01-* trong tài liệu 04. Chính sách tiền cuối dùng TU03, cập nhật kho cuối qua DP01. |
+
+### 18.5. TU02 và hành vi trước sau
+
+| Trường đặc tả | Nội dung |
+|---|---|
+| Mã và tên | TU02 – Triển khai Docker và PostgreSQL |
+| Dấu hiệu thay đổi | [SỬA] |
+| Mã chức năng gốc | Không có trong nguồn; nhận diện từ chức năng tại tag v0-goc |
+| Mục đích | Cấu hình env; web/nginx/PostgreSQL và volume; test không cần collectstatic |
+| Đối tượng sử dụng | Quản trị hệ thống và người dùng truy cập web |
+| Tiền điều kiện | Có Docker/Compose, env hợp lệ và volume; lab HTTP khác production SSL |
+| Hành vi cũ | Cấu hình host/môi trường cứng; test phụ thuộc manifest; media không phục vụ ở DEBUG=False |
+| Hành vi mới | Cấu hình env; web/nginx/PostgreSQL và volume; test không cần collectstatic |
+| Cách xử lý | Tạo env → build có collectstatic → khởi động → migrate → truy cập login/media |
+| Luồng phụ và ngoại lệ | Secret thiếu/yếu trong production bị từ chối; SSL lab phải chọn có chủ đích; không có Docker local thì dùng bằng chứng CI ghi rõ |
+| Kết quả | Login và media qua nginx; dữ liệu còn sau down/up khi giữ volume |
+| Ràng buộc và truy vết | Theo FR-TU02-*, NFR-TU02-* ở phần trên; TC-TU02-* trong tài liệu 04. Chính sách tiền cuối dùng TU03, cập nhật kho cuối qua DP01. |
+
+### 18.6. DP02 và hành vi trước sau
+
+| Trường đặc tả | Nội dung |
+|---|---|
+| Mã và tên | DP02 – Chuẩn hóa Decimal và ràng buộc |
+| Dấu hiệu thay đổi | [SỬA] |
+| Mã chức năng gốc | Không có trong nguồn; nhận diện từ chức năng tại tag v0-goc |
+| Mục đích | Tiền Decimal và CHECK; Invoice.quantity nguyên không âm |
+| Đối tượng sử dụng | Nhóm bảo trì và người vận hành DB |
+| Tiền điều kiện | Backup và ngừng ghi; preflight quantity/tiền sạch trên bản sao |
+| Hành vi cũ | Float và thiếu ràng buộc có thể để tiền hoặc số lượng sai vào DB |
+| Hành vi mới | Tiền Decimal và CHECK; Invoice.quantity nguyên không âm |
+| Cách xử lý | Chạy preflight → đánh giá sai dữ liệu → migrate cột tạm → kiểm constraint và suite hai DB |
+| Luồng phụ và ngoại lệ | Quantity lẻ/âm dừng rõ; không tự làm tròn quantity; tiền làm tròn theo chính sách migration |
+| Kết quả | Schema bảo vệ giá/tiền/số lượng; bản cuối tiếp tục chuyển scale 0 ở TU03 |
+| Ràng buộc và truy vết | Theo FR-DP02-*, NFR-DP02-* ở phần trên; TC-DP02-* trong tài liệu 04. Chính sách tiền cuối dùng TU03, cập nhật kho cuối qua DP01. |
+
+### 18.7. DP01 và hành vi trước sau
+
+| Trường đặc tả | Nội dung |
+|---|---|
+| Mã và tên | DP01 – Tách dịch vụ và sổ kho |
+| Dấu hiệu thay đổi | [SỬA] |
+| Mã chức năng gốc | Không có trong nguồn; nhận diện từ chức năng tại tag v0-goc |
+| Mục đích | adjust_stock là đầu mối ghi số dư trong đường ứng dụng; có StockMovement |
+| Đối tượng sử dụng | Nhóm bảo trì; các form/view/admin hợp lệ |
+| Tiền điều kiện | Giao dịch đi qua dịch vụ; số dư và sổ có trạng thái ban đầu đã đối chiếu |
+| Hành vi cũ | Logic ghi kho phân tán, khó kiểm soát và đối soát |
+| Hành vi mới | adjust_stock là đầu mối ghi số dư trong đường ứng dụng; có StockMovement |
+| Cách xử lý | Caller gọi service → mở atomic → khóa item → validate delta → cập nhật số dư và movement |
+| Luồng phụ và ngoại lệ | Không đủ tồn/lỗi ghi sổ: rollback; reconcile mặc định chỉ đọc, --fix cần quyền và quy trình riêng |
+| Kết quả | Chứng từ, số dư và sổ đồng bộ; không tạo movement nhập/xuất giả khi đối soát |
+| Ràng buộc và truy vết | Theo FR-DP01-*, NFR-DP01-* ở phần trên; TC-DP01-* trong tài liệu 04. Chính sách tiền cuối dùng TU03, cập nhật kho cuối qua DP01. |
+
+### 18.8. TU03 và hành vi trước sau
+
+| Trường đặc tả | Nội dung |
+|---|---|
+| Mã và tên | TU03 – Vận hành tại Việt Nam với VND |
+| Dấu hiệu thay đổi | [SỬA] |
+| Mã chức năng gốc | Không có trong nguồn; nhận diện từ chức năng tại tag v0-goc |
+| Mục đích | Giờ Việt Nam, tiền nguyên VND HALF_UP, nhãn chính tiếng Việt |
+| Đối tượng sử dụng | Người dùng Việt Nam và quản trị hệ thống |
+| Tiền điều kiện | Backup/preflight VND; đã có Decimal, không quy đổi tỷ giá |
+| Hành vi cũ | Định dạng Ksh, múi giờ và phần lẻ không phù hợp môi trường Việt Nam |
+| Hành vi mới | Giờ Việt Nam, tiền nguyên VND HALF_UP, nhãn chính tiếng Việt |
+| Cách xử lý | Nhập giá nguyên → server làm tròn thuế → lưu VND → hiển thị và xuất giờ Việt Nam |
+| Luồng phụ và ngoại lệ | Tiền 1000.5 trên form bị từ chối; xung đột lượng tử hóa làm sai đẳng thức thì dừng migration |
+| Kết quả | 3 × 33333, thuế 10% thành 109999; UTC 17:30 ngày 01/01/2026 xuất 00:30 ngày 02/01/2026 |
+| Ràng buộc và truy vết | Theo FR-TU03-*, NFR-TU03-* ở phần trên; TC-TU03-* trong tài liệu 04. Chính sách tiền cuối dùng TU03, cập nhật kho cuối qua DP01. |
+
+### 18.9. HT01 và hành vi trước sau
+
+| Trường đặc tả | Nội dung |
+|---|---|
+| Mã và tên | HT01 – Ngưỡng tồn tối thiểu |
+| Dấu hiệu thay đổi | [MỚI] |
+| Mã chức năng gốc | Không có trong nguồn; nhận diện từ chức năng tại tag v0-goc |
+| Mục đích | Bổ sung min_stock_level, danh sách/cảnh báo, export và điền sẵn phiếu |
+| Đối tượng sử dụng | Người đăng nhập; người có quyền sửa hàng đặt ngưỡng |
+| Tiền điều kiện | Có Item; ngưỡng nguyên không âm, mặc định 0 |
+| Hành vi cũ | Chỉ có quantity; không có ngưỡng hoặc danh sách cần nhập |
+| Hành vi mới | Bổ sung min_stock_level, danh sách/cảnh báo, export và điền sẵn phiếu |
+| Cách xử lý | Đặt ngưỡng → xem dashboard/danh sách → chọn tạo phiếu hoặc xuất → nhập qua service |
+| Luồng phụ và ngoại lệ | Ngưỡng 0 tắt cảnh báo; tồn bằng ngưỡng vẫn cảnh báo; GET item chỉ điền form, không ghi DB |
+| Kết quả | Danh sách phản ánh tồn hiện tại; đề xuất = max(2 × ngưỡng − tồn, 0) |
+| Ràng buộc và truy vết | Theo FR-HT01-*, NFR-HT01-* ở phần trên; TC-HT01-* trong tài liệu 04. Chính sách tiền cuối dùng TU03, cập nhật kho cuối qua DP01. |
+
+### 18.10. HT02 và hành vi trước sau
+
+| Trường đặc tả | Nội dung |
+|---|---|
+| Mã và tên | HT02 – Lọc và xuất giao dịch |
+| Dấu hiệu thay đổi | [MỚI] |
+| Mã chức năng gốc | Không có trong nguồn; nhận diện từ chức năng tại tag v0-goc |
+| Mục đích | Lọc theo ngày Việt Nam và đối tượng; list/export chung queryset; giữ query khi phân trang |
+| Đối tượng sử dụng | Người xem giao dịch đăng nhập |
+| Tiền điều kiện | Có thể có hoặc không có giao dịch; GET được validate |
+| Hành vi cũ | Danh sách/export chưa dùng chung phạm vi lọc |
+| Hành vi mới | Lọc theo ngày Việt Nam và đối tượng; list/export chung queryset; giữ query khi phân trang |
+| Cách xử lý | Chọn điều kiện → xem lỗi hoặc kết quả/tổng → chuyển trang → xuất cùng điều kiện |
+| Luồng phụ và ngoại lệ | Ngày đảo/tham số rác không 500; export điều kiện sai trả 400; không tham số lấy tất cả |
+| Kết quả | Excel và list cùng tập lọc; date_to bao trọn ngày địa phương |
+| Ràng buộc và truy vết | Theo FR-HT02-*, NFR-HT02-* ở phần trên; TC-HT02-* trong tài liệu 04. Chính sách tiền cuối dùng TU03, cập nhật kho cuối qua DP01. |
+
+### 18.11. HT03 và hành vi trước sau
+
+| Trường đặc tả | Nội dung |
+|---|---|
+| Mã và tên | HT03 – Hủy đơn và hoàn kho |
+| Dấu hiệu thay đổi | [MỚI] |
+| Mã chức năng gốc | Không có trong nguồn; nhận diện từ chức năng tại tag v0-goc |
+| Mục đích | Hủy có trạng thái và audit; hoàn đúng một lần; xóa bị hạn chế |
+| Đối tượng sử dụng | Staff/superuser hủy; chỉ superuser xóa đơn đã hủy |
+| Tiền điều kiện | Đã đăng nhập, CSRF hợp lệ; đơn còn COMPLETED; lý do sau trim ít nhất 5 ký tự |
+| Hành vi cũ | Xóa đơn không hoàn kho, mất dấu vết; URL slug không khớp Sale |
+| Hành vi mới | Hủy có trạng thái và audit; hoàn đúng một lần; xóa bị hạn chế |
+| Cách xử lý | Mở form → nhập lý do → khóa đơn → hoàn từng item qua service → audit và đổi trạng thái → hiển thị lịch sử |
+| Luồng phụ và ngoại lệ | Hủy lặp báo lỗi, kho không đổi; sai quyền/CSRF bị chặn; lỗi bất kỳ rollback; hai request chỉ một thành công |
+| Kết quả | Kho hoàn đúng; doanh thu loại đơn hủy; audit giữ tham chiếu sau xóa theo thiết kế |
+| Ràng buộc và truy vết | Theo FR-HT03-*, NFR-HT03-* ở phần trên; TC-HT03-* trong tài liệu 04. Chính sách tiền cuối dùng TU03, cập nhật kho cuối qua DP01. |
+
+### 18.12. Phân loại yêu cầu phi chức năng
+
+**[SỬA]**: tính đúng đắn tồn/tiền (HC01/HC03), khả năng xuất dữ liệu và giữ ngày (HC02), tương thích framework/storage (TU01), cấu hình triển khai/bảo mật và tính lặp lại (TU02), tính toàn vẹn DB (DP02), khả năng bảo trì và truy vết kho (DP01), bản địa hóa và độ chính xác VND (TU03).
+
+**[MỚI]**: truy cập có đăng nhập và tính đồng bộ cảnh báo HT01; tính nhất quán list/export và giới hạn truy vấn HT02; nguyên tử, chống hủy lặp và audit HT03. Không đặt chỉ tiêu thời gian đáp ứng hoặc số người dùng đồng thời khi chưa đo; test hai luồng chỉ chứng minh kịch bản cạnh tranh được viết, không phải load test.
+
+
 ## Nguồn tham chiếu
 
 - [docs/BAO_CAO_TONG_HOP.md](../../docs/BAO_CAO_TONG_HOP.md)
@@ -325,3 +544,7 @@ Không sửa dữ liệu thật, chạy --fix, cấp quyền mới hoặc triể
 - [transactions/models.py](../../transactions/models.py)
 - [transactions/tests/test_tu03_vnd.py](../../transactions/tests/test_tu03_vnd.py)
 - [../huong-dan-va-prompt-codex.md](../../../huong-dan-va-prompt-codex.md): phần C, các mục Hiện trạng, Yêu cầu và Tiêu chí chấp nhận. Tệp ở thư mục cha, không thuộc Git của repo; liên kết có hiệu lực trong workspace đã cung cấp.
+
+- Bộ biểu mẫu Project 2 do học phần cung cấp: kế hoạch, phân tích tác động, đặc tả, thiết kế, kiểm thử; đối chiếu các mục tương ứng trong bản cập nhật 1.1.
+
+- Thông tin trường theo trang bìa mẫu Tài liệu kiểm thử.docx; lớp CT244H – Bảo trì phần mềm theo người dùng; giảng viên Ph.D Huỳnh Quang Nghi và thành viên Nguyễn Đức Khang (B2303874), Châu Trường Phúc (B2303892), Nguyễn Trường Thịnh (B2303905) theo trang bìa DMTHINH.docx do người dùng cung cấp.
