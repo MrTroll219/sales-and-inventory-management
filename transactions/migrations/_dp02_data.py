@@ -97,6 +97,7 @@ def stage_float_values(apps, schema_editor, app_label):
         for pk, *values in rows:
             model.objects.using(schema_editor.connection.alias).filter(pk=pk).update(
                 **{f'dp02_{field}': cents(value) for field, value in zip(fields, values)})
+    flush_deferred_constraints(schema_editor)
 
 
 def copy_staged_values(apps, schema_editor, app_label):
@@ -105,3 +106,12 @@ def copy_staged_values(apps, schema_editor, app_label):
         model = apps.get_model(app_label, name)
         model.objects.using(schema_editor.connection.alias).update(
             **{field: F(f'dp02_{field}') for field in fields})
+    flush_deferred_constraints(schema_editor)
+
+
+def flush_deferred_constraints(schema_editor):
+    # Validate queued FK events before the following ALTER/DROP COLUMN, keeping
+    # the whole migration atomic. This validates constraints; it never disables them.
+    if schema_editor.connection.vendor == 'postgresql':
+        with schema_editor.connection.cursor() as cursor:
+            cursor.execute('SET CONSTRAINTS ALL IMMEDIATE')
